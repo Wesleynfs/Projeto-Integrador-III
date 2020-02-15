@@ -14,17 +14,17 @@ public class DataBase {
 
     String hostname = "localhost";
     int port = 5432;
-    String database = "postgres";
+    String database = "kartodromo";
     String username = "postgres";
     String password = "postgres";
 
-    public boolean connect() throws Exception {
+    public String connect() throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":" + port + "/" + database, username, password);
-            return true;
+            return "Conectado!";
         } catch (Exception e) {
-            return false;
+            return "Erro ao conectar!";
         }
     }
 
@@ -58,16 +58,18 @@ public class DataBase {
 
     }
 
-    public void disconnect() {
+    public String disconnect() {
         try {
             if (c != null) {
                 c.close();
             }
+            return "Desconectado!";
         } catch (SQLException e) {
-            System.out.println("Falha ao desconectar o BD! " + e.getMessage());
+            return "Falha ao desconectar o BD! " + e.getMessage();
         } finally {
             if (c != null) {
                 c = null;
+                return "Desconectado!";
             }
         }
     }

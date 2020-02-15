@@ -17,16 +17,20 @@ public class UsuarioDAO {
 
             dataBase.connect();
 
-            sql = "insert into clientes (codigo,nome,telefone,rua,cidade,numero) values (?,?,?,?,?,?)";
+            sql = "INSERT INTO usuarios (codigo,idade,numero,nome,telefone,rua,cidade)" 
+            + " VALUES (?,?,?,?,?,?,?)";
             
             dataBase.Execute(sql, new Object[]{
                 usuario.getCodigo(),
+                usuario.getIdade(),
+                usuario.getNumero(),
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getRua(),
-                usuario.getCidade(),
-                usuario.getNumero()
+                usuario.getCidade()
             });
+
+            dataBase.disconnect();
 
             return "Usuário Gravado com sucesso!";
 
@@ -50,7 +54,7 @@ public class UsuarioDAO {
 
             dataBase.connect();
 
-            sql = "delete from clientes where codigo = '?' and nome = '?' and telefone = '?' and rua = '?' and cidade = '?' and numero = '?'";
+            sql = "DELETE FROM usuarios WHERE codigo = ? and idade = ? and numero = ? and nome = ? and telefone = ? and rua = ? and cidade = ?;";
             
             dataBase.Execute(sql, new Object[]{
                 usuario.getCodigo(),
@@ -60,6 +64,8 @@ public class UsuarioDAO {
                 usuario.getCidade(),
                 usuario.getNumero()
             });
+
+            dataBase.disconnect();
 
             return "Usuário apagado com sucesso!";
 

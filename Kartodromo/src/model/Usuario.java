@@ -1,4 +1,4 @@
-package kartodromo.model;
+package model;
 
 public class Usuario {
 

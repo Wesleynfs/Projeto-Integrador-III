@@ -1,16 +1,9 @@
-package kartodromo.dao;
+package dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import kartodromo.model.Usuario;
+import model.Usuario;
 
 public class UsuarioDAO {
 
-    private Usuario usuario;
-    private PreparedStatement prepared;
-    private ResultSet resultSet;
     private DataBase dataBase;
     private String sql;
 
@@ -27,7 +20,7 @@ public class UsuarioDAO {
             sql = "insert into clientes (codigo,nome,telefone,rua,cidade,numero) values (?,?,?,?,?,?)";
             
             dataBase.Execute(sql, new Object[]{
-                usuario.getId(),
+                usuario.getCodigo(),
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getRua(),
@@ -60,7 +53,7 @@ public class UsuarioDAO {
             sql = "delete from clientes where codigo = '?' and nome = '?' and telefone = '?' and rua = '?' and cidade = '?' and numero = '?'";
             
             dataBase.Execute(sql, new Object[]{
-                usuario.getId(),
+                usuario.getCodigo(),
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getRua(),

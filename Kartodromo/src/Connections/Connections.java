@@ -10,7 +10,6 @@ public class Connections {
     
     private static Connection connection;
     private static PreparedStatement preparedStatement;
-    private static ResultSet resultSet;
 
     public static void connect(String hostname , int port , String database , String username , String password) {
         try {

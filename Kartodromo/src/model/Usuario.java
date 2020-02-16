@@ -11,6 +11,8 @@ public class Usuario {
     private String telefone;
     private String rua;
     private String cidade;
+    private String login;
+    private String senha;
 
     // Gets e Sets //
 
@@ -70,13 +72,29 @@ public class Usuario {
         this.numero = numero;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     // Construtores //
 
     public Usuario() {
 
     }
 
-    public Usuario(int codigo,int idade,int numero,String nome,String telefone,String rua,String cidade) {
+    public Usuario(int codigo,int idade,int numero,String nome,String telefone,String rua,String cidade,String login,String senha) {
         this.codigo = codigo;
         this.idade = idade;
         this.nome = nome;
@@ -84,6 +102,8 @@ public class Usuario {
         this.rua = rua;
         this.cidade = cidade;
         this.numero = numero;
+        this.login = login;
+        this.senha = senha;
     }
 
     // Metodos //

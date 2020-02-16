@@ -12,11 +12,11 @@ public class DataBase {
     private static PreparedStatement ps;
     private static ResultSet rs;
 
-    String hostname = "localhost";
-    int port = 5432;
-    String database = "kartodromo";
-    String username = "postgres";
-    String password = "postgres";
+    private String hostname = "localhost";
+    private int port = 5432;
+    private String database = "kartodromo";
+    private String username = "postgres";
+    private String password = "postgres";
 
     public String connect() throws Exception {
         try {

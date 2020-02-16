@@ -1,14 +1,17 @@
 package dao;
 
+import java.sql.ResultSet;
+
 import model.Usuario;
 
 public class UsuarioDAO {
 
     private DataBase dataBase;
-    private String sql;
+    private StringBuilder stringBuilder;
 
     public UsuarioDAO() {
         dataBase = new DataBase();
+        stringBuilder = new StringBuilder();
     }
 
     public String CriarUsuario(Usuario usuario) {
@@ -17,17 +20,21 @@ public class UsuarioDAO {
 
             dataBase.connect();
 
-            sql = "INSERT INTO usuarios (codigo,idade,numero,nome,telefone,rua,cidade)" 
-            + " VALUES (?,?,?,?,?,?,?)";
-            
-            dataBase.Execute(sql, new Object[]{
+            stringBuilder.append("INSERT INTO usuarios");
+            stringBuilder.append("(codigo,idade,numero,nome,telefone,rua,cidade,login,senha)");
+            stringBuilder.append("VALUES");
+            stringBuilder.append("(?,?,?,?,?,?,?,?,?);");
+
+            dataBase.Execute(stringBuilder.toString(), new Object[]{
                 usuario.getCodigo(),
                 usuario.getIdade(),
                 usuario.getNumero(),
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getRua(),
-                usuario.getCidade()
+                usuario.getCidade(),
+                usuario.getLogin(),
+                usuario.getSenha(),
             });
 
             dataBase.disconnect();
@@ -40,8 +47,8 @@ public class UsuarioDAO {
 
     };
 
-    public void LocalizarUsuario() throws Exception {
-        
+    public void localizaUsuario(Usuario usuario) {
+
     };
 
     public void Update() {
@@ -54,15 +61,27 @@ public class UsuarioDAO {
 
             dataBase.connect();
 
-            sql = "DELETE FROM usuarios WHERE codigo = ? and idade = ? and numero = ? and nome = ? and telefone = ? and rua = ? and cidade = ?;";
+            stringBuilder.append("DELETE FROM usuarios WHERE ");
+            stringBuilder.append(" codigo = ? ");
+            stringBuilder.append(" and idade = ? ");
+            stringBuilder.append(" and numero = ? ");
+            stringBuilder.append(" and nome = ? ");
+            stringBuilder.append(" and telefone = ? ");
+            stringBuilder.append(" and rua = ? ");
+            stringBuilder.append(" and cidade = ? ");
+            stringBuilder.append(" and login = ? ");
+            stringBuilder.append(" and senha = ? ;");
             
-            dataBase.Execute(sql, new Object[]{
+            dataBase.Execute(stringBuilder.toString(), new Object[]{
                 usuario.getCodigo(),
+                usuario.getIdade(),
+                usuario.getNumero(),
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getRua(),
                 usuario.getCidade(),
-                usuario.getNumero()
+                usuario.getLogin(),
+                usuario.getSenha(),
             });
 
             dataBase.disconnect();

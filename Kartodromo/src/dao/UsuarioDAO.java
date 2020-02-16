@@ -7,25 +7,25 @@ import model.Usuario;
 public class UsuarioDAO {
 
     private DataBase dataBase;
-    private StringBuilder stringBuilder;
+    private StringBuilder string;
 
     public UsuarioDAO() {
         dataBase = new DataBase();
-        stringBuilder = new StringBuilder();
+        string = new StringBuilder();
     }
 
-    public String CriarUsuario(Usuario usuario) {
+    public String criarUsuario(Usuario usuario) {
 
         try {
 
             dataBase.connect();
 
-            stringBuilder.append("INSERT INTO usuarios");
-            stringBuilder.append("(codigo,idade,numero,nome,telefone,rua,cidade,login,senha)");
-            stringBuilder.append("VALUES");
-            stringBuilder.append("(?,?,?,?,?,?,?,?,?);");
+            string.append("INSERT INTO usuarios");
+            string.append("(codigo,idade,numero,nome,telefone,rua,cidade,login,senha)");
+            string.append("VALUES");
+            string.append("(?,?,?,?,?,?,?,?,?);");
 
-            dataBase.Execute(stringBuilder.toString(), new Object[]{
+            if (dataBase.Execute(string.toString(), new Object[]{
                 usuario.getCodigo(),
                 usuario.getIdade(),
                 usuario.getNumero(),
@@ -34,45 +34,40 @@ public class UsuarioDAO {
                 usuario.getRua(),
                 usuario.getCidade(),
                 usuario.getLogin(),
-                usuario.getSenha(),
-            });
-
-            dataBase.disconnect();
-
-            return "Usuário Gravado com sucesso!";
+                usuario.getSenha()
+            })) {
+                return "Usuário Gravado com sucesso!";
+            } else {
+                return "Erro ao gravar usuário!";
+            }
 
         } catch (Exception e) {
-            return "Erro ao gravar usuário!";
+            return e.getMessage();
+        } finally {
+            dataBase.disconnect();
         }
 
     };
 
-    public void localizaUsuario(Usuario usuario) {
-
-    };
-
-    public void Update() {
-
-    };
-
-    public String DeletarUsuario(Usuario usuario) {
+    public boolean localizarUsuario(Usuario usuario) {
 
         try {
 
             dataBase.connect();
 
-            stringBuilder.append("DELETE FROM usuarios WHERE ");
-            stringBuilder.append(" codigo = ? ");
-            stringBuilder.append(" and idade = ? ");
-            stringBuilder.append(" and numero = ? ");
-            stringBuilder.append(" and nome = ? ");
-            stringBuilder.append(" and telefone = ? ");
-            stringBuilder.append(" and rua = ? ");
-            stringBuilder.append(" and cidade = ? ");
-            stringBuilder.append(" and login = ? ");
-            stringBuilder.append(" and senha = ? ;");
-            
-            dataBase.Execute(stringBuilder.toString(), new Object[]{
+            string.append(" SELECT * FROM usuarios ");
+            string.append(" WHERE ");
+            string.append(" codigo = ? ");
+            string.append(" and idade = ? ");
+            string.append(" and numero = ? ");
+            string.append(" and nome = ? ");
+            string.append(" and telefone = ? ");
+            string.append(" and rua = ? ");
+            string.append(" and cidade = ? ");
+            string.append(" and login = ? ");
+            string.append(" and senha = ? ;");
+
+            ResultSet rs = dataBase.Read(string.toString(), new Object[]{
                 usuario.getCodigo(),
                 usuario.getIdade(),
                 usuario.getNumero(),
@@ -84,12 +79,98 @@ public class UsuarioDAO {
                 usuario.getSenha(),
             });
 
-            dataBase.disconnect();
-
-            return "Usuário apagado com sucesso!";
+            return (rs.next());
 
         } catch (Exception e) {
-            return "Erro ao apagar usuário!";
+            return true;
+        } finally {
+            dataBase.disconnect();
+        }
+
+    };
+
+    public String alterarUsuario(Usuario usuario) {
+
+        try {
+
+            dataBase.connect();
+
+            string.append(" UPDATE usuarios SET ");
+            string.append(" idade = ?, ");
+            string.append(" numero = ?, ");
+            string.append(" nome = ?, ");
+            string.append(" telefone = ?, ");
+            string.append(" rua = ?, ");
+            string.append(" cidade = ?, ");
+            string.append(" login = ?, ");
+            string.append(" senha = ? ");
+            string.append(" WHERE ");
+            string.append(" codigo = ? ");
+
+            if (dataBase.Execute(string.toString(), new Object[]{
+
+                usuario.getIdade(),
+                usuario.getNumero(),
+                usuario.getNome(),
+                usuario.getTelefone(),
+                usuario.getRua(),
+                usuario.getCidade(),
+                usuario.getLogin(),
+                usuario.getSenha(),
+
+                usuario.getCodigo()
+
+            })) {
+                return "Usuário editado com sucesso!";
+            } else {
+                return "Erro ao editar dados do usuário";
+            }
+
+        } catch (Exception e) {
+            return e.getMessage();
+        } finally {
+            dataBase.disconnect();
+        }
+
+    };
+
+    public String deletarUsuario(Usuario usuario) {
+
+        try {
+
+            dataBase.connect();
+
+            string.append("DELETE FROM usuarios WHERE ");
+            string.append(" codigo = ? ");
+            string.append(" and idade = ? ");
+            string.append(" and numero = ? ");
+            string.append(" and nome = ? ");
+            string.append(" and telefone = ? ");
+            string.append(" and rua = ? ");
+            string.append(" and cidade = ? ");
+            string.append(" and login = ? ");
+            string.append(" and senha = ? ;");
+            
+            if (dataBase.Execute(string.toString(), new Object[]{
+                usuario.getCodigo(),
+                usuario.getIdade(),
+                usuario.getNumero(),
+                usuario.getNome(),
+                usuario.getTelefone(),
+                usuario.getRua(),
+                usuario.getCidade(),
+                usuario.getLogin(),
+                usuario.getSenha(),
+            })) {
+                return "Usuário apagado com sucesso!";
+            } else {
+                return "Erro ao apagar usuário!";
+            }
+
+        } catch (Exception e) {
+            return e.getMessage();
+        } finally {
+            dataBase.disconnect();
         }
 
     };

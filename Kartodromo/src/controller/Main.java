@@ -1,29 +1,22 @@
 package controller;
 
-import java.sql.ResultSetMetaData;
-
 import dao.UsuarioDAO;
 import model.Usuario;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        Usuario wesley = new Usuario(0,21,1170,"Wesley de Araujo","(41)9 9273-4129","Rua Malva","Araucária - PR","wesleynfs","123456");
+        Usuario wesley = new Usuario(0,22,1170,"Wesley de Araujo","(41)9 9999-9999","Rua Malva","Araucária - PR","wesleyLogin","123456");
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-        //usuarioDAO.CriarUsuario(wesley);
+        //usuarioDAO.criarUsuario(wesley);
 
-        //usuarioDAO.DeletarUsuario(wesley);
+        //usuarioDAO.localizarUsuario(wesley)   //  Retorna true se achar o usuário
 
-        //usuarioDAO.Update(wesley);
-/*
-        ResultSet rs = dataBase.Read("select * from usuarios", new Object[]{});
+        //usuarioDAO.alterarUsuario(wesley);
 
-        while (rs.next()) {
-            System.out.println(rs.getString("idade"));
-        }
-*/
+        //usuarioDAO.deletarUsuario(wesley);
 
     }
 }

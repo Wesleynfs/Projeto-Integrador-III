@@ -14,27 +14,6 @@ public class UsuarioDAO {
         string = new StringBuilder();
     }
 
-    public StringBuilder teste() {
-
-        StringBuilder sb = new StringBuilder();
-        try {
-            dataBase.connect();
-
-            string.append("select * from usuarios");
-
-            ResultSet rs = dataBase.Read(string.toString(), new Object[]{});
-
-            while (rs.next()) {
-                sb.append(rs = dataBase.Read(string.toString(), new Object[]{}));
-            }
-
-            return sb;
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public String criarUsuario(Usuario usuario) {
 
         try {

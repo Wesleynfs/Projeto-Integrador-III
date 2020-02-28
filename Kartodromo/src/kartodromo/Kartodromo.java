@@ -1,4 +1,9 @@
 package kartodromo;
+
+import Dao.DataBase;
+import Dao.UsuarioDAO;
+import Model.Usuario;
+
 /**
  * @author Wesley
  * @version 0.1
@@ -6,7 +11,9 @@ package kartodromo;
 public class Kartodromo {
 
     public static void main(String[] args) {
+
         System.out.println("Hello World!");
+
     }
 
 }

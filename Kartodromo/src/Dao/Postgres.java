@@ -1,27 +1,32 @@
 package Dao;
 
+import Model.Database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DataBase {
+public class Postgres {
 
     private static Connection c;
     private static PreparedStatement ps;
     private static ResultSet rs;
+    private Database database;
 
-    private String hostname = "localhost";
-    private int port = 5432;
-    private String database = "kartodromo";
-    private String username = "postgres";
-    private String password = "postgres";
+    public Postgres() {
+        database = new Database();
+    }
 
     public String connect() throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":" + port + "/" + database, username, password);
+            c = DriverManager.getConnection("jdbc:postgresql://" + database.getHostname() +
+                    ":" + database.getPort() +
+                    "/" + database.getName()
+                    , database.getUsername(),
+                    database.getPassword());
             return "Conectado!";
         } catch (Exception e) {
             return "Erro ao conectar!";

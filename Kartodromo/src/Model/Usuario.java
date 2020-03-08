@@ -4,12 +4,11 @@ public class Usuario {
 
     // Variaveis //
 
-    private int codigo;
+    private int id;
     private int idade;
-    private int numero;
     private String nome;
     private String telefone;
-    private String rua;
+    private String Endereco;
     private String cidade;
     private String login;
     private String senha;
@@ -32,12 +31,12 @@ public class Usuario {
         this.idade = idade;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setId(int codigo) {
+        this.id = codigo;
     }
 
     public String getTelefone() {
@@ -48,12 +47,12 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getRua() {
-        return rua;
+    public String getEndereco() {
+        return Endereco;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setEndereco(String endereco) {
+        this.Endereco = endereco;
     }
 
     public String getCidade() {
@@ -62,14 +61,6 @@ public class Usuario {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public String getLogin() {
@@ -94,18 +85,23 @@ public class Usuario {
 
     }
 
-    public Usuario(int codigo,int idade,int numero,String nome,String telefone,String rua,String cidade,String login,String senha) {
-        this.codigo = codigo;
+    public Usuario(int id,int idade,int numero,String nome,String telefone,String rua,String cidade,String login,String senha) {
+        this.id = id;
         this.idade = idade;
         this.nome = nome;
         this.telefone = telefone;
-        this.rua = rua;
+        this.Endereco = rua;
         this.cidade = cidade;
-        this.numero = numero;
         this.login = login;
         this.senha = senha;
     }
 
     // Metodos //
+
+    public String toString() {
+        return this.getNome() +
+                ";" + this.getIdade() + ";" + this.getTelefone() + ";" + this.getEndereco() +
+                ";" + this.getCidade() + ";" + this.getLogin() + ";" + this.getSenha();
+    }
 
 }

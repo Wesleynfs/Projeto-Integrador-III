@@ -11,23 +11,33 @@ public class UsuarioBO {
         usuarioDAO = new UsuarioDAO();
     }
 
-    public void criarUsuario(Usuario usuario) throws Exception {
+    public boolean usuarioExiste(Usuario usuario) throws Exception {
         validaUsuario(usuario);
-        usuarioDAO.criarUsuario(usuario);
+        return usuarioDAO.usuarioExiste(usuario);
     }
 
-    public void deletarUsuario(Usuario usuario) throws Exception {
+    public Usuario recuperarUsuario(Usuario usuario) throws Exception {
         validaUsuario(usuario);
-        usuarioDAO.deletarUsuario(usuario);
+        return usuarioDAO.recuperarUsuario(usuario);
     }
 
-    public void alterarUsuario(Usuario usuario) throws Exception {
+    public boolean criarUsuario(Usuario usuario) throws Exception {
         validaUsuario(usuario);
-        usuarioDAO.alterarUsuario(usuario);
+        return usuarioDAO.criarUsuario(usuario);
+    }
+
+    public boolean deletarUsuario(Usuario usuario) throws Exception {
+        validaUsuario(usuario);
+        return usuarioDAO.deletarUsuario(usuario);
+    }
+
+    public boolean alterarUsuario(Usuario usuario) throws Exception {
+        validaUsuario(usuario);
+        return usuarioDAO.alterarUsuario(usuario);
     }
 
     private void validaUsuario(Usuario usuario) throws Exception {
-        if(usuario.getId() < 0) {
+        if(usuario.getId_usuario() < 0) {
             throw new Exception("Id do usuário não pode ser negativo");
         } else if (usuario.getNome().equals("")) {
             throw new Exception("Nome do usuário não pode ficar em branco!");

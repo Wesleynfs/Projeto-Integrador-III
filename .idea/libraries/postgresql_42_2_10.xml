@@ -2,6 +2,8 @@
   <library name="postgresql-42.2.10">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/postgresql-42.2.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/mail-1.5.0-b01.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/activation-1.1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

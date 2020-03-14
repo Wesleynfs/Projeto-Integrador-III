@@ -7,34 +7,60 @@ package kartodromo;
 
 import Bo.UsuarioBO;
 import Dao.UsuarioDAO;
+import Email.EmailJava;
+import Model.Endereco;
 import Model.Usuario;
 
 public class Kartodromo {
 
     public static void main(String[] args) {
 
-        /*
-        
+        Endereco endereco = new Endereco();
+        endereco.setId_endereco(0);
+        endereco.setBairro("Campina da Barra");
+        endereco.setCep("83709670");
+        endereco.setCidade("Araucária - PR");
+        endereco.setRua("Rua Malva");
+        endereco.setTelefone("(41) 3345-4406");
 
         Usuario usuario = new Usuario();
-        usuario.setNome("Teste");
-        usuario.setIdade(21);
-        usuario.setTelefone("(99) 9 9999-9999");
-        usuario.setEndereco("Rua Teste - Bairro Teste");
-        usuario.setCidade("Teste - TS");
-        usuario.setLogin("testetes");
-        usuario.setSenha("12345678");
+
+        usuario.setId_usuario(0);
+        usuario.setNome("Wesley");
+        usuario.setEmail("kako.araujo.24@gmail.com");
+        usuario.setSenha("91289121Wes#");
+        usuario.setEndereco(endereco);
+        usuario.setAtivo(false);
 
         UsuarioBO usuarioBO = new UsuarioBO();
 
         try {
-            usuarioBO.criarUsuario(usuario);
-            usuarioBO.deletarUsuario(usuario);
+
+            if (usuarioBO.usuarioExiste(usuario)) {
+                System.out.println("EXISTE");
+            } else {
+                System.out.println("NOPE!");
+            }
+
+            //usuarioBO.criarUsuario(usuario);
+            //usuarioBO.deletarUsuario(usuario);
+
+            /*
+
+            EmailJava emailJava = new EmailJava();
+
+            StringBuilder lista = new StringBuilder();
+
+            lista.append("kako.araujo.24@gmail.com");
+            lista.append(",");
+
+            System.out.println(emailJava.EnviarEmailGmail(lista,"Teste com Arraylist" , "-----"));
+
+            */
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        */
 
     }
 

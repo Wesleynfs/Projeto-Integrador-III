@@ -4,71 +4,43 @@ public class Usuario {
 
     // Variaveis //
 
-    private int id;
-    private int idade;
+    private int id_usuario;
+    private Endereco endereco;
     private String nome;
-    private String telefone;
-    private String Endereco;
-    private String cidade;
-    private String login;
+    private String email;
     private String senha;
+    private boolean isAtivo;
 
     // Gets e Sets //
 
-    public String getNome() {
-        return nome;
-    }
+    public boolean isAtivo() { return isAtivo; }
+
+    public void setAtivo(boolean ativo) { isAtivo = ativo; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getNome() { return nome; }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public int getIdade() {
-        return idade;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setId_usuario(int codigo) {
+        this.id_usuario = codigo;
     }
 
-    public int getId() {
-        return id;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setId(int codigo) {
-        this.id = codigo;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return Endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.Endereco = endereco;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public String getSenha() {
@@ -81,27 +53,29 @@ public class Usuario {
 
     // Construtores //
 
+    public Usuario(int id_usuario, String nome, Endereco endereco, String senha, String email) {
+        this.id_usuario = id_usuario;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.email = email;
+        this.senha = senha;
+    }
+
     public Usuario() {
 
     }
 
-    public Usuario(int id,int idade,int numero,String nome,String telefone,String rua,String cidade,String login,String senha) {
-        this.id = id;
-        this.idade = idade;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.Endereco = rua;
-        this.cidade = cidade;
-        this.login = login;
-        this.senha = senha;
-    }
-
     // Metodos //
 
-    public String toString() {
-        return this.getNome() +
-                ";" + this.getIdade() + ";" + this.getTelefone() + ";" + this.getEndereco() +
-                ";" + this.getCidade() + ";" + this.getLogin() + ";" + this.getSenha();
-    }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+            "id =" + id_usuario +
+            ", nome ='" + nome + '\'' +
+            ", endereco =" + endereco +
+            ", email ='" + email + '\'' +
+            ", senha ='" + senha + '\'' +
+            '}';
+    }
 }

@@ -28,9 +28,9 @@ public class Kartodromo {
         usuario.setId_usuario(0);
         usuario.setNome("Wesley");
         usuario.setEmail("kako.araujo.24@gmail.com");
-        usuario.setSenha("91289121Wes#");
+        usuario.setSenha("Wes123456#");
         usuario.setEndereco(endereco);
-        usuario.setAtivo(false);
+        usuario.setAtivo(true);
 
         UsuarioBO usuarioBO = new UsuarioBO();
 

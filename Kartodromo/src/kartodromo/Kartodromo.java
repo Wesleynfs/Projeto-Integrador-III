@@ -6,7 +6,6 @@
 package kartodromo;
 
 import Bo.UsuarioBO;
-import Dao.UsuarioDAO;
 import Email.EmailJava;
 import Model.Endereco;
 import Model.Usuario;
@@ -45,8 +44,6 @@ public class Kartodromo {
             //usuarioBO.criarUsuario(usuario);
             //usuarioBO.deletarUsuario(usuario);
 
-            /*
-
             EmailJava emailJava = new EmailJava();
 
             StringBuilder lista = new StringBuilder();
@@ -55,8 +52,6 @@ public class Kartodromo {
             lista.append(",");
 
             System.out.println(emailJava.EnviarEmailGmail(lista,"Teste com Arraylist" , "-----"));
-
-            */
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

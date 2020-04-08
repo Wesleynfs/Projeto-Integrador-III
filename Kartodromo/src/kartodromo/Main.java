@@ -7,6 +7,7 @@ package kartodromo;
 
 import Bo.*;
 import Model.*;
+import Utilities.Info;
 import Utilities.Tempo;
 import View.LoginFrame;
 

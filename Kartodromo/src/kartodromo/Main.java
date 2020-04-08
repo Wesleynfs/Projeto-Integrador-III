@@ -8,11 +8,12 @@ package kartodromo;
 import Bo.*;
 import Model.*;
 import Utilities.Tempo;
+import View.LoginFrame;
 
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         PilotoBO pilotoBO = new PilotoBO();
         KartodromoBO kartodromoBO = new KartodromoBO();
         CampeonatoBO campeonatoBO = new CampeonatoBO();
@@ -76,6 +77,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+*/
+
+        new LoginFrame();
 
     }
 

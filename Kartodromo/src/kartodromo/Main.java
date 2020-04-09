@@ -6,6 +6,7 @@
 package kartodromo;
 
 import Bo.*;
+import Dao.ConfiguracaoDAO;
 import Model.*;
 import Utilities.Info;
 import Utilities.Tempo;
@@ -80,7 +81,13 @@ public class Main {
         }
 */
 
-        new LoginFrame();
+        try {
+
+            new LoginFrame();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 

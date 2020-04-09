@@ -1,5 +1,8 @@
 package View;
 
+import Bo.PilotoBO;
+import Model.Configuracao;
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -24,14 +27,24 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
     private JLabel logo;
     private JLabel forgotLogin;
     private JButton btnThemeChooser;
+    private JButton btnCadastrar;
 
     public LoginFrame() {
 
+        // Instancia de itens //
         initializate();
-        setTheme(Info.isThemeDark);
+        // Coloca o tema na tela
+        setTheme();
+        // Adiciona o item na tela //
         add();
+        // Configura o item da tela (btn,label...) //
         configs();
+        // Configura esse frame //
+        configurateThis();
 
+    }
+
+    private void configurateThis() {
         setUndecorated(true);
         setSize(800,600);
         setLayout(null);
@@ -40,7 +53,6 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
         setLocationRelativeTo(null);
         setTitle(Info.APP_NAME);
         setResizable(false);
-
     }
 
     private void initializate() {
@@ -56,9 +68,11 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
         btnExit = new JButton();
         forgotLogin = new JLabel();
         btnThemeChooser = new JButton();
+        btnCadastrar = new JButton();
     }
 
     private void add() {
+        add(btnCadastrar);
         add(btnThemeChooser);
         add(forgotLogin);
         add(btnExit);
@@ -73,8 +87,9 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
         add(fundo);
     }
 
-    private void setTheme(boolean isDark) {
-        if (isDark) {
+    private void setTheme() {
+        if (Info.TEMA) {
+            // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             login.setBackground(Colors.CINZALIGHTB);
@@ -92,6 +107,8 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
             forgotLogin.setForeground(Colors.CINZALIGHTB);
             btnThemeChooser.setBackground(Colors.CINZAMEDB);
             btnThemeChooser.setForeground(Colors.CINZALIGHTB);
+            btnCadastrar.setBackground(Colors.VERDEDARK);
+            btnCadastrar.setForeground(Colors.CINZADARKB);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
@@ -110,6 +127,8 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
             forgotLogin.setForeground(Colors.CINZALIGHTB);
             btnThemeChooser.setBackground(Colors.CINZAMEDA);
             btnThemeChooser.setForeground(Colors.CINZALIGHTB);
+            btnCadastrar.setBackground(Colors.VERDEDARK);
+            btnCadastrar.setForeground(Colors.CINZADARKB);
         }
     }
 
@@ -134,7 +153,7 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
         senhaLabel.setBounds(160,400,400,35);
 
         version.setText(Info.APP_VERSION);
-        version.setBounds(20,550 , 100,35);
+        version.setBounds(20,10 , 100,35);
 
         btnLogar.setText("ENTRAR");
         btnLogar.setBorderPainted(false);
@@ -162,6 +181,11 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
         btnThemeChooser.setText("Mudar Tema");
         btnThemeChooser.setBounds(650,115,120,35);
 
+        btnCadastrar.setFocusPainted(false);
+        btnCadastrar.setBorderPainted(false);
+        btnCadastrar.addActionListener(this);
+        btnCadastrar.setText("Cadastrar Usuário");
+        btnCadastrar.setBounds(20,550,140,35);
     }
 
     @Override
@@ -175,7 +199,25 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
                     JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getSource() == btnLogar) {
+            try {
+                Piloto piloto = new Piloto();
+                piloto.setNome(login.getText());
+                piloto.setSenha(new String(senha.getPassword()));
+                PilotoBO pilotoBO = new PilotoBO();
+                if (pilotoBO.logarPiloto(piloto)) {
+                    JOptionPane.showMessageDialog(null,"LOGADO COM SUCESSO!");
+                    new MenuPrincipal(piloto);
+                    System.exit(0);
+                } else {
+                    JOptionPane.showMessageDialog(null,"USUÁRIO INVALIDO!");
+                }
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
+        if (e.getSource() == btnCadastrar) {
+            // ABRE TELA CADASTRO DE NOVO USUARIO //
         }
     }
 
@@ -197,14 +239,22 @@ public class LoginFrame extends JFrame implements ActionListener , MouseListener
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            forgotLogin.setForeground(Colors.BRANCO);
+            if(Info.TEMA) {
+                forgotLogin.setForeground(Colors.BRANCO);
+            } else {
+                forgotLogin.setForeground(Colors.VERDEDARK);
+            }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            forgotLogin.setForeground(Colors.CINZALIGHTB);
+            if(Info.TEMA) {
+                forgotLogin.setForeground(Colors.CINZALIGHTB);
+            } else {
+                forgotLogin.setForeground(Colors.CINZALIGHTB);
+            }
         }
     }
 }

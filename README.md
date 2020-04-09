@@ -18,7 +18,7 @@
 
 /* O que ainda falta fazer */
 
-* [ ] Concluir tela login
-* [ ] Pegar a variavel tema de um arquivo .txt (Quando o usuário reiniciar o app muda o tema se
+* [X] Concluir tela login
+* [X] Pegar a variavel tema de um arquivo .txt (Quando o usuário reiniciar o app muda o tema se
 ele apertou no botão de mudar tema)
 * [ ] ...

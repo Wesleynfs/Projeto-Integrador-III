@@ -5,11 +5,6 @@
  */
 package kartodromo;
 
-import Bo.*;
-import Dao.ConfiguracaoDAO;
-import Model.*;
-import Utilities.Info;
-import Utilities.Tempo;
 import View.LoginFrame;
 
 public class Main {
@@ -81,13 +76,9 @@ public class Main {
         }
 */
 
-        try {
+        new LoginFrame();
 
-            new LoginFrame();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        //new MenuPrincipal(piloto);
 
     }
 

@@ -66,11 +66,13 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     private void setTheme() {
         if(Info.TEMA) {
             // Tema Escuro //
+
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
         } else {
             // Tema Claro //
+            
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);

@@ -10,10 +10,8 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class CadastrarUsuario extends JFrame implements ActionListener , MouseListener {
+public class CadastrarUsuario extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -218,12 +216,12 @@ public class CadastrarUsuario extends JFrame implements ActionListener , MouseLi
         }
         if (e.getSource() == btnCadastrar) {
             Piloto piloto = new Piloto();
-            piloto.setNome(nome.getText());
-            piloto.setEmail(email.getText());
-            piloto.setSenha(senha.getText());
+            piloto.setNome(nome.getText().toLowerCase());
+            piloto.setEmail(email.getText().toLowerCase());
+            piloto.setSenha(senha.getText().toLowerCase());
             piloto.setAtivo('S');
-            piloto.setCpf(cpf.getText());
-            piloto.setDataNascimento(dataNasc.getText());
+            piloto.setCpf(cpf.getText().toLowerCase());
+            piloto.setDataNascimento(dataNasc.getText().toLowerCase());
             PilotoBO pilotoBO = new PilotoBO();
             try {
                 if (pilotoBO.criarPiloto(piloto)) {
@@ -233,31 +231,6 @@ public class CadastrarUsuario extends JFrame implements ActionListener , MouseLi
                 JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 
 }

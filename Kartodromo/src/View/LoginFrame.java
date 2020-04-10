@@ -161,7 +161,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnExit.setBorderPainted(false);
         btnExit.setFocusPainted(false);
         btnExit.addActionListener(this);
-        btnExit.setBounds(560, 550, 100, 35);
+        btnExit.setBounds(20, 550, 100, 35);
 
         forgotLogin.setText("Esqueci meu login/senha");
         forgotLogin.setBounds(210, 445, 160, 35);
@@ -171,7 +171,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnCadastrar.setBorderPainted(false);
         btnCadastrar.addActionListener(this);
         btnCadastrar.setText("Cadastrar Usuário");
-        btnCadastrar.setBounds(20, 550, 140, 35);
+        btnCadastrar.setBounds(520, 550, 140, 35);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         }
         if (e.getSource() == btnLogar) {
             Piloto piloto = new Piloto();
-            piloto.setEmail(email.getText());
+            piloto.setEmail(email.getText().toLowerCase());
             piloto.setSenha(new String(senha.getPassword()));
             PilotoBO pilotoBO = new PilotoBO();
             try {

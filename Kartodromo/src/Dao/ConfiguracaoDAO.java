@@ -3,10 +3,7 @@ package Dao;
 import Model.Configuracao;
 import Utilities.Info;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 
 public class ConfiguracaoDAO {
 
@@ -20,18 +17,16 @@ public class ConfiguracaoDAO {
 
     public boolean gravarConfiguracao(Configuracao configuracao) throws Exception {
         try {
-            FileWriter fileWriter;
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
-                stringBuilder.append("tema: " + configuracao.isTema());
-                fileWriter = new FileWriter(file);
-                fileWriter.write(stringBuilder.toString());
-                fileWriter.close();
-            }
+            file.createNewFile();
+            stringBuilder.append("tema: " + configuracao.isTema());
+            FileWriter fileWriter = new FileWriter(file, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.append(stringBuilder + "\n");
+            bufferedWriter.close();
+            fileWriter.close();
             return true;
         } catch (Exception e) {
-            throw new Exception("Arquivo de configurações! " + e.getMessage());
+            throw new Exception("Erro ao gravar aquivo de configurações " + e.getMessage());
         }
     }
 
@@ -45,8 +40,8 @@ public class ConfiguracaoDAO {
                 while (true) {
                     texto = buffer.readLine();
                     if (texto != null) {
-                        if(texto.startsWith("tema: ")) {
-                            configuracao.setTema(Boolean.valueOf(texto.substring(6,10)));
+                        if (texto.startsWith("tema: ")) {
+                            configuracao.setTema(Boolean.valueOf(texto.substring(6, 10)));
                         }
                     } else {
                         break;
@@ -58,9 +53,15 @@ public class ConfiguracaoDAO {
                 System.out.println(e.getMessage());
             }
         } else {
-            // Caso o arquivo não exista tem uma config padrão //
+            // Caso o arquivo não exista
             Configuracao configuracao = new Configuracao();
             configuracao.setTema(false);
+            try {
+                gravarConfiguracao(configuracao);
+            } catch (Exception e) {
+                System.out.println("Não foi possivel criar nova configuração");
+            }
+            return configuracao;
         }
         return null;
     }

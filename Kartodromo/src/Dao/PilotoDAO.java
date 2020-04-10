@@ -61,7 +61,6 @@ public class PilotoDAO {
             Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE email = :email and senha = :senha");
             query.setParameter("email",piloto.getEmail());
             query.setParameter("senha",piloto.getSenha());
-            System.out.println("AQUI " + query.getResultList());
             return query.getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());

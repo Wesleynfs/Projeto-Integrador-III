@@ -5,14 +5,13 @@
  */
 package kartodromo;
 
-import Bo.*;
-import Model.*;
-import Utilities.Tempo;
+import Model.Piloto;
+import View.*;
 
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         PilotoBO pilotoBO = new PilotoBO();
         KartodromoBO kartodromoBO = new KartodromoBO();
         CampeonatoBO campeonatoBO = new CampeonatoBO();
@@ -76,6 +75,17 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+*/
+
+        //new LoginFrame();
+        
+        //new CadastrarKartodromo_pt1();
+        //new CadastrarKartodromo_pt2();
+        //new LoginKartodromo();
+        new PerfilPiloto();
+        
+        
+        //new MenuPrincipal(piloto);
 
     }
 

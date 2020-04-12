@@ -16,3 +16,9 @@
 1- Temos que ver em qual fazer.. Eu pensei em fazer usando o PostgreeSQL (Vamos conversar sobre ele dai)
 2- Vou colocar em breve a classe de conexão dele aqui, só to relembrando como usa o GIT kkkk
 
+/* O que ainda falta fazer */
+
+* [X] Concluir tela login
+* [X] Pegar a variavel tema de um arquivo .txt (Quando o usuário reiniciar o app muda o tema se
+ele apertou no botão de mudar tema)
+* [ ] ...

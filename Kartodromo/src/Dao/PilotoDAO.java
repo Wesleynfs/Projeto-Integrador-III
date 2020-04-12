@@ -56,6 +56,19 @@ public class PilotoDAO {
         }
     }
 
+    public List<Piloto> listarTodos(Piloto piloto) throws Exception {
+        try {
+            Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE email = :email and senha = :senha");
+            query.setParameter("email",piloto.getEmail());
+            query.setParameter("senha",piloto.getSenha());
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public List<Piloto> listarTodos() throws Exception {
         try {
             Query query = entityManager.createQuery("SELECT p FROM Piloto p");
@@ -65,7 +78,7 @@ public class PilotoDAO {
         } finally {
             entityManager.close();
         }
-    };
+    }
 
     public Piloto getById(int id) throws Exception {
         try {

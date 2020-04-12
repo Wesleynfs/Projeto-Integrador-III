@@ -5,8 +5,12 @@
  */
 package kartodromo;
 
+<<<<<<< HEAD
 import Model.Piloto;
 import View.*;
+=======
+import View.LoginFrame;
+>>>>>>> ee58ab4f62118197ff396f545a51f4f78908aa8a
 
 public class Main {
 
@@ -77,6 +81,7 @@ public class Main {
         }
 */
 
+<<<<<<< HEAD
         //new LoginFrame();
         
         //new CadastrarKartodromo_pt1();
@@ -85,6 +90,10 @@ public class Main {
         new PerfilPiloto();
         
         
+=======
+        new LoginFrame();
+
+>>>>>>> ee58ab4f62118197ff396f545a51f4f78908aa8a
         //new MenuPrincipal(piloto);
 
     }

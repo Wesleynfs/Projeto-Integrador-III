@@ -27,6 +27,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private JLabel forgotLogin;
     private JButton btnCadastrar;
     private JButton btnKartodromo;
+    private JMenuItem jmenuitem_Desenvolvedor;
+    private JPopupMenu jPopupMenu_Desenvolvedor;
 
     public LoginFrame() {
 
@@ -68,6 +70,10 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnExit = new JButton();
         forgotLogin = new JLabel();
         btnCadastrar = new JButton();
+        jmenuitem_Desenvolvedor = new JMenuItem(); 
+        jPopupMenu_Desenvolvedor = new JPopupMenu();
+       
+      
     }
 
     private void add() {
@@ -185,6 +191,10 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnCadastrar.addActionListener(this);
         btnCadastrar.setText("Cadastrar Usuário");
         btnCadastrar.setBounds(520, 550, 140, 35);
+        
+        jmenuitem_Desenvolvedor.setText("Entrar como Desenvolvedor");
+        jPopupMenu_Desenvolvedor.add(jmenuitem_Desenvolvedor);
+        
     }
 
     @Override
@@ -223,6 +233,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             }
         }
     }
+ 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -231,13 +242,17 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-
+        if(mouseEvent.isPopupTrigger()){
+            jPopupMenu_Desenvolvedor.show(this, mouseEvent.getX(), mouseEvent.getY());
+        
+        }
     }
+    
 
     @Override
     public void mouseEntered(MouseEvent e) {

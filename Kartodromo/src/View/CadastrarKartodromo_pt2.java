@@ -7,15 +7,7 @@ import Utilities.Info;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
+import javax.swing.*;
 
 public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
     private JPanel fundo;
@@ -73,7 +65,7 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
     }
     private void configurateThis(){
         setUndecorated(true);
-        setSize(800,600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,14 +134,15 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
         add(quintaCheckBox);
         add(sextaCheckBox);
         add(sabadoCheckBox);
+
         add(kartindoorCheckBox);
         add(kart2motorCheckBox);
         add(kart4motorCheckBox);
         add(kartshiCheckBox);
         add(kartsemmarchaCheckBox);
 
-        add( version);
-        add( logo);
+        add(version);
+        add(logo);
         add(btnCadastrar);
         add(btn_Voltar);
 
@@ -170,10 +163,8 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
             cidade.setForeground(Colors.BRANCO); 
             rua.setBackground(Colors.CINZALIGHTB);       
             rua.setForeground(Colors.BRANCO);    
-            numero.setBackground(Colors.CINZALIGHTB);       
-            numero.setForeground(Colors.BRANCO);        
-            
-          
+            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             estadoLabel.setForeground(Colors.CINZALIGHTB);
             paisLabel.setForeground(Colors.CINZALIGHTB);   
             cidadeLabel.setForeground(Colors.CINZALIGHTB);       
@@ -183,32 +174,43 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
             diassemanaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            
-            domingoCheckBox.setForeground(Colors.CINZALIGHTB);
-            sabadoCheckBox.setForeground(Colors.CINZALIGHTB);
-            segundaCheckBox.setForeground(Colors.CINZALIGHTB);
-            tercaCheckBox.setForeground(Colors.CINZALIGHTB);
-            quartaCheckBox.setForeground(Colors.CINZALIGHTB);
-            quintaCheckBox.setForeground(Colors.CINZALIGHTB);
-            sextaCheckBox.setForeground(Colors.CINZALIGHTB); 
-            
-            kartindoorCheckBox.setForeground(Colors.CINZALIGHTB); 
-            kart2motorCheckBox.setForeground(Colors.CINZALIGHTB); 
-            kart4motorCheckBox.setForeground(Colors.CINZALIGHTB); 
-            kartshiCheckBox.setForeground(Colors.CINZALIGHTB); 
-            kartsemmarchaCheckBox.setForeground(Colors.CINZALIGHTB); 
-            
+
+            domingoCheckBox.setForeground(Colors.BRANCO);
+            domingoCheckBox.setBackground(Colors.CINZALIGHTB);
+            sabadoCheckBox.setForeground(Colors.BRANCO);
+            sabadoCheckBox.setBackground(Colors.CINZALIGHTB);
+            segundaCheckBox.setForeground(Colors.BRANCO);
+            segundaCheckBox.setBackground(Colors.CINZALIGHTB);
+            tercaCheckBox.setForeground(Colors.BRANCO);
+            tercaCheckBox.setBackground(Colors.CINZALIGHTB);
+            quartaCheckBox.setForeground(Colors.BRANCO);
+            quartaCheckBox.setBackground(Colors.CINZALIGHTB);
+            quintaCheckBox.setForeground(Colors.BRANCO);
+            quintaCheckBox.setBackground(Colors.CINZALIGHTB);
+            sextaCheckBox.setForeground(Colors.BRANCO);
+            sextaCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartindoorCheckBox.setForeground(Colors.BRANCO);
+            kartindoorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kart2motorCheckBox.setForeground(Colors.BRANCO);
+            kart2motorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kart4motorCheckBox.setForeground(Colors.BRANCO);
+            kart4motorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartshiCheckBox.setForeground(Colors.BRANCO);
+            kartshiCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartsemmarchaCheckBox.setForeground(Colors.BRANCO);
+            kartsemmarchaCheckBox.setBackground(Colors.CINZALIGHTB);
+
             btn_Voltar.setBackground(Colors.VERDEDARK);
             btn_Voltar.setForeground(Colors.CINZADARKB);
-            
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
-            
-            fundo.setBackground(Colors.BRANCO);
+            fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Kartódromo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZAMEDB));
-            
-            
         } else {
             pais.setBackground(Colors.CINZALIGHTB);
             pais.setForeground(Colors.CINZADARKA);             
@@ -217,9 +219,9 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
             cidade.setBackground(Colors.CINZALIGHTB);
             cidade.setForeground(Colors.CINZADARKA);
             rua.setBackground(Colors.CINZALIGHTB);       
-            rua.setForeground(Colors.CINZADARKA);  
-            numero.setBackground(Colors.CINZALIGHTB);         
-            numero.setForeground(Colors.CINZADARKA);              
+            rua.setForeground(Colors.CINZADARKA);
+            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             numeroLabel.setForeground(Colors.CINZALIGHTB);            
             paisLabel.setForeground(Colors.CINZALIGHTB);
             estadoLabel.setForeground(Colors.CINZALIGHTB);   
@@ -233,73 +235,88 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
             btn_Voltar.setForeground(Colors.CINZADARKB);
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
-            domingoCheckBox.setForeground(Colors.CINZADARKB);
-            sabadoCheckBox.setForeground(Colors.CINZADARKB);
-            segundaCheckBox.setForeground(Colors.CINZADARKB);
-            tercaCheckBox.setForeground(Colors.CINZADARKB);
-            quartaCheckBox.setForeground(Colors.CINZADARKB);
-            quintaCheckBox.setForeground(Colors.CINZADARKB);
-            sextaCheckBox.setForeground(Colors.CINZADARKB);
-            kartindoorCheckBox.setForeground(Colors.CINZADARKB);
-            kart2motorCheckBox.setForeground(Colors.CINZADARKB);
-            kart4motorCheckBox.setForeground(Colors.CINZADARKB);
-            kartshiCheckBox.setForeground(Colors.CINZADARKB);
-            kartsemmarchaCheckBox.setForeground(Colors.CINZADARKB);
+
+            domingoCheckBox.setForeground(Colors.BRANCO);
+            domingoCheckBox.setBackground(Colors.CINZALIGHTB);
+            sabadoCheckBox.setForeground(Colors.BRANCO);
+            sabadoCheckBox.setBackground(Colors.CINZALIGHTB);
+            segundaCheckBox.setForeground(Colors.BRANCO);
+            segundaCheckBox.setBackground(Colors.CINZALIGHTB);
+            tercaCheckBox.setForeground(Colors.BRANCO);
+            tercaCheckBox.setBackground(Colors.CINZALIGHTB);
+            quartaCheckBox.setForeground(Colors.BRANCO);
+            quartaCheckBox.setBackground(Colors.CINZALIGHTB);
+            quintaCheckBox.setForeground(Colors.BRANCO);
+            quintaCheckBox.setBackground(Colors.CINZALIGHTB);
+            sextaCheckBox.setForeground(Colors.BRANCO);
+            sextaCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartindoorCheckBox.setForeground(Colors.BRANCO);
+            kartindoorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kart2motorCheckBox.setForeground(Colors.BRANCO);
+            kart2motorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kart4motorCheckBox.setForeground(Colors.BRANCO);
+            kart4motorCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartshiCheckBox.setForeground(Colors.BRANCO);
+            kartshiCheckBox.setBackground(Colors.CINZALIGHTB);
+
+            kartsemmarchaCheckBox.setForeground(Colors.BRANCO);
+            kartsemmarchaCheckBox.setBackground(Colors.CINZALIGHTB);
+
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Kartódromo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZADARKB)); // NOI18N
-            
         }
     }
     private void configs() {
 
-
         fundo.setSize(800,600);
-
         drawer.setBounds(0,0,800,200);
 
-        diassemanaLabel.setText("<html>Dias que o Kartódromo não trabalha:</html>");
+        diassemanaLabel.setText("Dias de Funcionamento:");
         diassemanaLabel.setBounds(20,230,150,35);
         
         domingoCheckBox.setText("Domingo");
+        domingoCheckBox.setFocusPainted(false);
         domingoCheckBox.setBounds(20,260,150,30);
         sabadoCheckBox.setText("Sabado");
+        sabadoCheckBox.setFocusPainted(false);
         sabadoCheckBox.setBounds(20,290,150,30);
-        segundaCheckBox.setText("Segunda");
+        segundaCheckBox.setText("Segunda - Feira");
+        segundaCheckBox.setFocusPainted(false);
         segundaCheckBox.setBounds(20,320,150,30);
-        tercaCheckBox.setText("Terça");
+        tercaCheckBox.setText("Terça - Feira");
+        tercaCheckBox.setFocusPainted(false);
         tercaCheckBox.setBounds(20,350,150,30);
-        quartaCheckBox.setText("Quarta");
+        quartaCheckBox.setText("Quarta - Feira");
+        quartaCheckBox.setFocusPainted(false);
         quartaCheckBox.setBounds(20,380,150,30);
-        quintaCheckBox.setText("Quinta");
+        quintaCheckBox.setText("Quinta - Feira");
+        quintaCheckBox.setFocusPainted(false);
         quintaCheckBox.setBounds(20,410,150,30);
-        sextaCheckBox.setText("Sexta");
+        sextaCheckBox.setText("Sexta - Feira");
+        sextaCheckBox.setFocusPainted(false);
         sextaCheckBox.setBounds(20,440,150,30);
         
-        tipokartsLabel.setText("<html>Tipos de Kart disponibilizados:</html>");
-        tipokartsLabel.setBounds(230,230,150,35);
-        
-        kartindoorCheckBox.setText("Kart indoor");
-        kartindoorCheckBox.setBounds(230,260,150,35);
-                
-        kart2motorCheckBox.setText("<html>Kart de Motor 2 Tempos</html>");
-        kart2motorCheckBox.setBounds(230,260,150,35);
-                
-        kart4motorCheckBox.setText("<html>Kart de Motor 2 Tempos</html>");
-        kart4motorCheckBox.setBounds(230,290,150,35);
-        
-        kartshiCheckBox.setText("Kart Shifter");
-        kartshiCheckBox.setBounds(230,320,150,35);
-                
-        kartsemmarchaCheckBox.setText("Kart sem marcha");
-        kartsemmarchaCheckBox.setBounds(230,350,150,35);
-        
-        
-        
-        
-        
-        
-        
+        tipokartsLabel.setText("Tipos de Kart (MOTOR)");
+        tipokartsLabel.setBounds(210,230,150,35);
+        kartindoorCheckBox.setText("Indoor");
+        kartindoorCheckBox.setFocusPainted(false);
+        kartindoorCheckBox.setBounds(210,260,150,35);
+        kart2motorCheckBox.setText("Motor 2 Tempos");
+        kart2motorCheckBox.setFocusPainted(false);
+        kart2motorCheckBox.setBounds(210,290,150,35);
+        kart4motorCheckBox.setText("Motor 4 Tempos");
+        kart4motorCheckBox.setFocusPainted(false);
+        kart4motorCheckBox.setBounds(210,320,150,35);
+        kartshiCheckBox.setText("Shifter");
+        kartshiCheckBox.setFocusPainted(false);
+        kartshiCheckBox.setBounds(210,380,150,35);
+        kartsemmarchaCheckBox.setText("Sem Marcha");
+        kartsemmarchaCheckBox.setFocusPainted(false);
+        kartsemmarchaCheckBox.setBounds(210,350,150,35);
         paisLabel.setText("País:");
         paisLabel.setBounds(400,230,200,35);
         
@@ -324,7 +341,8 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
         numeroLabel.setText("Número:");
         numeroLabel.setBounds(600,310,200,35);
         
-        numero.setBounds(600,340,80,40);
+        numero.setBounds(600,340,150,35);
+        numero.setBorder(BorderFactory.createEmptyBorder());
         
         ruaLabel.setText("Rua:");
         ruaLabel.setBounds(400,390,200,35);
@@ -346,7 +364,6 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
         btn_Voltar.addActionListener(this);
         btn_Voltar.setBounds(20,550, 100,35);
 
-        
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setBorderPainted(false);
         btnCadastrar.addActionListener(this);
@@ -358,7 +375,10 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_Voltar) {
-            System.exit(0);
+            if (JOptionPane.showConfirmDialog(null,"Tem certeza?" , "Confirmação",JOptionPane.YES_NO_OPTION) == 0) {
+                dispose();
+                new CadastrarKartodromo_pt1();
+            }
         }
 
         if(e.getSource() == btnCadastrar) {

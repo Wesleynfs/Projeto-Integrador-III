@@ -82,12 +82,12 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     private void setTheme() {
         if (Info.TEMA) {
             // Se o tema for escuro, os itens ficam assim //
-            fundo.setBackground(Colors.BRANCO);
+            fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.BRANCO);
+            email.setForeground(Colors.CINZADARKA);
             senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.BRANCO);
+            senha.setForeground(Colors.CINZADARKA);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -98,12 +98,12 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
             btnVoltar.setForeground(Colors.CINZADARKB);
             forgotLogin.setForeground(Colors.CINZALIGHTB);
         } else {
-            fundo.setBackground(Colors.CINZAMEDA);
+            fundo.setBackground(Colors.BRANCO);
             drawer.setBackground(Colors.VERDEDARK);
             email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.CINZADARKA);
+            email.setForeground(Colors.BRANCO);
             senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.CINZADARKA);
+            senha.setForeground(Colors.BRANCO);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -118,7 +118,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
 
     private void configs() {
 
-        fundo.setSize(800, 600);
+        fundo.setSize(Info.MINSCREENSIZE);
 
         drawer.setBounds(0, 0, 800, 200);
 
@@ -131,10 +131,10 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
         senha.setHorizontalAlignment(JPasswordField.CENTER);
 
         loginLabel.setText("EMAIL DO KARTÓDROMO");
-        loginLabel.setBounds(55, 300, 400, 35);
+        loginLabel.setBounds(210, 270, 400, 35);
 
         senhaLabel.setText("SENHA DO KARTÓDROMO");
-        senhaLabel.setBounds(50, 400, 400, 35);
+        senhaLabel.setBounds(210, 370, 400, 35);
 
         version.setText(Info.APP_VERSION);
         version.setBounds(20, 10, 100, 35);
@@ -190,9 +190,9 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
             if (Info.TEMA) {
-                forgotLogin.setForeground(Colors.BRANCO);
+                forgotLogin.setForeground(Colors.CINZADARKA);
             } else {
-                forgotLogin.setForeground(Colors.VERDEDARK);
+                forgotLogin.setForeground(Colors.CINZADARKA);
             }
         }
     }

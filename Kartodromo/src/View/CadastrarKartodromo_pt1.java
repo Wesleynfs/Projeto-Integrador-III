@@ -55,7 +55,7 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
     }
     private void configurateThis(){
         setUndecorated(true);
-        setSize(800,600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,13 +89,13 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         
         add(nome_kartodromo);
         add(email_kartodromo);
-        add( email_confirmacao_kartodromo);
-        add( codigo);
-        add( senha);
-        add( version);
-        add( logo);
-        add( codigoLabel);
-        add( emailconfimacaoLabel);
+        add(email_confirmacao_kartodromo);
+        add(codigo);
+        add(senha);
+        add(version);
+        add(logo);
+        add(codigoLabel);
+        add(emailconfimacaoLabel);
         add(nomeLabel);
         add(emailLabel);
         add(senhaLabel);
@@ -111,8 +111,6 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Kartódromo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZAMEDB));
-            
             nome_kartodromo.setBackground(Colors.CINZALIGHTB);
             nome_kartodromo.setForeground(Colors.BRANCO);            
             email_kartodromo.setBackground(Colors.CINZALIGHTB);
@@ -139,9 +137,6 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Kartódromo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZADARKB)); // NOI18N
-
-
             nome_kartodromo.setBackground(Colors.CINZALIGHTB);
             nome_kartodromo.setForeground(Colors.CINZADARKA);            
             email_kartodromo.setBackground(Colors.CINZALIGHTB);
@@ -165,55 +160,54 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
             btnContinuar.setForeground(Colors.CINZADARKB);
             btn_enviar_codigo.setBackground(Colors.VERDEDARK);
             btn_enviar_codigo.setForeground(Colors.CINZADARKB);
-            
         }
     }
+
     private void configs() {
         fundo.setSize(800,600);
         drawer.setBounds(0,0,800,200);
 
-
         nome_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        nome_kartodromo.setBounds(20,280,300,35);
+        nome_kartodromo.setBounds(60,280,300,35);
         nome_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         nomeLabel.setText("NOME:");
-        nomeLabel.setBounds(20,250,200,35);
+        nomeLabel.setBounds(60,250,200,35);
   
         email_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        email_kartodromo.setBounds(20,340,300,35);
+        email_kartodromo.setBounds(60,340,300,35);
         email_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         emailLabel.setText("EMAIL:");
-        emailLabel.setBounds(20,310,200,35);
+        emailLabel.setBounds(60,310,200,35);
                 
         email_confirmacao_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        email_confirmacao_kartodromo.setBounds(20,400,300,35);
+        email_confirmacao_kartodromo.setBounds(60,400,300,35);
         email_confirmacao_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
                 
         emailconfimacaoLabel.setText("CONFIRMAR EMAIL:");
-        emailconfimacaoLabel.setBounds(20,370,200,35);
+        emailconfimacaoLabel.setBounds(60,370,200,35);
 
-        codigo.setBorder(BorderFactory.createEmptyBorder());
-        codigo.setBounds(400,280,300,35);
-        codigo.setHorizontalAlignment(JFormattedTextField.CENTER);
-        
-        codigoLabel.setText("CÓDIGO ENVIADO:");
-        codigoLabel.setBounds(400,245,300,35);
-        
-        senha.setBorder(BorderFactory.createEmptyBorder());
-        senha.setBounds(400,340,300,35);
-        senha.setHorizontalAlignment(JFormattedTextField.CENTER);
-        
-        senhaLabel.setText("NOVA SENHA:");
-        senhaLabel.setBounds(400,310,300,35);
-        
         version.setText(Info.APP_VERSION);
         version.setBounds(20,10,100,30);
 
         logo.setText(Info.APP_NAME);
         logo.setFont(Fonts.SANSSERIF);
         logo.setBounds(20,40,700,180);
+
+        codigo.setBorder(BorderFactory.createEmptyBorder());
+        codigo.setBounds(440,280,300,35);
+        codigo.setHorizontalAlignment(JFormattedTextField.CENTER);
+        
+        codigoLabel.setText("CÓDIGO ENVIADO:");
+        codigoLabel.setBounds(440,250,300,35);
+        
+        senha.setBorder(BorderFactory.createEmptyBorder());
+        senha.setBounds(440,340,300,35);
+        senha.setHorizontalAlignment(JFormattedTextField.CENTER);
+        
+        senhaLabel.setText("NOVA SENHA:");
+        senhaLabel.setBounds(440,310,300,35);
 
         btn_Voltar.setText("VOLTAR");
         btn_Voltar.setBorderPainted(false);
@@ -238,10 +232,12 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_Voltar) {
-            System.exit(0);
+            dispose();
+            new LoginFrame();
         }
         if (e.getSource() == btnContinuar) {
-            //vai para parte 2 de cadastro
+            dispose();
+            new CadastrarKartodromo_pt2();
         }
         if(e.getSource() == btn_enviar_codigo) {
             //enviar codigo no email

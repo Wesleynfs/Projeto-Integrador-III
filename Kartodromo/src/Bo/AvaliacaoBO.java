@@ -11,22 +11,31 @@ public class AvaliacaoBO {
     private AvaliacaoDAO avaliacaoDAO;
 
     public AvaliacaoBO() {
-        avaliacaoDAO = new AvaliacaoDAO();
+
     }
 
     public boolean criarAvaliacao(Avaliacao avaliacao) throws Exception {
-        validaAvaliacao(avaliacao);
-        return avaliacaoDAO.salvar(avaliacao);
+        if (validaAvaliacao(avaliacao)) {
+            avaliacaoDAO = new AvaliacaoDAO();
+            return avaliacaoDAO.salvar(avaliacao);
+        }
+        return false;
     }
 
     public boolean deletarAvaliacao(Avaliacao avaliacao) throws Exception {
-        validaAvaliacao(avaliacao);
-        return avaliacaoDAO.deletar(avaliacao);
+        if (validaAvaliacao(avaliacao)) {
+            avaliacaoDAO = new AvaliacaoDAO();
+            return avaliacaoDAO.deletar(avaliacao);
+        }
+        return false;
     }
 
     public boolean alterarAvaliacao(Avaliacao avaliacao) throws Exception {
-        validaAvaliacao(avaliacao);
-        return avaliacaoDAO.alterar(avaliacao);
+        if (validaAvaliacao(avaliacao)) {
+            avaliacaoDAO = new AvaliacaoDAO();
+            return avaliacaoDAO.alterar(avaliacao);
+        }
+        return false;
     }
 
     public List<Avaliacao> listarAvaliacoes() throws Exception {
@@ -34,20 +43,25 @@ public class AvaliacaoBO {
     }
 
     public Avaliacao getById(int id) throws Exception {
-        validaId(id);
-        return avaliacaoDAO.getById(id);
+        if (validaId(id)) {
+            avaliacaoDAO = new AvaliacaoDAO();
+            return avaliacaoDAO.getById(id);
+        }
+        return null;
     }
 
-    private void validaAvaliacao(Avaliacao avaliacao) throws Exception {
+    private boolean validaAvaliacao(Avaliacao avaliacao) throws Exception {
         if (avaliacao.getComentario().equals("")) {
             throw new Exception("Nome do piloto não pode ficar em branco!");
         }
+        return true;
     }
 
-    private void validaId(int id) throws Exception {
+    private boolean validaId(int id) throws Exception {
         if(id <= 0) {
             throw new Exception("Id da avaliação não pode ser menor ou igual a 0");
         }
+        return true;
     }
 
 

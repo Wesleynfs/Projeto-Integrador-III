@@ -10,11 +10,12 @@ public class PilotoBO {
     private PilotoDAO pilotoDAO;
 
     public PilotoBO() {
-        pilotoDAO = new PilotoDAO();
+
     }
 
     public boolean criarPiloto(Piloto piloto) throws Exception {
         if (validaPiloto(piloto)) {
+            pilotoDAO = new PilotoDAO();
             return pilotoDAO.salvar(piloto);
         }
         return false;
@@ -22,6 +23,7 @@ public class PilotoBO {
 
     public boolean deletarPiloto(Piloto piloto) throws Exception {
         if (validaPiloto(piloto)) {
+            pilotoDAO = new PilotoDAO();
             return pilotoDAO.deletar(piloto);
         }
         return false;
@@ -29,6 +31,7 @@ public class PilotoBO {
 
     public boolean alterarPiloto(Piloto piloto) throws Exception {
         if (validaPiloto(piloto)) {
+            pilotoDAO = new PilotoDAO();
             return pilotoDAO.alterar(piloto);
         }
         return false;
@@ -40,6 +43,7 @@ public class PilotoBO {
 
     public boolean logarPiloto(Piloto piloto) throws Exception {
         if (validaLoginPiloto(piloto)) {
+            pilotoDAO = new PilotoDAO();
             if (!pilotoDAO.listarTodos(piloto).isEmpty()) {
                 return true;
             }

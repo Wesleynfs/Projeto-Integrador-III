@@ -11,22 +11,31 @@ public class ClassificacaoInternaBO {
     private ClassificacaoInternaDAO classificacaoInternaDAO;
 
     public ClassificacaoInternaBO() {
-        classificacaoInternaDAO = new ClassificacaoInternaDAO();
+
     }
 
     public boolean criarClassificacaoInterna(ClassificacaoInterna classificacaoInterna) throws Exception {
-        validaClassificacaoInterna(classificacaoInterna);
-        return classificacaoInternaDAO.salvar(classificacaoInterna);
+        if (validaClassificacaoInterna(classificacaoInterna)) {
+            classificacaoInternaDAO = new ClassificacaoInternaDAO();
+            return classificacaoInternaDAO.salvar(classificacaoInterna);
+        }
+        return false;
     }
 
     public boolean deletarPiloto(ClassificacaoInterna classificacaoInterna) throws Exception {
-        validaClassificacaoInterna(classificacaoInterna);
-        return classificacaoInternaDAO.deletar(classificacaoInterna);
+        if (validaClassificacaoInterna(classificacaoInterna)) {
+            classificacaoInternaDAO = new ClassificacaoInternaDAO();
+            return classificacaoInternaDAO.deletar(classificacaoInterna);
+        }
+        return false;
     }
 
     public boolean alterarPiloto(ClassificacaoInterna classificacaoInterna) throws Exception {
-        validaClassificacaoInterna(classificacaoInterna);
-        return classificacaoInternaDAO.alterar(classificacaoInterna);
+        if (validaClassificacaoInterna(classificacaoInterna)) {
+            classificacaoInternaDAO = new ClassificacaoInternaDAO();
+            return classificacaoInternaDAO.alterar(classificacaoInterna);
+        }
+        return false;
     }
 
     public List<ClassificacaoInterna> listarPilotos() throws Exception {
@@ -34,23 +43,28 @@ public class ClassificacaoInternaBO {
     }
 
     public ClassificacaoInterna getById(int id) throws Exception {
-        validaId(id);
-        return classificacaoInternaDAO.getById(id);
+        if (validaId(id)) {
+            classificacaoInternaDAO = new ClassificacaoInternaDAO();
+            return classificacaoInternaDAO.getById(id);
+        }
+        return null;
     }
 
-    private void validaClassificacaoInterna(ClassificacaoInterna classificacaoInterna) throws Exception {
+    private boolean validaClassificacaoInterna(ClassificacaoInterna classificacaoInterna) throws Exception {
         if (classificacaoInterna.getPiloto() == null) {
             throw new Exception("O Piloto da classificacao interna não pode ser nulo!");
         }
         if (classificacaoInterna.getKartodromo() == null) {
             throw new Exception("O kartodromo da classificacao interna não pode ser nulo!");
         }
+        return true;
     }
 
-    private void validaId(int id) throws Exception {
+    private boolean validaId(int id) throws Exception {
         if(id <= 0) {
             throw new Exception("Id da classificacao interna não pode ser menor ou igual a 0");
         }
+        return true;
     }
 
 }

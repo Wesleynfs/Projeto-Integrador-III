@@ -33,7 +33,7 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     }
 
     private void configurateThis() {
-        setSize(Info.SCREENHIGH);
+        setSize(Info.MAXSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +59,7 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     private void configs() {
         drawer.setBounds(0,0,300,720);
         panel.setBounds(300,0,1180,80);
-        background.setSize(Info.SCREENHIGH);
+        background.setSize(Info.MAXSCREENSIZE);
         selecao.setVisible(false);
     }
 

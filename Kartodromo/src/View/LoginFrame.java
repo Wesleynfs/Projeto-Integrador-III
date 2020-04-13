@@ -26,6 +26,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private JLabel logo;
     private JLabel forgotLogin;
     private JButton btnCadastrar;
+    private JButton btnKartodromo;
 
     public LoginFrame() {
 
@@ -44,7 +45,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(800, 600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +55,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     }
 
     private void initializate() {
+        btnKartodromo = new JButton();
         fundo = new JPanel();
         drawer = new JPanel();
         email = new JFormattedTextField();
@@ -69,6 +71,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     }
 
     private void add() {
+        add(btnKartodromo);
         add(btnCadastrar);
         add(forgotLogin);
         add(btnExit);
@@ -86,6 +89,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private void setTheme() {
         if (Info.TEMA) {
             // Se o tema for escuro, os itens ficam assim //
+            btnKartodromo.setBackground(Colors.CINZAMEDB);
+            btnKartodromo.setForeground(Colors.CINZADARKA);
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             email.setBackground(Colors.CINZALIGHTB);
@@ -104,6 +109,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
         } else {
+            btnKartodromo.setBackground(Colors.CINZAMEDB);
+            btnKartodromo.setForeground(Colors.CINZADARKA);
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             email.setBackground(Colors.CINZALIGHTB);
@@ -115,7 +122,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             version.setForeground(Colors.CINZALIGHTB);
             btnLogar.setBackground(Colors.VERDEDARK);
             btnLogar.setForeground(Colors.CINZADARKB);
-            logo.setForeground(Colors.CINZAMEDA);
+            logo.setForeground(Colors.CINZAMEDB);
             btnExit.setBackground(Colors.VERDEDARK);
             btnExit.setForeground(Colors.CINZADARKB);
             forgotLogin.setForeground(Colors.CINZALIGHTB);
@@ -139,13 +146,19 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         senha.setHorizontalAlignment(JPasswordField.CENTER);
 
         loginLabel.setText("EMAIL");
-        loginLabel.setBounds(160, 300, 400, 35);
+        loginLabel.setBounds(210, 260, 400, 35);
 
         senhaLabel.setText("SENHA");
-        senhaLabel.setBounds(160, 400, 400, 35);
+        senhaLabel.setBounds(210, 360, 400, 35);
 
         version.setText(Info.APP_VERSION);
         version.setBounds(20, 10, 100, 35);
+
+        btnKartodromo.setText("Sou Kartodromo");
+        btnKartodromo.setBounds(650,20,130,35);
+        btnKartodromo.setFocusPainted(false);
+        btnKartodromo.setBorderPainted(false);
+        btnKartodromo.addActionListener(this);
 
         btnLogar.setText("ENTRAR");
         btnLogar.setBorderPainted(false);
@@ -194,6 +207,11 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+
+        if (e.getSource() == btnKartodromo) {
+            dispose();
+            new CadastrarKartodromo_pt1();
         }
 
         if (e.getSource() == btnCadastrar) {

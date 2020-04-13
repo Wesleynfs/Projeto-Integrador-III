@@ -12,22 +12,31 @@ public class ClassificacaoCampeonatoBO {
     private ClassificacaoCampeonatoDAO classificacaoCampeonatoDAO;
 
     public ClassificacaoCampeonatoBO() {
-        classificacaoCampeonatoDAO = new ClassificacaoCampeonatoDAO();
+
     }
 
     public boolean criarClassificacaoCampeonato(ClassificacaoCampeonato classificacaoCampeonato) throws Exception {
-        validaClassificacaoCampeonato(classificacaoCampeonato);
-        return classificacaoCampeonatoDAO.salvar(classificacaoCampeonato);
+        if (validaClassificacaoCampeonato(classificacaoCampeonato)) {
+            classificacaoCampeonatoDAO = new ClassificacaoCampeonatoDAO();
+            return classificacaoCampeonatoDAO.salvar(classificacaoCampeonato);
+        }
+        return false;
     }
 
     public boolean deletarAvaliacao(ClassificacaoCampeonato classificacaoCampeonato) throws Exception {
-        validaClassificacaoCampeonato(classificacaoCampeonato);
-        return classificacaoCampeonatoDAO.deletar(classificacaoCampeonato);
+        if (validaClassificacaoCampeonato(classificacaoCampeonato)) {
+            classificacaoCampeonatoDAO = new ClassificacaoCampeonatoDAO();
+            return classificacaoCampeonatoDAO.deletar(classificacaoCampeonato);
+        }
+        return false;
     }
 
     public boolean alterarAvaliacao(ClassificacaoCampeonato classificacaoCampeonato) throws Exception {
-        validaClassificacaoCampeonato(classificacaoCampeonato);
-        return classificacaoCampeonatoDAO.alterar(classificacaoCampeonato);
+        if (validaClassificacaoCampeonato(classificacaoCampeonato)) {
+            classificacaoCampeonatoDAO = new ClassificacaoCampeonatoDAO();
+            return classificacaoCampeonatoDAO.alterar(classificacaoCampeonato);
+        }
+        return false;
     }
 
     public List<ClassificacaoCampeonato> listarAvaliacoes() throws Exception {
@@ -35,20 +44,25 @@ public class ClassificacaoCampeonatoBO {
     }
 
     public ClassificacaoCampeonato getById(int id) throws Exception {
-        validaId(id);
-        return classificacaoCampeonatoDAO.getById(id);
+        if (validaId(id)) {
+            classificacaoCampeonatoDAO = new ClassificacaoCampeonatoDAO();
+            return classificacaoCampeonatoDAO.getById(id);
+        }
+        return null;
     }
 
-    private void validaClassificacaoCampeonato(ClassificacaoCampeonato classificacaoCampeonato) throws Exception {
+    private boolean validaClassificacaoCampeonato(ClassificacaoCampeonato classificacaoCampeonato) throws Exception {
         if (classificacaoCampeonato.getPontosPiloto() < 0) {
             throw new Exception("Classificação dos pontos do piloto não podem ser menores que 0");
         }
+        return true;
     }
 
-    private void validaId(int id) throws Exception {
-        if(id <= 0) {
+    private boolean validaId(int id) throws Exception {
+        if (id <= 0) {
             throw new Exception("Id da classificação do campeonato não pode ser menor ou igual a 0");
         }
+        return true;
     }
 
 

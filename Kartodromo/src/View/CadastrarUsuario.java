@@ -47,7 +47,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(800,600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,7 +139,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
             cpfLabel.setForeground(Colors.CINZALIGHTB);
             dataNascLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
-            logo.setForeground(Colors.CINZAMEDA);
+            logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCadastrar.setBackground(Colors.VERDEDARK);

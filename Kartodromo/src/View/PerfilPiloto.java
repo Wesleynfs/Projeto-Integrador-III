@@ -51,7 +51,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(800, 600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

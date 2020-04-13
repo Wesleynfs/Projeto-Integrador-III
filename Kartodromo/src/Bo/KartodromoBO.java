@@ -10,45 +10,60 @@ public class KartodromoBO {
     private KartodromoDAO kartodromoDAO;
 
     public KartodromoBO() {
-        kartodromoDAO = new KartodromoDAO();
+
     }
 
     public boolean criarKartodromo(Kartodromo kartodromo) throws Exception {
-        validaKartodromo(kartodromo);
-        return kartodromoDAO.salvar(kartodromo);
+        if (validaKartodromo(kartodromo)) {
+            kartodromoDAO = new KartodromoDAO();
+            return kartodromoDAO.salvar(kartodromo);
+        }
+        return false;
     }
 
     public boolean deletarKartodromo(Kartodromo kartodromo) throws Exception {
-        validaKartodromo(kartodromo);
-        return kartodromoDAO.deletar(kartodromo);
+        if (validaKartodromo(kartodromo)){
+            kartodromoDAO = new KartodromoDAO();
+            return kartodromoDAO.deletar(kartodromo);
+        }
+        return false;
     }
 
     public boolean alterarKartodromo(Kartodromo kartodromo) throws Exception {
-        validaKartodromo(kartodromo);
-        return kartodromoDAO.alterar(kartodromo);
+        if (validaKartodromo(kartodromo)) {
+            kartodromoDAO = new KartodromoDAO();
+            return kartodromoDAO.alterar(kartodromo);
+        }
+        return false;
     }
 
     public List<Kartodromo> listarKartodromos() throws Exception {
+        kartodromoDAO = new KartodromoDAO();
         return kartodromoDAO.listarTodos();
     }
 
     public Kartodromo getById(int id) throws Exception {
-        validaId(id);
-        return kartodromoDAO.getById(id);
+        if (validaId(id)) {
+            kartodromoDAO = new KartodromoDAO();
+            return kartodromoDAO.getById(id);
+        }
+        return null;
     }
 
-    private void validaKartodromo(Kartodromo kartodromo) throws Exception {
+    private boolean validaKartodromo(Kartodromo kartodromo) throws Exception {
         if (kartodromo.getNome().equals("")) {
             throw new Exception("Nome do kartodromo não pode ficar em branco!");
         } else if (kartodromo.getSenha().length() > 50) {
             throw new Exception("Senha maior do que o permitido");
         }
+        return true;
     }
 
-    private void validaId(int id) throws Exception {
+    private boolean validaId(int id) throws Exception {
         if(id <= 0) {
             throw new Exception("Id do kartodromo não pode ser menor ou igual a 0");
         }
+        return true;
     }
 
 }

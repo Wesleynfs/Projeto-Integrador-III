@@ -1,24 +1,27 @@
 # Projeto-Integrador-III
 
- /* Regras */
- 
-1-Vamos colocar no branch BETA, o principal vamos pensar juntos para não fazer merda em tudo (Para não ferrar-mos tudo duma vez kkk)
-2-Só fiz a classe main pra iniciar o projeto aqui
-3-Tirar 100 nessa PREULA! Hahaha
-
 /* O que fazer para ter os arquivos? */
 
 1- Clona esse Repositório na sua maquina 
 2- Netbeans >> Team >> Git >> Clone {Cola o link do repositório na caixa de URL}
 
-/* Sobre o Banco */
+/* Falta fazer na documentação */
 
-1- Temos que ver em qual fazer.. Eu pensei em fazer usando o PostgreeSQL (Vamos conversar sobre ele dai)
-2- Vou colocar em breve a classe de conexão dele aqui, só to relembrando como usa o GIT kkkk
+* [ ] SEM FAZER
+* [X] FEITO
 
-/* O que ainda falta fazer */
-
-* [X] Concluir tela login
-* [X] Pegar a variavel tema de um arquivo .txt (Quando o usuário reiniciar o app muda o tema se
-ele apertou no botão de mudar tema)
-* [ ] ...
+* [X] RESUMO
+* [X] ABSTRACT
+* [X] INTRODUÇÃO
+* [ ] PM CANVAS (IMAGEM)
+* [X] ANÁLISE DE CONCORRÊNCIA 
+* [ ] BPM (TEXTO E IMAGEM)
+* [ ] REQUISITOS FUNCIONAIS (TEXTO E TABELA)
+* [ ] REQUISITOS NÃO FUNCIONAIS (TEXTO E TABELA)
+* [ ] REGRAS DE NEGÓCIO (TEXTO E TABELA)
+* [ ] TECNOLOGIAS UTILIZADAS (TEXTO E IMAGEM)
+* [ ] DIAGRAMA DE CASOS DE USO (TEXTO E IMAGEM)
+* [ ] PROTÓTIPO E DESCRIÇÃO DE CASO DE USO (TEXTO E DESENVOLVIMENTO)
+* [ ] DIAGRAMA DE ENTIDADE E RELACIONAMENTO (TEXTO E DIAGRAMA)
+* [ ] DIAGRAMA DE CLASSES (TEXTO E DIAGRAMA)
+* [ ] REFERÊNCIAS

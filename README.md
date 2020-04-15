@@ -9,6 +9,7 @@
 
 * [ ] SEM FAZER
 * [X] FEITO
+* [E] EDITANDO
 
 * [X] RESUMO
 * [X] ABSTRACT

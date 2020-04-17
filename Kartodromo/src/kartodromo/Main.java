@@ -77,8 +77,8 @@ public class Main {
         }
 */
 
-        new LoginFrame();
-
+        //new LoginFrame();
+        new CadastrarUsuario();
     }
 
 }

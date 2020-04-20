@@ -78,7 +78,8 @@ public class Main {
 */
 
         //new LoginFrame();
-        new CadastrarUsuario();
+        //new CadastrarUsuario();
+        new PerfilPiloto();
     }
 
 }

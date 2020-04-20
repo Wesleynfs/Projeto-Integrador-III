@@ -80,6 +80,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         tabela_corridas_participando = new JTable();
         jScrollPane1_allcorridas = new JScrollPane();
         tabela_allcorridas = new JTable();
+        
     }
 
     private void add() {
@@ -97,7 +98,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         add(corridas_marcadasLabel);
         add(jScrollPane1_corridas_participando);
         add(jScrollPane1_allcorridas);
-       
         add(drawer);
         add(fundo);
     }
@@ -119,7 +119,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             btnCriar_corrida.setForeground(Colors.CINZADARKB);
             btnVerificar_corridas.setForeground(Colors.CINZADARKB);
             btnAvaliar_kartdromo.setForeground(Colors.CINZADARKB);
-            btnRelatar.setBackground(Colors.VERDEDARK);
+            btnRelatar.setBackground(Colors.VERDELIGHT);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticipar_corrida.setBackground(Colors.VERDEDARK);
             btnCriar_corrida.setBackground(Colors.VERDEDARK);
@@ -138,7 +138,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
             corridas_marcadasLabel.setForeground(Colors.CINZALIGHTB);
             
-            btnRelatar.setBackground(Colors.VERDEDARK);
+            btnRelatar.setBackground(Colors.CINZADARKA);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticipar_corrida.setBackground(Colors.VERDEDARK);
             btnCriar_corrida.setBackground(Colors.VERDEDARK);
@@ -167,7 +167,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 //        email.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         try {
-            tabela_corridas_participando.setModel(new DefaultTableModel(
+            
+            tabela_allcorridas.setModel(new DefaultTableModel(
             new Object [][] {
                 
             },
@@ -183,44 +184,95 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             }
 
         });
+            
        tabelamento = (DefaultTableModel) tabela_allcorridas.getModel();
 
-            
             tabelamento.addRow(new Object[]{
                 "Test",
                 "test1",
                 "test2"
+            });
+                //Subistituir as linhas anteriores
+    //          for (classe : classeDao.findALL()){
+    //            tabelamento.addRow(new Object[]{
+    //                class.nome,
+    //                class.tipo,
+    //                class.data
+    //            });
+    //
+    //          }
+        jScrollPane1_allcorridas.setViewportView(tabela_allcorridas);
+
+        jScrollPane1_allcorridas.setBounds(20, 200, 350, 200);
             
-                });
+        // config jScrollPane1_corridas_participando
+        
+        tabela_corridas_participando.setModel(new DefaultTableModel(
+            new Object [][] {
+                
+            },
+            new String [] {
+                "Nome", "Tipo", "Data"
+            }
+            ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+
+        });
             
-            
-            
-//        for (classe : classeDao.findALL()){
-//            tabelamento.addRow(new Object[]{
-//                class.nome,
-//                class.tipo,
-//                class.data
-//            });
-//
-//        }
+       tabelamento = (DefaultTableModel) tabela_corridas_participando.getModel();
+            for(int x = 0; x<20;x++ ){
+            tabelamento.addRow(new Object[]{
+                "Test",
+                "test1",
+                "test2"
+            });
+            }
+                //Subistituir as linhas anteriores
+    //          for (classe : classeDao.findALL()){
+    //            tabelamento.addRow(new Object[]{
+    //                class.nome,
+    //                class.tipo,
+    //                class.data
+    //            });
+    //
+    //          }
+        jScrollPane1_corridas_participando.setViewportView(tabela_corridas_participando);
+
+        jScrollPane1_corridas_participando.setBounds(400, 150, 350, 200);
+        
 
         }  catch(Exception r){
             System.err.print(r);
         }
-        jScrollPane1_allcorridas = new JScrollPane();
-        
-        jScrollPane1_allcorridas.setViewportView(tabela_allcorridas);
-
-        jScrollPane1_allcorridas.setBounds(20, 200, 200, 200);
        
-        //fazer funcionar essa bagaça ainda
 
-        btnSair.setText("Sair");
+        btnRelatar.setBorderPainted(false);
+        btnRelatar.setFocusPainted(false);
+        btnRelatar.addActionListener(this);
+        btnRelatar.setBounds(620,20, 100,35);
+        btnRelatar.setText("Relatar");
+        
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(this);
-        btnSair.setBounds(20,550, 100,35);
-
+        btnSair.setBounds(600,550, 100,35);
+        btnSair.setText("Sair");
+        
+//        btnSair.setBorderPainted(false);
+//        btnSair.setFocusPainted(false);
+//        btnSair.addActionListener(this);
+//        btnSair.setBounds(600,550, 100,35);
+//        btnSair.setText("Sair");
+//        
+//        btnSair.setBorderPainted(false);
+//        btnSair.setFocusPainted(false);
+//        btnSair.addActionListener(this);
+//        btnSair.setBounds(600,550, 100,35);
      
     }
 

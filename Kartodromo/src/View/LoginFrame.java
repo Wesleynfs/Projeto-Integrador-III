@@ -1,6 +1,7 @@
 package View;
 
 import Bo.PilotoBO;
+import Model.Configuracao;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
@@ -29,6 +30,11 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private JButton btnKartodromo;
     private JMenuItem jmenuitem_Desenvolvedor;
     private JPopupMenu jPopupMenu_Desenvolvedor;
+    private static Configuracao configuracao;
+
+    public static Configuracao getConfiguracao() {
+        return configuracao;
+    }
 
     public LoginFrame() {
 
@@ -57,6 +63,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     }
 
     private void initializate() {
+        configuracao = new Configuracao();
         btnKartodromo = new JButton();
         fundo = new JPanel();
         drawer = new JPanel();
@@ -72,8 +79,6 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnCadastrar = new JButton();
         jmenuitem_Desenvolvedor = new JMenuItem(); 
         jPopupMenu_Desenvolvedor = new JPopupMenu();
-       
-      
     }
 
     private void add() {
@@ -93,7 +98,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     }
 
     private void setTheme() {
-        if (Info.TEMA) {
+        if (configuracao.isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             btnKartodromo.setBackground(Colors.CINZAMEDB);
             btnKartodromo.setForeground(Colors.CINZADARKA);
@@ -263,7 +268,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (Info.TEMA) {
+            if (configuracao.isTema()) {
                 forgotLogin.setForeground(Colors.BRANCO);
             } else {
                 forgotLogin.setForeground(Colors.VERDEDARK);
@@ -274,7 +279,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (Info.TEMA) {
+            if (configuracao.isTema()) {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);
             } else {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);

@@ -1,7 +1,5 @@
 package Utilities;
 
-import Bo.ConfiguracaoBO;
-
 import java.awt.*;
 
 public class Info {
@@ -11,5 +9,4 @@ public class Info {
     public static final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
     public static final Dimension MAXSCREENSIZE = new Dimension(1280,720);
     public static final Dimension MINSCREENSIZE = new Dimension(800,600);
-    public static final boolean TEMA = new ConfiguracaoBO().lerConfiguracao().isTema();
 }

@@ -8,32 +8,37 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class PerfilPiloto extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-    
+
     private JButton btnRelatar;
     private JButton btnSair;
-    private JButton btnParticipar_corrida;
-    private JButton btnCriar_corrida;
-    private JButton btnVerificar_corridas;
-    private JButton btnAvaliar_kartdromo;
-    
-    private JLabel numero_vitoriaLabel;
-    private JLabel nome_piloto;
-    private JLabel numero_strickers;
-    private JLabel corridas_participandoLabel;
-    private JLabel corridas_marcadasLabel;
-   
-    private JScrollPane jScrollPane1_corridas_participando;
-    private JTable tabela_corridas_participando;
-    private JScrollPane jScrollPane1_allcorridas;
-    private JTable tabela_allcorridas;
+    private JButton btnParticiparCorrida;
+    private JButton btnCriarCorrida;
+    private JButton btnVerificarCorridas;
+    private JButton btnAvaliarKartdromo;
+
+    private JLabel numeroVitoriasLabel;
+    private JLabel nomePilotoLabel;
+    private JLabel perfilPilotoLabel;
+    private JLabel numeroStrikesLabel;
+    private JLabel corridasParticipandoLabel;
+    private JLabel corridasMarcadasLabel;
+
+    private JScrollPane jScrollPaneCorridasMarcadas;
+    private JTable tableTodasAsCorridasMarcadas;
+    private JScrollPane jScrollPaneCorridasParticipando;
+    private JTable tableCorridasParticipando;
     private DefaultTableModel tabelamento;
-    
-            
+
+    JTableHeader headerTabelaCorridasParticipando;
+    JTableHeader headerTabelaTodasAsCorridasMarcadas;
+
+
     public PerfilPiloto() {
 
         // Instancia de itens //
@@ -61,246 +66,273 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     private void initializate() {
+
         fundo = new JPanel();
         drawer = new JPanel();
         btnRelatar = new JButton();
         btnSair = new JButton();
-        btnParticipar_corrida = new JButton();
-        btnCriar_corrida = new JButton();
-        btnVerificar_corridas = new JButton();
-        btnAvaliar_kartdromo = new JButton();
-    
-        numero_vitoriaLabel = new JLabel();
-        nome_piloto = new JLabel();
-        numero_strickers = new JLabel();
-        corridas_participandoLabel = new JLabel();
-        corridas_marcadasLabel = new JLabel();
-   
-        jScrollPane1_corridas_participando = new JScrollPane();
-        tabela_corridas_participando = new JTable();
-        jScrollPane1_allcorridas = new JScrollPane();
-        tabela_allcorridas = new JTable();
-        
+        btnParticiparCorrida = new JButton();
+        btnCriarCorrida = new JButton();
+        btnVerificarCorridas = new JButton();
+        btnAvaliarKartdromo = new JButton();
+
+        numeroVitoriasLabel = new JLabel();
+        nomePilotoLabel = new JLabel();
+        numeroStrikesLabel = new JLabel();
+        corridasParticipandoLabel = new JLabel();
+        corridasMarcadasLabel = new JLabel();
+        perfilPilotoLabel = new JLabel();
+
+        jScrollPaneCorridasMarcadas = new JScrollPane();
+        tableTodasAsCorridasMarcadas = new JTable();
+        jScrollPaneCorridasParticipando = new JScrollPane();
+        tableCorridasParticipando = new JTable();
+
+        headerTabelaCorridasParticipando = tableCorridasParticipando.getTableHeader();
+        headerTabelaTodasAsCorridasMarcadas = tableTodasAsCorridasMarcadas.getTableHeader();
+
     }
 
     private void add() {
-
         add(btnRelatar);
         add(btnSair);
-        add(btnParticipar_corrida);
-        add(btnCriar_corrida);
-        add(btnVerificar_corridas);
-        add(btnAvaliar_kartdromo);
-        add(numero_vitoriaLabel);
-        add(nome_piloto);
-        add(numero_strickers);
-        add(corridas_participandoLabel);
-        add(corridas_marcadasLabel);
-        add(jScrollPane1_corridas_participando);
-        add(jScrollPane1_allcorridas);
+        add(btnParticiparCorrida);
+        add(btnCriarCorrida);
+        add(btnVerificarCorridas);
+        add(btnAvaliarKartdromo);
+        add(numeroVitoriasLabel);
+        add(perfilPilotoLabel);
+        add(nomePilotoLabel);
+        add(numeroStrikesLabel);
+        add(corridasParticipandoLabel);
+        add(corridasMarcadasLabel);
+        add(jScrollPaneCorridasMarcadas);
+        add(jScrollPaneCorridasParticipando);
         add(drawer);
         add(fundo);
     }
 
     private void setTheme() {
-        if (Info.TEMA) {
+        if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
-            fundo.setBackground(Colors.BRANCO);
+            fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            numero_vitoriaLabel.setForeground(Colors.CINZALIGHTB);
-            nome_piloto.setForeground(Colors.CINZALIGHTB);
-            numero_strickers.setForeground(Colors.CINZALIGHTB);
-            corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
-            corridas_marcadasLabel.setForeground(Colors.CINZALIGHTB);
-
-            btnRelatar.setForeground(Colors.CINZADARKB);
+            numeroVitoriasLabel.setForeground(Colors.CINZAMEDA);
+            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
+            numeroStrikesLabel.setForeground(Colors.CINZAMEDA);
+            corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
+            corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             btnSair.setForeground(Colors.CINZADARKB);
-            btnParticipar_corrida.setForeground(Colors.CINZADARKB);
-            btnCriar_corrida.setForeground(Colors.CINZADARKB);
-            btnVerificar_corridas.setForeground(Colors.CINZADARKB);
-            btnAvaliar_kartdromo.setForeground(Colors.CINZADARKB);
-            btnRelatar.setBackground(Colors.VERDELIGHT);
+            btnParticiparCorrida.setForeground(Colors.CINZADARKB);
+            btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnVerificarCorridas.setForeground(Colors.CINZADARKB);
+            btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
+            btnRelatar.setForeground(Colors.CINZAMEDA);
+            btnRelatar.setBackground(Colors.CINZAMEDB);
             btnSair.setBackground(Colors.VERDEDARK);
-            btnParticipar_corrida.setBackground(Colors.VERDEDARK);
-            btnCriar_corrida.setBackground(Colors.VERDEDARK);
-            btnVerificar_corridas.setBackground(Colors.VERDEDARK);
-            btnAvaliar_kartdromo.setBackground(Colors.VERDEDARK);
-            
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil Piloto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZALIGHTB)); // NOI18N
-            
+            btnParticiparCorrida.setBackground(Colors.VERDEDARK);
+            btnCriarCorrida.setBackground(Colors.VERDEDARK);
+            btnVerificarCorridas.setBackground(Colors.VERDEDARK);
+            btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
+            headerTabelaCorridasParticipando.setBackground(Colors.CINZAMEDB);
+            headerTabelaCorridasParticipando.setForeground(Colors.CINZAMEDA);
+            headerTabelaTodasAsCorridasMarcadas.setBackground(Colors.CINZAMEDB);
+            headerTabelaTodasAsCorridasMarcadas.setForeground(Colors.CINZAMEDA);
+            nomePilotoLabel.setForeground(Colors.CINZAMEDA);
+
         } else {
+
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-   
-            numero_vitoriaLabel.setForeground(Colors.CINZALIGHTB);
-            nome_piloto.setForeground(Colors.CINZALIGHTB);
-            numero_strickers.setForeground(Colors.CINZALIGHTB);
-            corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
-            corridas_marcadasLabel.setForeground(Colors.CINZALIGHTB);
-            
-            btnRelatar.setBackground(Colors.CINZADARKA);
+            numeroVitoriasLabel.setForeground(Colors.CINZALIGHTB);
+            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
+            numeroStrikesLabel.setForeground(Colors.CINZALIGHTB);
+            corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
+            corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
+            btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
-            btnParticipar_corrida.setBackground(Colors.VERDEDARK);
-            btnCriar_corrida.setBackground(Colors.VERDEDARK);
-            btnVerificar_corridas.setBackground(Colors.VERDEDARK);
-            btnAvaliar_kartdromo.setBackground(Colors.VERDEDARK);
-            btnRelatar.setForeground(Colors.CINZADARKB);
+            btnParticiparCorrida.setBackground(Colors.VERDEDARK);
+            btnCriarCorrida.setBackground(Colors.VERDEDARK);
+            btnVerificarCorridas.setBackground(Colors.VERDEDARK);
+            btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
+            btnRelatar.setForeground(Colors.CINZAMEDB);
             btnSair.setForeground(Colors.CINZADARKB);
-            btnParticipar_corrida.setForeground(Colors.CINZADARKB);
-            btnCriar_corrida.setForeground(Colors.CINZADARKB);
-            btnVerificar_corridas.setForeground(Colors.CINZADARKB);
-            btnAvaliar_kartdromo.setForeground(Colors.CINZADARKB);
-            
-            drawer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil Piloto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), Colors.CINZADARKB)); // NOI18N
-            
+            btnParticiparCorrida.setForeground(Colors.CINZADARKB);
+            btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnVerificarCorridas.setForeground(Colors.CINZADARKB);
+            btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
+            headerTabelaCorridasParticipando.setBackground(Colors.CINZAMEDA);
+            headerTabelaCorridasParticipando.setForeground(Colors.CINZAMEDB);
+            headerTabelaTodasAsCorridasMarcadas.setBackground(Colors.CINZAMEDA);
+            headerTabelaTodasAsCorridasMarcadas.setForeground(Colors.CINZAMEDB);
+            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
         }
     }
 
     private void configs() {
 
-        fundo.setSize(800, 600);
+        fundo.setSize(Info.MINSCREENSIZE);
 
         drawer.setBounds(0, 0, 800, 100);
 
-//        email.setBorder(BorderFactory.createEmptyBorder());
-//        email.setBounds(210, 300, 400, 35);
-//        email.setHorizontalAlignment(JFormattedTextField.CENTER);
-
         try {
-            
-            tabela_allcorridas.setModel(new DefaultTableModel(
-            new Object [][] {
-                
-            },
-            new String [] {
-                "Nome", "Tipo", "Data"
-            }
-            ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
 
-        });
-            
-       tabelamento = (DefaultTableModel) tabela_allcorridas.getModel();
+            tableCorridasParticipando.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "Corridas Participando",
+                    }
+            ) {
+                boolean[] canEdit = new boolean[]{
+                        false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+
+            });
+
+            tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
 
             tabelamento.addRow(new Object[]{
-                "Test",
-                "test1",
-                "test2"
+                    "Test",
+                    "test1",
+                    "test2"
             });
-                //Subistituir as linhas anteriores
-    //          for (classe : classeDao.findALL()){
-    //            tabelamento.addRow(new Object[]{
-    //                class.nome,
-    //                class.tipo,
-    //                class.data
-    //            });
-    //
-    //          }
-        jScrollPane1_allcorridas.setViewportView(tabela_allcorridas);
+            //Subistituir as linhas anteriores
+            //          for (classe : classeDao.findALL()){
+            //            tabelamento.addRow(new Object[]{
+            //                class.nome,
+            //                class.tipo,
+            //                class.data
+            //            });
+            //
+            //          }
+            jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
+            jScrollPaneCorridasParticipando.setBounds(20, 280, 350, 200);
 
-        jScrollPane1_allcorridas.setBounds(20, 200, 350, 200);
-            
-        // config jScrollPane1_corridas_participando
-        
-        tabela_corridas_participando.setModel(new DefaultTableModel(
-            new Object [][] {
-                
-            },
-            new String [] {
-                "Nome", "Tipo", "Data"
-            }
+            // config jScrollPane1_corridas_participando
+
+            tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "Todas as Corridas Marcadas",
+                    }
             ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
+                boolean[] canEdit = new boolean[]{
+                        false, false, false
+                };
 
-        });
-            
-       tabelamento = (DefaultTableModel) tabela_corridas_participando.getModel();
-            for(int x = 0; x<20;x++ ){
-            tabelamento.addRow(new Object[]{
-                "Test",
-                "test1",
-                "test2"
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+
             });
+
+            tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+            for (int x = 0; x < 5; x++) {
+                tabelamento.addRow(new Object[]{
+                        "Test",
+                });
             }
-                //Subistituir as linhas anteriores
-    //          for (classe : classeDao.findALL()){
-    //            tabelamento.addRow(new Object[]{
-    //                class.nome,
-    //                class.tipo,
-    //                class.data
-    //            });
-    //
-    //          }
-        jScrollPane1_corridas_participando.setViewportView(tabela_corridas_participando);
+            //Subistituir as linhas anteriores
+            //          for (classe : classeDao.findALL()){
+            //            tabelamento.addRow(new Object[]{
+            //                class.nome,
+            //                class.tipo,
+            //                class.data
+            //            });
+            //
+            //          }
 
-        jScrollPane1_corridas_participando.setBounds(400, 150, 350, 200);
-        
+            jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
+            jScrollPaneCorridasMarcadas.setBounds(420, 170, 350, 200);
 
-        }  catch(Exception r){
-            System.err.print(r);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-       
 
         btnRelatar.setBorderPainted(false);
         btnRelatar.setFocusPainted(false);
         btnRelatar.addActionListener(this);
-        btnRelatar.setBounds(620,20, 100,35);
-        btnRelatar.setText("Relatar");
-        
+        btnRelatar.setBounds(570, 30, 200, 35);
+        btnRelatar.setText("Relatar aos Desenvolvedores");
+
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(this);
-        btnSair.setBounds(600,550, 100,35);
-        btnSair.setText("Sair");
-        
-//        btnSair.setBorderPainted(false);
-//        btnSair.setFocusPainted(false);
-//        btnSair.addActionListener(this);
-//        btnSair.setBounds(600,550, 100,35);
-//        btnSair.setText("Sair");
-//        
-//        btnSair.setBorderPainted(false);
-//        btnSair.setFocusPainted(false);
-//        btnSair.addActionListener(this);
-//        btnSair.setBounds(600,550, 100,35);
-     
-    }
+        btnSair.setBounds(670, 550, 100, 35);
+        btnSair.setText("Voltar");
 
-        
-       
+        btnVerificarCorridas.setBorderPainted(false);
+        btnVerificarCorridas.setFocusPainted(false);
+        btnVerificarCorridas.addActionListener(this);
+        btnVerificarCorridas.setBounds(20 , 505,200,35);
+        btnVerificarCorridas.setText("Verificar Novas Corridas");
+
+        btnAvaliarKartdromo.setBorderPainted(false);
+        btnAvaliarKartdromo.setFocusPainted(false);
+        btnAvaliarKartdromo.addActionListener(this);
+        btnAvaliarKartdromo.setBounds(20 , 550,200,35);
+        btnAvaliarKartdromo.setText("Avaliar Kartodromo");
+
+        btnParticiparCorrida.setBorderPainted(false);
+        btnParticiparCorrida.setFocusPainted(false);
+        btnParticiparCorrida.addActionListener(this);
+        btnParticiparCorrida.setBounds(420 , 395,200,35);
+        btnParticiparCorrida.setText("Participar de uma Corrida");
+
+        btnCriarCorrida.setBorderPainted(false);
+        btnCriarCorrida.setFocusPainted(false);
+        btnCriarCorrida.addActionListener(this);
+        btnCriarCorrida.setBounds(420 , 445,200,35);
+        btnCriarCorrida.setText("Criar nova uma Corrida");
+
+        perfilPilotoLabel.setBounds(20 , 30,500,35);
+        perfilPilotoLabel.setText("PERFIL DO PILOTO");
+        perfilPilotoLabel.setFont(Fonts.SANSSERIFMIN);
+
+        // Mudar para valores reais aqui //
+
+        nomePilotoLabel.setBounds(20 , 110,500,35);
+        nomePilotoLabel.setText("BEM VINDO: " + "FELIPE");
+
+        numeroVitoriasLabel.setBounds(20 , 145,500,35);
+        numeroVitoriasLabel.setText("VITÓRIAS: " + "9999 (GOD MODE ENABLED)");
+
+        numeroStrikesLabel.setBounds(20 , 180,500,35);
+        numeroStrikesLabel.setText("STRIKES: " + "0");
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSair) {
-            System.exit(0);
+            dispose();
+            new MenuPrincipal();
         }
         if (e.getSource() == btnRelatar) {
-           
+
         }
-        if (e.getSource() == btnParticipar_corrida) {
-           
+        if (e.getSource() == btnParticiparCorrida) {
+
         }
-        if (e.getSource() == btnCriar_corrida) {
-           
+        if (e.getSource() == btnCriarCorrida) {
+
         }
-        if (e.getSource() == btnVerificar_corridas) {
-           
+        if (e.getSource() == btnVerificarCorridas) {
+
         }
-        if (e.getSource() == btnAvaliar_kartdromo) {
-           
+        if (e.getSource() == btnAvaliarKartdromo) {
+
         }
-        
+
     }
 
-    
+
 } 

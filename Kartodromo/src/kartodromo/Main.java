@@ -77,9 +77,10 @@ public class Main {
         }
 */
 
-        //new LoginFrame();
-        //new CadastrarUsuario();
-        new PerfilPiloto();
+        // Executar sempre por essa tela e inserir as outras telas no programa //
+
+        new LoginFrame();
+
     }
 
 }

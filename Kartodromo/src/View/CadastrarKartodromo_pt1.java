@@ -1,27 +1,22 @@
 package View;
 
+import Email.EmailJava;
 import Utilities.Colors;
 
 import Utilities.Fonts;
 import Utilities.Info;
-import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.*;
 
 public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private JFormattedTextField nome_kartodromo;
-    private JFormattedTextField email_kartodromo;
-    private JFormattedTextField email_confirmacao_kartodromo;
+    private JFormattedTextField nomeKartodromo;
+    private JFormattedTextField emailKartodromo;
+    private JFormattedTextField emailConfirmacaoKartodromo;
     private JFormattedTextField codigo;
     private JFormattedTextField senha;
     
@@ -35,8 +30,8 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
     private JLabel senhaLabel;
     
     
-    private JButton btn_Voltar;
-    private JButton btn_enviar_codigo;
+    private JButton btnVoltar;
+    private JButton btnEnviarCodigo;
     private JButton btnContinuar;
     
     public CadastrarKartodromo_pt1() {
@@ -68,9 +63,9 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         
         fundo = new JPanel();
         drawer = new JPanel();
-        nome_kartodromo = new JFormattedTextField();
-        email_kartodromo = new JFormattedTextField();
-        email_confirmacao_kartodromo = new JFormattedTextField(); 
+        nomeKartodromo = new JFormattedTextField();
+        emailKartodromo = new JFormattedTextField();
+        emailConfirmacaoKartodromo = new JFormattedTextField();
         codigo = new JFormattedTextField();
         senha = new JFormattedTextField();
         version = new JLabel();
@@ -80,16 +75,16 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         nomeLabel = new JLabel();
         emailLabel = new JLabel();     
         senhaLabel = new JLabel();
-        btn_Voltar = new JButton();
-        btn_enviar_codigo = new JButton();
+        btnVoltar = new JButton();
+        btnEnviarCodigo = new JButton();
         btnContinuar = new JButton();
     }
     
     private void add() {
         
-        add(nome_kartodromo);
-        add(email_kartodromo);
-        add(email_confirmacao_kartodromo);
+        add(nomeKartodromo);
+        add(emailKartodromo);
+        add(emailConfirmacaoKartodromo);
         add(codigo);
         add(senha);
         add(version);
@@ -99,24 +94,24 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         add(nomeLabel);
         add(emailLabel);
         add(senhaLabel);
-        add(btn_Voltar);
-        add(btn_enviar_codigo);
+        add(btnVoltar);
+        add(btnEnviarCodigo);
         add(btnContinuar);
         add(drawer);
         add(fundo);
         
     }
     private void setTheme() {
-        if (Info.TEMA) {
+        if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            nome_kartodromo.setBackground(Colors.CINZALIGHTB);
-            nome_kartodromo.setForeground(Colors.BRANCO);            
-            email_kartodromo.setBackground(Colors.CINZALIGHTB);
-            email_kartodromo.setForeground(Colors.BRANCO);                 
-            email_confirmacao_kartodromo.setBackground(Colors.CINZALIGHTB);
-            email_confirmacao_kartodromo.setForeground(Colors.BRANCO);            
+            nomeKartodromo.setBackground(Colors.CINZALIGHTB);
+            nomeKartodromo.setForeground(Colors.BRANCO);
+            emailKartodromo.setBackground(Colors.CINZALIGHTB);
+            emailKartodromo.setForeground(Colors.BRANCO);
+            emailConfirmacaoKartodromo.setBackground(Colors.CINZALIGHTB);
+            emailConfirmacaoKartodromo.setForeground(Colors.BRANCO);
             codigo.setBackground(Colors.CINZALIGHTB);       
             codigo.setForeground(Colors.BRANCO);            
             senha.setBackground(Colors.CINZALIGHTB);         
@@ -128,21 +123,21 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
             nomeLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            btn_Voltar.setBackground(Colors.VERDEDARK);
-            btn_Voltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnContinuar.setBackground(Colors.VERDEDARK);
             btnContinuar.setForeground(Colors.CINZADARKB);
-            btn_enviar_codigo.setBackground(Colors.VERDEDARK);
-            btn_enviar_codigo.setForeground(Colors.CINZADARKB);
+            btnEnviarCodigo.setBackground(Colors.VERDEDARK);
+            btnEnviarCodigo.setForeground(Colors.CINZADARKB);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            nome_kartodromo.setBackground(Colors.CINZALIGHTB);
-            nome_kartodromo.setForeground(Colors.CINZADARKA);            
-            email_kartodromo.setBackground(Colors.CINZALIGHTB);
-            email_kartodromo.setForeground(Colors.CINZADARKA);                 
-            email_confirmacao_kartodromo.setBackground(Colors.CINZALIGHTB);
-            email_confirmacao_kartodromo.setForeground(Colors.CINZADARKA);            
+            nomeKartodromo.setBackground(Colors.CINZALIGHTB);
+            nomeKartodromo.setForeground(Colors.CINZADARKA);
+            emailKartodromo.setBackground(Colors.CINZALIGHTB);
+            emailKartodromo.setForeground(Colors.CINZADARKA);
+            emailConfirmacaoKartodromo.setBackground(Colors.CINZALIGHTB);
+            emailConfirmacaoKartodromo.setForeground(Colors.CINZADARKA);
             codigo.setBackground(Colors.CINZALIGHTB);       
             codigo.setForeground(Colors.CINZADARKA);            
             senha.setBackground(Colors.CINZALIGHTB);         
@@ -154,12 +149,12 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
             nomeLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            btn_Voltar.setBackground(Colors.VERDEDARK);
-            btn_Voltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnContinuar.setBackground(Colors.VERDEDARK);
             btnContinuar.setForeground(Colors.CINZADARKB);
-            btn_enviar_codigo.setBackground(Colors.VERDEDARK);
-            btn_enviar_codigo.setForeground(Colors.CINZADARKB);
+            btnEnviarCodigo.setBackground(Colors.VERDEDARK);
+            btnEnviarCodigo.setForeground(Colors.CINZADARKB);
         }
     }
 
@@ -167,23 +162,23 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         fundo.setSize(800,600);
         drawer.setBounds(0,0,800,200);
 
-        nome_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        nome_kartodromo.setBounds(60,280,300,35);
-        nome_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
+        nomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
+        nomeKartodromo.setBounds(60,280,300,35);
+        nomeKartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         nomeLabel.setText("NOME:");
         nomeLabel.setBounds(60,250,200,35);
   
-        email_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        email_kartodromo.setBounds(60,340,300,35);
-        email_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailKartodromo.setBorder(BorderFactory.createEmptyBorder());
+        emailKartodromo.setBounds(60,340,300,35);
+        emailKartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         emailLabel.setText("EMAIL:");
         emailLabel.setBounds(60,310,200,35);
                 
-        email_confirmacao_kartodromo.setBorder(BorderFactory.createEmptyBorder());
-        email_confirmacao_kartodromo.setBounds(60,400,300,35);
-        email_confirmacao_kartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailConfirmacaoKartodromo.setBorder(BorderFactory.createEmptyBorder());
+        emailConfirmacaoKartodromo.setBounds(60,400,300,35);
+        emailConfirmacaoKartodromo.setHorizontalAlignment(JFormattedTextField.CENTER);
                 
         emailconfimacaoLabel.setText("CONFIRMAR EMAIL:");
         emailconfimacaoLabel.setBounds(60,370,200,35);
@@ -209,11 +204,11 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         senhaLabel.setText("NOVA SENHA:");
         senhaLabel.setBounds(440,310,300,35);
 
-        btn_Voltar.setText("VOLTAR");
-        btn_Voltar.setBorderPainted(false);
-        btn_Voltar.setFocusPainted(false);
-        btn_Voltar.addActionListener(this);
-        btn_Voltar.setBounds(20,550, 100,35);
+        btnVoltar.setText("VOLTAR");
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.addActionListener(this);
+        btnVoltar.setBounds(20,550, 100,35);
 
         btnContinuar.setFocusPainted(false);
         btnContinuar.setBorderPainted(false);
@@ -221,17 +216,17 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         btnContinuar.setText("CONTINUAR CADASTRO");
         btnContinuar.setBounds(420,550,180,35);
         
-        btn_enviar_codigo.setFocusPainted(false);
-        btn_enviar_codigo.setBorderPainted(false);
-        btn_enviar_codigo.addActionListener(this);
-        btn_enviar_codigo.setText("ENVIAR CÓDIGO");
-        btn_enviar_codigo.setBounds(620,550,160,35);
+        btnEnviarCodigo.setFocusPainted(false);
+        btnEnviarCodigo.setBorderPainted(false);
+        btnEnviarCodigo.addActionListener(this);
+        btnEnviarCodigo.setText("ENVIAR CÓDIGO");
+        btnEnviarCodigo.setBounds(620,550,160,35);
     
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn_Voltar) {
+        if (e.getSource() == btnVoltar) {
             dispose();
             new LoginFrame();
         }
@@ -239,8 +234,12 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
             dispose();
             new CadastrarKartodromo_pt2();
         }
-        if(e.getSource() == btn_enviar_codigo) {
-            //enviar codigo no email
+        if(e.getSource() == btnEnviarCodigo) {
+            try {
+                new EmailJava().EnviarEmailGmail(new StringBuilder(emailKartodromo.getText()),"Código de Envio 'KART ON ROAD'","");
+            } catch (Exception err) {
+                JOptionPane.showConfirmDialog(null,"Erro ao enviar email" + err.getMessage(),"Erro",JOptionPane.OK_OPTION);
+            }
         }
     }
     

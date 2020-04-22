@@ -213,20 +213,23 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             System.exit(0);
         }
         if (e.getSource() == btnLogar) {
-            Piloto piloto = new Piloto();
-            piloto.setEmail(email.getText().toLowerCase());
-            piloto.setSenha(new String(senha.getPassword()));
-            PilotoBO pilotoBO = new PilotoBO();
-            try {
-                if (pilotoBO.logarPiloto(piloto)) {
-                    JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
-                    new MenuPrincipal(piloto);
-                } else {
-                    throw new Exception("Erro ao localizar usuário no banco!");
-                }
-            } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+//            Piloto piloto = new Piloto();
+//            piloto.setEmail(email.getText().toLowerCase());
+//            piloto.setSenha(new String(senha.getPassword()));
+//            PilotoBO pilotoBO = new PilotoBO();
+//            try {
+//                if (pilotoBO.logarPiloto(piloto)) {
+//                    JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
+//                    new MenuPrincipal(piloto);
+//                } else {
+//                    throw new Exception("Erro ao localizar usuário no banco!");
+//                }
+//            } catch (Exception error) {
+//                JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//  deixei comentado apenas para acessar a tela mais rapidamente
+            dispose();
+            new PerfilPiloto();
         }
 
         if (e.getSource() == btnKartodromo) {

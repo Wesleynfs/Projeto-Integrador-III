@@ -260,7 +260,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnRelatar.setBorderPainted(false);
         btnRelatar.setFocusPainted(false);
         btnRelatar.addActionListener(this);
-        btnRelatar.setBounds(570, 30, 200, 35);
+        btnRelatar.setBounds(570, 30, 220, 35);
         btnRelatar.setText("Relatar aos Desenvolvedores");
 
         btnSair.setBorderPainted(false);
@@ -317,13 +317,15 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             new MenuPrincipal();
         }
         if (e.getSource() == btnRelatar) {
-
+            dispose();
+            new Relatar_Por_Email();
         }
         if (e.getSource() == btnParticiparCorrida) {
 
         }
         if (e.getSource() == btnCriarCorrida) {
-
+            dispose();
+            new CriarCorrida();
         }
         if (e.getSource() == btnVerificarCorridas) {
 

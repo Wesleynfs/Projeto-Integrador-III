@@ -80,7 +80,7 @@ public class Main {
         // Executar sempre por essa tela e inserir as outras telas no programa //
 
         new LoginFrame();
-
+        //new PerfilPiloto();
     }
 
 }

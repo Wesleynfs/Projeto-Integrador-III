@@ -19,9 +19,9 @@ public class CriarCorrida extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private javax.swing.JComboBox<Object> NomeKartodromojComboBox;
-    private javax.swing.JComboBox<String> TipoKartjComboBox;
-    private javax.swing.JComboBox<String> TipoCorridajComboBox;
+    private JComboBox<Object> NomeKartodromojComboBox;
+    private JComboBox<String> TipoKartjComboBox;
+    private JComboBox<String> TipoCorridajComboBox;
     
     private JFormattedTextField nomeCorrida;
     private JFormattedTextField dataCorrida;

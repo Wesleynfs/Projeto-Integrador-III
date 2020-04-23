@@ -273,7 +273,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnVerificarCorridas.setFocusPainted(false);
         btnVerificarCorridas.addActionListener(this);
         btnVerificarCorridas.setBounds(20 , 505,200,35);
-        btnVerificarCorridas.setText("Verificar Novas Corridas");
+        btnVerificarCorridas.setText("Verificar Suas Corridas");
 
         btnAvaliarKartdromo.setBorderPainted(false);
         btnAvaliarKartdromo.setFocusPainted(false);
@@ -321,7 +321,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             new Relatar_Por_Email();
         }
         if (e.getSource() == btnParticiparCorrida) {
-
+            dispose();
+            new Participar_Corrida();
         }
         if (e.getSource() == btnCriarCorrida) {
             dispose();

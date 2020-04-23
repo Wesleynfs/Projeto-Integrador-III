@@ -260,8 +260,16 @@ public class CriarCorrida extends JFrame implements ActionListener{
             new PerfilPiloto();
         }
         if (e.getSource() == btnCriarCorrida) {
-
+                int resposta = JOptionPane.showConfirmDialog(null,
+                "<html>Criar uma Corrida lhe torna automaticamente um ADM desta corrida,<br />"
+                        + " você tem certeza que deseja assumir essa responsabilidade?</html>",//contexto
+                        "Termo de responsabilidade",//nome
+                JOptionPane.OK_CANCEL_OPTION);
+        // resposta recebe:
+        // 0=ok, 2=cancel, -1 sair
+       
         }
+        
 
     }
     

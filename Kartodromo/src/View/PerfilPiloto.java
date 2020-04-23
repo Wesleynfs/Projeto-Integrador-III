@@ -332,7 +332,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == btnAvaliarKartdromo) {
-
+            dispose();
+            new Avaliar_kartodromo();
         }
 
     }

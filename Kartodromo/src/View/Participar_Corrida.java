@@ -27,7 +27,7 @@ public class Participar_Corrida extends JFrame implements ActionListener {
     private JLabel ordenarporLabel;
     private JLabel corridaLabel;
     
-    private javax.swing.JComboBox<String> CorridasjComboBox;
+    private JComboBox<String> CorridasjComboBox;
     
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;

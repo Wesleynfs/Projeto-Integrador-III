@@ -238,7 +238,12 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         
         }
         if(e.getSource() == btnVerPerfil) {
-        
+            try{
+            
+                
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");
+            }
         }
         
     }

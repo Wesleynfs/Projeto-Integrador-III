@@ -5,7 +5,8 @@
 1- Clona esse Repositório na sua maquina 
 2- Netbeans >> Team >> Git >> Clone {Cola o link do repositório na caixa de URL}
 
-/* Falta fazer na documentação */
+Opa coloquei uma pasta com as imagens das telas que ainda devem ser feitas, coloquei ela para vc não ficar perdido nas telas
+ /* Falta fazer na documentação */
 
 * [ ] SEM FAZER
 * [X] FEITO

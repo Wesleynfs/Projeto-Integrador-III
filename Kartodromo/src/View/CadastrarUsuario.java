@@ -3,7 +3,6 @@ package View;
 import Bo.PilotoBO;
 import Model.Piloto;
 import Utilities.Colors;
-import Utilities.Fonts;
 import Utilities.Info;
 
 import java.awt.Font;

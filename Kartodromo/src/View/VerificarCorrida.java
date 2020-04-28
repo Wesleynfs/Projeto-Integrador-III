@@ -330,7 +330,10 @@ public class VerificarCorrida extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnIniciarCorrida) {
             try{
-            
+                
+                
+                dispose();
+                new Iniciar_Corrida_pt1();
                 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");

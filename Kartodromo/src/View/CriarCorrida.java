@@ -1,7 +1,6 @@
 package View;
 
-import Email.EmailJava;
-import Model.Kartodromo;
+
 import Utilities.Colors;
 
 import Utilities.Fonts;

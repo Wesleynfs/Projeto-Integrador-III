@@ -1,5 +1,6 @@
 package View;
 
+import Email.EmailJava;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -9,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Enviar_Aviso extends JFrame implements ActionListener{
+public class RelatarPorEmail extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
@@ -28,7 +29,7 @@ public class Enviar_Aviso extends JFrame implements ActionListener{
     private JButton btnVoltar;
     private JButton btnEnviar;
 
-    public Enviar_Aviso() {
+    public RelatarPorEmail() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -57,19 +58,13 @@ public class Enviar_Aviso extends JFrame implements ActionListener{
         
         fundo = new JPanel();
         drawer = new JPanel();
-
         logo = new JLabel();
-        
         assunto = new JFormattedTextField();
-        
         contextojTextPane1 = new JTextPane();
-                
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
         contextoLabel = new JLabel();
-        
         contextojScrollPane = new JScrollPane();
-        
         btnVoltar = new JButton();
         btnEnviar = new JButton();
         
@@ -124,24 +119,35 @@ public class Enviar_Aviso extends JFrame implements ActionListener{
     }
 
     private void configs() {
-        fundo.setSize(800,600);
+        fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
-        relatoLabel.setText("AVISO DO PILOTO ADM: NOME DO PILOTO");
-        relatoLabel.setBounds(280,150, 300,35);
+        assunto.setBorder(BorderFactory.createEmptyBorder());
+        assunto.setBounds(200,250,400,35);
+        assunto.setHorizontalAlignment(JFormattedTextField.CENTER);
+        
+        //Aqui vai o nome do piloto
+        
+        //
+
+        relatoLabel.setText("Nome do Piloto");
+        relatoLabel.setBounds(60,210,200,35);
   
+        contextojTextPane1.setBorder(BorderFactory.createEmptyBorder());
+        contextojTextPane1.setSize(400,200);
+        
         contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        contextojScrollPane.setBounds(200,280,400,240);
+        contextojScrollPane.setBounds(200,310,400,200);
         contextojScrollPane.setViewportView(contextojTextPane1);
                 
-        assuntoLabel.setText("AVISO DA CORRIDA: NOME DA CORRIDA");
-        assuntoLabel.setBounds(280,200,300,35);
+        assuntoLabel.setText("ASSUNTO DO EMAIL:");
+        assuntoLabel.setBounds(60,260,200,35);
        
-        contextoLabel.setText("CONTEXTO DO AVISO:");
-        contextoLabel.setBounds(200,250,300,35);
+        contextoLabel.setText("CONTEXTO DO EMAIL:");
+        contextoLabel.setBounds(60,310,200,35);
 
         logo.setBounds(20 , 30,600,35);
-        logo.setText("ENVIAR AVISO AOS PILOTOS");
+        logo.setText("RELATAR AOS DESENVOLVEDORES");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         btnVoltar.setText("VOLTAR");
@@ -153,7 +159,7 @@ public class Enviar_Aviso extends JFrame implements ActionListener{
         btnEnviar.setFocusPainted(false);
         btnEnviar.setBorderPainted(false);
         btnEnviar.addActionListener(this);
-        btnEnviar.setText("ENVIAR AVISO");
+        btnEnviar.setText("ENVIAR EMAIL");
         btnEnviar.setBounds(620,550,160,35);
     
     }
@@ -167,14 +173,12 @@ public class Enviar_Aviso extends JFrame implements ActionListener{
 
         if(e.getSource() == btnEnviar) {
             try {
-                //enviar aviso
-                
-
+                //enviar
 
                 //
-                JOptionPane.showMessageDialog(null, "Aviso enviado aos outros piltos!");
+                JOptionPane.showMessageDialog(null, "Enviado! Agradeçemos o feedback");
             } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, "Não foi possível enviar o aviso");
+                JOptionPane.showMessageDialog(null, "Não foi possível enviar o Email");
             }
         }
     }

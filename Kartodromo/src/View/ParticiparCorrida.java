@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class Participar_Corrida extends JFrame implements ActionListener {
+public class ParticiparCorrida extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -36,7 +36,7 @@ public class Participar_Corrida extends JFrame implements ActionListener {
     
     private JPanel painel_Ordenar;
     
-    public Participar_Corrida() {
+    public ParticiparCorrida() {
 
         // Instancia de itens //
         initializate();
@@ -101,7 +101,7 @@ public class Participar_Corrida extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            logo.setForeground(Colors.CINZAMEDA);
+            logo.setForeground(Colors.CINZAMEDB);
             ordenarporLabel.setForeground(Colors.CINZAMEDA);
             corridaLabel.setForeground(Colors.CINZAMEDA);
             btnParticiparCorrida.setForeground(Colors.CINZADARKB);
@@ -121,10 +121,9 @@ public class Participar_Corrida extends JFrame implements ActionListener {
             tableTodasAsCorridasMarcadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasMarcadas.setForeground(Colors.CINZADARKB);
         } else {
-
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            logo.setForeground(Colors.CINZALIGHTB);
+            logo.setForeground(Colors.CINZAMEDB);
             ordenarporLabel.setForeground(Colors.CINZALIGHTB);
             corridaLabel.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -149,7 +148,6 @@ public class Participar_Corrida extends JFrame implements ActionListener {
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-
         drawer.setBounds(0, 0, 800, 100);
 
         try {

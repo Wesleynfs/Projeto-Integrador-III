@@ -1,6 +1,5 @@
 package View;
 
-import Email.EmailJava;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -10,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Relatar_Por_Email extends JFrame implements ActionListener{
+public class EnviarAviso extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
@@ -29,7 +28,7 @@ public class Relatar_Por_Email extends JFrame implements ActionListener{
     private JButton btnVoltar;
     private JButton btnEnviar;
 
-    public Relatar_Por_Email() {
+    public EnviarAviso() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -128,33 +127,21 @@ public class Relatar_Por_Email extends JFrame implements ActionListener{
         fundo.setSize(800,600);
         drawer.setBounds(0,0,800,100);
 
-        assunto.setBorder(BorderFactory.createEmptyBorder());
-        assunto.setBounds(200,250,400,35);
-        assunto.setHorizontalAlignment(JFormattedTextField.CENTER);
-        
-        //Aqui vai o nome do piloto
-        
-        
-        
-        //
-        relatoLabel.setText("Relato do NomePiloto");
-        relatoLabel.setBounds(20,210,200,35);
+        relatoLabel.setText("AVISO DO PILOTO ADM: NOME DO PILOTO");
+        relatoLabel.setBounds(280,150, 300,35);
   
-        contextojTextPane1.setBorder(BorderFactory.createEmptyBorder());
-        contextojTextPane1.setSize(400,200);
-        
         contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        contextojScrollPane.setBounds(200,310,400,200);
+        contextojScrollPane.setBounds(200,280,400,240);
         contextojScrollPane.setViewportView(contextojTextPane1);
                 
-        assuntoLabel.setText("ASSUNTO DO EMAIL:");
-        assuntoLabel.setBounds(60,260,200,35);
+        assuntoLabel.setText("AVISO DA CORRIDA: NOME DA CORRIDA");
+        assuntoLabel.setBounds(280,200,300,35);
        
-        contextoLabel.setText("CONTEXTO DO EMAIL:");
-        contextoLabel.setBounds(60,310,200,35);
+        contextoLabel.setText("CONTEXTO DO AVISO:");
+        contextoLabel.setBounds(200,250,300,35);
 
         logo.setBounds(20 , 30,600,35);
-        logo.setText("RELATAR AOS DESENVOLVEDORES");
+        logo.setText("ENVIAR AVISO AOS PILOTOS");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         btnVoltar.setText("VOLTAR");
@@ -166,7 +153,7 @@ public class Relatar_Por_Email extends JFrame implements ActionListener{
         btnEnviar.setFocusPainted(false);
         btnEnviar.setBorderPainted(false);
         btnEnviar.addActionListener(this);
-        btnEnviar.setText("ENVIAR EMAIL");
+        btnEnviar.setText("ENVIAR AVISO");
         btnEnviar.setBounds(620,550,160,35);
     
     }
@@ -180,14 +167,14 @@ public class Relatar_Por_Email extends JFrame implements ActionListener{
 
         if(e.getSource() == btnEnviar) {
             try {
-                //enviar
+                //enviar aviso
                 
 
 
                 //
-                JOptionPane.showMessageDialog(null, "Enviado! Agradeçemos o feedback");
+                JOptionPane.showMessageDialog(null, "Aviso enviado aos outros piltos!");
             } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, "Não foi possível enviar o Email");
+                JOptionPane.showMessageDialog(null, "Não foi possível enviar o aviso");
             }
         }
     }

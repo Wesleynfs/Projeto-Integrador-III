@@ -154,17 +154,16 @@ public class CriarCorrida extends JFrame implements ActionListener{
     }
 
     private void configs() {
-        try {
-        fundo.setSize(800,600);
+
+        fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
         nomeCorrida.setBorder(BorderFactory.createEmptyBorder());
         nomeCorrida.setBounds(60,280,300,35);
         nomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+
         //aqui vai o nome do piloto
-        
-        nomeCorrida.setText("Corrdida do(a) NOMEPILOTO");
-        
+        nomeCorrida.setText("Corrida do(a) NOMEPILOTO");
         //
         
         nomecorridaLabel.setText("NOME DA CORRIDA:");
@@ -173,9 +172,12 @@ public class CriarCorrida extends JFrame implements ActionListener{
         dataCorrida.setBorder(BorderFactory.createEmptyBorder());
         dataCorrida.setBounds(60,340,300,35);
         dataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
-        
-        dataCorrida.setFormatterFactory(new DefaultFormatterFactory(
-                    new MaskFormatter("##/##/####")));
+
+        try {
+            dataCorrida.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Não carregar a tela criar corrida");
+        }
 
         dataLabel.setText("DATA DA CORRIDA:");
         dataLabel.setBounds(60,310,200,35);
@@ -207,7 +209,7 @@ public class CriarCorrida extends JFrame implements ActionListener{
         NomeKartodromojComboBox.addItemListener(new ItemListener(){
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // 
+
                 if (e.getStateChange() == ItemEvent.SELECTED) {
 //                    Kartodromo kartodromo = new Kartodromo();
 //                    kartodromo = (Kartodromo) e.getItem();
@@ -226,15 +228,9 @@ public class CriarCorrida extends JFrame implements ActionListener{
                 }
             }
        });
-        
-        
-        
-        
-
 
         tipokartLabel.setText("TIPO DE KART:");
         tipokartLabel.setBounds(440,310,300,35);
-
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
@@ -247,9 +243,6 @@ public class CriarCorrida extends JFrame implements ActionListener{
         btnCriarCorrida.addActionListener(this);
         btnCriarCorrida.setText("CRIAR CORRIDA");
         btnCriarCorrida.setBounds(620,550,160,35);
-        } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, "Não carregar a tela criar corrida");
-        }
     
     }
     
@@ -260,17 +253,21 @@ public class CriarCorrida extends JFrame implements ActionListener{
             new PerfilPiloto();
         }
         if (e.getSource() == btnCriarCorrida) {
-                int resposta = JOptionPane.showConfirmDialog(null,
-                "<html>Criar uma Corrida lhe torna automaticamente um ADM desta corrida,<br />"
-                        + " você tem certeza que deseja assumir essa responsabilidade?</html>",//contexto
+            switch (JOptionPane.showConfirmDialog(null,
+                "Criar uma Corrida lhe torna automaticamente um ADM desta corrida,"
+                        + " você tem certeza que deseja assumir essa responsabilidade?",//contexto
                         "Termo de responsabilidade",//nome
-                JOptionPane.OK_CANCEL_OPTION);
-        // resposta recebe:
-        // 0=ok, 2=cancel, -1 sair
-       
+                JOptionPane.YES_NO_OPTION)) {
+                case 0 :
+                    System.out.println("SIM");
+                    break;
+                case 1:
+                    System.out.println("NÃO");
+                    break;
+                default:
+                    System.out.println("APERTAR NO X");
+            }
         }
-        
-
     }
     
 }

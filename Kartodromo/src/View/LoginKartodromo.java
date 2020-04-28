@@ -41,7 +41,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(800, 600);
+        setSize(Info.MINSCREENSIZE);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +77,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
         add(senha);
         add(drawer);
         add(fundo);
+
     }
 
     private void setTheme() {

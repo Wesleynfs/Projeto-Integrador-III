@@ -1,4 +1,3 @@
-
 package View;
 
 import Utilities.Colors;
@@ -10,8 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Verificar_corrida extends JFrame implements ActionListener {
-
+public class VerificarCorrida extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -37,7 +35,7 @@ public class Verificar_corrida extends JFrame implements ActionListener {
     
     private DefaultTableModel tabelamento;
 
-    public Verificar_corrida() {
+    public VerificarCorrida() {
 
         // Instancia de itens //
         initializate();
@@ -113,20 +111,19 @@ public class Verificar_corrida extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            btnDesinscrever.setForeground(Colors.CINZAMEDA);
+            btnDesinscrever.setForeground(Colors.CINZADARKB);
             btnDesinscrever.setBackground(Colors.VERDEDARK);
-            btnVoltar.setForeground(Colors.CINZAMEDA);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-            btnConvidarPiloto.setForeground(Colors.CINZAMEDA);
+            btnConvidarPiloto.setForeground(Colors.CINZADARKB);
             btnConvidarPiloto.setBackground(Colors.VERDEDARK);
-            btnEnviarAviso.setForeground(Colors.CINZAMEDA);
+            btnEnviarAviso.setForeground(Colors.CINZADARKB);
             btnEnviarAviso.setBackground(Colors.VERDEDARK);
-            btnVerHistorico.setForeground(Colors.CINZAMEDA);
+            btnVerHistorico.setForeground(Colors.CINZADARKB);
             btnVerHistorico.setBackground(Colors.VERDEDARK);
-            btnIniciarCorrida.setForeground(Colors.CINZAMEDA);
+            btnIniciarCorrida.setForeground(Colors.CINZADARKB);
             btnIniciarCorrida.setBackground(Colors.VERDEDARK);
-
-            logo.setForeground(Colors.CINZAMEDA);
+            logo.setForeground(Colors.CINZAMEDB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
             corridas_participandoLabel.setForeground(Colors.CINZAMEDA);
             se_e_piloto_admLabel.setForeground(Colors.CINZAMEDA);
@@ -156,13 +153,11 @@ public class Verificar_corrida extends JFrame implements ActionListener {
             btnVerHistorico.setBackground(Colors.VERDEDARK);
             btnIniciarCorrida.setForeground(Colors.CINZADARKB);
             btnIniciarCorrida.setBackground(Colors.VERDEDARK);
-
-            logo.setForeground(Colors.CINZALIGHTB);
+            logo.setForeground(Colors.CINZAMEDB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
             corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
             se_e_piloto_admLabel.setForeground(Colors.CINZALIGHTB);
             convidar_pilotoLabel.setForeground(Colors.CINZALIGHTB);
-
             corridas_participandojComboBox.setForeground(Colors.CINZADARKA);
             corridas_participandojComboBox.setBackground(Colors.CINZALIGHTB);
             piloto_convidarjComboBox.setForeground(Colors.CINZADARKA);
@@ -327,7 +322,7 @@ public class Verificar_corrida extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnEnviarAviso) {
             dispose();
-            new Enviar_Aviso();
+            new EnviarAviso();
         }
         if (e.getSource() == btnVerHistorico) {
             dispose();

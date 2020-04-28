@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
+public class CadastrarKartodromoPt1 extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
@@ -34,7 +34,7 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
     private JButton btnEnviarCodigo;
     private JButton btnContinuar;
     
-    public CadastrarKartodromo_pt1() {
+    public CadastrarKartodromoPt1() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -232,7 +232,7 @@ public class CadastrarKartodromo_pt1 extends JFrame implements ActionListener{
         }
         if (e.getSource() == btnContinuar) {
             dispose();
-            new CadastrarKartodromo_pt2();
+            new CadastrarKartodromoPt2();
         }
         if(e.getSource() == btnEnviarCodigo) {
             try {

@@ -4,12 +4,12 @@ import Utilities.Colors;
 
 import Utilities.Fonts;
 import Utilities.Info;
-import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
+public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
@@ -49,7 +49,7 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
    
     private JButton btnCadastrar;
     
-    public CadastrarKartodromo_pt2() {
+    public CadastrarKartodromoPt2() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -377,7 +377,7 @@ public class CadastrarKartodromo_pt2 extends JFrame implements ActionListener{
         if (e.getSource() == btn_Voltar) {
             if (JOptionPane.showConfirmDialog(null,"Tem certeza?" , "Confirmação",JOptionPane.YES_NO_OPTION) == 0) {
                 dispose();
-                new CadastrarKartodromo_pt1();
+                new CadastrarKartodromoPt1();
             }
         }
 

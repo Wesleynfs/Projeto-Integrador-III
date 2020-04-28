@@ -55,6 +55,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     private void configurateThis() {
+
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
         setLayout(null);
@@ -63,6 +64,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setTitle(Info.APP_NAME);
         setResizable(false);
+
     }
 
     private void initializate() {
@@ -75,25 +77,23 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnCriarCorrida = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
-
         numeroVitoriasLabel = new JLabel();
         nomePilotoLabel = new JLabel();
         numeroStrikesLabel = new JLabel();
         corridasParticipandoLabel = new JLabel();
         corridasMarcadasLabel = new JLabel();
         perfilPilotoLabel = new JLabel();
-
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
         jScrollPaneCorridasParticipando = new JScrollPane();
         tableCorridasParticipando = new JTable();
-
         headerTabelaCorridasParticipando = tableCorridasParticipando.getTableHeader();
         headerTabelaTodasAsCorridasMarcadas = tableTodasAsCorridasMarcadas.getTableHeader();
 
     }
 
     private void add() {
+
         add(btnRelatar);
         add(btnSair);
         add(btnParticiparCorrida);
@@ -110,6 +110,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         add(jScrollPaneCorridasParticipando);
         add(drawer);
         add(fundo);
+
     }
 
     private void setTheme() {
@@ -261,7 +262,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnRelatar.setFocusPainted(false);
         btnRelatar.addActionListener(this);
         btnRelatar.setBounds(570, 30, 220, 35);
-        btnRelatar.setText("Relatar aos Desenvolvedores");
+        btnRelatar.setText("Relatar Problema");
 
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
@@ -318,11 +319,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnRelatar) {
             dispose();
-            new Relatar_Por_Email();
+            new RelatarPorEmail();
         }
         if (e.getSource() == btnParticiparCorrida) {
             dispose();
-            new Participar_Corrida();
+            new ParticiparCorrida();
         }
         if (e.getSource() == btnCriarCorrida) {
             dispose();
@@ -330,11 +331,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnVerificarCorridas) {
             dispose();
-            new Verificar_corrida();
+            new VerificarCorrida();
         }
         if (e.getSource() == btnAvaliarKartdromo) {
             dispose();
-            new Avaliar_kartodromo();
+            new AvaliarKartodromo();
         }
 
     }

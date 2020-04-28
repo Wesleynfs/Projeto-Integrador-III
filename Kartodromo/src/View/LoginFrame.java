@@ -1,8 +1,6 @@
 package View;
 
-import Bo.PilotoBO;
 import Model.Configuracao;
-import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -229,12 +227,12 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 //            }
 //  deixei comentado apenas para acessar a tela mais rapidamente
             dispose();
-            new PerfilPiloto();
+            new MenuPrincipal();
         }
 
         if (e.getSource() == btnKartodromo) {
             dispose();
-            new CadastrarKartodromo_pt1();
+            new CadastrarKartodromoPt1();
         }
 
         if (e.getSource() == btnCadastrar) {

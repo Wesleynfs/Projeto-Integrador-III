@@ -10,30 +10,25 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 
-public class Avaliar_kartodromo extends JFrame implements ActionListener{
+public class AvaliarKartodromo extends JFrame implements ActionListener{
     
     private JPanel fundo;
     private JPanel drawer;
-
     private JTextPane contextojTextPane1;
     private JScrollPane contextojScrollPane;
     private JLabel logo;
-    
     private JLabel nomekartodromoLabel;
     private JLabel nota;
     private JLabel comentarioLabel;
     private JLabel valordanotaLabel;
-    
     private JSlider notajSlider;
-    
-    
     private JButton btnVoltar;
     private JButton btnEnviar;
     private JButton btnVerPerfil;
 
-    private javax.swing.JComboBox<String> kartodromojComboBox;
+    private JComboBox<String> kartodromojComboBox;
     
-    public Avaliar_kartodromo() {
+    public AvaliarKartodromo() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -44,10 +39,10 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         configs();
         // Configura esse frame //
         configurateThis();
-   
-       
+
     }
     private void configurateThis(){
+
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
         setLayout(null);
@@ -56,32 +51,26 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setTitle(Info.APP_NAME);
         setResizable(false);
+
     }
     
     private void initializate(){
         
         fundo = new JPanel();
         drawer = new JPanel();
-
         logo = new JLabel();
-   
         contextojTextPane1 = new JTextPane();
-                
         nomekartodromoLabel = new JLabel();
         nota = new JLabel();
         comentarioLabel = new JLabel();
         valordanotaLabel = new JLabel();
-        
         contextojScrollPane = new JScrollPane();
-        
         kartodromojComboBox = new JComboBox();
-        
         notajSlider = new JSlider();
-        
         btnVoltar = new JButton();
         btnEnviar = new JButton();
         btnVerPerfil = new JButton();
-        
+
     }
     
     private void add() {
@@ -102,6 +91,7 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         add(fundo);
         
     }
+
     private void setTheme() {
         if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim 
@@ -144,11 +134,10 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
     }
 
     private void configs() {
-        fundo.setSize(800,600);
+
+        fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
-        
-  
         contextojTextPane1.setBorder(BorderFactory.createEmptyBorder());
         contextojTextPane1.setSize(400,200);
         
@@ -174,8 +163,9 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         
         notajSlider.setMaximum(5);
         notajSlider.setMinimum(1);
-        notajSlider.setOrientation(javax.swing.JSlider.VERTICAL);
+        notajSlider.setOrientation(JSlider.VERTICAL);
         notajSlider.setBounds(60, 300, 30, 200);
+        notajSlider.setBackground(Colors.CINZAMEDB);
         
         kartodromojComboBox.setBorder(BorderFactory.createEmptyBorder());
         kartodromojComboBox.setBounds(60,150,200,35);
@@ -199,12 +189,13 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         btnEnviar.setBounds(620,550,160,35);
 
         notajSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(ChangeEvent evt) {
                 notajSliderstateChanged(evt);
             }
         });
     }
-    public void notajSliderstateChanged(ChangeEvent evt){
+
+    public void notajSliderstateChanged(ChangeEvent evt) {
         switch (notajSlider.getValue()) {
             case 5:
                 valordanotaLabel.setText("MUITO BOM");
@@ -229,6 +220,7 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         }
 
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
@@ -239,6 +231,7 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
         if(e.getSource() == btnEnviar) {
         
         }
+
         if(e.getSource() == btnVerPerfil) {
             try{
             
@@ -247,7 +240,5 @@ public class Avaliar_kartodromo extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");
             }
         }
-        
     }
-    
 }

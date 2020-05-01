@@ -252,7 +252,8 @@ public class Iniciar_Corrida_pt1 extends JFrame implements ActionListener {
 
         if (e.getSource() == btnIniciarCorrida) {
             try{
-            
+                dispose();
+                new Iniciar_Corrida_pt2();
                 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");

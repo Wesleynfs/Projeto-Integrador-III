@@ -180,11 +180,11 @@ public class VerificarCorrida extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Nome","Kartódromo","Data","Endereço"
+                            "Nome","Kartódromo","TIPO DE KART","Data","Endereço"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false
+                        false, false, false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {

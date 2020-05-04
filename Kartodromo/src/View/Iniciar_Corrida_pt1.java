@@ -210,7 +210,7 @@ public class Iniciar_Corrida_pt1 extends JFrame implements ActionListener {
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
-            logo.setText("VERIFICAR CORRIDAS");
+            logo.setText("INICIAR CORRIDA");
 
             corrida_escolhidaLabel.setBounds(570 , 355,300,30);
             corrida_escolhidaLabel.setText("Selecionar Corrida:");

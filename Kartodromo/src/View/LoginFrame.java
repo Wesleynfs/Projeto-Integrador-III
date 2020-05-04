@@ -197,7 +197,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         
         jmenuitem_Desenvolvedor.setText("Entrar como Desenvolvedor");
         jPopupMenu_Desenvolvedor.add(jmenuitem_Desenvolvedor);
-        
+        jmenuitem_Desenvolvedor.addActionListener(this);
         fundo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 fundoMouseReleased(evt);
@@ -243,6 +243,10 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
                 JOptionPane.showConfirmDialog(null,error.getMessage());
             }
         }
+        if(e.getSource() == jmenuitem_Desenvolvedor){
+            dispose();
+            new Desenvolvedor_Kartodromo();
+        }
     }
     public void fundoMouseReleased(MouseEvent evt) {
         if(evt.isPopupTrigger()){
@@ -262,7 +266,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        
+
     }
     
 

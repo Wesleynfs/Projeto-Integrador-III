@@ -185,8 +185,8 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         btnEnviar.setFocusPainted(false);
         btnEnviar.setBorderPainted(false);
         btnEnviar.addActionListener(this);
-        btnEnviar.setText("ENVIAR EMAIL");
-        btnEnviar.setBounds(620,550,160,35);
+        btnEnviar.setText("MANDAR AVALIAÇÃO");
+        btnEnviar.setBounds(600,550,180,35);
 
         notajSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(ChangeEvent evt) {
@@ -229,12 +229,22 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         }
 
         if(e.getSource() == btnEnviar) {
-        
+            try {
+                //enviar
+                
+
+
+                //
+                JOptionPane.showMessageDialog(null, "SUA AVALIAÇÃO FOI FEITA COM SUCESSO!");
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, "Não foi possível enviar sua avaliação");
+            }
         }
 
         if(e.getSource() == btnVerPerfil) {
             try{
-            
+                dispose();
+                new Perfil_Kartodromo();
                 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");

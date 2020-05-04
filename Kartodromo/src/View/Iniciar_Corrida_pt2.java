@@ -164,7 +164,7 @@ public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
-            logo.setText("VERIFICAR CORRIDAS");
+            logo.setText("INICIAR CORRIDA");
 
             SelecioneLabel.setBounds(60, 120, 680, 35);
             SelecioneLabel.setText("Selecionar Corrida:");
@@ -212,7 +212,8 @@ public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
             
         }
         if (e.getSource() == btnIniciarCorrida) {
-      
+            dispose();
+            new Resultado_Corrida();
         }
 
     }

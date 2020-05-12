@@ -13,7 +13,7 @@ public class EnviarAviso extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private JFormattedTextField assunto;
+    private JFormattedTextField assuntoTextField;
   
     private JTextPane contextojTextPane1;
     
@@ -60,7 +60,7 @@ public class EnviarAviso extends JFrame implements ActionListener{
 
         logo = new JLabel();
         
-        assunto = new JFormattedTextField();
+        assuntoTextField = new JFormattedTextField();
         
         contextojTextPane1 = new JTextPane();
                 
@@ -77,7 +77,7 @@ public class EnviarAviso extends JFrame implements ActionListener{
     
     private void add() {
         add(logo);
-        add(assunto);
+        add(assuntoTextField);
         add(contextojScrollPane);
         add(relatoLabel);
         add(assuntoLabel);
@@ -93,8 +93,8 @@ public class EnviarAviso extends JFrame implements ActionListener{
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            assunto.setBackground(Colors.CINZALIGHTB);
-            assunto.setForeground(Colors.BRANCO);
+            assuntoTextField.setBackground(Colors.CINZALIGHTB);
+            assuntoTextField.setForeground(Colors.BRANCO);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.BRANCO);           
             relatoLabel.setForeground(Colors.CINZALIGHTB);
@@ -110,8 +110,8 @@ public class EnviarAviso extends JFrame implements ActionListener{
             drawer.setBackground(Colors.VERDEDARK);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.CINZADARKA);
-            assunto.setBackground(Colors.CINZALIGHTB);
-            assunto.setForeground(Colors.CINZADARKA);                  
+            assuntoTextField.setBackground(Colors.CINZALIGHTB);
+            assuntoTextField.setForeground(Colors.CINZADARKA);                  
             relatoLabel.setForeground(Colors.CINZALIGHTB);
             assuntoLabel.setForeground(Colors.CINZALIGHTB);   
             contextoLabel.setForeground(Colors.CINZALIGHTB);       

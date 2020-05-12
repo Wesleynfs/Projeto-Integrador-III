@@ -15,8 +15,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
     private JPanel fundo;
     private JPanel drawer;
-    private JFormattedTextField email;
-    private JPasswordField senha;
+    private JFormattedTextField emailTextField;
+    private JPasswordField senhaJPasswordField;
     private JLabel version;
     private JLabel loginLabel;
     private JLabel senhaLabel;
@@ -65,8 +65,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnKartodromo = new JButton();
         fundo = new JPanel();
         drawer = new JPanel();
-        email = new JFormattedTextField();
-        senha = new JPasswordField();
+        emailTextField = new JFormattedTextField();
+        senhaJPasswordField = new JPasswordField();
         version = new JLabel();
         loginLabel = new JLabel();
         senhaLabel = new JLabel();
@@ -89,8 +89,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         add(btnLogar);
         add(loginLabel);
         add(senhaLabel);
-        add(email);
-        add(senha);
+        add(emailTextField);
+        add(senhaJPasswordField);
         add(drawer);
         add(fundo);
     }
@@ -102,10 +102,10 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             btnKartodromo.setForeground(Colors.CINZADARKA);
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.BRANCO);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.BRANCO);
+            emailTextField.setBackground(Colors.CINZALIGHTB);
+            emailTextField.setForeground(Colors.BRANCO);
+            senhaJPasswordField.setBackground(Colors.CINZALIGHTB);
+            senhaJPasswordField.setForeground(Colors.BRANCO);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -122,10 +122,10 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             btnKartodromo.setForeground(Colors.CINZADARKA);
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.CINZADARKA);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.CINZADARKA);
+            emailTextField.setBackground(Colors.CINZALIGHTB);
+            emailTextField.setForeground(Colors.CINZADARKA);
+            senhaJPasswordField.setBackground(Colors.CINZALIGHTB);
+            senhaJPasswordField.setForeground(Colors.CINZADARKA);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -146,13 +146,13 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
         drawer.setBounds(0, 0, 800, 200);
 
-        email.setBorder(BorderFactory.createEmptyBorder());
-        email.setBounds(210, 300, 400, 35);
-        email.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailTextField.setBorder(BorderFactory.createEmptyBorder());
+        emailTextField.setBounds(210, 300, 400, 35);
+        emailTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        senha.setBorder(BorderFactory.createEmptyBorder());
-        senha.setBounds(210, 400, 400, 35);
-        senha.setHorizontalAlignment(JPasswordField.CENTER);
+        senhaJPasswordField.setBorder(BorderFactory.createEmptyBorder());
+        senhaJPasswordField.setBounds(210, 400, 400, 35);
+        senhaJPasswordField.setHorizontalAlignment(JPasswordField.CENTER);
 
         loginLabel.setText("EMAIL");
         loginLabel.setBounds(210, 260, 400, 35);
@@ -212,8 +212,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         }
         if (e.getSource() == btnLogar) {
 //            Piloto piloto = new Piloto();
-//            piloto.setEmail(email.getText().toLowerCase());
-//            piloto.setSenha(new String(senha.getPassword()));
+//            piloto.setEmail(emailTextField.getText().toLowerCase());
+//            piloto.setSenha(new String(senhaJPasswordField.getPassword()));
 //            PilotoBO pilotoBO = new PilotoBO();
 //            try {
 //                if (pilotoBO.logarPiloto(piloto)) {

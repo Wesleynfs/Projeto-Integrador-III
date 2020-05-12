@@ -79,7 +79,7 @@ public class Historico extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            btnVoltar.setForeground(Colors.CINZAMEDA);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDA);
             corridas_participandoinfoLabel.setForeground(Colors.CINZAMEDA);

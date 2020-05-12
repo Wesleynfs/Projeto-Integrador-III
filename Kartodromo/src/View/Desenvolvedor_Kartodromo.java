@@ -14,16 +14,16 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private JFormattedTextField pais;
-    private JFormattedTextField estado;
-    private JFormattedTextField cidade;
-    private JFormattedTextField rua;
-    private JFormattedTextField nome;
-    private JFormattedTextField senha;
-    private JFormattedTextField email;
+    private JFormattedTextField paisJTextField;
+    private JFormattedTextField estadoJTextField;
+    private JFormattedTextField cidadeJTextField;
+    private JFormattedTextField ruaJTextField;
+    private JFormattedTextField nomeJTextField;
+    private JFormattedTextField senhaJTextField;
+    private JFormattedTextField emailJTextField;
     
-    private JSpinner numero;
-    private JSpinner id;
+    private JSpinner numeroJSpinner;
+    private JSpinner idJSpinner;
     
     private JLabel logo;
     
@@ -93,15 +93,15 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         fundo = new JPanel();
         drawer = new JPanel();
         
-        numero = new JSpinner();
-        id = new JSpinner();
-        pais = new JFormattedTextField();
-        estado = new JFormattedTextField();
-        cidade = new JFormattedTextField(); 
-        rua = new JFormattedTextField();
-        nome = new JFormattedTextField();
-        senha = new JFormattedTextField();
-        email = new JFormattedTextField();
+        numeroJSpinner = new JSpinner();
+        idJSpinner = new JSpinner();
+        paisJTextField = new JFormattedTextField();
+        estadoJTextField = new JFormattedTextField();
+        cidadeJTextField = new JFormattedTextField(); 
+        ruaJTextField = new JFormattedTextField();
+        nomeJTextField = new JFormattedTextField();
+        senhaJTextField = new JFormattedTextField();
+        emailJTextField = new JFormattedTextField();
         logo = new JLabel();
         paisLabel = new JLabel();
         estadoLabel = new JLabel();     
@@ -143,18 +143,18 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         add(btnCadastrar);
         add(btnAlterar);
         add(btnDeletar);
-        add(senha);
-        add(nome);
-        add(email);
+        add(senhaJTextField);
+        add(nomeJTextField);
+        add(emailJTextField);
         add(nomeLabel);
         add(senhaLabel);
         add(emailLabel);
         add(jScrollPaneParticipantes);
-        add(numero);
-        add(pais);
-        add(estado);
-        add(cidade);
-        add(rua);
+        add(numeroJSpinner);
+        add(paisJTextField);
+        add(estadoJTextField);
+        add(cidadeJTextField);
+        add(ruaJTextField);
         add(paisLabel);
         add(estadoLabel);
         add(cidadeLabel);
@@ -169,7 +169,7 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         add(quintaCheckBox);
         add(sextaCheckBox);
         add(sabadoCheckBox);
-        add(id);
+        add(idJSpinner);
         add(idLabel);
         add(kartindoorCheckBox);
         add(kart2motorCheckBox);
@@ -189,27 +189,27 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
             // Se o tema for escuro, os itens ficam assim //
             tableParticipantes_status.setBackground(Colors.VERDELIGHT);
             tableParticipantes_status.setForeground(Colors.CINZADARKB);
-            pais.setBackground(Colors.CINZALIGHTB);
-            pais.setForeground(Colors.BRANCO);   
-            estado.setBackground(Colors.CINZALIGHTB);
-            estado.setForeground(Colors.BRANCO);     
-            cidade.setBackground(Colors.CINZALIGHTB);
-            cidade.setForeground(Colors.BRANCO); 
-            rua.setBackground(Colors.CINZALIGHTB);       
-            rua.setForeground(Colors.BRANCO);   
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.BRANCO);
-            nome.setBackground(Colors.CINZALIGHTB);
-            nome.setForeground(Colors.BRANCO);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.BRANCO);
+            paisJTextField.setBackground(Colors.CINZALIGHTB);
+            paisJTextField.setForeground(Colors.BRANCO);   
+            estadoJTextField.setBackground(Colors.CINZALIGHTB);
+            estadoJTextField.setForeground(Colors.BRANCO);     
+            cidadeJTextField.setBackground(Colors.CINZALIGHTB);
+            cidadeJTextField.setForeground(Colors.BRANCO); 
+            ruaJTextField.setBackground(Colors.CINZALIGHTB);       
+            ruaJTextField.setForeground(Colors.BRANCO);   
+            senhaJTextField.setBackground(Colors.CINZALIGHTB);
+            senhaJTextField.setForeground(Colors.BRANCO);
+            nomeJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeJTextField.setForeground(Colors.BRANCO);
+            emailJTextField.setBackground(Colors.CINZALIGHTB);
+            emailJTextField.setForeground(Colors.BRANCO);
             nomeLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             emailLabel.setForeground(Colors.CINZALIGHTB);
-            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
-            id.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            id.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            numeroJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numeroJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            idJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            idJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             estadoLabel.setForeground(Colors.CINZALIGHTB);
             paisLabel.setForeground(Colors.CINZALIGHTB);   
             cidadeLabel.setForeground(Colors.CINZALIGHTB);       
@@ -263,29 +263,29 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
         } else {
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.CINZADARKA);
-            nome.setBackground(Colors.CINZALIGHTB);
-            nome.setForeground(Colors.CINZADARKA);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.CINZADARKA);
+            senhaJTextField.setBackground(Colors.CINZALIGHTB);
+            senhaJTextField.setForeground(Colors.CINZADARKA);
+            nomeJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeJTextField.setForeground(Colors.CINZADARKA);
+            emailJTextField.setBackground(Colors.CINZALIGHTB);
+            emailJTextField.setForeground(Colors.CINZADARKA);
             nomeLabel.setForeground(Colors.CINZALIGHTB);   
             senhaLabel.setForeground(Colors.CINZALIGHTB);   
             emailLabel.setForeground(Colors.CINZALIGHTB);   
             tableParticipantes_status.setForeground(Colors.CINZADARKB);
             tableParticipantes_status.setBackground(Colors.VERDEDARK);
-            pais.setBackground(Colors.CINZALIGHTB);
-            pais.setForeground(Colors.CINZADARKA);             
-            estado.setBackground(Colors.CINZALIGHTB);
-            estado.setForeground(Colors.CINZADARKA);     
-            cidade.setBackground(Colors.CINZALIGHTB);
-            cidade.setForeground(Colors.CINZADARKA);
-            rua.setBackground(Colors.CINZALIGHTB);       
-            rua.setForeground(Colors.CINZADARKA);
-            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
-            id.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            id.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            paisJTextField.setBackground(Colors.CINZALIGHTB);
+            paisJTextField.setForeground(Colors.CINZADARKA);             
+            estadoJTextField.setBackground(Colors.CINZALIGHTB);
+            estadoJTextField.setForeground(Colors.CINZADARKA);     
+            cidadeJTextField.setBackground(Colors.CINZALIGHTB);
+            cidadeJTextField.setForeground(Colors.CINZADARKA);
+            ruaJTextField.setBackground(Colors.CINZALIGHTB);       
+            ruaJTextField.setForeground(Colors.CINZADARKA);
+            numeroJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numeroJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            idJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            idJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             numeroLabel.setForeground(Colors.CINZALIGHTB);            
             paisLabel.setForeground(Colors.CINZALIGHTB);
             estadoLabel.setForeground(Colors.CINZALIGHTB);   
@@ -389,23 +389,23 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         paisLabel.setText("País:");
         paisLabel.setBounds(400,230,200,35);
         
-        pais.setBorder(BorderFactory.createEmptyBorder());
-        pais.setBounds(400,260,150,35);
-        pais.setHorizontalAlignment(JFormattedTextField.CENTER);
+        paisJTextField.setBorder(BorderFactory.createEmptyBorder());
+        paisJTextField.setBounds(400,260,150,35);
+        paisJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         estadoLabel.setText("Estado:");
         estadoLabel.setBounds(600,230,200,35);
         
-        estado.setBorder(BorderFactory.createEmptyBorder());
-        estado.setBounds(600,260,150,35);
-        estado.setHorizontalAlignment(JFormattedTextField.CENTER);
+        estadoJTextField.setBorder(BorderFactory.createEmptyBorder());
+        estadoJTextField.setBounds(600,260,150,35);
+        estadoJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         cidadeLabel.setText("Cidade:");
         cidadeLabel.setBounds(400,285,200,35);
         
-        cidade.setBorder(BorderFactory.createEmptyBorder());
-        cidade.setBounds(400,310,150,35);
-        cidade.setHorizontalAlignment(JFormattedTextField.CENTER);
+        cidadeJTextField.setBorder(BorderFactory.createEmptyBorder());
+        cidadeJTextField.setBounds(400,310,150,35);
+        cidadeJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         numeroLabel.setText("Número:");
         numeroLabel.setBounds(600,285,200,35);
@@ -413,39 +413,39 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         idLabel.setText("ID:");
         idLabel.setBounds(700,285,200,35);
         
-        numero.setBounds(600,310,50,35);
-        numero.setBorder(BorderFactory.createEmptyBorder());
+        numeroJSpinner.setBounds(600,310,50,35);
+        numeroJSpinner.setBorder(BorderFactory.createEmptyBorder());
         
-        id.setBounds(700,310,50,35);
-        id.setBorder(BorderFactory.createEmptyBorder());
+        idJSpinner.setBounds(700,310,50,35);
+        idJSpinner.setBorder(BorderFactory.createEmptyBorder());
         
         ruaLabel.setText("Rua:");
         ruaLabel.setBounds(400,340,200,35);
                
-        rua.setBorder(BorderFactory.createEmptyBorder());
-        rua.setBounds(400,370,350,35);
-        rua.setHorizontalAlignment(JFormattedTextField.CENTER);
+        ruaJTextField.setBorder(BorderFactory.createEmptyBorder());
+        ruaJTextField.setBounds(400,370,350,35);
+        ruaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         nomeLabel.setText("Nome:");
         nomeLabel.setBounds(400,420,200,35);
         
-        nome.setBorder(BorderFactory.createEmptyBorder());
-        nome.setBounds(400,450,150,35);
-        nome.setHorizontalAlignment(JFormattedTextField.CENTER);
+        nomeJTextField.setBorder(BorderFactory.createEmptyBorder());
+        nomeJTextField.setBounds(400,450,150,35);
+        nomeJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         senhaLabel.setText("Senha:");
         senhaLabel.setBounds(600,420,200,35);
         
-        senha.setBorder(BorderFactory.createEmptyBorder());
-        senha.setBounds(600,450,150,35);
-        senha.setHorizontalAlignment(JFormattedTextField.CENTER);
+        senhaJTextField.setBorder(BorderFactory.createEmptyBorder());
+        senhaJTextField.setBounds(600,450,150,35);
+        senhaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         emailLabel.setText("Email");
         emailLabel.setBounds(210,420,150,35);
                 
-        email.setBorder(BorderFactory.createEmptyBorder());
-        email.setBounds(210,450,150,35);
-        email.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailJTextField.setBorder(BorderFactory.createEmptyBorder());
+        emailJTextField.setBounds(210,450,150,35);
+        emailJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         logo.setText("AMBIENTE DOS DESENVOLVEDORES");
         logo.setFont(Fonts.SANSSERIFMIN);
@@ -507,7 +507,7 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
             //Subistituir as linhas anteriores
             //          for (classe : classeDao.findALL()){
             //            tabelamento.addRow(new Object[]{
-            //                class.nome,
+            //                class.nomeJTextField,
             //            });
             //
             //          }
@@ -539,7 +539,8 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         
         
         if(e.getSource() == btnIrparapiloto) {
-            //new DESENVOLVEDOR_PILOTO();
+            dispose();
+            new Desenvolvedor_piloto();
         }
     }
     

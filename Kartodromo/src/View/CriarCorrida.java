@@ -22,9 +22,10 @@ public class CriarCorrida extends JFrame implements ActionListener{
     private JComboBox<String> TipoKartjComboBox;
     private JComboBox<String> TipoCorridajComboBox;
     
-    private JFormattedTextField nomeCorrida;
-    private JFormattedTextField dataCorrida;
-
+    private JFormattedTextField nomeCorridaJTextField;
+    private JFormattedTextField dataCorridaJTextField;
+    private JFormattedTextField numero_de_voltasJTextField;
+            
     private JLabel logo;
     
     private JLabel nomecorridaLabel;
@@ -32,6 +33,7 @@ public class CriarCorrida extends JFrame implements ActionListener{
     private JLabel tipocorridaLabel;
     private JLabel nomekartodromoLabel;
     private JLabel tipokartLabel;
+    private JLabel numero_de_voltasLabel;
     
     
     private JButton btnVoltar;
@@ -67,14 +69,16 @@ public class CriarCorrida extends JFrame implements ActionListener{
         
         fundo = new JPanel();
         drawer = new JPanel();
-        nomeCorrida = new JFormattedTextField();
-        dataCorrida = new JFormattedTextField();
+        nomeCorridaJTextField = new JFormattedTextField();
+        dataCorridaJTextField = new JFormattedTextField();
+        numero_de_voltasJTextField = new JFormattedTextField();
         logo = new JLabel();
         nomecorridaLabel = new JLabel();
         dataLabel = new JLabel();   
         tipocorridaLabel = new JLabel();
         nomekartodromoLabel = new JLabel();     
         tipokartLabel = new JLabel();
+        numero_de_voltasLabel = new JLabel();
         btnVoltar = new JButton();
         btnCriarCorrida = new JButton();
         NomeKartodromojComboBox = new JComboBox<>();
@@ -88,13 +92,15 @@ public class CriarCorrida extends JFrame implements ActionListener{
         add(logo);
         add(TipoKartjComboBox);
         add(TipoCorridajComboBox);
-        add(nomeCorrida);
-        add(dataCorrida);
+        add(nomeCorridaJTextField);
+        add(dataCorridaJTextField);
         add(nomecorridaLabel);
         add(dataLabel);
         add(tipocorridaLabel);
         add(nomekartodromoLabel);
         add(tipokartLabel);
+        add(numero_de_voltasLabel);
+        add(numero_de_voltasJTextField);
         add(btnVoltar);
         add(btnCriarCorrida);
         add(drawer);
@@ -106,15 +112,18 @@ public class CriarCorrida extends JFrame implements ActionListener{
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            nomeCorrida.setBackground(Colors.CINZALIGHTB);
-            nomeCorrida.setForeground(Colors.BRANCO);
-            dataCorrida.setBackground(Colors.CINZALIGHTB);
-            dataCorrida.setForeground(Colors.BRANCO);         
+            nomeCorridaJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeCorridaJTextField.setForeground(Colors.BRANCO);
+            dataCorridaJTextField.setBackground(Colors.CINZALIGHTB);
+            dataCorridaJTextField.setForeground(Colors.BRANCO);         
             nomecorridaLabel.setForeground(Colors.CINZALIGHTB);
             dataLabel.setForeground(Colors.CINZALIGHTB);   
             tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
+            numero_de_voltasJTextField.setBackground(Colors.CINZALIGHTB);
+            numero_de_voltasJTextField.setForeground(Colors.BRANCO);
+            numero_de_voltasLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
@@ -129,15 +138,18 @@ public class CriarCorrida extends JFrame implements ActionListener{
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            nomeCorrida.setBackground(Colors.CINZALIGHTB);
-            nomeCorrida.setForeground(Colors.CINZADARKA);
-            dataCorrida.setBackground(Colors.CINZALIGHTB);
-            dataCorrida.setForeground(Colors.CINZADARKA);               
+            nomeCorridaJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeCorridaJTextField.setForeground(Colors.CINZADARKA);
+            dataCorridaJTextField.setBackground(Colors.CINZALIGHTB);
+            dataCorridaJTextField.setForeground(Colors.CINZADARKA);               
             nomecorridaLabel.setForeground(Colors.CINZALIGHTB);
             dataLabel.setForeground(Colors.CINZALIGHTB);   
             tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
+            numero_de_voltasJTextField.setBackground(Colors.CINZALIGHTB);
+            numero_de_voltasJTextField.setForeground(Colors.CINZADARKA);
+            numero_de_voltasLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
@@ -157,23 +169,30 @@ public class CriarCorrida extends JFrame implements ActionListener{
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
-        nomeCorrida.setBorder(BorderFactory.createEmptyBorder());
-        nomeCorrida.setBounds(60,280,300,35);
-        nomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+        nomeCorridaJTextField.setBorder(BorderFactory.createEmptyBorder());
+        nomeCorridaJTextField.setBounds(60,280,300,35);
+        nomeCorridaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         //aqui vai o nome do piloto
-        nomeCorrida.setText("Corrida do(a) NOMEPILOTO");
+        nomeCorridaJTextField.setText("Corrida do(a) NOMEPILOTO");
         //
         
         nomecorridaLabel.setText("NOME DA CORRIDA:");
         nomecorridaLabel.setBounds(60,250,200,35);
   
-        dataCorrida.setBorder(BorderFactory.createEmptyBorder());
-        dataCorrida.setBounds(60,340,300,35);
-        dataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
-
+        dataCorridaJTextField.setBorder(BorderFactory.createEmptyBorder());
+        dataCorridaJTextField.setBounds(60,340,300,35);
+        dataCorridaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
+        
+        numero_de_voltasJTextField.setBorder(BorderFactory.createEmptyBorder());
+        numero_de_voltasJTextField.setBounds(60,400,300,35);       
+        numero_de_voltasJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);       
+                
+        numero_de_voltasLabel.setText("Número de Voltas:");      
+        numero_de_voltasLabel .setBounds(60,370,300,35);
+                
         try {
-            dataCorrida.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
+            dataCorridaJTextField.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, "Não carregar a tela criar corrida");
         }

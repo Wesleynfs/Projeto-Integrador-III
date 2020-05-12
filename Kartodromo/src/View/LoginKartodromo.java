@@ -14,8 +14,8 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
 
     private JPanel fundo;
     private JPanel drawer;
-    private JFormattedTextField email;
-    private JPasswordField senha;
+    private JFormattedTextField emailTextField;
+    private JPasswordField senhaJPasswordField;
     private JLabel version;
     private JLabel loginLabel;
     private JLabel senhaLabel;
@@ -53,8 +53,8 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     private void initializate() {
         fundo = new JPanel();
         drawer = new JPanel();
-        email = new JFormattedTextField();
-        senha = new JPasswordField();
+        emailTextField = new JFormattedTextField();
+        senhaJPasswordField = new JPasswordField();
         version = new JLabel();
         loginLabel = new JLabel();
         senhaLabel = new JLabel();
@@ -73,8 +73,8 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
         add(btnLogar);
         add(loginLabel);
         add(senhaLabel);
-        add(email);
-        add(senha);
+        add(emailTextField);
+        add(senhaJPasswordField);
         add(drawer);
         add(fundo);
 
@@ -85,10 +85,10 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.CINZADARKA);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.CINZADARKA);
+            emailTextField.setBackground(Colors.CINZALIGHTB);
+            emailTextField.setForeground(Colors.CINZADARKA);
+            senhaJPasswordField.setBackground(Colors.CINZALIGHTB);
+            senhaJPasswordField.setForeground(Colors.CINZADARKA);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -101,10 +101,10 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
         } else {
             fundo.setBackground(Colors.BRANCO);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.BRANCO);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.BRANCO);
+            emailTextField.setBackground(Colors.CINZALIGHTB);
+            emailTextField.setForeground(Colors.BRANCO);
+            senhaJPasswordField.setBackground(Colors.CINZALIGHTB);
+            senhaJPasswordField.setForeground(Colors.BRANCO);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
@@ -123,13 +123,13 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
 
         drawer.setBounds(0, 0, 800, 200);
 
-        email.setBorder(BorderFactory.createEmptyBorder());
-        email.setBounds(210, 300, 400, 35);
-        email.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailTextField.setBorder(BorderFactory.createEmptyBorder());
+        emailTextField.setBounds(210, 300, 400, 35);
+        emailTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        senha.setBorder(BorderFactory.createEmptyBorder());
-        senha.setBounds(210, 400, 400, 35);
-        senha.setHorizontalAlignment(JPasswordField.CENTER);
+        senhaJPasswordField.setBorder(BorderFactory.createEmptyBorder());
+        senhaJPasswordField.setBounds(210, 400, 400, 35);
+        senhaJPasswordField.setHorizontalAlignment(JPasswordField.CENTER);
 
         loginLabel.setText("EMAIL DO KARTÓDROMO");
         loginLabel.setBounds(210, 270, 400, 35);

@@ -13,11 +13,11 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private JFormattedTextField pais;
-    private JFormattedTextField estado;
-    private JFormattedTextField cidade;
-    private JFormattedTextField rua;
-    private JSpinner numero;
+    private JFormattedTextField paisTextField;
+    private JFormattedTextField estadoTextField;
+    private JFormattedTextField cidadeTextField;
+    private JFormattedTextField ruaTextField;
+    private JSpinner numeroJSpinner;
     
     private JLabel version;
     private JLabel logo;
@@ -79,11 +79,11 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
         fundo = new JPanel();
         drawer = new JPanel();
         
-        numero = new JSpinner();
-        pais = new JFormattedTextField();
-        estado = new JFormattedTextField();
-        cidade = new JFormattedTextField(); 
-        rua = new JFormattedTextField();
+        numeroJSpinner = new JSpinner();
+        paisTextField = new JFormattedTextField();
+        estadoTextField = new JFormattedTextField();
+        cidadeTextField = new JFormattedTextField(); 
+        ruaTextField = new JFormattedTextField();
       
         version = new JLabel();
         logo = new JLabel();
@@ -115,11 +115,11 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
     
     private void add() {
 
-        add(numero);
-        add(pais);
-        add(estado);
-        add(cidade);
-        add(rua);
+        add(numeroJSpinner);
+        add(paisTextField);
+        add(estadoTextField);
+        add(cidadeTextField);
+        add(ruaTextField);
         add(paisLabel);
         add(estadoLabel);
         add(cidadeLabel);
@@ -155,16 +155,16 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
         if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             
-            pais.setBackground(Colors.CINZALIGHTB);
-            pais.setForeground(Colors.BRANCO);   
-            estado.setBackground(Colors.CINZALIGHTB);
-            estado.setForeground(Colors.BRANCO);     
-            cidade.setBackground(Colors.CINZALIGHTB);
-            cidade.setForeground(Colors.BRANCO); 
-            rua.setBackground(Colors.CINZALIGHTB);       
-            rua.setForeground(Colors.BRANCO);    
-            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            paisTextField.setBackground(Colors.CINZALIGHTB);
+            paisTextField.setForeground(Colors.BRANCO);   
+            estadoTextField.setBackground(Colors.CINZALIGHTB);
+            estadoTextField.setForeground(Colors.BRANCO);     
+            cidadeTextField.setBackground(Colors.CINZALIGHTB);
+            cidadeTextField.setForeground(Colors.BRANCO); 
+            ruaTextField.setBackground(Colors.CINZALIGHTB);       
+            ruaTextField.setForeground(Colors.BRANCO);    
+            numeroJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numeroJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             estadoLabel.setForeground(Colors.CINZALIGHTB);
             paisLabel.setForeground(Colors.CINZALIGHTB);   
             cidadeLabel.setForeground(Colors.CINZALIGHTB);       
@@ -212,16 +212,16 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
         } else {
-            pais.setBackground(Colors.CINZALIGHTB);
-            pais.setForeground(Colors.CINZADARKA);             
-            estado.setBackground(Colors.CINZALIGHTB);
-            estado.setForeground(Colors.CINZADARKA);     
-            cidade.setBackground(Colors.CINZALIGHTB);
-            cidade.setForeground(Colors.CINZADARKA);
-            rua.setBackground(Colors.CINZALIGHTB);       
-            rua.setForeground(Colors.CINZADARKA);
-            numero.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
-            numero.getEditor().getComponent(0).setForeground(Colors.BRANCO);
+            paisTextField.setBackground(Colors.CINZALIGHTB);
+            paisTextField.setForeground(Colors.CINZADARKA);             
+            estadoTextField.setBackground(Colors.CINZALIGHTB);
+            estadoTextField.setForeground(Colors.CINZADARKA);     
+            cidadeTextField.setBackground(Colors.CINZALIGHTB);
+            cidadeTextField.setForeground(Colors.CINZADARKA);
+            ruaTextField.setBackground(Colors.CINZALIGHTB);       
+            ruaTextField.setForeground(Colors.CINZADARKA);
+            numeroJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
+            numeroJSpinner.getEditor().getComponent(0).setForeground(Colors.BRANCO);
             numeroLabel.setForeground(Colors.CINZALIGHTB);            
             paisLabel.setForeground(Colors.CINZALIGHTB);
             estadoLabel.setForeground(Colors.CINZALIGHTB);   
@@ -320,36 +320,36 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener{
         paisLabel.setText("País:");
         paisLabel.setBounds(400,230,200,35);
         
-        pais.setBorder(BorderFactory.createEmptyBorder());
-        pais.setBounds(400,260,150,35);
-        pais.setHorizontalAlignment(JFormattedTextField.CENTER);
+        paisTextField.setBorder(BorderFactory.createEmptyBorder());
+        paisTextField.setBounds(400,260,150,35);
+        paisTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         estadoLabel.setText("Estado:");
         estadoLabel.setBounds(600,230,200,35);
         
-        estado.setBorder(BorderFactory.createEmptyBorder());
-        estado.setBounds(600,260,150,35);
-        estado.setHorizontalAlignment(JFormattedTextField.CENTER);
+        estadoTextField.setBorder(BorderFactory.createEmptyBorder());
+        estadoTextField.setBounds(600,260,150,35);
+        estadoTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         cidadeLabel.setText("Cidade:");
         cidadeLabel.setBounds(400,310,200,35);
         
-        cidade.setBorder(BorderFactory.createEmptyBorder());
-        cidade.setBounds(400,340,150,35);
-        cidade.setHorizontalAlignment(JFormattedTextField.CENTER);
+        cidadeTextField.setBorder(BorderFactory.createEmptyBorder());
+        cidadeTextField.setBounds(400,340,150,35);
+        cidadeTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         numeroLabel.setText("Número:");
         numeroLabel.setBounds(600,310,200,35);
         
-        numero.setBounds(600,340,150,35);
-        numero.setBorder(BorderFactory.createEmptyBorder());
+        numeroJSpinner.setBounds(600,340,150,35);
+        numeroJSpinner.setBorder(BorderFactory.createEmptyBorder());
         
         ruaLabel.setText("Rua:");
         ruaLabel.setBounds(400,390,200,35);
                
-        rua.setBorder(BorderFactory.createEmptyBorder());
-        rua.setBounds(400,420,350,35);
-        rua.setHorizontalAlignment(JFormattedTextField.CENTER);
+        ruaTextField.setBorder(BorderFactory.createEmptyBorder());
+        ruaTextField.setBounds(400,420,350,35);
+        ruaTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         version.setText(Info.APP_VERSION);
         version.setBounds(20,10,100,30);

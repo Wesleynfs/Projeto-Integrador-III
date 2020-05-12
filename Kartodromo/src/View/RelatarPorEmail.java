@@ -14,7 +14,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
-    private JFormattedTextField assunto;
+    private JFormattedTextField assuntoTextField;
   
     private JTextPane contextojTextPane1;
     
@@ -59,7 +59,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
         fundo = new JPanel();
         drawer = new JPanel();
         logo = new JLabel();
-        assunto = new JFormattedTextField();
+        assuntoTextField = new JFormattedTextField();
         contextojTextPane1 = new JTextPane();
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
@@ -72,7 +72,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
     
     private void add() {
         add(logo);
-        add(assunto);
+        add(assuntoTextField);
         add(contextojScrollPane);
         add(relatoLabel);
         add(assuntoLabel);
@@ -88,8 +88,8 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            assunto.setBackground(Colors.CINZALIGHTB);
-            assunto.setForeground(Colors.BRANCO);
+            assuntoTextField.setBackground(Colors.CINZALIGHTB);
+            assuntoTextField.setForeground(Colors.BRANCO);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.BRANCO);           
             relatoLabel.setForeground(Colors.CINZALIGHTB);
@@ -105,8 +105,8 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
             drawer.setBackground(Colors.VERDEDARK);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.CINZADARKA);
-            assunto.setBackground(Colors.CINZALIGHTB);
-            assunto.setForeground(Colors.CINZADARKA);                  
+            assuntoTextField.setBackground(Colors.CINZALIGHTB);
+            assuntoTextField.setForeground(Colors.CINZADARKA);                  
             relatoLabel.setForeground(Colors.CINZALIGHTB);
             assuntoLabel.setForeground(Colors.CINZALIGHTB);   
             contextoLabel.setForeground(Colors.CINZALIGHTB);       
@@ -122,9 +122,9 @@ public class RelatarPorEmail extends JFrame implements ActionListener{
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
-        assunto.setBorder(BorderFactory.createEmptyBorder());
-        assunto.setBounds(200,250,400,35);
-        assunto.setHorizontalAlignment(JFormattedTextField.CENTER);
+        assuntoTextField.setBorder(BorderFactory.createEmptyBorder());
+        assuntoTextField.setBounds(200,250,400,35);
+        assuntoTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
         
         //Aqui vai o nome do piloto
         

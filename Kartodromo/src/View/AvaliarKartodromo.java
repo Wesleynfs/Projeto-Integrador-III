@@ -2,8 +2,7 @@ package View;
 
 import Utilities.Colors;
 
-import Utilities.Fonts;
-import Utilities.Info;
+import Utilities.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +24,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
     private JButton btnVoltar;
     private JButton btnEnviar;
     private JButton btnVerPerfil;
+    private JLabel estrelasLabel[] = new JLabel[6];
 
     private JComboBox<String> kartodromojComboBox;
     
@@ -70,11 +70,22 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         btnVoltar = new JButton();
         btnEnviar = new JButton();
         btnVerPerfil = new JButton();
-
+        
+        estrelasLabel[0] = new JLabel();
+        estrelasLabel[1] = new JLabel();
+        estrelasLabel[2] = new JLabel();
+        estrelasLabel[3] = new JLabel();
+        estrelasLabel[4] = new JLabel();
+        estrelasLabel[5] = new JLabel();
     }
     
     private void add() {
-        
+        add(estrelasLabel[0]);
+        add(estrelasLabel[1]);
+        add(estrelasLabel[2]);
+        add(estrelasLabel[3]);
+        add(estrelasLabel[4]);
+        add(estrelasLabel[5]);
         add(logo);
         add(contextojScrollPane);
         add(nomekartodromoLabel);
@@ -154,9 +165,21 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         comentarioLabel.setText("SEU COMENTÁRIO:");
         comentarioLabel.setBounds(360,120,200,35);
        
-        nota.setText("SUA NOTA:");
-        nota.setBounds(60,270,200,35);
+        nota.setText("<html>Nota que você está atribuindo:</html>");
+        nota.setBounds(40,245,100,60);
 
+        estrelasLabel[0].setBounds(130,275,16,16);
+        estrelasLabel[1].setBounds(146,275,16,16);
+        estrelasLabel[2].setBounds(162,275,16,16);
+        estrelasLabel[3].setBounds(178,275,16,16);
+        estrelasLabel[4].setBounds(194,275,16,16);
+        estrelasLabel[5].setBounds(210,275,16,16);
+        estrelasLabel[0].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+        estrelasLabel[1].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+        estrelasLabel[2].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+        estrelasLabel[3].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+        estrelasLabel[4].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+        estrelasLabel[5].setIcon(new ImageIcon(getClass().getResource("/Utilities/award_star_add.png")));
         logo.setBounds(20 , 30,600,35);
         logo.setText("AVALIAR KARTÓDROMO");
         logo.setFont(Fonts.SANSSERIFMIN);
@@ -198,22 +221,36 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
     public void notajSliderstateChanged(ChangeEvent evt) {
         switch (notajSlider.getValue()) {
             case 5:
+                estrelasLabel[4].setVisible(true);
+                estrelasLabel[5].setVisible(true);
                 valordanotaLabel.setText("MUITO BOM");
                 valordanotaLabel.setBounds(100,290,200,35);
                 break;
             case 4:
+                estrelasLabel[3].setVisible(true);
+                estrelasLabel[4].setVisible(false);
+                estrelasLabel[5].setVisible(false);
                 valordanotaLabel.setText("BOM");
                 valordanotaLabel.setBounds(100,338,200,35);
                 break;
             case 3:
+                estrelasLabel[1].setVisible(true);
+                estrelasLabel[2].setVisible(true);
+                estrelasLabel[3].setVisible(false);
                 valordanotaLabel.setText("MÉDIO");
                 valordanotaLabel.setBounds(100,384,200,35);
                 break;
             case 2:
+                estrelasLabel[0].setIcon(new ImageIcon(getClass().getResource("/Utilities/star.png")));
+                estrelasLabel[1].setVisible(true);
+                estrelasLabel[2].setVisible(false);
                 valordanotaLabel.setText("RUIM");
                 valordanotaLabel.setBounds(100,430,200,35);
                 break;
             default:
+                estrelasLabel[0].setIcon(new ImageIcon(getClass().getResource("/Utilities/award_star_delete.png")));
+                estrelasLabel[1].setVisible(false);
+                estrelasLabel[2].setVisible(false);
                 valordanotaLabel.setText("MUITO RUIM");
                 valordanotaLabel.setBounds(100,478,200,35);
                 break;

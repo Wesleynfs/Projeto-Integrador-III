@@ -17,11 +17,11 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-    private JTextField nome;
-    private JTextField email;
-    private JFormattedTextField dataNasc;
-    private JFormattedTextField cpf;
-    private JTextField senha;
+    private JTextField nomeJTextField;
+    private JTextField emailJTextField;
+    private JFormattedTextField dataNascJTextField;
+    private JFormattedTextField cpfJTextField;
+    private JTextField senhaJTextField;
     private JLabel version;
     private JLabel loginLabel;
     private JLabel senhaLabel;
@@ -66,11 +66,11 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         cpfLabel = new JLabel();
         fundo = new JPanel();
         drawer = new JPanel();
-        nome = new JTextField();
-        dataNasc = new JFormattedTextField();
-        cpf = new JFormattedTextField();
-        email = new JTextField();
-        senha = new JTextField();
+        nomeJTextField = new JTextField();
+        dataNascJTextField = new JFormattedTextField();
+        cpfJTextField = new JFormattedTextField();
+        emailJTextField = new JTextField();
+        senhaJTextField = new JTextField();
         version = new JLabel();
         loginLabel = new JLabel();
         senhaLabel = new JLabel();
@@ -82,11 +82,11 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     }
 
     private void add() {
-        add(nome);
-        add(cpf);
-        add(dataNasc);
-        add(email);
-        add(senha);
+        add(nomeJTextField);
+        add(cpfJTextField);
+        add(dataNascJTextField);
+        add(emailJTextField);
+        add(senhaJTextField);
         add(btnCadastrar);
         add(btnDeletar);
         add(btnAlterar);
@@ -107,16 +107,16 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.BRANCO);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.BRANCO);
-            cpf.setBackground(Colors.CINZALIGHTB);
-            cpf.setForeground(Colors.BRANCO);
-            nome.setBackground(Colors.CINZALIGHTB);
-            nome.setForeground(Colors.BRANCO);
-            dataNasc.setBackground(Colors.CINZALIGHTB);
-            dataNasc.setForeground(Colors.BRANCO);
+            emailJTextField.setBackground(Colors.CINZALIGHTB);
+            emailJTextField.setForeground(Colors.BRANCO);
+            senhaJTextField.setBackground(Colors.CINZALIGHTB);
+            senhaJTextField.setForeground(Colors.BRANCO);
+            cpfJTextField.setBackground(Colors.CINZALIGHTB);
+            cpfJTextField.setForeground(Colors.BRANCO);
+            nomeJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeJTextField.setForeground(Colors.BRANCO);
+            dataNascJTextField.setBackground(Colors.CINZALIGHTB);
+            dataNascJTextField.setForeground(Colors.BRANCO);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             nomeLabel.setForeground(Colors.CINZALIGHTB);
@@ -135,16 +135,16 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            email.setBackground(Colors.CINZALIGHTB);
-            email.setForeground(Colors.CINZADARKA);
-            senha.setBackground(Colors.CINZALIGHTB);
-            senha.setForeground(Colors.CINZADARKA);
-            nome.setBackground(Colors.CINZALIGHTB);
-            nome.setForeground(Colors.CINZADARKA);
-            cpf.setBackground(Colors.CINZALIGHTB);
-            cpf.setForeground(Colors.CINZADARKA);
-            dataNasc.setBackground(Colors.CINZALIGHTB);
-            dataNasc.setForeground(Colors.CINZADARKA);
+            emailJTextField.setBackground(Colors.CINZALIGHTB);
+            emailJTextField.setForeground(Colors.CINZADARKA);
+            senhaJTextField.setBackground(Colors.CINZALIGHTB);
+            senhaJTextField.setForeground(Colors.CINZADARKA);
+            nomeJTextField.setBackground(Colors.CINZALIGHTB);
+            nomeJTextField.setForeground(Colors.CINZADARKA);
+            cpfJTextField.setBackground(Colors.CINZALIGHTB);
+            cpfJTextField.setForeground(Colors.CINZADARKA);
+            dataNascJTextField.setBackground(Colors.CINZALIGHTB);
+            dataNascJTextField.setForeground(Colors.CINZADARKA);
             loginLabel.setForeground(Colors.CINZALIGHTB);
             senhaLabel.setForeground(Colors.CINZALIGHTB);
             nomeLabel.setForeground(Colors.CINZALIGHTB);
@@ -167,25 +167,25 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 200);
 
-        email.setBorder(BorderFactory.createEmptyBorder());
-        email.setBounds(210, 240, 400, 35);
-        email.setHorizontalAlignment(JFormattedTextField.CENTER);
+        emailJTextField.setBorder(BorderFactory.createEmptyBorder());
+        emailJTextField.setBounds(210, 240, 400, 35);
+        emailJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        nome.setBorder(BorderFactory.createEmptyBorder());
-        nome.setBounds(210, 280, 400, 35);
-        nome.setHorizontalAlignment(JFormattedTextField.CENTER);
+        nomeJTextField.setBorder(BorderFactory.createEmptyBorder());
+        nomeJTextField.setBounds(210, 280, 400, 35);
+        nomeJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        cpf.setBorder(BorderFactory.createEmptyBorder());
-        cpf.setBounds(210, 320, 400, 35);
-        cpf.setHorizontalAlignment(JFormattedTextField.CENTER);
+        cpfJTextField.setBorder(BorderFactory.createEmptyBorder());
+        cpfJTextField.setBounds(210, 320, 400, 35);
+        cpfJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        dataNasc.setBorder(BorderFactory.createEmptyBorder());
-        dataNasc.setBounds(210, 360, 400, 35);
-        dataNasc.setHorizontalAlignment(JFormattedTextField.CENTER);
+        dataNascJTextField.setBorder(BorderFactory.createEmptyBorder());
+        dataNascJTextField.setBounds(210, 360, 400, 35);
+        dataNascJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        senha.setBorder(BorderFactory.createEmptyBorder());
-        senha.setBounds(210, 400, 400, 35);
-        senha.setHorizontalAlignment(JPasswordField.CENTER);
+        senhaJTextField.setBorder(BorderFactory.createEmptyBorder());
+        senhaJTextField.setBounds(210, 400, 400, 35);
+        senhaJTextField.setHorizontalAlignment(JPasswordField.CENTER);
 
         loginLabel.setText("EMAIL");
         loginLabel.setBounds(160, 240, 400, 35);
@@ -236,9 +236,9 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         // Setando os maskFormatters //
 
         try {
-            dataNasc.setFormatterFactory(new DefaultFormatterFactory(
+            dataNascJTextField.setFormatterFactory(new DefaultFormatterFactory(
                     new MaskFormatter("##/##/####")));
-            cpf.setFormatterFactory(new DefaultFormatterFactory(
+            cpfJTextField.setFormatterFactory(new DefaultFormatterFactory(
                     new MaskFormatter("###.###.###-##")));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -253,12 +253,12 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnCadastrar) {
             Piloto piloto = new Piloto();
-            piloto.setNome(nome.getText().toLowerCase());
-            piloto.setEmail(email.getText().toLowerCase());
-            piloto.setSenha(senha.getText().toLowerCase());
+            piloto.setNome(nomeJTextField.getText().toLowerCase());
+            piloto.setEmail(emailJTextField.getText().toLowerCase());
+            piloto.setSenha(senhaJTextField.getText().toLowerCase());
             piloto.setAtivo('S');
-            piloto.setCpf(cpf.getText().toLowerCase());
-            piloto.setDataNascimento(dataNasc.getText().toLowerCase());
+            piloto.setCpf(cpfJTextField.getText().toLowerCase());
+            piloto.setDataNascimento(dataNascJTextField.getText().toLowerCase());
             PilotoBO pilotoBO = new PilotoBO();
             try {
                 if (pilotoBO.criarPiloto(piloto)) {

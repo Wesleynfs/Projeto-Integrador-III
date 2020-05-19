@@ -3,9 +3,8 @@ package View;
 import Bo.PilotoBO;
 import Model.Piloto;
 import Utilities.Colors;
+import Utilities.Fonts;
 import Utilities.Info;
-
-import java.awt.Font;
 
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
@@ -82,6 +81,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     }
 
     private void add() {
+
         add(nomeJTextField);
         add(cpfJTextField);
         add(dataNascJTextField);
@@ -100,9 +100,11 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         add(cpfLabel);
         add(drawer);
         add(fundo);
+
     }
 
     private void setTheme() {
+
         if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
@@ -205,8 +207,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         version.setText(Info.APP_VERSION);
         version.setBounds(20, 10, 100, 35);
 
-        logo.setText("TELA DE CADASTRO");
-        logo.setFont(new Font("Monospaced", Font.ITALIC, 40));
+        logo.setText("KART ON ROAD");
+        logo.setFont(Fonts.SANSSERIF);
         logo.setBounds(20, 40, 600, 180);
 
         btnDeletar.setText("Deletar");
@@ -253,28 +255,30 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnCadastrar) {
             Piloto piloto = new Piloto();
-            piloto.setNome(nomeJTextField.getText().toLowerCase());
-            piloto.setEmail(emailJTextField.getText().toLowerCase());
-            piloto.setSenha(senhaJTextField.getText().toLowerCase());
-            piloto.setAtivo('S');
-            piloto.setCpf(cpfJTextField.getText().toLowerCase());
-            piloto.setDataNascimento(dataNascJTextField.getText().toLowerCase());
+            piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
+            piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
+            piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase());
+            piloto.setAtivo(true);
+            piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
+            piloto.setDataNascimentoPiloto(dataNascJTextField.getText().toLowerCase());
             PilotoBO pilotoBO = new PilotoBO();
             try {
-                if (pilotoBO.criarPiloto(piloto)) {
+                if (pilotoBO.criar(piloto)) {
                     JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }
         }
+
         if (e.getSource() == btnAlterar) {
 
         }
+
         if (e.getSource() == btnVoltar) {
             dispose();
             new LoginFrame();
         }
-    }
 
+    }
 }

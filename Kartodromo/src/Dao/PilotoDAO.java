@@ -6,7 +6,7 @@ import Model.Piloto;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class PilotoDAO {
+public class PilotoDAO implements GenericDAO<Piloto> {
 
     private EntityManager entityManager;
 
@@ -14,6 +14,7 @@ public class PilotoDAO {
         entityManager = new ConnectionFactory().getConnection();
     }
 
+    @Override
     public boolean salvar(Piloto piloto) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -22,12 +23,18 @@ public class PilotoDAO {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar piloto [" + piloto.getNome() +"]");
+            throw new Exception("Erro ao salvar piloto [" + piloto.getNomePiloto() +"]");
         } finally {
             entityManager.close();
         }
     }
 
+    @Override
+    public boolean ler(Piloto o) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean alterar(Piloto piloto) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -42,6 +49,7 @@ public class PilotoDAO {
         }
     }
 
+    @Override
     public boolean deletar(Piloto piloto) throws Exception {
         try {
             Piloto piloto1 = entityManager.find(Piloto.class, piloto.getIdPiloto());
@@ -56,11 +64,12 @@ public class PilotoDAO {
         }
     }
 
+    @Override
     public List<Piloto> listarTodos(Piloto piloto) throws Exception {
         try {
-            Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE email = :email and senha = :senha");
-            query.setParameter("email",piloto.getEmail());
-            query.setParameter("senha",piloto.getSenha());
+            Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE emailpiloto = :email and senhapiloto = :senha");
+            query.setParameter("email",piloto.getEmailPiloto());
+            query.setParameter("senha",piloto.getSenhaPiloto());
             return query.getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -69,6 +78,7 @@ public class PilotoDAO {
         }
     }
 
+    @Override
     public List<Piloto> listarTodos() throws Exception {
         try {
             Query query = entityManager.createQuery("SELECT p FROM Piloto p");
@@ -80,6 +90,7 @@ public class PilotoDAO {
         }
     }
 
+    @Override
     public Piloto getById(int id) throws Exception {
         try {
             return entityManager.find(Piloto.class,id);

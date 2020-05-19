@@ -1,33 +1,31 @@
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
+public class IniciarCorridaPt2 extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
     private JButton btnVoltar;
     private JButton btndarfalta;
     private JButton btndarpresenca;
     private JButton btnIniciarCorrida;
-
     private JLabel logo;
     private JLabel SelecioneLabel;
-
     private JScrollPane jScrollPaneParticipantes;
     private JTable tableParticipantes_status;
-
     private DefaultTableModel tabelamento;
 
-    public Iniciar_Corrida_pt2() {
+    private Piloto piloto;
+
+    public IniciarCorridaPt2() {
 
         // Instancia de itens //
         initializate();
@@ -120,6 +118,7 @@ public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
 
         }
     }
+
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
@@ -203,7 +202,7 @@ public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            new Iniciar_Corrida_pt1();
+            new IniciarCorridaPt1();
         }
         if (e.getSource() == btndarfalta) {
             
@@ -213,7 +212,7 @@ public class Iniciar_Corrida_pt2 extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnIniciarCorrida) {
             dispose();
-            new Resultado_Corrida();
+            new ResultadoCorrida(piloto);
         }
 
     }

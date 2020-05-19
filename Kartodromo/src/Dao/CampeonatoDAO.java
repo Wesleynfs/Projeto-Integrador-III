@@ -2,12 +2,11 @@ package Dao;
 
 import Connections.ConnectionFactory;
 import Model.Campeonato;
-import Model.Kartodromo;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class CampeonatoDAO {
+public class CampeonatoDAO implements GenericDAO<Campeonato> {
 
     private EntityManager entityManager;
 
@@ -15,7 +14,7 @@ public class CampeonatoDAO {
         entityManager = new ConnectionFactory().getConnection();
     }
 
-
+    @Override
     public boolean salvar(Campeonato campeonato) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -30,6 +29,12 @@ public class CampeonatoDAO {
         }
     }
 
+    @Override
+    public boolean ler(Campeonato o) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean alterar(Campeonato campeonato) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -44,6 +49,7 @@ public class CampeonatoDAO {
         }
     }
 
+    @Override
     public boolean deletar(Campeonato campeonato) throws Exception {
         try {
             Campeonato campeonato1 = entityManager.find(Campeonato.class, campeonato.getIdCampeonato());
@@ -58,6 +64,24 @@ public class CampeonatoDAO {
         }
     }
 
+    @Override
+    public List<Campeonato> listarTodos(Campeonato o) throws Exception {
+        return null;
+    }
+
+    public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
+        try {
+            List<Campeonato> campeonatos = null;
+            campeonatos = entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'false' ").getResultList();
+            return campeonatos;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
     public List<Campeonato> listarTodos() throws Exception {
         try {
             List<Campeonato> campeonatos = null;
@@ -68,8 +92,9 @@ public class CampeonatoDAO {
         } finally {
             entityManager.close();
         }
-    };
+    }
 
+    @Override
     public Campeonato getById(int id) throws Exception {
         try {
             return entityManager.find(Campeonato.class,id);
@@ -79,6 +104,4 @@ public class CampeonatoDAO {
             entityManager.close();
         }
     }
-
-
 }

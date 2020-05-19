@@ -1,5 +1,6 @@
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -14,28 +15,26 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
     private JButton btnParticiparCorrida;
     private JButton btnVoltar;
     private JButton btnOrdenarNome;
     private JButton btnOrdenarData;
     private JButton btnOrdenarKartodromo;
     private JButton btnOrdenarVagas;
-
     private JLabel logo;
     private JLabel ordenarporLabel;
     private JLabel corridaLabel;
-    
     private JComboBox<String> CorridasjComboBox;
-    
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
-
     private DefaultTableModel tabelamento;
-    
     private JPanel painel_Ordenar;
+
+    private Piloto piloto;
     
-    public ParticiparCorrida() {
+    public ParticiparCorrida(Piloto piloto) {
+
+        this.piloto = piloto;
 
         // Instancia de itens //
         initializate();
@@ -188,17 +187,17 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
 
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 220);
-            
-            CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            CorridasjComboBox.setBounds(250,480,300,35);
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c:dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c.nome_corrida);
-//        }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
+        CorridasjComboBox.setBounds(250,480,300,35);
+//        ClasseDao dao = new ClasseDao();
+//        for(classe c:dao.FindALL()){
+//            NomeKartodromojComboBox.addItem(c.nome_corrida);
+//        }
 
         painel_Ordenar.setLayout(new GridLayout());
         painel_Ordenar.setBounds(60, 400, 500, 40);
@@ -236,14 +235,13 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         corridaLabel.setBounds(310 , 450,200,35);
         corridaLabel.setText("ESCOLHER UMA CORRIDA:");
 
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
            dispose();
-           new PerfilPiloto();
+           new PerfilPiloto(piloto);
         }
         if (e.getSource() == btnParticiparCorrida) {
 

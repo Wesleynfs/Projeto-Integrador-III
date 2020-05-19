@@ -1,6 +1,6 @@
-
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -10,22 +10,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Resultado_Corrida extends JFrame implements ActionListener {
+public class PerfilKartodromo extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
-    private JButton btnFinalizarCorrida;
-
+    private JButton btnVoltar;
     private JLabel logo;
-    private JLabel ReultadodacorridaLabel;
-    private JLabel GanhadorLabel;
-    private JScrollPane jScrollPaneParticipantes;
-    private JTable tableParticipantes_status;
-
+    private JLabel CorridaLabel;
+    private JLabel MediaLabel;
+    private JScrollPane jScrollPanekartodromo;
+    private JTable tableKartodromo;
     private DefaultTableModel tabelamento;
 
-    public Resultado_Corrida() {
+    public PerfilKartodromo() {
 
         // Instancia de itens //
         initializate();
@@ -56,23 +53,22 @@ public class Resultado_Corrida extends JFrame implements ActionListener {
         fundo = new JPanel();
         drawer = new JPanel();
 
-        btnFinalizarCorrida = new JButton();
-
+        btnVoltar = new JButton();
         logo = new JLabel();
-        ReultadodacorridaLabel = new JLabel();
-        GanhadorLabel = new JLabel();
+        CorridaLabel = new JLabel();
+        MediaLabel = new JLabel();
                 
-        jScrollPaneParticipantes = new JScrollPane();
-        tableParticipantes_status = new JTable();
+        jScrollPanekartodromo = new JScrollPane();
+        tableKartodromo = new JTable();
 
     }
 
     private void add() {
-        add(btnFinalizarCorrida);
-        add(ReultadodacorridaLabel);
-        add(GanhadorLabel);
+        add(btnVoltar);
+        add(CorridaLabel);
+        add(MediaLabel);
         add(logo);
-        add(jScrollPaneParticipantes);
+        add(jScrollPanekartodromo);
         add(drawer);
         add(fundo);
     }
@@ -84,24 +80,24 @@ public class Resultado_Corrida extends JFrame implements ActionListener {
             drawer.setBackground(Colors.VERDEDARK);
    
             logo.setForeground(Colors.CINZAMEDB);
-            tableParticipantes_status.setBackground(Colors.VERDELIGHT);
-            tableParticipantes_status.setForeground(Colors.CINZADARKB);
-            GanhadorLabel.setForeground(Colors.CINZAMEDA);
-            ReultadodacorridaLabel.setForeground(Colors.CINZAMEDA);
-            btnFinalizarCorrida.setForeground(Colors.CINZADARKB);
-            btnFinalizarCorrida.setBackground(Colors.VERDEDARK);
+            tableKartodromo.setBackground(Colors.VERDELIGHT);
+            tableKartodromo.setForeground(Colors.CINZADARKB);
+            MediaLabel.setForeground(Colors.CINZAMEDA);
+            CorridaLabel.setForeground(Colors.CINZAMEDA);
+            btnVoltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
 
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);          
             logo.setForeground(Colors.CINZAMEDB);
-            tableParticipantes_status.setForeground(Colors.CINZADARKB);
-            tableParticipantes_status.setBackground(Colors.VERDEDARK);
-            GanhadorLabel.setForeground(Colors.CINZALIGHTB);
-            ReultadodacorridaLabel.setForeground(Colors.CINZALIGHTB);
-            btnFinalizarCorrida.setForeground(Colors.CINZADARKB);
-            btnFinalizarCorrida.setBackground(Colors.VERDEDARK);
+            tableKartodromo.setForeground(Colors.CINZADARKB);
+            tableKartodromo.setBackground(Colors.VERDEDARK);
+            MediaLabel.setForeground(Colors.CINZALIGHTB);
+            CorridaLabel.setForeground(Colors.CINZALIGHTB);
+            btnVoltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
          
         }
     }
@@ -113,34 +109,29 @@ public class Resultado_Corrida extends JFrame implements ActionListener {
 
         try {
 
-            tableParticipantes_status.setModel(new DefaultTableModel(
+            tableKartodromo.setModel(new DefaultTableModel(
                     new Object[][]{
 
                     },
                     new String[]{
-                            "NOME DO PARTICIPANTE","STATUS","T1","T2","T3","TF","Pontuação"
+                            "NOME DO PILOTO","COMENTÁRIOS","NOTAS"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false,false ,false, false, false, false, false
+                        false ,false, false
                 };
-
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return canEdit[columnIndex];
                 }
 
             });
 
-            tabelamento = (DefaultTableModel) tableParticipantes_status.getModel();
+            tabelamento = (DefaultTableModel) tableKartodromo.getModel();
 
             tabelamento.addRow(new Object[]{
                     "FILLUS",
-                    "PRESENTE",
-                    "1.22",
-                    "1.34",
-                    "1.12",
-                    "1.26",
-                    "60"
+                    "MUITO BOM, Tem Café!",
+                    "4"
             });
             //Subistituir as linhas anteriores
             //          for (classe : classeDao.findALL()){
@@ -149,28 +140,28 @@ public class Resultado_Corrida extends JFrame implements ActionListener {
             //            });
             //
             //          }
-            jScrollPaneParticipantes.setViewportView(tableParticipantes_status);
-            jScrollPaneParticipantes.setBounds(60, 150, 680, 300);
+            jScrollPanekartodromo.setViewportView(tableKartodromo);
+            jScrollPanekartodromo.setBounds(60, 150, 680, 300);
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
-            logo.setText("RESULTADO DA CORRIDA");
+            logo.setText("PERFIL DO KARTÓDROMO");
 
-            ReultadodacorridaLabel.setBounds(300, 120, 300, 35);
-            ReultadodacorridaLabel.setText("REULTADO: NOME DA CORRIDA");
+            CorridaLabel.setBounds(300, 120, 300, 35);
+            CorridaLabel.setText("REULTADO: NOME DA CORRIDA");
             // AQUI COLOCA O NOME DA CORRIDA
             //
-            GanhadorLabel.setBounds(280, 480, 300, 35);
-            GanhadorLabel.setText("GRANDE GANHADOR: NOME PILOTO VENCEDOR");
+            MediaLabel.setBounds(280, 480, 300, 35);
+            MediaLabel.setText("GRANDE GANHADOR: NOME PILOTO VENCEDOR");
             //AQUI COLOCA O NOME DO PRIMEIRO COLOCADO DA CORRIDA      
             //        
                     
                     
-            btnFinalizarCorrida.setBorderPainted(false);
-            btnFinalizarCorrida.setFocusPainted(false);
-            btnFinalizarCorrida.addActionListener(this);
-            btnFinalizarCorrida.setBounds(320 , 540,200,35);
-            btnFinalizarCorrida.setText("FINALIZAR CORRIDA"); 
+            btnVoltar.setBorderPainted(false);
+            btnVoltar.setFocusPainted(false);
+            btnVoltar.addActionListener(this);
+            btnVoltar.setBounds(320 , 540,200,35);
+            btnVoltar.setText("FINALIZAR CORRIDA"); 
             
 
         } catch (Exception e) {
@@ -181,9 +172,9 @@ public class Resultado_Corrida extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnFinalizarCorrida) {
+        if (e.getSource() == btnVoltar) {
             dispose();
-            new PerfilPiloto();
+            //new AvaliarKartodromo();
         }
 
     }

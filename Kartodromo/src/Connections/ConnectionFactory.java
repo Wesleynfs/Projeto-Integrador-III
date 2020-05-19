@@ -12,4 +12,10 @@ public class ConnectionFactory {
         return entityManagerFactory.createEntityManager();
     }
 
+    public static void stopConnection() {
+        if (entityManagerFactory != null) {
+            entityManagerFactory.close();
+        }
+    }
+
 }

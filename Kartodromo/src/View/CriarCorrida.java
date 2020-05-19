@@ -1,6 +1,7 @@
 package View;
 
 
+import Model.Piloto;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -15,32 +16,31 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 public class CriarCorrida extends JFrame implements ActionListener{
+
     private JPanel fundo;
     private JPanel drawer;
-    
     private JComboBox<Object> NomeKartodromojComboBox;
     private JComboBox<String> TipoKartjComboBox;
     private JComboBox<String> TipoCorridajComboBox;
-    
     private JFormattedTextField nomeCorridaJTextField;
     private JFormattedTextField dataCorridaJTextField;
     private JFormattedTextField numero_de_voltasJTextField;
-            
     private JLabel logo;
-    
     private JLabel nomecorridaLabel;
     private JLabel dataLabel;
     private JLabel tipocorridaLabel;
     private JLabel nomekartodromoLabel;
     private JLabel tipokartLabel;
     private JLabel numero_de_voltasLabel;
-    
-    
     private JButton btnVoltar;
-
     private JButton btnCriarCorrida;
+
+    private Piloto piloto;
     
-    public CriarCorrida() {
+    public CriarCorrida(Piloto piloto) {
+
+        this.piloto = piloto;
+
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -51,9 +51,9 @@ public class CriarCorrida extends JFrame implements ActionListener{
         configs();
         // Configura esse frame //
         configurateThis();
-   
        
     }
+
     private void configurateThis(){
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
@@ -107,6 +107,7 @@ public class CriarCorrida extends JFrame implements ActionListener{
         add(fundo);
         
     }
+
     private void setTheme() {
         if (LoginFrame.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
@@ -188,7 +189,7 @@ public class CriarCorrida extends JFrame implements ActionListener{
         numero_de_voltasJTextField.setBounds(60,400,300,35);       
         numero_de_voltasJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);       
                 
-        numero_de_voltasLabel.setText("Número de Voltas:");      
+        numero_de_voltasLabel.setText("NÚMERO DE VOLTAS:");
         numero_de_voltasLabel .setBounds(60,370,300,35);
                 
         try {
@@ -219,11 +220,13 @@ public class CriarCorrida extends JFrame implements ActionListener{
         
         NomeKartodromojComboBox.setBorder(BorderFactory.createEmptyBorder());
         NomeKartodromojComboBox.setBounds(440,280,300,35);
+
 //        ClasseDao dao = new ClasseDao();
 //        for(classe c:dao.FindALL()){
 //            NomeKartodromojComboBox.addItem(c);
 //        }
         //se selecionar um kartodromo em especifico ele
+
         NomeKartodromojComboBox.addItemListener(new ItemListener(){
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -266,26 +269,22 @@ public class CriarCorrida extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btnVoltar) {
             dispose();
-            new PerfilPiloto();
+            new PerfilPiloto(piloto);
         }
+
         if (e.getSource() == btnCriarCorrida) {
             switch (JOptionPane.showConfirmDialog(null,
                 "Criar uma Corrida lhe torna automaticamente um ADM desta corrida,"
                         + " você tem certeza que deseja assumir essa responsabilidade?",//contexto
                         "Termo de responsabilidade",//nome
                 JOptionPane.YES_NO_OPTION)) {
-                case 0 :
-                    System.out.println("SIM");
+                case 0 : System.out.println("SIM");
                     break;
-                case 1:
-                    System.out.println("NÃO");
-                    break;
-                default:
-                    System.out.println("APERTAR NO X");
+                default: System.out.println("APERTAR NO X OU CLICAR EM NÃO DA NA MESMA kk");
             }
         }
     }
-    
 }

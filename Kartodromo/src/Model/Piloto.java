@@ -1,91 +1,24 @@
 package Model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Piloto {
 
-    // Variaveis //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPiloto;
-    private String cpf;
-    private String nome;
-    private String senha;
-    private String email;
-    private int numeroStrikes;
-    private int numeroVitorias;
-    private String dataNascimento;
-    private char ativo;
-
-    @ManyToMany
-    @JoinTable(name = "piloto_campeonato",
-            joinColumns = @JoinColumn(name = "idpiloto"),
-            inverseJoinColumns = @JoinColumn(name = "idcampeonato"))
-    private List<Campeonato> campeonatos;
-
-    // Gets and Sets //
-
-    public List<Campeonato> getCampeonatos() { return campeonatos; }
-
-    public void setCampeonatos(List<Campeonato> campeonatos) { this.campeonatos = campeonatos; }
-
-    public String getCpf() { return cpf; }
-
-    public void setCpf(String cpf) { this.cpf = cpf; }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() { return senha; }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getNumeroStrikes() {
-        return numeroStrikes;
-    }
-
-    public void setNumeroStrikes(int numeroStrikes) {
-        this.numeroStrikes = numeroStrikes;
-    }
-
-    public int getNumeroVitorias() {
-        return numeroVitorias;
-    }
-
-    public void setNumeroVitorias(int numeroVitorias) {
-        this.numeroVitorias = numeroVitorias;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public char getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(char ativo) {
-        this.ativo = ativo;
-    }
+    private String nomePiloto;
+    private String senhaPiloto;
+    private String cpfPiloto;
+    private String emailPiloto;
+    private int numeroDeStrikesPiloto;
+    private int numeroDeVitoriasPiloto;
+    private String dataNascimentoPiloto;
+    private boolean ativo;
 
     public int getIdPiloto() {
         return idPiloto;
@@ -95,15 +28,73 @@ public class Piloto {
         this.idPiloto = idPiloto;
     }
 
-    public Piloto(int idPiloto, String cpf, String nome, String senha, String email, int numeroStrikes, int numeroVitorias, String dataNascimento, char ativo) {
+    public String getNomePiloto() {
+        return nomePiloto;
+    }
+
+    public void setNomePiloto(String nomePiloto) {
+        this.nomePiloto = nomePiloto;
+    }
+
+    public String getSenhaPiloto() {
+        return senhaPiloto;
+    }
+
+    public void setSenhaPiloto(String senhaPiloto) {
+        this.senhaPiloto = senhaPiloto;
+    }
+
+    public String getCpfPiloto() {
+        return cpfPiloto;
+    }
+
+    public void setCpfPiloto(String cpfPiloto) {
+        this.cpfPiloto = cpfPiloto;
+    }
+
+    public String getEmailPiloto() {
+        return emailPiloto;
+    }
+
+    public void setEmailPiloto(String emailPiloto) {
+        this.emailPiloto = emailPiloto;
+    }
+
+    public int getNumeroDeStrikesPiloto() {
+        return numeroDeStrikesPiloto;
+    }
+
+    public void setNumeroDeStrikesPiloto(int numeroDeStrikesPiloto) { this.numeroDeStrikesPiloto = numeroDeStrikesPiloto; }
+
+    public int getNumeroDeVitoriasPiloto() {
+        return numeroDeVitoriasPiloto;
+    }
+
+    public void setNumeroDeVitoriasPiloto(int numeroDeVitoriasPiloto) { this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto; }
+
+    public String getDataNascimentoPiloto() {
+        return dataNascimentoPiloto;
+    }
+
+    public void setDataNascimentoPiloto(String dataNascimentoPiloto) { this.dataNascimentoPiloto = dataNascimentoPiloto; }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Piloto(int idPiloto, String nomePiloto, String senhaPiloto, String cpfPiloto, String emailPiloto, int numeroDeStrikesPiloto, int numeroDeVitoriasPiloto, String dataNascimentoPiloto, boolean ativo) {
         this.idPiloto = idPiloto;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.senha = senha;
-        this.email = email;
-        this.numeroStrikes = numeroStrikes;
-        this.numeroVitorias = numeroVitorias;
-        this.dataNascimento = dataNascimento;
+        this.nomePiloto = nomePiloto;
+        this.senhaPiloto = senhaPiloto;
+        this.cpfPiloto = cpfPiloto;
+        this.emailPiloto = emailPiloto;
+        this.numeroDeStrikesPiloto = numeroDeStrikesPiloto;
+        this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto;
+        this.dataNascimentoPiloto = dataNascimentoPiloto;
         this.ativo = ativo;
     }
 
@@ -111,18 +102,4 @@ public class Piloto {
 
     }
 
-    @Override
-    public String toString() {
-        return "Piloto{" +
-                "idPiloto=" + idPiloto +
-                ", cpf='" + cpf + '\'' +
-                ", nome='" + nome + '\'' +
-                ", senha='" + senha + '\'' +
-                ", email='" + email + '\'' +
-                ", numeroStrikes=" + numeroStrikes +
-                ", numeroVitorias=" + numeroVitorias +
-                ", dataNascimento='" + dataNascimento + '\'' +
-                ", ativo=" + ativo +
-                '}';
-    }
 }

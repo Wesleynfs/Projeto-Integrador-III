@@ -1,17 +1,19 @@
 package View;
 
+import Bo.KartodromoBO;
+import Bo.PilotoBO;
+import Dao.ConfiguracaoDAO;
 import Model.Configuracao;
+import Model.Kartodromo;
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class LoginFrame extends JFrame implements ActionListener, MouseListener {
+public class LoginFrame extends JFrame implements ActionListener, MouseListener, ItemListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -25,9 +27,11 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private JLabel logo;
     private JLabel forgotLogin;
     private JButton btnCadastrar;
-    private JButton btnKartodromo;
+    private JLabel labelKartodromo;
     private JMenuItem jmenuitem_Desenvolvedor;
     private JPopupMenu jPopupMenu_Desenvolvedor;
+    private JComboBox<String> combo;
+    private DefaultListCellRenderer renderer;
     private static Configuracao configuracao;
 
     public static Configuracao getConfiguracao() {
@@ -61,8 +65,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     }
 
     private void initializate() {
-        configuracao = new Configuracao();
-        btnKartodromo = new JButton();
+        configuracao = new ConfiguracaoDAO().getConfiguracao();
+        labelKartodromo = new JLabel();
         fundo = new JPanel();
         drawer = new JPanel();
         emailTextField = new JFormattedTextField();
@@ -75,12 +79,15 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnExit = new JButton();
         forgotLogin = new JLabel();
         btnCadastrar = new JButton();
-        jmenuitem_Desenvolvedor = new JMenuItem(); 
+        jmenuitem_Desenvolvedor = new JMenuItem();
         jPopupMenu_Desenvolvedor = new JPopupMenu();
+        combo = new JComboBox<>();
+        renderer = new DefaultListCellRenderer();
     }
 
     private void add() {
-        add(btnKartodromo);
+        add(labelKartodromo);
+        add(combo);
         add(btnCadastrar);
         add(forgotLogin);
         add(btnExit);
@@ -98,8 +105,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     private void setTheme() {
         if (configuracao.isTema()) {
             // Se o tema for escuro, os itens ficam assim //
-            btnKartodromo.setBackground(Colors.CINZAMEDB);
-            btnKartodromo.setForeground(Colors.CINZADARKA);
+            labelKartodromo.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             emailTextField.setBackground(Colors.CINZALIGHTB);
@@ -118,8 +124,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
         } else {
-            btnKartodromo.setBackground(Colors.CINZAMEDB);
-            btnKartodromo.setForeground(Colors.CINZADARKA);
+            labelKartodromo.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             emailTextField.setBackground(Colors.CINZALIGHTB);
@@ -142,7 +147,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
 
     private void configs() {
 
-        fundo.setSize(800, 600);
+        fundo.setSize(Info.MINSCREENSIZE);
 
         drawer.setBounds(0, 0, 800, 200);
 
@@ -163,17 +168,22 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         version.setText(Info.APP_VERSION);
         version.setBounds(20, 10, 100, 35);
 
-        btnKartodromo.setText("Sou Kartodromo");
-        btnKartodromo.setBounds(650,20,130,35);
-        btnKartodromo.setFocusPainted(false);
-        btnKartodromo.setBorderPainted(false);
-        btnKartodromo.addActionListener(this);
+        labelKartodromo.setText("Logar / Cadastrar como: ");
+        labelKartodromo.setBounds(500, 20, 150, 35);
 
-        btnLogar.setText("ENTRAR");
+        renderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+
+        combo.addItem("Kartodromo");
+        combo.addItem("Piloto");
+        combo.setBounds(650, 20, 130, 35);
+        combo.addItemListener(this);
+        combo.setRenderer(renderer);
+
+        btnLogar.setText("Logar Kartodromo");
         btnLogar.setBorderPainted(false);
         btnLogar.setFocusPainted(false);
         btnLogar.addActionListener(this);
-        btnLogar.setBounds(680, 550, 100, 35);
+        btnLogar.setBounds(640, 550, 140, 35);
 
         logo.setText("KART ON ROAD");
         logo.setFont(Fonts.SANSSERIF);
@@ -192,9 +202,9 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setBorderPainted(false);
         btnCadastrar.addActionListener(this);
-        btnCadastrar.setText("Cadastrar Usuário");
-        btnCadastrar.setBounds(520, 550, 140, 35);
-        
+        btnCadastrar.setText("Cadastrar Kartodromo");
+        btnCadastrar.setBounds(450, 550, 170, 35);
+
         jmenuitem_Desenvolvedor.setText("Entrar como Desenvolvedor");
         jPopupMenu_Desenvolvedor.add(jmenuitem_Desenvolvedor);
         jmenuitem_Desenvolvedor.addActionListener(this);
@@ -211,46 +221,70 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
             System.exit(0);
         }
         if (e.getSource() == btnLogar) {
-//            Piloto piloto = new Piloto();
-//            piloto.setEmail(emailTextField.getText().toLowerCase());
-//            piloto.setSenha(new String(senhaJPasswordField.getPassword()));
-//            PilotoBO pilotoBO = new PilotoBO();
-//            try {
-//                if (pilotoBO.logarPiloto(piloto)) {
-//                    JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
-//                    new MenuPrincipal(piloto);
-//                } else {
-//                    throw new Exception("Erro ao localizar usuário no banco!");
-//                }
-//            } catch (Exception error) {
-//                JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//  deixei comentado apenas para acessar a tela mais rapidamente
-            dispose();
-            new MenuPrincipal();
-        }
 
-        if (e.getSource() == btnKartodromo) {
-            dispose();
-            new CadastrarKartodromoPt1();
+            switch (combo.getSelectedIndex()) {
+                case 0:
+                    Kartodromo kartodromo = new Kartodromo();
+                    kartodromo.setEmailKartodromo(emailTextField.getText().toLowerCase());
+                    kartodromo.setSenhaKartodromo(new String(senhaJPasswordField.getPassword()));
+                    try {
+                        Kartodromo kartodromo1 = new KartodromoBO().logar(kartodromo);
+                        if (kartodromo1 != null) {
+                            JOptionPane.showMessageDialog(null, "KARTODROMO LOGADO COM SUCESSO!");
+                            dispose();
+                            new MenuPrincipal(kartodromo);
+                        } else {
+                            throw new Exception("Erro ao localizar kartodromo no banco!");
+                        }
+                    } catch (Exception error) {
+                        JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case 1:
+                    Piloto piloto = new Piloto();
+                    piloto.setEmailPiloto(emailTextField.getText().toLowerCase());
+                    piloto.setSenhaPiloto(new String(senhaJPasswordField.getPassword()));
+                    try {
+                        Piloto piloto1 = new PilotoBO().logar(piloto);
+                        if (piloto1 != null) {
+                            JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
+                            dispose();
+                            new MenuPrincipal(piloto1);
+                        } else {
+                            throw new Exception("Erro ao localizar piloto/adm no banco!");
+                        }
+                    } catch (Exception error) {
+                        JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+
+            }
         }
 
         if (e.getSource() == btnCadastrar) {
             dispose();
-            try {
-                new CadastrarUsuario();
-            } catch (Exception error) {
-                JOptionPane.showConfirmDialog(null,error.getMessage());
+
+            switch (combo.getSelectedIndex()) {
+                case 0:
+                    new CadastrarKartodromoPt1();
+                    break;
+                default:
+                    new CadastrarUsuario();
+                    break;
             }
+
         }
-        if(e.getSource() == jmenuitem_Desenvolvedor){
+
+        if (e.getSource() == jmenuitem_Desenvolvedor) {
             dispose();
-            new Desenvolvedor_Kartodromo();
+            new DesenvolvedorKartodromo();
         }
+
     }
+
     public void fundoMouseReleased(MouseEvent evt) {
-        if(evt.isPopupTrigger()){
-            jPopupMenu_Desenvolvedor.show(this, evt.getX(), evt.getY()); 
+        if (evt.isPopupTrigger()) {
+            jPopupMenu_Desenvolvedor.show(this, evt.getX(), evt.getY());
         }
     }
 
@@ -268,7 +302,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
-    
+
 
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -288,6 +322,27 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener 
                 forgotLogin.setForeground(Colors.CINZALIGHTB);
             } else {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);
+            }
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent itemEvent) {
+        if ((itemEvent.getSource() == combo)) {
+            if (combo.getSelectedIndex() == 0) {
+                btnCadastrar.setText("Cadastrar Kartodromo");
+                btnLogar.setText("Logar Kartodromo");
+            }
+
+            if (combo.getSelectedIndex() == 1) {
+                btnCadastrar.setText("Cadastrar Piloto");
+                btnLogar.setText("Logar Piloto");
+            }
+
+            if (combo.getSelectedIndex() == 2) {
+                btnCadastrar.setEnabled(false);
+            } else {
+                btnCadastrar.setEnabled(true);
             }
         }
     }

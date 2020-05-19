@@ -3,9 +3,11 @@ package Bo;
 import Dao.CampeonatoDAO;
 import Model.Campeonato;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
-public class CampeonatoBO {
+public class CampeonatoBO implements GenericBO<Campeonato>{
 
     private CampeonatoDAO campeonatoDAO;
 
@@ -13,34 +15,49 @@ public class CampeonatoBO {
 
     }
 
-    public boolean criarCampeonato(Campeonato campeonato) throws Exception {
-        if (validaKartodromo(campeonato)) {
+    @Override
+    public boolean criar(Campeonato o) throws Exception {
+        if (valida(o)) {
             campeonatoDAO = new CampeonatoDAO();
-            return campeonatoDAO.salvar(campeonato);
+            return campeonatoDAO.salvar(o);
         }
         return false;
     }
 
-    public boolean deletarCampeonato(Campeonato campeonato) throws Exception {
-        if (validaKartodromo(campeonato)) {
+    @Override
+    public boolean deletar(Campeonato o) throws Exception {
+        if (valida(o)) {
             campeonatoDAO = new CampeonatoDAO();
-            return campeonatoDAO.deletar(campeonato);
+            return campeonatoDAO.deletar(o);
         }
         return false;
     }
 
-    public boolean alterarCampeonato(Campeonato campeonato) throws Exception {
-        if (validaKartodromo(campeonato)) {
+    @Override
+    public boolean alterar(Campeonato o) throws Exception {
+        if (valida(o)) {
             campeonatoDAO = new CampeonatoDAO();
-            return campeonatoDAO.alterar(campeonato);
+            return campeonatoDAO.alterar(o);
         }
         return false;
     }
 
-    public List<Campeonato> listarCampeonatos() throws Exception {
+    @Override
+    public List<Campeonato> listarPorItem(Campeonato o) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Campeonato> listarTodos() throws Exception {
         return campeonatoDAO.listarTodos();
     }
 
+    @Override
+    public Campeonato logar(Campeonato o) throws Exception {
+        return null;
+    }
+
+    @Override
     public Campeonato getById(int id) throws Exception {
         if (validaId(id)) {
             campeonatoDAO = new CampeonatoDAO();
@@ -49,23 +66,29 @@ public class CampeonatoBO {
         return null;
     }
 
-    private boolean validaKartodromo(Campeonato campeonato) throws Exception {
-        if (campeonato.getNome().equals("")) {
+    @Override
+    public boolean valida(Campeonato o) throws Exception {
+        if (o.getNome().equals("")) {
             throw new Exception("Nome do Campeonato não pode ficar em branco!");
         }
-        /*
-        if (campeonato.getData(). > 50) {
-            throw new Exception("Senha maior do que o permitido");
-        }
-        */
         return true;
     }
 
-    private boolean validaId(int id) throws Exception {
+    @Override
+    public boolean validaId(int id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id do Campeonato não pode ser menor ou igual a 0");
         }
         return true;
+    }
+
+    public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
+        return campeonatoDAO.listarCampeonatosFinalizados();
+    }
+
+    @Override
+    public boolean validaLogin(Campeonato o) throws Exception {
+        return false;
     }
 
 }

@@ -1,17 +1,21 @@
 package View;
 
+import Bo.CampeonatoBO;
+import Dao.ConfiguracaoDAO;
+import Model.Campeonato;
+import Model.Configuracao;
+import Model.Kartodromo;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class MenuPrincipal extends JFrame implements ActionListener , MouseListener {
+public class MenuPrincipal extends JFrame implements ActionListener {
 
     private JPanel panel;
     private JPanel drawer;
@@ -22,8 +26,32 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     private JButton btnOpcoes;
     private JButton btnInstrucoes;
     private JLabel labelInformacoes;
+    private Piloto piloto;
+    private Kartodromo kartodromo;
+    private JTable tableUltimosCampeonatos;
+    private JScrollPane jScrollPaneUltimosCampeonatos;
+    private DefaultTableModel tabelamento;
+    private JLabel logo;
+
+    public Piloto getPiloto() {
+        return piloto;
+    }
+
+    public void setPiloto(Piloto piloto) {
+        this.piloto = piloto;
+    }
+
+    public Kartodromo getKartodromo() {
+        return kartodromo;
+    }
+
+    public void setKartodromo(Kartodromo kartodromo) {
+        this.kartodromo = kartodromo;
+    }
 
     public MenuPrincipal(Piloto piloto) {
+
+        this.piloto = piloto;
 
         // Instancia de itens //
         initializate();
@@ -38,9 +66,9 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
 
     }
 
-    // Construtor ABAIXO para testes, EXCLUIR //
+    public MenuPrincipal(Kartodromo kartodromo) {
 
-    public MenuPrincipal() {
+        this.kartodromo = kartodromo;
 
         // Instancia de itens //
         initializate();
@@ -52,7 +80,6 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
         configs();
         // Configura esse frame //
         configurateThis();
-
     }
 
     private void configurateThis() {
@@ -67,7 +94,9 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     }
 
     private void add() {
+        add(logo);
         add(labelInformacoes);
+        add(jScrollPaneUltimosCampeonatos);
         add(btnInstrucoes);
         add(btnOpcoes);
         add(btnSair);
@@ -79,6 +108,8 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     }
 
     private void initializate() {
+        logo = new JLabel();
+        tableUltimosCampeonatos = new JTable();
         labelInformacoes = new JLabel();
         btnInstrucoes = new JButton();
         btnOpcoes = new JButton();
@@ -88,47 +119,97 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
         selecao = new JPanel();
         panel = new JPanel();
         background = new JPanel();
+        jScrollPaneUltimosCampeonatos = new JScrollPane();
     }
 
     private void configs() {
 
-        btnOpcoes.setBounds(0,540,300,50);
+        logo.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/logo.png")));
+        logo.setBounds(20,20,250,250);
+        logo.setBackground(Colors.CINZALIGHTB);
+
+        tableUltimosCampeonatos.setModel(new DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                        "NOME DO CAMPEONATO",
+                        "TIPO DE CAMPEONATO",
+                        "TOTAL DE CORRIDAS",
+                        "DATA DE CADASTRO",
+                        "DATA DE FINALIZAÇÃO"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+
+        });
+
+        tabelamento = (DefaultTableModel) tableUltimosCampeonatos.getModel();
+
+        try {
+
+            for (Campeonato campeonato : new CampeonatoBO().listarCampeonatosFinalizados()) {
+                tabelamento.addRow(new Object[]{
+                                campeonato.getNome(),
+                                campeonato.getTipoCorrida(),
+                                campeonato.getTotalCorridas(),
+                                campeonato.getDataCadastro(),
+                                campeonato.getDataFinalizacao()
+                        }
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        jScrollPaneUltimosCampeonatos.setViewportView(tableUltimosCampeonatos);
+        jScrollPaneUltimosCampeonatos.setBounds(300, 80, 980, 640);
+
+        btnOpcoes.setBounds(0, 540, 300, 50);
         btnOpcoes.setBorderPainted(false);
         btnOpcoes.setFocusPainted(false);
         btnOpcoes.setText("Opções");
         btnOpcoes.addActionListener(this);
 
-        btnPerfilPiloto.setBounds(0,600,300,50);
+        btnPerfilPiloto.setBounds(0, 600, 300, 50);
         btnPerfilPiloto.setBorderPainted(false);
         btnPerfilPiloto.setFocusPainted(false);
         btnPerfilPiloto.setText("Perfil Piloto");
         btnPerfilPiloto.addActionListener(this);
 
-        btnSair.setBounds(0,660,300,50);
+        btnSair.setBounds(0, 660, 300, 50);
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
         btnSair.setText("Sair");
         btnSair.addActionListener(this);
 
-        btnInstrucoes.setBounds(0,480,300,50);
+        btnInstrucoes.setBounds(0, 480, 300, 50);
         btnInstrucoes.setBorderPainted(false);
         btnInstrucoes.setFocusPainted(false);
         btnInstrucoes.setText("Como Usar");
         btnInstrucoes.addActionListener(this);
 
-        labelInformacoes.setBounds(325,20,500,40);
+        labelInformacoes.setBounds(325, 20, 500, 40);
         labelInformacoes.setText("ULTIMOS CAMPEONATOS");
         labelInformacoes.setFont(Fonts.SANSSERIFMIN);
 
-        drawer.setBounds(0,0,300,720);
-        panel.setBounds(300,0,1180,80);
+        drawer.setBounds(0, 0, 300, 720);
+        panel.setBounds(300, 0, 1180, 80);
         background.setSize(Info.MAXSCREENSIZE);
         selecao.setVisible(false);
 
     }
 
     private void setTheme() {
-        if(LoginFrame.getConfiguracao().isTema()) {
+
+        if (LoginFrame.getConfiguracao().isTema()) {
             // Tema Escuro //
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.PRETO);
@@ -142,6 +223,8 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
             btnInstrucoes.setBackground(Colors.CINZAMEDB);
             btnInstrucoes.setForeground(Colors.CINZAMEDA);
             labelInformacoes.setForeground(Colors.CINZAMEDA);
+            tableUltimosCampeonatos.setBackground(Colors.VERDELIGHT);
+            tableUltimosCampeonatos.setForeground(Colors.CINZADARKB);
 
         } else {
             // Tema Claro //
@@ -157,6 +240,8 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
             btnInstrucoes.setBackground(Colors.CINZAMEDB);
             btnInstrucoes.setForeground(Colors.CINZAMEDA);
             labelInformacoes.setForeground(Colors.CINZAMEDA);
+            tableUltimosCampeonatos.setForeground(Colors.CINZADARKB);
+            tableUltimosCampeonatos.setBackground(Colors.VERDELIGHT);
         }
     }
 
@@ -164,45 +249,25 @@ public class MenuPrincipal extends JFrame implements ActionListener , MouseListe
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnPerfilPiloto) {
             dispose();
-            new PerfilPiloto();
+            new PerfilPiloto(piloto);
         }
         if (e.getSource() == btnSair) {
-            // Acredito que tenha que salvar algum processo em andamento aqui antes de sair por completo //
-            System.exit(0);
+
+            if (JOptionPane.showConfirmDialog(null,"Voce tem certeza?" , "Deslogar" , JOptionPane.OK_OPTION) == 0) {
+                piloto = null;
+                kartodromo = null;
+                dispose();
+                new LoginFrame();
+            }
+
         }
         if (e.getSource() == btnOpcoes) {
-            dispose();
-            //new Opcoes();
-            System.exit(0);
+            this.setVisible(false);
+            new Opcoes(new Configuracao(), this);
         }
         if (e.getSource() == btnInstrucoes) {
-            // Acredito que tenha que salvar algum processo em andamento aqui antes de sair por completo //
-            System.exit(0);
+            new Instrucoes();
+            System.out.println(piloto.getNomePiloto());
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }

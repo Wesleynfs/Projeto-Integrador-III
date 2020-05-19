@@ -4,9 +4,10 @@ import Connections.ConnectionFactory;
 import Model.Kartodromo;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
-public class KartodromoDAO {
+public class KartodromoDAO implements GenericDAO<Kartodromo> {
 
     private EntityManager entityManager;
 
@@ -14,6 +15,7 @@ public class KartodromoDAO {
         entityManager = new ConnectionFactory().getConnection();
     }
 
+    @Override
     public boolean salvar(Kartodromo kartodromo) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -22,12 +24,18 @@ public class KartodromoDAO {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar kartodromo [" + kartodromo.getNome() +"]");
+            throw new Exception("Erro ao salvar kartodromo [" + kartodromo.getNomeKartodromo() + "]");
         } finally {
             entityManager.close();
         }
     }
 
+    @Override
+    public boolean ler(Kartodromo o) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean alterar(Kartodromo kartodromo) throws Exception {
         try {
             entityManager.getTransaction().begin();
@@ -42,9 +50,10 @@ public class KartodromoDAO {
         }
     }
 
+    @Override
     public boolean deletar(Kartodromo kartodromo) throws Exception {
         try {
-            Kartodromo kartodromo1 = entityManager.find(Kartodromo.class, kartodromo.getId_kartodromo());
+            Kartodromo kartodromo1 = entityManager.find(Kartodromo.class, kartodromo.getIdKartodromo());
             entityManager.getTransaction().begin();
             entityManager.remove(kartodromo1);
             entityManager.getTransaction().commit();
@@ -56,21 +65,15 @@ public class KartodromoDAO {
         }
     }
 
-    public List<Kartodromo> listarTodos() throws Exception {
+    @Override
+    public List<Kartodromo> listarTodos(Kartodromo o) throws Exception {
         try {
-            List<Kartodromo> kartodromos = null;
-            kartodromos = entityManager.createQuery("SELECT k FROM Kartodromo k").getResultList();
-            return kartodromos;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        } finally {
-            entityManager.close();
-        }
-    };
 
-    public Kartodromo getById(int id) throws Exception {
-        try {
-            return entityManager.find(Kartodromo.class,id);
+            Query query = entityManager.createQuery("SELECT k FROM Kartodromo k WHERE emailkartodromo = :email and senhakartodromo = :senha");
+            query.setParameter("email", o.getEmailKartodromo());
+            query.setParameter("senha", o.getSenhaKartodromo());
+            return query.getResultList();
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -78,5 +81,26 @@ public class KartodromoDAO {
         }
     }
 
+    @Override
+    public List<Kartodromo> listarTodos() throws Exception {
+        try {
+            Query query = entityManager.createQuery("SELECT k FROM Kartodromo k");
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
+    @Override
+    public Kartodromo getById(int id) throws Exception {
+        try {
+            return entityManager.find(Kartodromo.class, id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 }

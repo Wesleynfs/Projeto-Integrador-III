@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
+public class DesenvolvedorKartodromo extends JFrame implements ActionListener{
     private JPanel fundo;
     private JPanel drawer;
     
@@ -63,7 +63,7 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
     private JButton btnAlterar;
     private JButton btnDeletar;
     
-    public Desenvolvedor_Kartodromo() {
+    public DesenvolvedorKartodromo() {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -540,7 +540,7 @@ public class Desenvolvedor_Kartodromo extends JFrame implements ActionListener{
         
         if(e.getSource() == btnIrparapiloto) {
             dispose();
-            new Desenvolvedor_piloto();
+            new DesenvolvedorPiloto();
         }
     }
     

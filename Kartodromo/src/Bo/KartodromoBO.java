@@ -1,11 +1,13 @@
 package Bo;
 
 import Dao.KartodromoDAO;
+import Dao.PilotoDAO;
 import Model.Kartodromo;
+import Model.Piloto;
 
 import java.util.List;
 
-public class KartodromoBO {
+public class KartodromoBO implements GenericBO<Kartodromo> {
 
     private KartodromoDAO kartodromoDAO;
 
@@ -13,33 +15,56 @@ public class KartodromoBO {
 
     }
 
-    public boolean criarKartodromo(Kartodromo kartodromo) throws Exception {
-        if (validaKartodromo(kartodromo)) {
+    @Override
+    public boolean criar(Kartodromo o) throws Exception {
+        if (valida(o)) {
             kartodromoDAO = new KartodromoDAO();
-            return kartodromoDAO.salvar(kartodromo);
+            return kartodromoDAO.salvar(o);
         }
         return false;
     }
 
-    public boolean deletarKartodromo(Kartodromo kartodromo) throws Exception {
-        if (validaKartodromo(kartodromo)){
+    @Override
+    public boolean deletar(Kartodromo o) throws Exception {
+        if (valida(o)){
             kartodromoDAO = new KartodromoDAO();
-            return kartodromoDAO.deletar(kartodromo);
+            return kartodromoDAO.deletar(o);
         }
         return false;
     }
 
-    public boolean alterarKartodromo(Kartodromo kartodromo) throws Exception {
-        if (validaKartodromo(kartodromo)) {
+    @Override
+    public boolean alterar(Kartodromo o) throws Exception {
+        if (valida(o)) {
             kartodromoDAO = new KartodromoDAO();
-            return kartodromoDAO.alterar(kartodromo);
+            return kartodromoDAO.alterar(o);
         }
         return false;
     }
 
-    public List<Kartodromo> listarKartodromos() throws Exception {
+    @Override
+    public List<Kartodromo> listarPorItem(Kartodromo o) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Kartodromo> listarTodos() throws Exception {
         kartodromoDAO = new KartodromoDAO();
         return kartodromoDAO.listarTodos();
+    }
+
+    @Override
+    public Kartodromo logar(Kartodromo o) throws Exception {
+        if (validaLogin(o)) {
+            List<Kartodromo> list = new KartodromoDAO().listarTodos(o);
+            if (list.size() > 0) {
+                return list.get(0);
+            } else {
+                throw new Exception("Kartodromo não encontrado!");
+            }
+        } else {
+            throw new Exception("Kartodromo não validado!");
+        }
     }
 
     public Kartodromo getById(int id) throws Exception {
@@ -50,18 +75,30 @@ public class KartodromoBO {
         return null;
     }
 
-    private boolean validaKartodromo(Kartodromo kartodromo) throws Exception {
-        if (kartodromo.getNome().equals("")) {
+    @Override
+    public boolean valida(Kartodromo o) throws Exception {
+        if (o.getNomeKartodromo().equals("")) {
             throw new Exception("Nome do kartodromo não pode ficar em branco!");
-        } else if (kartodromo.getSenha().length() > 50) {
+        } else if (o.getSenhaKartodromo().length() > 50) {
             throw new Exception("Senha maior do que o permitido");
         }
         return true;
     }
 
-    private boolean validaId(int id) throws Exception {
+    @Override
+    public boolean validaId(int id) throws Exception {
         if(id <= 0) {
             throw new Exception("Id do kartodromo não pode ser menor ou igual a 0");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean validaLogin(Kartodromo o) throws Exception {
+        if (o.getEmailKartodromo().equals("")) {
+            throw new Exception("Email do kartodromo não pode ficar em branco!");
+        } else if (o.getSenhaKartodromo().length() > 50) {
+            throw new Exception("Senha maior do que o permitido");
         }
         return true;
     }

@@ -1,78 +1,79 @@
 package Dao;
 
 import Connections.ConnectionFactory;
-import Model.Avaliacao;
-
+import Model.AvisoCampeonato;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
+public class AvisoCampeonatoDAO implements GenericDAO<AvisoCampeonato> {
 
     private EntityManager entityManager;
 
-    public AvaliacaoDAO() {
+    public AvisoCampeonatoDAO() {
         entityManager = new ConnectionFactory().getConnection();
     }
 
     @Override
-    public boolean salvar(Avaliacao avaliacao) throws Exception {
+    public boolean salvar(AvisoCampeonato avisoCampeonato) throws Exception {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(avaliacao);
+            entityManager.persist(avisoCampeonato);
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar avaliacao do piloto [" + avaliacao.getPiloto().getNomePiloto() + "]");
+            throw new Exception("Erro ao salvar Aviso do Campeonato [" + avisoCampeonato.getIdAvisoCampeonato() +"]");
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public boolean ler(Avaliacao o) throws Exception {
+    public boolean ler(AvisoCampeonato avisoCampeonato) throws Exception {
         return false;
     }
 
     @Override
-    public boolean alterar(Avaliacao avaliacao) throws Exception {
+    public boolean alterar(AvisoCampeonato avisoCampeonato) throws Exception {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(avaliacao);
+            entityManager.merge(avisoCampeonato);
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao alterar o avaliacao!");
+            throw new Exception("Erro ao alterar o aviso do campeonato!");
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public boolean deletar(Avaliacao avaliacao) throws Exception {
+    public boolean deletar(AvisoCampeonato avisoCampeonato) throws Exception {
         try {
-            Avaliacao avaliacao1 = entityManager.find(Avaliacao.class, avaliacao.getIdAvaliacao());
+            AvisoCampeonato avisoCampeonato1 = entityManager.find(AvisoCampeonato.class, avisoCampeonato.getIdAvisoCampeonato());
             entityManager.getTransaction().begin();
-            entityManager.remove(avaliacao1);
+            entityManager.remove(avisoCampeonato1);
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            throw new Exception("Erro ao deletar avaliacão!");
+            throw new Exception("Erro ao deletar aviso do campeonato!");
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public List<Avaliacao> listarTodos(Avaliacao o) throws Exception {
+    public List<AvisoCampeonato> listarTodos(AvisoCampeonato avisoCampeonato) throws Exception {
         return null;
     }
 
     @Override
-    public List<Avaliacao> listarTodos() throws Exception {
+    public List<AvisoCampeonato> listarTodos() throws Exception {
         try {
-            return entityManager.createQuery("SELECT a FROM Avaliacao a").getResultList();
+            List<AvisoCampeonato> avisoCampeonato = null;
+            avisoCampeonato = entityManager.createQuery("SELECT a FROM AvisoCampeonato a").getResultList();
+            return avisoCampeonato;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -81,9 +82,9 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
     }
 
     @Override
-    public Avaliacao getById(int id) throws Exception {
+    public AvisoCampeonato getById(int id) throws Exception {
         try {
-            return entityManager.find(Avaliacao.class, id);
+            return entityManager.find(AvisoCampeonato.class,id);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

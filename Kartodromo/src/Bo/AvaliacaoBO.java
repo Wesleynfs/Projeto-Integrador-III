@@ -6,7 +6,7 @@ import Model.Piloto;
 
 import java.util.List;
 
-public class AvaliacaoBO {
+public class AvaliacaoBO implements GenericBO<Avaliacao>{
 
     private AvaliacaoDAO avaliacaoDAO;
 
@@ -14,32 +14,46 @@ public class AvaliacaoBO {
 
     }
 
-    public boolean criarAvaliacao(Avaliacao avaliacao) throws Exception {
-        if (validaAvaliacao(avaliacao)) {
+    @Override
+    public boolean criar(Avaliacao avaliacao) throws Exception {
+        if (valida(avaliacao)) {
             avaliacaoDAO = new AvaliacaoDAO();
             return avaliacaoDAO.salvar(avaliacao);
         }
         return false;
     }
 
-    public boolean deletarAvaliacao(Avaliacao avaliacao) throws Exception {
-        if (validaAvaliacao(avaliacao)) {
+    @Override
+    public boolean deletar(Avaliacao avaliacao) throws Exception {
+        if (valida(avaliacao)) {
             avaliacaoDAO = new AvaliacaoDAO();
             return avaliacaoDAO.deletar(avaliacao);
         }
         return false;
     }
 
-    public boolean alterarAvaliacao(Avaliacao avaliacao) throws Exception {
-        if (validaAvaliacao(avaliacao)) {
+    @Override
+    public boolean alterar(Avaliacao avaliacao) throws Exception {
+        if (valida(avaliacao)) {
             avaliacaoDAO = new AvaliacaoDAO();
             return avaliacaoDAO.alterar(avaliacao);
         }
         return false;
     }
 
-    public List<Avaliacao> listarAvaliacoes() throws Exception {
+    @Override
+    public List<Avaliacao> listarTodos() throws Exception {
         return avaliacaoDAO.listarTodos();
+    }
+
+    @Override
+    public List<Avaliacao> listarPorItem(Avaliacao o) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Avaliacao logar(Avaliacao o) throws Exception {
+        return null;
     }
 
     public Avaliacao getById(int id) throws Exception {
@@ -50,19 +64,26 @@ public class AvaliacaoBO {
         return null;
     }
 
-    private boolean validaAvaliacao(Avaliacao avaliacao) throws Exception {
+
+    @Override
+    public boolean valida(Avaliacao avaliacao) throws Exception {
         if (avaliacao.getComentario().equals("")) {
             throw new Exception("Nome do piloto não pode ficar em branco!");
         }
         return true;
     }
 
-    private boolean validaId(int id) throws Exception {
+    @Override
+    public boolean validaId(int id) throws Exception {
         if(id <= 0) {
             throw new Exception("Id da avaliação não pode ser menor ou igual a 0");
         }
         return true;
     }
 
+    @Override
+    public boolean validaLogin(Avaliacao o) throws Exception {
+        return false;
+    }
 
 }

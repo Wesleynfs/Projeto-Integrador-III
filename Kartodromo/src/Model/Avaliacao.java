@@ -7,21 +7,37 @@ public class Avaliacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAvalicao;
+    private int idAvaliacao;
+    private int numeroEstrelas;
+    private String Comentario;
 
     @ManyToOne
     private Piloto piloto;
     @ManyToOne
     private Kartodromo kartodromo;
 
-    private String comentario;
-
-    public int getIdAvalicao() {
-        return idAvalicao;
+    public int getIdAvaliacao() {
+        return idAvaliacao;
     }
 
-    public void setIdAvalicao(int idAvalicao) {
-        this.idAvalicao = idAvalicao;
+    public void setIdAvaliacao(int idAvaliacao) {
+        this.idAvaliacao = idAvaliacao;
+    }
+
+    public int getNumeroEstrelas() {
+        return numeroEstrelas;
+    }
+
+    public void setNumeroEstrelas(int numeroEstrelas) {
+        this.numeroEstrelas = numeroEstrelas;
+    }
+
+    public String getComentario() {
+        return Comentario;
+    }
+
+    public void setComentario(String comentario) {
+        Comentario = comentario;
     }
 
     public Piloto getPiloto() {
@@ -40,32 +56,18 @@ public class Avaliacao {
         this.kartodromo = kartodromo;
     }
 
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
-    public Avaliacao(int idAvalicao, Piloto piloto, Kartodromo kartodromo, String comentario) {
-        this.idAvalicao = idAvalicao;
+    public Avaliacao(int idAvaliacao, int numeroEstrelas,
+                     String comentario, Piloto piloto,
+                     Kartodromo kartodromo) {
+        this.idAvaliacao = idAvaliacao;
+        this.numeroEstrelas = numeroEstrelas;
+        Comentario = comentario;
         this.piloto = piloto;
         this.kartodromo = kartodromo;
-        this.comentario = comentario;
     }
 
     public Avaliacao() {
 
-    }
 
-    @Override
-    public String toString() {
-        return "Avaliacao{" +
-                "idAvalicao=" + idAvalicao +
-                ", piloto=" + piloto +
-                ", kartodromo=" + kartodromo +
-                ", comentario='" + comentario + '\'' +
-                '}';
     }
 }

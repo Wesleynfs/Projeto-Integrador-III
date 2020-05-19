@@ -3,39 +3,36 @@ package Email;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class EmailJava {
 
     private String username = "potatoemail007@gmail.com";
     private String password = "123456789Wes";
-    private String to = "kako.araujo.24@gmail.com";
     private String server = "smtp.gmail.com";
 
     private Authenticator simpleAuth() {
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username,password);
+                return new PasswordAuthentication(username, password);
             }
         };
         return authenticator;
     }
 
-    public boolean EnviarEmailGmail(StringBuilder lista,String assunto,String mensagem) throws Exception {
+    private boolean enviarEmailGmail(StringBuilder lista, String assunto, String mensagem) throws Exception {
 
         Properties properties = new Properties();
-        properties.put("mail.transport.protocol","smtp");
-        properties.put("mail.smtp.starttls","true");
-        properties.put("mail.smtp.host",server);
-        properties.put("mail.smtp.auth","true");
-        properties.put("mail.smtp.user",username);
-        properties.put("mail.smtp.port","465");
-        properties.put("mail.smtp.socketFactory.port","465");
-        properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-        properties.put("mail.smtp.socketFactory.fallback","false");
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.starttls", "true");
+        properties.put("mail.smtp.host", server);
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.user", username);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.socketFactory.fallback", "false");
 
         Session session = Session.getInstance(properties, simpleAuth());
         session.setDebug(true);
@@ -54,15 +51,31 @@ public class EmailJava {
             message.setSubject(assunto);
             message.setText(mensagem);
             tr = session.getTransport("smtp");
-            tr.connect(server,username,password);
+            tr.connect(server, username, password);
             message.saveChanges();
-            tr.sendMessage(message,message.getAllRecipients());
+            tr.sendMessage(message, message.getAllRecipients());
             tr.close();
             return true;
         } catch (Exception e) {
             throw new Exception("Não foi possivel enviar o email" + e.getMessage());
         }
 
+    }
+
+    public List<Integer> enviarEmailPiloto(String email) throws Exception {
+
+        List<Integer> list = new ArrayList<>();
+
+        for (int x = 0; x < 5; x++) {
+            list.add(new Random().nextInt(10));
+        }
+
+        enviarEmailGmail(new StringBuilder(email),
+                "Código de Envio 'KART ON ROAD'",
+                "Seu Código é: " + list.toString() +
+                        " Insira-o para finalizar seu cadastro conosco!");
+
+        return list;
     }
 
 

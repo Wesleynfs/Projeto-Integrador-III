@@ -11,18 +11,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class Historico extends JFrame implements ActionListener {
 
-
     private JPanel fundo;
     private JPanel drawer;
-
     private JButton btnVoltar;
-    
     private JLabel logo;
     private JLabel corridas_participandoinfoLabel;
-
     private JScrollPane jScrollPaneCorridasRealizadas;
     private JTable tableTodasAsCorridasRealizadas;
-    
     private DefaultTableModel tabelamento;
 
     public Historico() {
@@ -169,7 +164,7 @@ public class Historico extends JFrame implements ActionListener {
        
         if (e.getSource() == btnVoltar) {
             dispose();
-            new VerificarCorrida();
+            //new VerificarCorrida();
         }
 
     }

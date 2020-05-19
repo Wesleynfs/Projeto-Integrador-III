@@ -1,5 +1,6 @@
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -9,26 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class EnviarAviso extends JFrame implements ActionListener{
+public class EnviarAviso extends JFrame implements ActionListener {
+
     private JPanel fundo;
     private JPanel drawer;
-    
     private JFormattedTextField assuntoTextField;
-  
     private JTextPane contextojTextPane1;
-    
     private JLabel logo;
-    
     private JLabel relatoLabel;
     private JLabel assuntoLabel;
     private JLabel contextoLabel;
-
     private JScrollPane contextojScrollPane;
-    
     private JButton btnVoltar;
     private JButton btnEnviar;
 
-    public EnviarAviso() {
+    private Piloto piloto;
+
+    public EnviarAviso(Piloto piloto) {
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -40,8 +38,10 @@ public class EnviarAviso extends JFrame implements ActionListener{
         // Configura esse frame //
         configurateThis();
    
-       
+        this.piloto = piloto;
+
     }
+
     private void configurateThis(){
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
@@ -162,7 +162,7 @@ public class EnviarAviso extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            new PerfilPiloto();
+            new PerfilPiloto(piloto);
         }
 
         if(e.getSource() == btnEnviar) {

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Iniciar_Corrida_pt1 extends JFrame implements ActionListener {
+public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -31,7 +31,7 @@ public class Iniciar_Corrida_pt1 extends JFrame implements ActionListener {
     
     private DefaultTableModel tabelamento;
 
-    public Iniciar_Corrida_pt1() {
+    public IniciarCorridaPt1() {
 
         // Instancia de itens //
         initializate();
@@ -247,13 +247,13 @@ public class Iniciar_Corrida_pt1 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            new VerificarCorrida();
+            //new VerificarCorrida();
         }
 
         if (e.getSource() == btnIniciarCorrida) {
             try{
                 dispose();
-                new Iniciar_Corrida_pt2();
+                new IniciarCorridaPt2();
                 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");

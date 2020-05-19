@@ -2,7 +2,6 @@ package Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 public class Campeonato {
@@ -11,25 +10,25 @@ public class Campeonato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCampeonato;
 
-    private Timestamp data;
-
-    @ManyToMany(mappedBy = "campeonatos")
-    private List<Piloto> pilotos;
+    private String nome;
+    private Timestamp dataCadastro;
+    private int totalCorridas;
+    private boolean situacao;
+    private String tipoCorrida;
+    private Timestamp dataFinalizacao;
 
     @ManyToOne
     private Kartodromo kartodromo;
+    @ManyToOne
+    private Corrida corrida;
 
-    private String nome;
+    public Timestamp getDataFinalizacao() {
+        return dataFinalizacao;
+    }
 
-    // Gets and Sets //
-
-    public Kartodromo getKartodromo() { return kartodromo; }
-
-    public void setKartodromo(Kartodromo kartodromo) { this.kartodromo = kartodromo; }
-
-    public List<Piloto> getPilotos() { return pilotos; }
-
-    public void setPilotos(List<Piloto> pilotos) { this.pilotos = pilotos; }
+    public void setDataFinalizacao(Timestamp dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
 
     public int getIdCampeonato() {
         return idCampeonato;
@@ -39,22 +38,6 @@ public class Campeonato {
         this.idCampeonato = idCampeonato;
     }
 
-    public Timestamp getData() {
-        return data;
-    }
-
-    public void setData(Timestamp data) {
-        this.data = data;
-    }
-/*
-    public Kartodromo getKartodromo() {
-        return kartodromo;
-    }
-
-    public void setKartodromo(Kartodromo kartodromo) {
-        this.kartodromo = kartodromo;
-    }
-*/
     public String getNome() {
         return nome;
     }
@@ -63,23 +46,50 @@ public class Campeonato {
         this.nome = nome;
     }
 
-    public Campeonato(int idCampeonato, Timestamp data,/* Kartodromo kartodromo,*/ String nome) {
+    public Timestamp getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Timestamp dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public int getTotalCorridas() {
+        return totalCorridas;
+    }
+
+    public void setTotalCorridas(int totalCorridas) {
+        this.totalCorridas = totalCorridas;
+    }
+
+    public boolean isSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
+    }
+
+    public String getTipoCorrida() {
+        return tipoCorrida;
+    }
+
+    public void setTipoCorrida(String tipoCorrida) {
+        this.tipoCorrida = tipoCorrida;
+    }
+
+    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Timestamp dataFinalizacao) {
         this.idCampeonato = idCampeonato;
-        this.data = data;
-        //this.kartodromo = kartodromo;
         this.nome = nome;
+        this.dataCadastro = dataCadastro;
+        this.totalCorridas = totalCorridas;
+        this.situacao = situacao;
+        this.tipoCorrida = tipoCorrida;
+        this.dataFinalizacao = dataFinalizacao;
     }
 
     public Campeonato() {
+
     }
 
-    @Override
-    public String toString() {
-        return "Campeonato{" +
-                "idCampeonato=" + idCampeonato +
-                ", data=" + data +
-                //", kartodromo=" + kartodromo +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
 }

@@ -2,10 +2,9 @@ package Bo;
 
 import Dao.PilotoDAO;
 import Model.Piloto;
-
 import java.util.List;
 
-public class PilotoBO {
+public class PilotoBO implements GenericBO<Piloto>{
 
     private PilotoDAO pilotoDAO;
 
@@ -13,79 +12,97 @@ public class PilotoBO {
 
     }
 
-    public boolean criarPiloto(Piloto piloto) throws Exception {
-        if (validaPiloto(piloto)) {
+    @Override
+    public boolean criar(Piloto o) throws Exception {
+        if (valida(o)) {
             pilotoDAO = new PilotoDAO();
-            return pilotoDAO.salvar(piloto);
+            return pilotoDAO.salvar(o);
         }
         return false;
     }
 
-    public boolean deletarPiloto(Piloto piloto) throws Exception {
-        if (validaPiloto(piloto)) {
+    @Override
+    public boolean deletar(Piloto o) throws Exception {
+        if (valida(o)) {
             pilotoDAO = new PilotoDAO();
-            return pilotoDAO.deletar(piloto);
+            return pilotoDAO.deletar(o);
         }
         return false;
     }
 
-    public boolean alterarPiloto(Piloto piloto) throws Exception {
-        if (validaPiloto(piloto)) {
+    @Override
+    public boolean alterar(Piloto o) throws Exception {
+        if (valida(o)) {
             pilotoDAO = new PilotoDAO();
-            return pilotoDAO.alterar(piloto);
+            return pilotoDAO.alterar(o);
         }
         return false;
     }
 
-    public List<Piloto> listarPilotos() throws Exception {
+    @Override
+    public List<Piloto> listarPorItem(Piloto o) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Piloto> listarTodos() throws Exception {
+        pilotoDAO = new PilotoDAO();
         return pilotoDAO.listarTodos();
     }
 
-    public boolean logarPiloto(Piloto piloto) throws Exception {
-        if (validaLoginPiloto(piloto)) {
-            pilotoDAO = new PilotoDAO();
-            if (!pilotoDAO.listarTodos(piloto).isEmpty()) {
-                return true;
+    @Override
+    public Piloto logar(Piloto o) throws Exception {
+        if (validaLogin(o)) {
+            List<Piloto> list = new PilotoDAO().listarTodos(o);
+            if (list.size() > 0) {
+                return list.get(0);
+            } else {
+                throw new Exception("Piloto não encontrado!");
             }
+        } else {
+            throw new Exception("Piloto não validado!");
         }
-        return false;
     }
 
+    @Override
     public Piloto getById(int id) throws Exception {
-        if (validaIdPiloto(id)) {
+        if (validaId(id)) {
             pilotoDAO = new PilotoDAO();
             return pilotoDAO.getById(id);
         }
         return null;
     }
 
-    private boolean validaPiloto(Piloto piloto) throws Exception {
-        if (piloto.getNome().equals("")) {
+    @Override
+    public boolean valida(Piloto o) throws Exception {
+        if (o.getNomePiloto().equals("")) {
             throw new Exception("Nome do piloto não pode ficar em branco!");
-        } else if (piloto.getSenha().equals("")) {
+        } else if (o.getSenhaPiloto().equals("")) {
             throw new Exception("Senha do piloto não pode ficar em branco!");
-        } else if (piloto.getSenha().length() > 50) {
+        } else if (o.getSenhaPiloto().length() > 50) {
             throw new Exception("Senha maior do que o permitido");
-        } else if (piloto.getEmail().equals("")) {
+        } else if (o.getEmailPiloto().equals("")) {
             throw new Exception("Email do usuário nao pode ser nulo!");
         } else {
             return true;
         }
     }
 
-    private boolean validaLoginPiloto(Piloto piloto) throws Exception {
-        if (piloto.getEmail().isEmpty()) {
-            throw new Exception("Email em branco!");
-        } else if (piloto.getSenha().isEmpty()) {
-            throw new Exception("Senha em branco!");
+    @Override
+    public boolean validaId(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("Id nulo");
         } else {
             return true;
         }
     }
 
-    public boolean validaIdPiloto(int id) throws Exception {
-        if (id <= 0) {
-            throw new Exception("Id nulo");
+    @Override
+    public boolean validaLogin(Piloto o) throws Exception {
+        if (o.getEmailPiloto().isEmpty()) {
+            throw new Exception("Email em branco!");
+        } else if (o.getSenhaPiloto().isEmpty()) {
+            throw new Exception("Senha em branco!");
         } else {
             return true;
         }

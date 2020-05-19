@@ -1,5 +1,6 @@
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -14,32 +15,31 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
     private JButton btnRelatar;
     private JButton btnSair;
     private JButton btnParticiparCorrida;
     private JButton btnCriarCorrida;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
-
     private JLabel numeroVitoriasLabel;
     private JLabel nomePilotoLabel;
     private JLabel perfilPilotoLabel;
     private JLabel numeroStrikesLabel;
     private JLabel corridasParticipandoLabel;
     private JLabel corridasMarcadasLabel;
-
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
     private JScrollPane jScrollPaneCorridasParticipando;
     private JTable tableCorridasParticipando;
     private DefaultTableModel tabelamento;
-
     JTableHeader headerTabelaCorridasParticipando;
     JTableHeader headerTabelaTodasAsCorridasMarcadas;
 
+    private Piloto piloto;
 
-    public PerfilPiloto() {
+    public PerfilPiloto(Piloto piloto) {
+
+        this.piloto = piloto;
 
         // Instancia de itens //
         initializate();
@@ -173,7 +173,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-
         drawer.setBounds(0, 0, 800, 100);
 
         try {
@@ -183,7 +182,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Corridas Participando",
+                            "CORRIDAS PARTICIPANDO"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -198,31 +197,35 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "Test",
-                    "test1",
-                    "test2"
-            });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //                class.tipo,
-            //                class.data
-            //            });
-            //
-            //          }
+            /*
+
+            List<Corrida> corridaList = pilotoParticipandoCampeonatoBO.listarCorridasParticipando(piloto);
+
+            if (corridaList.size() == 0) {
+                tabelamento.addRow(new Object[]{
+                        "Nem uma corrida na lista!"
+                });
+            } else {
+                for (Corrida corrida : corridaList) {
+                    tabelamento.addRow(new Object[]{
+                            corrida.getNumeroDeVoltas(),
+                            corrida.getTipoKart(),
+                            corrida.getDataCorrida()
+                    });
+                }
+            }
+
+            */
+
             jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
             jScrollPaneCorridasParticipando.setBounds(20, 280, 350, 200);
-
-            // config jScrollPane1_corridas_participando
 
             tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
                     new Object[][]{
 
                     },
                     new String[]{
-                            "Todas as Corridas Marcadas",
+                            "TODAS AS CORRIDAS MARCADAS"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -236,20 +239,26 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             });
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
-            for (int x = 0; x < 5; x++) {
+
+            /*
+
+            List<Corrida> todasAsCorridasMarcadasList = pilotoParticipandoCampeonatoBO.listarTodasAsCorridasMarcadas(piloto);
+
+            if (todasAsCorridasMarcadasList.size() == 0) {
                 tabelamento.addRow(new Object[]{
-                        "Test",
+                        "Nenhuma corrida na marcada!"
                 });
+            } else {
+                for (Corrida corrida : todasAsCorridasMarcadasList) {
+                    tabelamento.addRow(new Object[]{
+                            corrida.getNumeroDeVoltas(),
+                            corrida.getTipoKart(),
+                            corrida.getDataCorrida()
+                    });
+                }
             }
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //                class.tipo,
-            //                class.data
-            //            });
-            //
-            //          }
+
+            */
 
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(420, 170, 350, 200);
@@ -273,41 +282,39 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnVerificarCorridas.setBorderPainted(false);
         btnVerificarCorridas.setFocusPainted(false);
         btnVerificarCorridas.addActionListener(this);
-        btnVerificarCorridas.setBounds(20 , 505,200,35);
+        btnVerificarCorridas.setBounds(20, 505, 200, 35);
         btnVerificarCorridas.setText("Verificar Suas Corridas");
 
         btnAvaliarKartdromo.setBorderPainted(false);
         btnAvaliarKartdromo.setFocusPainted(false);
         btnAvaliarKartdromo.addActionListener(this);
-        btnAvaliarKartdromo.setBounds(20 , 550,200,35);
+        btnAvaliarKartdromo.setBounds(20, 550, 200, 35);
         btnAvaliarKartdromo.setText("Avaliar Kartodromo");
 
         btnParticiparCorrida.setBorderPainted(false);
         btnParticiparCorrida.setFocusPainted(false);
         btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(420 , 395,200,35);
+        btnParticiparCorrida.setBounds(420, 395, 200, 35);
         btnParticiparCorrida.setText("Participar de uma Corrida");
 
         btnCriarCorrida.setBorderPainted(false);
         btnCriarCorrida.setFocusPainted(false);
         btnCriarCorrida.addActionListener(this);
-        btnCriarCorrida.setBounds(420 , 445,200,35);
+        btnCriarCorrida.setBounds(420, 445, 200, 35);
         btnCriarCorrida.setText("Criar nova uma Corrida");
 
-        perfilPilotoLabel.setBounds(20 , 30,500,35);
+        perfilPilotoLabel.setBounds(20, 30, 500, 35);
         perfilPilotoLabel.setText("PERFIL DO PILOTO");
         perfilPilotoLabel.setFont(Fonts.SANSSERIFMIN);
 
-        // Mudar para valores reais aqui //
+        nomePilotoLabel.setBounds(20, 110, 500, 35);
+        nomePilotoLabel.setText("BEM VINDO: " + piloto.getNomePiloto().toUpperCase());
 
-        nomePilotoLabel.setBounds(20 , 110,500,35);
-        nomePilotoLabel.setText("BEM VINDO: " + "FELIPE");
+        numeroVitoriasLabel.setBounds(20, 145, 500, 35);
+        numeroVitoriasLabel.setText("VITÓRIAS: " + piloto.getNumeroDeVitoriasPiloto());
 
-        numeroVitoriasLabel.setBounds(20 , 145,500,35);
-        numeroVitoriasLabel.setText("VITÓRIAS: " + "9999 (GOD MODE ENABLED)");
-
-        numeroStrikesLabel.setBounds(20 , 180,500,35);
-        numeroStrikesLabel.setText("STRIKES: " + "0");
+        numeroStrikesLabel.setBounds(20, 180, 500, 35);
+        numeroStrikesLabel.setText("STRIKES: " + piloto.getNumeroDeStrikesPiloto());
 
     }
 
@@ -315,30 +322,27 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSair) {
             dispose();
-            new MenuPrincipal();
+            new MenuPrincipal(piloto);
         }
         if (e.getSource() == btnRelatar) {
             dispose();
-            new RelatarPorEmail();
+            new RelatarPorEmail(piloto);
         }
         if (e.getSource() == btnParticiparCorrida) {
             dispose();
-            new ParticiparCorrida();
+            new ParticiparCorrida(piloto);
         }
         if (e.getSource() == btnCriarCorrida) {
             dispose();
-            new CriarCorrida();
+            new CriarCorrida(piloto);
         }
         if (e.getSource() == btnVerificarCorridas) {
             dispose();
-            new VerificarCorrida();
+            new VerificarCorrida(piloto);
         }
         if (e.getSource() == btnAvaliarKartdromo) {
             dispose();
-            new AvaliarKartodromo();
+            new AvaliarKartodromo(piloto);
         }
-
     }
-
-
 } 

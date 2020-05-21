@@ -264,7 +264,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
             PilotoBO pilotoBO = new PilotoBO();
             try {
                 if (pilotoBO.criar(piloto)) {
-                    JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

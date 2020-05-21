@@ -4,11 +4,14 @@
     <!-- You create this name -->
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <!-- List of entities -->
-    <class>Model.Piloto</class>
-    <class>Model.Kartodromo</class>
-    <class>Model.Campeonato</class>
     <class>Model.Avaliacao</class>
-    <class>Model.ClassificacaoInterna</class>
+    <class>Model.AvisoCampeonato</class>
+    <class>Model.Campeonato</class>
+    <class>Model.ConviteCampeonato</class>
+    <class>Model.Corrida</class>
+    <class>Model.Kartodromo</class>
+    <class>Model.Piloto</class>
+    <class>Model.PilotoParticipandoCampeonato</class>
     <!--  -->
     <class>View.CadastrarKartodromo</class>
     <properties>
@@ -18,7 +21,7 @@
       <!-- BD -->
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <!-- DB User -->
-      <property name="javax.persistence.jdbc.password" value="postgres"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
       <!-- DB Password -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgresPlusDialect"/>
       <!-- DB Dialect -->

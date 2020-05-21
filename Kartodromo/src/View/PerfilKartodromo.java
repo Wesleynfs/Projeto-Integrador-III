@@ -1,5 +1,8 @@
 package View;
 
+import Bo.AvaliacaoBO;
+import Model.Avaliacao;
+import Model.Kartodromo;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
@@ -16,14 +19,17 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
     private JPanel drawer;
     private JButton btnVoltar;
     private JLabel logo;
-    private JLabel CorridaLabel;
+    private JLabel avaliacoesLabel;
     private JLabel MediaLabel;
     private JScrollPane jScrollPanekartodromo;
     private JTable tableKartodromo;
     private DefaultTableModel tabelamento;
 
-    public PerfilKartodromo() {
-
+    private Piloto piloto;
+    private Kartodromo kartodromo;
+    public PerfilKartodromo(Piloto piloto, Kartodromo kartodromo) throws Exception {
+        this.piloto = piloto;
+        this.kartodromo = kartodromo;
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -55,7 +61,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
         btnVoltar = new JButton();
         logo = new JLabel();
-        CorridaLabel = new JLabel();
+        avaliacoesLabel = new JLabel();
         MediaLabel = new JLabel();
                 
         jScrollPanekartodromo = new JScrollPane();
@@ -65,7 +71,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
     private void add() {
         add(btnVoltar);
-        add(CorridaLabel);
+        add(avaliacoesLabel);
         add(MediaLabel);
         add(logo);
         add(jScrollPanekartodromo);
@@ -83,7 +89,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             tableKartodromo.setBackground(Colors.VERDELIGHT);
             tableKartodromo.setForeground(Colors.CINZADARKB);
             MediaLabel.setForeground(Colors.CINZAMEDA);
-            CorridaLabel.setForeground(Colors.CINZAMEDA);
+            avaliacoesLabel.setForeground(Colors.CINZAMEDA);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
 
@@ -95,19 +101,19 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             tableKartodromo.setForeground(Colors.CINZADARKB);
             tableKartodromo.setBackground(Colors.VERDEDARK);
             MediaLabel.setForeground(Colors.CINZALIGHTB);
-            CorridaLabel.setForeground(Colors.CINZALIGHTB);
+            avaliacoesLabel.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
          
         }
     }
-    private void configs() {
-
+    private void configs() throws Exception {
+        try {
         fundo.setSize(Info.MINSCREENSIZE);
 
         drawer.setBounds(0, 0, 800, 100);
 
-        try {
+        
 
             tableKartodromo.setModel(new DefaultTableModel(
                     new Object[][]{
@@ -128,18 +134,34 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableKartodromo.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "FILLUS",
-                    "MUITO BOM, Tem Café!",
-                    "4"
-            });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //            });
-            //
-            //          }
+            AvaliacaoBO list = new AvaliacaoBO(); 
+            String nota = null;
+            for (Avaliacao avaliacao : list.listarPorKartodromo(kartodromo)){
+                
+                switch (avaliacao.getNumeroEstrelas()){
+                    case 1:
+                        nota = "Muito Ruim";
+                        break;
+                    case 2:
+                        nota = "Ruim";
+                        break;
+                    case 3:
+                        nota = "Médio";
+                        break;
+                    case 4:
+                        nota = "Bom";
+                        break;
+                    case 5:
+                        nota = "Muito Bom";
+                        break;
+                }
+                
+                tabelamento.addRow(new Object[]{
+                    avaliacao.getPiloto().getNomePiloto(),
+                    avaliacao.getComentario(),
+                    nota
+                });
+            }
             jScrollPanekartodromo.setViewportView(tableKartodromo);
             jScrollPanekartodromo.setBounds(60, 150, 680, 300);
 
@@ -147,12 +169,18 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             logo.setBounds(20 , 30,500,35);
             logo.setText("PERFIL DO KARTÓDROMO");
 
-            CorridaLabel.setBounds(300, 120, 300, 35);
-            CorridaLabel.setText("REULTADO: NOME DA CORRIDA");
+            avaliacoesLabel.setBounds(300, 120, 300, 35);
+            avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNomeKartodromo());
             // AQUI COLOCA O NOME DA CORRIDA
             //
-            MediaLabel.setBounds(280, 480, 300, 35);
-            MediaLabel.setText("GRANDE GANHADOR: NOME PILOTO VENCEDOR");
+            
+            
+            
+            
+           
+            
+            MediaLabel.setBounds(320, 480, 300, 35);
+            MediaLabel.setText("MÉDIA DAS NOTAS: " );
             //AQUI COLOCA O NOME DO PRIMEIRO COLOCADO DA CORRIDA      
             //        
                     
@@ -161,20 +189,20 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             btnVoltar.setFocusPainted(false);
             btnVoltar.addActionListener(this);
             btnVoltar.setBounds(320 , 540,200,35);
-            btnVoltar.setText("FINALIZAR CORRIDA"); 
+            btnVoltar.setText("VOLTAR"); 
             
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Erro ao visualizar avaliações", "Error:", JOptionPane.ERROR_MESSAGE);
         }
-      
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            //new AvaliarKartodromo();
+            new AvaliarKartodromo(piloto);
         }
 
     }

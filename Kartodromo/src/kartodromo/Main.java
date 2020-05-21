@@ -32,8 +32,7 @@ public class Main {
 
         new LoginFrame();
 
-        //new MenuPrincipal(new Piloto());
-
+        
     }
 
 }

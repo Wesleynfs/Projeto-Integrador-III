@@ -2,6 +2,7 @@ package Dao;
 
 import Connections.ConnectionFactory;
 import Model.Avaliacao;
+import Model.Kartodromo;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -72,8 +73,10 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
     @Override
     public List<Avaliacao> listarTodos() throws Exception {
         try {
+            System.out.println("12321412");
             return entityManager.createQuery("SELECT a FROM Avaliacao a").getResultList();
         } catch (Exception e) {
+            System.out.println("12321412");
             throw new Exception(e.getMessage());
         } finally {
             entityManager.close();
@@ -90,4 +93,29 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
             entityManager.close();
         }
     }
+    
+    public List<Avaliacao> listarPorKartodromo(Kartodromo kartodromo) throws Exception {
+        try {
+            return entityManager.createQuery
+        ("SELECT a FROM Avaliacao a where kartodromo = :kart")
+				.setParameter("kart" , kartodromo)
+				.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        } finally {
+            entityManager.close();
+        }
+    }
+//    public float listarPorMediaNotas(Kartodromo kartodromo) throws Exception {
+//        try {
+//
+//            return
+//        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+//            
+//        } finally {
+//            entityManager.close();
+//        }
+//    }
 }

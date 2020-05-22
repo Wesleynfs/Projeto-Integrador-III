@@ -141,7 +141,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                    false, false, false, false, false, false
+                    false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -266,8 +266,8 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             new Opcoes(new Configuracao(), this);
         }
         if (e.getSource() == btnInstrucoes) {
-            new Instrucoes();
-            System.out.println(piloto.getNomePiloto());
+            dispose();
+            new Tutorial(piloto);
         }
     }
 }

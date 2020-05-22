@@ -323,7 +323,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
             try{
                 Kartodromo kartodromo = new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1);
                 dispose();
-                new PerfilKartodromo(piloto, kartodromo);
+                new AvaliacoesDeKartodromo(piloto, kartodromo);
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");
             }

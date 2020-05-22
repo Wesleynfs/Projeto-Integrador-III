@@ -16,7 +16,7 @@ import java.security.Key;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
-public class PerfilKartodromo extends JFrame implements ActionListener {
+public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -31,7 +31,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
     private Piloto piloto;
     private Kartodromo kartodromo;
 
-    public PerfilKartodromo(Piloto piloto, Kartodromo kartodromo) throws Exception {
+    public AvaliacoesDeKartodromo(Piloto piloto, Kartodromo kartodromo) throws Exception {
         this.piloto = piloto;
         this.kartodromo = kartodromo;
         // Instancia de itens //

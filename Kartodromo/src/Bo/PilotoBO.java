@@ -82,8 +82,12 @@ public class PilotoBO implements GenericBO<Piloto>{
         } else if (o.getSenhaPiloto().length() > 50) {
             throw new Exception("Senha maior do que o permitido");
         } else if (o.getEmailPiloto().equals("")) {
-            throw new Exception("Email do usuário nao pode ser nulo!");
-        } else {
+            throw new Exception("Email do piloto nao pode ser nulo!");
+        } else if (o.getCpfPiloto().equals("   .   .   -  ")) {
+            throw new Exception("Cpf do piloto não pode ficar em branco!");
+        } else if (o.getDataNascimentoPiloto().equals("  /  /     ")) {
+            throw new Exception("Data do piloto não pode ficar em branco!");
+        } else  {
             return true;
         }
     }

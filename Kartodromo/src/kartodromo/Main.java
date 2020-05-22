@@ -29,9 +29,7 @@ public class Main {
 
         // Executar sempre por essa tela e inserir as outras telas no programa //
         inicializarBancoDeDados();
-
         new LoginFrame();
-
         
     }
 

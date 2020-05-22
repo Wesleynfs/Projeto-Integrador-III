@@ -202,7 +202,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setBorderPainted(false);
         btnCadastrar.addActionListener(this);
-        btnCadastrar.setText("Cadastrar Kartodromo");
+        btnCadastrar.setText("Gerenciar Kartodromo");
         btnCadastrar.setBounds(450, 550, 170, 35);
 
         jmenuitem_Desenvolvedor.setText("Entrar como Desenvolvedor");
@@ -330,12 +330,12 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     public void itemStateChanged(ItemEvent itemEvent) {
         if ((itemEvent.getSource() == combo)) {
             if (combo.getSelectedIndex() == 0) {
-                btnCadastrar.setText("Cadastrar Kartodromo");
+                btnCadastrar.setText("Gerenciar Kartodromo");
                 btnLogar.setText("Logar Kartodromo");
             }
 
             if (combo.getSelectedIndex() == 1) {
-                btnCadastrar.setText("Cadastrar Piloto");
+                btnCadastrar.setText("Gerenciar Piloto");
                 btnLogar.setText("Logar Piloto");
             }
 

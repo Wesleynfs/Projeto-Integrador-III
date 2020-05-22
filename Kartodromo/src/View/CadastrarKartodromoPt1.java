@@ -6,10 +6,7 @@ import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
@@ -252,32 +249,37 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
 
             List<Integer> listaUsuario = new ArrayList<>();
 
-            for (String array: codigoTextField.getText().split(",")) {
-                listaUsuario.add(Integer.parseInt(array));
-            }
+            if (!codigoTextField.getText().equals(" , , , , ")) {
 
-            if ((!codigoTextField.getText().isEmpty())
-                    || (!nomeKartodromoTextField.getText().isEmpty())
-                    || (!emailConfirmacaoKartodromoTextField.getText().isEmpty())
-                    || (!emailKartodromoTextField.getText().isEmpty())
-                    || (!senhaTextField.getText().isEmpty())) {
+                for (String array : codigoTextField.getText().split(",")) {
+                    listaUsuario.add(Integer.parseInt(array));
+                }
 
-                if (listaUsuario.toString().equals(listaCodigos.toString())) {
+                if ((!nomeKartodromoTextField.getText().isEmpty())
+                        || (!emailConfirmacaoKartodromoTextField.getText().isEmpty())
+                        || (!emailKartodromoTextField.getText().isEmpty())
+                        || (!senhaTextField.getText().isEmpty())) {
 
-                    Kartodromo kartodromo = new Kartodromo();
-                    kartodromo.setNomeKartodromo(nomeKartodromoTextField.getText());
-                    kartodromo.setEmailKartodromo(emailConfirmacaoKartodromoTextField.getText());
-                    kartodromo.setSenhaKartodromo(senhaTextField.getText());
+                    if (listaUsuario.toString().equals(listaCodigos.toString())) {
 
-                    dispose();
-                    new CadastrarKartodromoPt2(kartodromo);
+                        Kartodromo kartodromo = new Kartodromo();
+                        kartodromo.setNomeKartodromo(nomeKartodromoTextField.getText());
+                        kartodromo.setEmailKartodromo(emailConfirmacaoKartodromoTextField.getText());
+                        kartodromo.setSenhaKartodromo(senhaTextField.getText());
+
+                        dispose();
+                        new CadastrarKartodromoPt2(kartodromo);
+
+                    } else {
+                        JOptionPane.showConfirmDialog(null, "Código não corresponde ao enviado! Insira novamente seu código!", "Erro", JOptionPane.PLAIN_MESSAGE);
+                    }
 
                 } else {
-                    JOptionPane.showConfirmDialog(null, "Código não corresponde ao enviado! Insira novamente seu código!", "Erro", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showConfirmDialog(null, "Preencher todos os campos!", "Erro", JOptionPane.PLAIN_MESSAGE);
                 }
 
             } else {
-                JOptionPane.showConfirmDialog(null, "Preencher todos os campos!", "Erro", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showConfirmDialog(null,"Peça seu codigo no botão abaixo" , "Erro" , JOptionPane.PLAIN_MESSAGE);
             }
 
         }
@@ -323,4 +325,5 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
+
 }

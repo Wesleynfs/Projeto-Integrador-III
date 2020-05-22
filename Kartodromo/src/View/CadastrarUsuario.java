@@ -250,18 +250,26 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnDeletar) {
 
+        Piloto piloto = new Piloto();
+        piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
+        piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
+        piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase());
+        piloto.setAtivo(true);
+        piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
+        piloto.setDataNascimentoPiloto(dataNascJTextField.getText().toLowerCase());
+        PilotoBO pilotoBO = new PilotoBO();
+
+        if (e.getSource() == btnDeletar) {
+            try {
+                if (pilotoBO.deletar(piloto)) {
+                    JOptionPane.showMessageDialog(null,"Piloto deletado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         if (e.getSource() == btnCadastrar) {
-            Piloto piloto = new Piloto();
-            piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
-            piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
-            piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase());
-            piloto.setAtivo(true);
-            piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
-            piloto.setDataNascimentoPiloto(dataNascJTextField.getText().toLowerCase());
-            PilotoBO pilotoBO = new PilotoBO();
             try {
                 if (pilotoBO.criar(piloto)) {
                     JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
@@ -272,7 +280,13 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnAlterar) {
-
+            try {
+                if (pilotoBO.alterar(piloto)) {
+                    JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         if (e.getSource() == btnVoltar) {

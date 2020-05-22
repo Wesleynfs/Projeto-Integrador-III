@@ -9,8 +9,11 @@ import Utilities.Fonts;
 import Utilities.Info;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.Key;
+import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 public class PerfilKartodromo extends JFrame implements ActionListener {
@@ -27,6 +30,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
     private Piloto piloto;
     private Kartodromo kartodromo;
+
     public PerfilKartodromo(Piloto piloto, Kartodromo kartodromo) throws Exception {
         this.piloto = piloto;
         this.kartodromo = kartodromo;
@@ -63,7 +67,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         logo = new JLabel();
         avaliacoesLabel = new JLabel();
         MediaLabel = new JLabel();
-                
+
         jScrollPanekartodromo = new JScrollPane();
         tableKartodromo = new JTable();
 
@@ -84,7 +88,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-   
+
             logo.setForeground(Colors.CINZAMEDB);
             tableKartodromo.setBackground(Colors.VERDELIGHT);
             tableKartodromo.setForeground(Colors.CINZADARKB);
@@ -96,7 +100,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
-            drawer.setBackground(Colors.VERDEDARK);          
+            drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             tableKartodromo.setForeground(Colors.CINZADARKB);
             tableKartodromo.setBackground(Colors.VERDEDARK);
@@ -104,100 +108,128 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             avaliacoesLabel.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-         
+
         }
     }
-    private void configs() throws Exception {
-        try {
-        fundo.setSize(Info.MINSCREENSIZE);
 
+    private void configs() throws Exception {
+
+        fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
 
-        
 
-            tableKartodromo.setModel(new DefaultTableModel(
-                    new Object[][]{
+        tableKartodromo.setModel(new DefaultTableModel(
+                new Object[][]{
 
-                    },
-                    new String[]{
-                            "NOME DO PILOTO","COMENTÁRIOS","NOTAS"
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                        false ,false, false
-                };
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit[columnIndex];
+                },
+                new String[]{
+                        "NOME DO PILOTO", "COMENTÁRIOS", "AVALIAÇÃO"
                 }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, false, false
+            };
 
-            });
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
 
-            tabelamento = (DefaultTableModel) tableKartodromo.getModel();
+        });
 
-            AvaliacaoBO list = new AvaliacaoBO(); 
-            String nota = null;
-            for (Avaliacao avaliacao : list.listarPorKartodromo(kartodromo)){
-                
-                switch (avaliacao.getNumeroEstrelas()){
+
+        tabelamento = (DefaultTableModel) tableKartodromo.getModel();
+
+        HashMap<String, Integer> mapa = new HashMap<>();
+
+        int muitoRuim = 0;
+        int ruim = 0;
+        int media = 0;
+        int boa = 0;
+        int muitoBoa = 0;
+
+        String aval = null;
+
+        try {
+
+            for (Avaliacao avaliacao : new AvaliacaoBO().listarPorKartodromo(kartodromo)) {
+
+                switch (avaliacao.getNumeroEstrelas()) {
                     case 1:
-                        nota = "Muito Ruim";
+                        muitoRuim++;
+                        aval = "Muito Ruim";
                         break;
                     case 2:
-                        nota = "Ruim";
+                        ruim++;
+                        aval = "Ruim";
                         break;
                     case 3:
-                        nota = "Médio";
+                        media++;
+                        aval = "Médio";
                         break;
                     case 4:
-                        nota = "Bom";
+                        boa++;
+                        aval = "Bom";
                         break;
                     case 5:
-                        nota = "Muito Bom";
+                        muitoBoa++;
+                        aval = "Muito Bom";
                         break;
                 }
-                
+
                 tabelamento.addRow(new Object[]{
-                    avaliacao.getPiloto().getNomePiloto(),
-                    avaliacao.getComentario(),
-                    nota
+                        avaliacao.getPiloto().getNomePiloto(),
+                        avaliacao.getComentario(),
+                        aval
                 });
+
             }
-            jScrollPanekartodromo.setViewportView(tableKartodromo);
-            jScrollPanekartodromo.setBounds(60, 150, 680, 300);
 
-            logo.setFont(Fonts.SANSSERIFMIN);
-            logo.setBounds(20 , 30,500,35);
-            logo.setText("PERFIL DO KARTÓDROMO");
-
-            avaliacoesLabel.setBounds(300, 120, 300, 35);
-            avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNomeKartodromo());
-            // AQUI COLOCA O NOME DA CORRIDA
-            //
-            
-            
-            
-            
-           
-            
-            MediaLabel.setBounds(320, 480, 300, 35);
-            MediaLabel.setText("MÉDIA DAS NOTAS: " );
-            //AQUI COLOCA O NOME DO PRIMEIRO COLOCADO DA CORRIDA      
-            //        
-                    
-                    
-            btnVoltar.setBorderPainted(false);
-            btnVoltar.setFocusPainted(false);
-            btnVoltar.addActionListener(this);
-            btnVoltar.setBounds(320 , 540,200,35);
-            btnVoltar.setText("VOLTAR"); 
-            
-
-        
         } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "Erro ao visualizar avaliações", "Error:", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao visualizar avaliações " + error.getMessage(), "Error:", JOptionPane.ERROR_MESSAGE);
         }
+
+        mapa.put("Muito Ruim", muitoRuim);
+        mapa.put("Ruim", ruim);
+        mapa.put("Media", media);
+        mapa.put("Boa", boa);
+        mapa.put("Muito Boa", muitoBoa);
+
+        // Caso o mapa esteja vazio //
+        if (mapa.values().stream().distinct().count() == 0) {
+            mapa.put("Media", 1);
+        }
+
+        jScrollPanekartodromo.setViewportView(tableKartodromo);
+        jScrollPanekartodromo.setBounds(60, 150, 680, 300);
+
+        logo.setFont(Fonts.SANSSERIFMIN);
+        logo.setBounds(20, 30, 500, 35);
+        logo.setText("PERFIL DO KARTÓDROMO");
+
+        avaliacoesLabel.setBounds(300, 120, 300, 35);
+        avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNomeKartodromo());
+
+        // AQUI COLOCA O NOME DA CORRIDA //
+
+        MediaLabel.setBounds(320, 480, 300, 35);
+
+        // Pega do mapa a chave que contém o maior valor //
+        MediaLabel.setText("MÉDIA DE AVALIAÇÃO: " + Collections.max(mapa.entrySet(),
+                Map.Entry.comparingByValue())
+                .getKey()
+                .toUpperCase());
+
+        // AQUI COLOCA O NOME DO PRIMEIRO COLOCADO DA CORRIDA //
+
+
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.addActionListener(this);
+        btnVoltar.setBounds(320, 540, 200, 35);
+        btnVoltar.setText("VOLTAR");
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {

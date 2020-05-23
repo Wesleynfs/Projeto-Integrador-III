@@ -30,6 +30,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     private JButton btnCadastrar;
     private JLabel labelKartodromo;
     private JMenuItem jmenuitem_Desenvolvedor;
+    private JMenuItem jmenuitem_Tutorial;
     private JPopupMenu jPopupMenu_Desenvolvedor;
     private JComboBox<String> combo;
     private DefaultListCellRenderer renderer;
@@ -81,6 +82,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         forgotLogin = new JLabel();
         btnCadastrar = new JButton();
         jmenuitem_Desenvolvedor = new JMenuItem();
+        jmenuitem_Tutorial = new JMenuItem();
         jPopupMenu_Desenvolvedor = new JPopupMenu();
         combo = new JComboBox<>();
         renderer = new DefaultListCellRenderer();
@@ -206,10 +208,13 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         btnCadastrar.addActionListener(this);
         btnCadastrar.setText("Gerenciar Kartodromo");
         btnCadastrar.setBounds(450, 550, 170, 35);
-
+        
+        jmenuitem_Tutorial.setText("Tutorial");
         jmenuitem_Desenvolvedor.setText("Entrar como Desenvolvedor");
         jPopupMenu_Desenvolvedor.add(jmenuitem_Desenvolvedor);
+        jPopupMenu_Desenvolvedor.add(jmenuitem_Tutorial);
         jmenuitem_Desenvolvedor.addActionListener(this);
+        jmenuitem_Tutorial.addActionListener(this);
         fundo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 fundoMouseReleased(evt);
@@ -228,7 +233,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
                     if (kartodromo1 != null) {
                         JOptionPane.showMessageDialog(null, "KARTODROMO LOGADO COM SUCESSO!");
                         dispose();
-                        new MenuPrincipal(kartodromo);
+                        new PerfilKartodromo(kartodromo1);
                     } else {
                         throw new Exception("Erro ao localizar kartodromo no banco!");
                     }
@@ -283,6 +288,12 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         if (e.getSource() == jmenuitem_Desenvolvedor) {
             dispose();
             new DesenvolvedorKartodromo();
+        }
+        
+        if (e.getSource() == jmenuitem_Tutorial) {
+            JFrame f = null;
+            dispose();
+            new Tutorial(f);
         }
 
     }

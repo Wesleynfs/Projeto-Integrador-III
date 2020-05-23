@@ -1,6 +1,8 @@
 package View;
 
+import Bo.CampeonatoBO;
 import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -8,6 +10,7 @@ import Utilities.Info;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -182,11 +185,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "CORRIDAS PARTICIPANDO"
+                            "CORRIDAS PARTICIPANDO","DATA","KARTÓDROMO","TOTAL DE PARTICIPANTES"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false
+                        false, false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -196,26 +199,40 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             });
 
             tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
-
-            /*
-
-            List<Corrida> corridaList = pilotoParticipandoCampeonatoBO.listarCorridasParticipando(piloto);
-
-            if (corridaList.size() == 0) {
+            System.out.println("2333dddd");
+            CampeonatoBO campeonatobo = new CampeonatoBO();
+            List<PilotoParticipandoCampeonato> lista_campeonato_do_piloto = campeonatobo.listarPilotoParticipandoCampeonato(piloto);
+            System.out.println("2333");
+            if (lista_campeonato_do_piloto.size() == 0) {
                 tabelamento.addRow(new Object[]{
                         "Nem uma corrida na lista!"
                 });
             } else {
-                for (Corrida corrida : corridaList) {
+                System.out.println("23fdsdfd33");
+                for (PilotoParticipandoCampeonato list : lista_campeonato_do_piloto) {
+                    System.out.println("23ddddddddddd33");
+                    List<PilotoParticipandoCampeonato> lista_total_piloto = campeonatobo.listarPilotosParticipando(list.getCampeonato());
+                    System.out.println("2333ggggggggggggggg");
                     tabelamento.addRow(new Object[]{
-                            corrida.getNumeroDeVoltas(),
-                            corrida.getTipoKart(),
-                            corrida.getDataCorrida()
+                            list.getCampeonato().getNome(),
+                            list.getCampeonato().getDataFinalizacao(),
+                            
+                            /*
+                            
+                            
+                            Fazer a converção da data para o dia/mes/ano PT BR
+                            
+                            
+                            
+                            
+                            
+                            
+                            */
+                            list.getCampeonato().getKartodromo().getNomeKartodromo(),
+                            lista_total_piloto.size()
                     });
                 }
             }
-
-            */
 
             jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
             jScrollPaneCorridasParticipando.setBounds(20, 280, 350, 200);

@@ -2,6 +2,8 @@ package Dao;
 
 import Connections.ConnectionFactory;
 import Model.Campeonato;
+import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -98,6 +100,35 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     public Campeonato getById(int id) throws Exception {
         try {
             return entityManager.find(Campeonato.class,id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
+    public List<PilotoParticipandoCampeonato> listarCampeonatos_do_Piloto_Participando(Piloto piloto) throws Exception {
+        try{
+            return entityManager.createQuery
+            ("SELECT c FROM PilotoParticipandoCampeonato c "
+                    + "where c.piloto = :pilotoatual "
+                    + "and c.campeonato.situacao = 'false'")
+                    .setParameter("pilotoatual", piloto)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        } finally {
+            entityManager.close();
+        }
+    }
+    public List<PilotoParticipandoCampeonato> listarPilotosParticipando(Campeonato campeonato) throws Exception {
+        try {
+            return entityManager.createQuery
+            ("SELECT c FROM PilotoParticipandoCampeonato c "
+                    + "where campeonato = :campeonatoatual")
+                    .setParameter("campeonatoatual", campeonato)
+                    .getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

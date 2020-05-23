@@ -160,8 +160,14 @@ public class Tutorial extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnVoltar) {
-            dispose();
-            menuPrincipal.setVisible(true);
+            if(menuPrincipal != null){
+                dispose();
+                menuPrincipal.setVisible(true);
+            }else{
+                dispose();
+                new LoginFrame();
+            }
+            
         }
 
         if (e.getSource() == btnavancar) {

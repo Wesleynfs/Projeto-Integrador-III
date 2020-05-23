@@ -73,10 +73,8 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
     @Override
     public List<Avaliacao> listarTodos() throws Exception {
         try {
-            System.out.println("12321412");
             return entityManager.createQuery("SELECT a FROM Avaliacao a").getResultList();
         } catch (Exception e) {
-            System.out.println("12321412");
             throw new Exception(e.getMessage());
         } finally {
             entityManager.close();

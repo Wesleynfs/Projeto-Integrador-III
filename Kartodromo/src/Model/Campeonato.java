@@ -19,6 +19,22 @@ public class Campeonato {
 
     @ManyToOne
     private Kartodromo kartodromo;
+
+    public Kartodromo getKartodromo() {
+        return kartodromo;
+    }
+
+    public void setKartodromo(Kartodromo kartodromo) {
+        this.kartodromo = kartodromo;
+    }
+
+    public Corrida getCorrida() {
+        return corrida;
+    }
+
+    public void setCorrida(Corrida corrida) {
+        this.corrida = corrida;
+    }
     @ManyToOne
     private Corrida corrida;
 

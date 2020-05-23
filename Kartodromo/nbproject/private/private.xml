@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/MenuPrincipal.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Utilities/Info_tutorial.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/Tutorial.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/Instrucoes.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/META-INF/persistence.xml</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/DesenvolvedorKartodromo.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/LoginKartodromo.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/AvaliacoesDeKartodromo.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Utilities/Info.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/PerfilPiloto.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/View/Tutorial.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/View/SplashScreen.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/View/LoginKartodromo.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/View/PerfilKartodromo.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/View/PerfilPiloto.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/Dao/CampeonatoDAO.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III-master/Kartodromo/src/Bo/CampeonatoBO.java</file>
         </group>
     </open-files>
 </project-private>

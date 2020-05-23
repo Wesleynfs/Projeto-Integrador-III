@@ -5,8 +5,6 @@ import Model.Campeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 public class CampeonatoBO implements GenericBO<Campeonato>{
@@ -94,7 +92,7 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
     }
 
     public List<PilotoParticipandoCampeonato> listarPilotoParticipandoCampeonato(Piloto piloto) throws Exception {
-        return campeonatoDAO.listarCampeonatos_do_Piloto_Participando(piloto);
+        return campeonatoDAO.listarPilotoParticipandoCampeonato(piloto);
     }
     public List<PilotoParticipandoCampeonato> listarPilotosParticipando(Campeonato campeonato) throws Exception {
         return campeonatoDAO.listarPilotosParticipando(campeonato);

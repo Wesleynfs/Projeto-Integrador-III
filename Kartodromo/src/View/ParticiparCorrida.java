@@ -69,15 +69,12 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         btnOrdenarData = new JButton();
         btnOrdenarKartodromo = new JButton();
         btnOrdenarVagas = new JButton();
-
         logo = new JLabel();
         ordenarporLabel = new JLabel();
         corridaLabel = new JLabel();
-
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
         CorridasjComboBox = new JComboBox<>();
-        
         painel_Ordenar = new JPanel();
     }
 

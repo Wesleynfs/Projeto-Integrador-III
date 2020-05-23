@@ -262,7 +262,6 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
             String aval = null;
 
-            System.out.println(kartodromo.getIdKartodromo());
             for (Avaliacao avaliacao : new AvaliacaoBO().listarPorKartodromo(kartodromo)) {
                 switch (avaliacao.getNumeroEstrelas()) {
                     case 1:

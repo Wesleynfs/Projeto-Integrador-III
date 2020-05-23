@@ -107,10 +107,9 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
         }
     }
     
-    public List<PilotoParticipandoCampeonato> listarCampeonatos_do_Piloto_Participando(Piloto piloto) throws Exception {
+    public List<PilotoParticipandoCampeonato> listarPilotoParticipandoCampeonato(Piloto piloto) throws Exception {
         try{
-            return entityManager.createQuery
-            ("SELECT c FROM PilotoParticipandoCampeonato c "
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
                     + "where c.piloto = :pilotoatual "
                     + "and c.campeonato.situacao = 'false'")
                     .setParameter("pilotoatual", piloto)

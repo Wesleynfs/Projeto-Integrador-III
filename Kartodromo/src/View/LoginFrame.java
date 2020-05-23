@@ -3,6 +3,7 @@ package View;
 import Bo.KartodromoBO;
 import Bo.PilotoBO;
 import Dao.ConfiguracaoDAO;
+import Email.EmailJava;
 import Model.Configuracao;
 import Model.Kartodromo;
 import Model.Piloto;
@@ -13,7 +14,7 @@ import Utilities.Info;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class LoginFrame extends JFrame implements ActionListener, MouseListener, ItemListener {
+public class LoginFrame extends JFrame implements ActionListener, MouseListener, ItemListener , KeyListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -158,6 +159,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         senhaJPasswordField.setBorder(BorderFactory.createEmptyBorder());
         senhaJPasswordField.setBounds(210, 400, 400, 35);
         senhaJPasswordField.setHorizontalAlignment(JPasswordField.CENTER);
+        senhaJPasswordField.addKeyListener(this);
 
         loginLabel.setText("EMAIL");
         loginLabel.setBounds(210, 260, 400, 35);
@@ -215,50 +217,53 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         });
     }
 
+    private void logar() {
+        switch (combo.getSelectedIndex()) {
+            case 0:
+                Kartodromo kartodromo = new Kartodromo();
+                kartodromo.setEmailKartodromo(emailTextField.getText().toLowerCase());
+                kartodromo.setSenhaKartodromo(new String(senhaJPasswordField.getPassword()));
+                try {
+                    Kartodromo kartodromo1 = new KartodromoBO().logar(kartodromo);
+                    if (kartodromo1 != null) {
+                        JOptionPane.showMessageDialog(null, "KARTODROMO LOGADO COM SUCESSO!");
+                        dispose();
+                        new MenuPrincipal(kartodromo);
+                    } else {
+                        throw new Exception("Erro ao localizar kartodromo no banco!");
+                    }
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case 1:
+                Piloto piloto = new Piloto();
+                piloto.setEmailPiloto(emailTextField.getText().toLowerCase());
+                piloto.setSenhaPiloto(new String(senhaJPasswordField.getPassword()));
+                try {
+                    Piloto piloto1 = new PilotoBO().logar(piloto);
+                    if (piloto1 != null) {
+                        JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
+                        dispose();
+                        new MenuPrincipal(piloto1);
+                    } else {
+                        throw new Exception("Erro ao localizar piloto/adm no banco!");
+                    }
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnExit) {
             System.exit(0);
         }
         if (e.getSource() == btnLogar) {
-
-            switch (combo.getSelectedIndex()) {
-                case 0:
-                    Kartodromo kartodromo = new Kartodromo();
-                    kartodromo.setEmailKartodromo(emailTextField.getText().toLowerCase());
-                    kartodromo.setSenhaKartodromo(new String(senhaJPasswordField.getPassword()));
-                    try {
-                        Kartodromo kartodromo1 = new KartodromoBO().logar(kartodromo);
-                        if (kartodromo1 != null) {
-                            JOptionPane.showMessageDialog(null, "KARTODROMO LOGADO COM SUCESSO!");
-                            dispose();
-                            new MenuPrincipal(kartodromo);
-                        } else {
-                            throw new Exception("Erro ao localizar kartodromo no banco!");
-                        }
-                    } catch (Exception error) {
-                        JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    break;
-                case 1:
-                    Piloto piloto = new Piloto();
-                    piloto.setEmailPiloto(emailTextField.getText().toLowerCase());
-                    piloto.setSenhaPiloto(new String(senhaJPasswordField.getPassword()));
-                    try {
-                        Piloto piloto1 = new PilotoBO().logar(piloto);
-                        if (piloto1 != null) {
-                            JOptionPane.showMessageDialog(null, "LOGADO COM SUCESSO!");
-                            dispose();
-                            new MenuPrincipal(piloto1);
-                        } else {
-                            throw new Exception("Erro ao localizar piloto/adm no banco!");
-                        }
-                    } catch (Exception error) {
-                        JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    break;
-
-            }
+            logar();
         }
 
         if (e.getSource() == btnCadastrar) {
@@ -290,7 +295,26 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == forgotLogin) {
+            if (!emailTextField.getText().isEmpty()) {
 
+                try {
+                    enviarEmailRecuperacao(emailTextField.getText());
+                    JOptionPane.showConfirmDialog(null,
+                            "Email para recuperação de senha enviado com sucesso!",
+                            "Aviso", JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showConfirmDialog(null,
+                            "",
+                            "Erro", JOptionPane.PLAIN_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showConfirmDialog(null,
+                        "Insira seu email para recuperar sua senha!",
+                        "Aviso", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
     }
 
     @Override
@@ -345,5 +369,26 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
                 btnCadastrar.setEnabled(true);
             }
         }
+    }
+
+    private boolean enviarEmailRecuperacao(String email) throws Exception {
+        return new EmailJava().recuperarEmail(email);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+            logar();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
     }
 }

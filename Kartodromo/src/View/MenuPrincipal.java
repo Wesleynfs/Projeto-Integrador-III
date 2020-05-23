@@ -1,9 +1,7 @@
 package View;
 
 import Bo.CampeonatoBO;
-import Dao.ConfiguracaoDAO;
 import Model.Campeonato;
-import Model.Configuracao;
 import Model.Kartodromo;
 import Model.Piloto;
 import Utilities.Colors;
@@ -166,7 +164,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // Tratar possivel erro que venha do metodo acima //
         }
 
         jScrollPaneUltimosCampeonatos.setViewportView(tableUltimosCampeonatos);
@@ -263,11 +261,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnOpcoes) {
             this.setVisible(false);
-            new Opcoes(new Configuracao(), this);
+            new Opcoes(this);
         }
         if (e.getSource() == btnInstrucoes) {
-            dispose();
-            new Tutorial(piloto);
+            this.setVisible(false);
+            new Tutorial(this);
         }
     }
 }

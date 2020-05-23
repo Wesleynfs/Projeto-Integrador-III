@@ -3,6 +3,7 @@ package View;
 import Dao.ConfiguracaoDAO;
 import Model.Configuracao;
 import Utilities.Colors;
+import Utilities.Fonts;
 import Utilities.Info;
 
 import javax.swing.*;
@@ -14,17 +15,17 @@ import java.awt.event.ItemListener;
 public class Opcoes extends JFrame implements ActionListener , ItemListener {
 
     private JButton[] buttons = new JButton[2];
-    private JPanel background;
     private Configuracao configuracao;
+    private JPanel background;
     private JComboBox comboBoxTema;
     private JFrame menuPrincipal;
     private DefaultListCellRenderer renderer;
     private JLabel labelTema;
+    private JLabel labelDrawer;
     private JPanel drawer;
 
-    public Opcoes(Configuracao configuracao , JFrame frame) {
+    public Opcoes(JFrame frame) {
 
-        this.configuracao = configuracao;
         this.menuPrincipal = frame;
 
         // Instancia de itens //
@@ -46,36 +47,31 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
             buttons[x] = new JButton();
         }
 
+        labelDrawer = new JLabel();
         drawer = new JPanel();
         labelTema = new JLabel();
         comboBoxTema = new JComboBox();
         renderer = new DefaultListCellRenderer();
         background = new JPanel();
+        configuracao = new Configuracao();
     }
 
     private void setTheme() {
 
-        if (configuracao.isTema()) {
+        drawer.setBackground(Colors.VERDEDARK);
+        labelDrawer.setForeground(Colors.CINZAMEDB);
 
+        for (int x = 0 ; x < buttons.length ; x++) {
+            buttons[x].setBackground(Colors.VERDEDARK);
+            buttons[x].setForeground(Colors.CINZADARKB);
+        }
+
+        if (LoginFrame.getConfiguracao().isTema()) {
             background.setBackground(Colors.CINZAMEDB);
-            drawer.setBackground(Colors.VERDEDARK);
-
-            for (int x = 0 ; x < buttons.length ; x++) {
-                buttons[x].setBackground(Colors.VERDEDARK);
-                buttons[x].setForeground(Colors.CINZADARKB);
-            }
-
-
+            labelTema.setForeground(Colors.CINZALIGHTB);
         } else {
-
             background.setBackground(Colors.CINZAMEDA);
-            drawer.setBackground(Colors.VERDEDARK);
-
-            for (int x = 0 ; x < buttons.length ; x++) {
-                buttons[x].setBackground(Colors.VERDEDARK);
-                buttons[x].setForeground(Colors.CINZADARKB);
-            }
-
+            labelTema.setForeground(Colors.CINZADARKB);
         }
     }
 
@@ -85,6 +81,7 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
             add(buttons[x]);
         }
 
+        add(labelDrawer);
         add(labelTema);
         add(comboBoxTema);
         add(drawer);
@@ -98,6 +95,10 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
             buttons[x].setFocusPainted(false);
             buttons[x].addActionListener(this);
         }
+
+        labelDrawer.setText("Opções");
+        labelDrawer.setFont(Fonts.SANSSERIF);
+        labelDrawer.setBounds(20, 40, 600, 180);
 
         buttons[0].setText("Voltar");
         buttons[0].setBounds(20, 550, 100, 35);
@@ -118,6 +119,7 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
 
         drawer.setBounds(0, 0, 800, 200);
         background.setSize(Info.MINSCREENSIZE);
+        configuracao.setTema(true);
 
     }
 
@@ -139,7 +141,7 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
             menuPrincipal.setVisible(true);
         }
         if (actionEvent.getSource() == buttons[1]) {
-            if (new ConfiguracaoDAO().setConfiguracao(configuracao)) {
+            if (new ConfiguracaoDAO().setConfiguracao(this.configuracao)) {
                 JOptionPane.showConfirmDialog(null,"Salvo!" , "Mensagem",JOptionPane.PLAIN_MESSAGE);
             } else {
                 JOptionPane.showConfirmDialog(null,"Erro ao Salvar configurações!" , "Mensagem",JOptionPane.PLAIN_MESSAGE);
@@ -151,9 +153,9 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
     public void itemStateChanged(ItemEvent itemEvent) {
         if (itemEvent.getSource() == comboBoxTema) {
             if (comboBoxTema.getSelectedIndex() == 0) {
-                configuracao.setTema(true);
+                this.configuracao.setTema(true);
             } else {
-                configuracao.setTema(false);
+                this.configuracao.setTema(false);
             }
         }
     }

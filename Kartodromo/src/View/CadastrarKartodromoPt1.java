@@ -286,7 +286,7 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
 
         if (e.getSource() == btnEnviarCodigo) {
             try {
-                listaCodigos = new EmailJava().enviarEmailPiloto(emailKartodromoTextField.getText());
+                listaCodigos = new EmailJava().enviarEmailCodigoEmailPiloto(emailKartodromoTextField.getText());
                 if (listaCodigos.size() > 0) {
                     JOptionPane.showConfirmDialog(null, "Codigo enviado com sucesso! Abra seu email!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
                 } else {

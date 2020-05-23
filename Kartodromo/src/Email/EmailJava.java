@@ -21,6 +21,14 @@ public class EmailJava {
         return authenticator;
     }
 
+    public boolean recuperarEmail(String email) throws Exception {
+         return enviarEmailGmail(new StringBuilder(email),
+                "Recuperar senha 'KART ON ROAD'",
+                "Seu Email é: [" + email +
+                        "] Essa é sua nova senha (sem aspas) -> 'kart'" +
+                        " Vá em 'GERENCIAR PILOTO' então altere sua senha para efetuar um login novamente! ");
+    }
+
     private boolean enviarEmailGmail(StringBuilder lista, String assunto, String mensagem) throws Exception {
 
         Properties properties = new Properties();
@@ -62,7 +70,7 @@ public class EmailJava {
 
     }
 
-    public List<Integer> enviarEmailPiloto(String email) throws Exception {
+    public List<Integer> enviarEmailCodigoEmailPiloto(String email) throws Exception {
 
         List<Integer> list = new ArrayList<>();
 

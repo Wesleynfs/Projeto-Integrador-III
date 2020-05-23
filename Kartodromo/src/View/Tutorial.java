@@ -1,8 +1,6 @@
 
 package View;
 
-import Model.Kartodromo;
-import Model.Piloto;
 import Utilities.*;
 
 import javax.swing.*;
@@ -19,23 +17,16 @@ public class Tutorial extends JFrame implements ActionListener {
     private JButton btnavancar;
     private JButton btnAnterior;
     private JLabel labelInformacoes;
-    private Piloto piloto;
     private JLabel tutoriaisLabel;
+    private JFrame menuPrincipal;
+    private JPanel panelLabel;
     private JLabel logo;
-    
-    private int posicao_tutorial;
 
-    public Piloto getPiloto() {
-        return piloto;
-    }
+    private int posicaoTutorial;
 
-    public void setPiloto(Piloto piloto) {
-        this.piloto = piloto;
-    }
+    public Tutorial(JFrame frame) {
 
-    public Tutorial(Piloto piloto) {
-
-        this.piloto = piloto;
+        this.menuPrincipal = frame;
 
         // Instancia de itens //
         initializate();
@@ -67,6 +58,7 @@ public class Tutorial extends JFrame implements ActionListener {
         add(btnavancar);
         add(btnVoltar);
         add(tutoriaisLabel);
+        add(panelLabel);
         add(labelInformacoes);
         add(drawer);
         add(selecao);
@@ -84,18 +76,19 @@ public class Tutorial extends JFrame implements ActionListener {
         drawer = new JPanel();
         selecao = new JPanel();
         panel = new JPanel();
+        panelLabel = new JPanel();
         background = new JPanel();
     }
 
     private void configs() {
-        
-        posicao_tutorial = 0;
-                
+
+        posicaoTutorial = 0;
+
         logo.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/logo.png")));
-        logo.setBounds(20,20,250,250);
+        logo.setBounds(20, 20, 250, 250);
         logo.setBackground(Colors.CINZALIGHTB);
 
-        btnavancar.setBounds(520, 640, 150, 30);
+        btnavancar.setBounds(1100, 670, 150, 30);
         btnavancar.setBorderPainted(false);
         btnavancar.setFocusPainted(false);
         btnavancar.setText("Avançar");
@@ -107,16 +100,18 @@ public class Tutorial extends JFrame implements ActionListener {
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(this);
 
-        btnAnterior.setBounds(350, 640, 150, 30);
+        btnAnterior.setBounds(900, 670, 150, 30);
         btnAnterior.setBorderPainted(false);
         btnAnterior.setFocusPainted(false);
         btnAnterior.setText("Anterior");
         btnAnterior.addActionListener(this);
 
-        tutoriaisLabel.setBounds(350, 50, 800, 600);
-        tutoriaisLabel.setText(Info_tutorial.infos[posicao_tutorial]);
+        panelLabel.setBounds(400, 130, 800, 400);
+
+        tutoriaisLabel.setBounds(450, 130, 700, 400);
+        tutoriaisLabel.setText(InformacoesTutoriais.textosParaOsTutoriais[posicaoTutorial]);
         tutoriaisLabel.setHorizontalTextPosition(2);
-        
+
         labelInformacoes.setBounds(325, 20, 500, 40);
         labelInformacoes.setText("TUTORIAIS");
         labelInformacoes.setFont(Fonts.SANSSERIFMIN);
@@ -133,20 +128,22 @@ public class Tutorial extends JFrame implements ActionListener {
         if (LoginFrame.getConfiguracao().isTema()) {
             // Tema Escuro //
             panel.setBackground(Colors.CINZALIGHTB);
-            background.setBackground(Colors.CINZAMEDA);
+            background.setBackground(Colors.CINZAMEDB);
+            panelLabel.setBackground(Colors.CINZALIGHTB);
             drawer.setBackground(Colors.VERDEDARK);
             btnVoltar.setBackground(Colors.CINZAMEDB);
             btnVoltar.setForeground(Colors.CINZAMEDA);
-            btnavancar.setBackground(Colors.CINZAMEDB);
-            btnavancar.setForeground(Colors.CINZAMEDA);
-            btnAnterior.setBackground(Colors.CINZAMEDB);
-            btnAnterior.setForeground(Colors.CINZAMEDA);
+            btnavancar.setBackground(Colors.VERDEDARK);
+            btnavancar.setForeground(Colors.CINZADARKB);
+            btnAnterior.setBackground(Colors.VERDEDARK);
+            btnAnterior.setForeground(Colors.CINZADARKB);
             labelInformacoes.setForeground(Colors.CINZAMEDA);
-            tutoriaisLabel.setForeground(Colors.VERDEDARK);
+            tutoriaisLabel.setForeground(Colors.CINZALIGHTA);
         } else {
             // Tema Claro //
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.CINZAMEDA);
+            panelLabel.setBackground(Colors.CINZADARKA);
             drawer.setBackground(Colors.VERDEDARK);
             btnVoltar.setBackground(Colors.CINZAMEDB);
             btnVoltar.setForeground(Colors.CINZAMEDA);
@@ -161,29 +158,30 @@ public class Tutorial extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnVoltar) {
-                dispose();
-                new PerfilPiloto(piloto);
 
+        if (e.getSource() == btnVoltar) {
+            dispose();
+            menuPrincipal.setVisible(true);
         }
+
         if (e.getSource() == btnavancar) {
-            if(posicao_tutorial == Info_tutorial.infos.length -1){
-                posicao_tutorial = 0; 
-                tutoriaisLabel.setText(Info_tutorial.infos[posicao_tutorial]);
-            } else{
-                posicao_tutorial++;
-                tutoriaisLabel.setText(Info_tutorial.infos[posicao_tutorial]);
+            if (posicaoTutorial == InformacoesTutoriais.textosParaOsTutoriais.length - 1) {
+                posicaoTutorial = 0;
+                tutoriaisLabel.setText(InformacoesTutoriais.textosParaOsTutoriais[posicaoTutorial]);
+            } else {
+                posicaoTutorial++;
+                tutoriaisLabel.setText(InformacoesTutoriais.textosParaOsTutoriais[posicaoTutorial]);
             }
         }
+
         if (e.getSource() == btnAnterior) {
-            if(posicao_tutorial > 0){
-                posicao_tutorial -=1;
-                tutoriaisLabel.setText(Info_tutorial.infos[posicao_tutorial]);
-            }else{
-                posicao_tutorial = Info_tutorial.infos.length -1;
-                tutoriaisLabel.setText(Info_tutorial.infos[posicao_tutorial]);
+            if (posicaoTutorial > 0) {
+                posicaoTutorial -= 1;
+                tutoriaisLabel.setText(InformacoesTutoriais.textosParaOsTutoriais[posicaoTutorial]);
+            } else {
+                posicaoTutorial = InformacoesTutoriais.textosParaOsTutoriais.length - 1;
+                tutoriaisLabel.setText(InformacoesTutoriais.textosParaOsTutoriais[posicaoTutorial]);
             }
-            
         }
     }
 }

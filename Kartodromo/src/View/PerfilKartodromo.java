@@ -249,7 +249,6 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
             });
 
-
             tabelamento = (DefaultTableModel) tableKartodromo.getModel();
 
             HashMap<String, Integer> mapa = new HashMap<>();

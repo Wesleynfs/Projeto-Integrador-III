@@ -348,7 +348,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnCriarCorrida) {
             dispose();
-            new CriarCorrida(piloto);
+            //new CriarCampeonato(piloto);
         }
         if (e.getSource() == btnVerificarCorridas) {
             dispose();

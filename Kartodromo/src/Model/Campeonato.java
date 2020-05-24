@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,10 +16,15 @@ public class Campeonato {
     private int totalCorridas;
     private boolean situacao;
     private String tipoCorrida;
-    private Timestamp dataFinalizacao;
+    private Date dataFinalizacao;
+    private String tipoKart;
+    private Date dataInicio;
 
     @ManyToOne
     private Kartodromo kartodromo;
+
+    @ManyToOne
+    private Corrida corrida;
 
     public Kartodromo getKartodromo() {
         return kartodromo;
@@ -34,16 +40,6 @@ public class Campeonato {
 
     public void setCorrida(Corrida corrida) {
         this.corrida = corrida;
-    }
-    @ManyToOne
-    private Corrida corrida;
-
-    public Timestamp getDataFinalizacao() {
-        return dataFinalizacao;
-    }
-
-    public void setDataFinalizacao(Timestamp dataFinalizacao) {
-        this.dataFinalizacao = dataFinalizacao;
     }
 
     public int getIdCampeonato() {
@@ -94,7 +90,31 @@ public class Campeonato {
         this.tipoCorrida = tipoCorrida;
     }
 
-    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Timestamp dataFinalizacao) {
+    public Date getDataFinalizacao() {
+        return dataFinalizacao;
+    }
+
+    public void setDataFinalizacao(Date dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getTipoKart() {
+        return tipoKart;
+    }
+
+    public void setTipoKart(String tipoKart) {
+        this.tipoKart = tipoKart;
+    }
+
+    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Date dataInicio, Kartodromo kartodromo, Corrida corrida) {
         this.idCampeonato = idCampeonato;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
@@ -102,6 +122,10 @@ public class Campeonato {
         this.situacao = situacao;
         this.tipoCorrida = tipoCorrida;
         this.dataFinalizacao = dataFinalizacao;
+        this.tipoKart = tipoKart;
+        this.dataInicio = dataInicio;
+        this.kartodromo = kartodromo;
+        this.corrida = corrida;
     }
 
     public Campeonato() {

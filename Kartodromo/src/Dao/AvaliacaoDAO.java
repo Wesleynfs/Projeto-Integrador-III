@@ -94,8 +94,7 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
     
     public List<Avaliacao> listarPorKartodromo(Kartodromo kartodromo) throws Exception {
         try {
-            return entityManager.createQuery
-        ("SELECT a FROM Avaliacao a WHERE kartodromo = :kart")
+            return entityManager.createQuery("SELECT a FROM Avaliacao a WHERE kartodromo = :kart")
 				.setParameter("kart" , kartodromo)
 				.getResultList();
         } catch (Exception e) {
@@ -105,15 +104,4 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
             entityManager.close();
         }
     }
-//    public float listarPorMediaNotas(Kartodromo kartodromo) throws Exception {
-//        try {
-//
-//            return
-//        } catch (Exception e) {
-//            throw new Exception(e.getMessage());
-//            
-//        } finally {
-//            entityManager.close();
-//        }
-//    }
 }

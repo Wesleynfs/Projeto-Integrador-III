@@ -1,5 +1,7 @@
 package View;
 
+import Bo.CorridaBO;
+import Model.Corrida;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
@@ -171,6 +173,15 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
                         "1","KARTEASY","10-11-2020","RUA QUINZE DE MAIO, 172","KART 2","9"
                 });
             }
+
+
+            for (Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(piloto)) {
+                tabelamento.addRow(new Object[]{
+                        corrida.getDataCorrida(),
+                        corrida.getNumeroDeVoltas(),
+                });
+            }
+
             //Subistituir as linhas anteriores
             //          for (classe : classeDao.findALL()){
             //            tabelamento.addRow(new Object[]{

@@ -31,11 +31,6 @@ public class ConfiguracaoBO implements GenericBO<ConfiguracaoDAO> {
     }
 
     @Override
-    public ConfiguracaoDAO logar(ConfiguracaoDAO o) throws Exception {
-        return null;
-    }
-
-    @Override
     public ConfiguracaoDAO getById(int id) throws Exception {
         return null;
     }
@@ -50,8 +45,4 @@ public class ConfiguracaoBO implements GenericBO<ConfiguracaoDAO> {
         return false;
     }
 
-    @Override
-    public boolean validaLogin(ConfiguracaoDAO o) throws Exception {
-        return false;
-    }
 }

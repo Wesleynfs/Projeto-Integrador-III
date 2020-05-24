@@ -51,20 +51,6 @@ public class PilotoBO implements GenericBO<Piloto>{
     }
 
     @Override
-    public Piloto logar(Piloto o) throws Exception {
-        if (validaLogin(o)) {
-            List<Piloto> list = new PilotoDAO().listarTodos(o);
-            if (list.size() > 0) {
-                return list.get(0);
-            } else {
-                throw new Exception("Piloto não encontrado!");
-            }
-        } else {
-            throw new Exception("Piloto não validado!");
-        }
-    }
-
-    @Override
     public Piloto getById(int id) throws Exception {
         if (validaId(id)) {
             pilotoDAO = new PilotoDAO();
@@ -101,7 +87,6 @@ public class PilotoBO implements GenericBO<Piloto>{
         }
     }
 
-    @Override
     public boolean validaLogin(Piloto o) throws Exception {
         if (o.getEmailPiloto().isEmpty()) {
             throw new Exception("Email em branco!");
@@ -109,6 +94,19 @@ public class PilotoBO implements GenericBO<Piloto>{
             throw new Exception("Senha em branco!");
         } else {
             return true;
+        }
+    }
+
+    public Piloto logar(Piloto o) throws Exception {
+        if (validaLogin(o)) {
+            List<Piloto> list = new PilotoDAO().listarTodos(o);
+            if (list.size() > 0) {
+                return list.get(0);
+            } else {
+                throw new Exception("Piloto não encontrado!");
+            }
+        } else {
+            throw new Exception("Piloto não validado!");
         }
     }
 

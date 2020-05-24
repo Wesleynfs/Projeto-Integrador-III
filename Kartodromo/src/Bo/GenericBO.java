@@ -9,10 +9,8 @@ public interface GenericBO<T> {
     boolean alterar(T o) throws Exception;
     List<T> listarPorItem(T o) throws Exception;
     List<T> listarTodos() throws Exception;
-    T logar(T o) throws Exception;
     T getById(int id) throws Exception;
     boolean valida(T o) throws Exception;
     boolean validaId(int id) throws Exception;
-    boolean validaLogin(T o) throws Exception;
 
 }

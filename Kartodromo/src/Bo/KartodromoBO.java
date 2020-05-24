@@ -53,20 +53,6 @@ public class KartodromoBO implements GenericBO<Kartodromo> {
         return kartodromoDAO.listarTodos();
     }
 
-    @Override
-    public Kartodromo logar(Kartodromo o) throws Exception {
-        if (validaLogin(o)) {
-            List<Kartodromo> list = new KartodromoDAO().listarTodos(o);
-            if (list.size() > 0) {
-                return list.get(0);
-            } else {
-                throw new Exception("Kartodromo não encontrado!");
-            }
-        } else {
-            throw new Exception("Kartodromo não validado!");
-        }
-    }
-
     public Kartodromo getById(int id) throws Exception {
         if (validaId(id)) {
             kartodromoDAO = new KartodromoDAO();
@@ -93,7 +79,6 @@ public class KartodromoBO implements GenericBO<Kartodromo> {
         return true;
     }
 
-    @Override
     public boolean validaLogin(Kartodromo o) throws Exception {
         if (o.getEmailKartodromo().equals("")) {
             throw new Exception("Email do kartodromo não pode ficar em branco!");
@@ -101,6 +86,19 @@ public class KartodromoBO implements GenericBO<Kartodromo> {
             throw new Exception("Senha maior do que o permitido");
         }
         return true;
+    }
+
+    public Kartodromo logar(Kartodromo o) throws Exception {
+        if (validaLogin(o)) {
+            List<Kartodromo> list = new KartodromoDAO().listarTodos(o);
+            if (list.size() > 0) {
+                return list.get(0);
+            } else {
+                throw new Exception("Kartodromo não encontrado!");
+            }
+        } else {
+            throw new Exception("Kartodromo não validado!");
+        }
     }
 
 }

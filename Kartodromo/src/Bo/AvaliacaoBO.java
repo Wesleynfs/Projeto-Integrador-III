@@ -7,7 +7,7 @@ import Model.Piloto;
 
 import java.util.List;
 
-public class AvaliacaoBO implements GenericBO<Avaliacao>{
+public class AvaliacaoBO implements GenericBO<Avaliacao> {
 
     private AvaliacaoDAO avaliacaoDAO;
 
@@ -36,7 +36,6 @@ public class AvaliacaoBO implements GenericBO<Avaliacao>{
     @Override
     public boolean alterar(Avaliacao avaliacao) throws Exception {
         if (valida(avaliacao)) {
-            
             avaliacaoDAO = new AvaliacaoDAO();
             return avaliacaoDAO.alterar(avaliacao);
         }
@@ -45,17 +44,12 @@ public class AvaliacaoBO implements GenericBO<Avaliacao>{
 
     @Override
     public List<Avaliacao> listarTodos() throws Exception {
-        AvaliacaoDAO dao = new AvaliacaoDAO();
-        return dao.listarTodos();
+        avaliacaoDAO = new AvaliacaoDAO();
+        return avaliacaoDAO.listarTodos();
     }
 
     @Override
     public List<Avaliacao> listarPorItem(Avaliacao o) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Avaliacao logar(Avaliacao o) throws Exception {
         return null;
     }
 
@@ -66,12 +60,6 @@ public class AvaliacaoBO implements GenericBO<Avaliacao>{
         }
         return null;
     }
-//    
-//    public float listarPorMediaNota(Kartodromo kartodromo) throws Exception {
-//        AvaliacaoDAO dao = new AvaliacaoDAO();
-//        return dao.listarPorMediaNotas(kartodromo);
-//    }
-
 
     @Override
     public boolean valida(Avaliacao avaliacao) throws Exception {
@@ -83,20 +71,15 @@ public class AvaliacaoBO implements GenericBO<Avaliacao>{
 
     @Override
     public boolean validaId(int id) throws Exception {
-        if(id <= 0) {
+        if (id <= 0) {
             throw new Exception("Id da avaliação não pode ser menor ou igual a 0");
         }
         return true;
     }
-    
-    public List<Avaliacao> listarPorKartodromo(Kartodromo kartodromo) throws Exception {
-        AvaliacaoDAO dao = new AvaliacaoDAO();
-        return dao.listarPorKartodromo(kartodromo);
-    }
 
-    @Override
-    public boolean validaLogin(Avaliacao o) throws Exception {
-        return false;
+    public List<Avaliacao> listarPorKartodromo(Kartodromo kartodromo) throws Exception {
+        avaliacaoDAO = new AvaliacaoDAO();
+        return avaliacaoDAO.listarPorKartodromo(kartodromo);
     }
 
 }

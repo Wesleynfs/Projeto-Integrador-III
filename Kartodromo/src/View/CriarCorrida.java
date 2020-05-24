@@ -1,45 +1,43 @@
 package View;
 
-
+import Model.Corrida;
 import Model.Piloto;
 import Utilities.Colors;
-
 import Utilities.Fonts;
 import Utilities.Info;
-
+import Utilities.Tempo;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import javax.swing.*;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CriarCorrida extends JFrame implements ActionListener{
+
+public class CriarCorrida extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-    private JComboBox<Object> NomeKartodromojComboBox;
-    private JComboBox<String> TipoKartjComboBox;
-    private JComboBox<String> TipoCorridajComboBox;
-    private JFormattedTextField nomeCorridaJTextField;
-    private JFormattedTextField dataCorridaJTextField;
-    private JFormattedTextField numero_de_voltasJTextField;
     private JLabel logo;
-    private JLabel nomecorridaLabel;
-    private JLabel dataLabel;
-    private JLabel tipocorridaLabel;
-    private JLabel nomekartodromoLabel;
-    private JLabel tipokartLabel;
-    private JLabel numero_de_voltasLabel;
+    private JLabel lblDataDaCorrida;
+    private JLabel lblNumeroDeVoltas;
+    private JLabel lblNomeDaCorrida;
+    private JFormattedTextField textFieldNomeCorrida;
+    private JFormattedTextField textFieldVoltasDaCorrida;
+    private JFormattedTextField textFieldDataCorrida;
     private JButton btnVoltar;
     private JButton btnCriarCorrida;
+    private JTable tableKartodromo;
+    private List<Corrida> listCorrida;
+    private JFrame frame;
 
     private Piloto piloto;
-    
-    public CriarCorrida(Piloto piloto) {
+    private DefaultTableModel tabelamento;
+
+    public CriarCorrida(Piloto piloto , JFrame frame) {
 
         this.piloto = piloto;
+        this.frame = frame;
 
         // Instancia de itens //
         initializate();
@@ -51,10 +49,10 @@ public class CriarCorrida extends JFrame implements ActionListener{
         configs();
         // Configura esse frame //
         configurateThis();
-       
+
     }
 
-    private void configurateThis(){
+    private void configurateThis() {
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
         setLayout(null);
@@ -64,162 +62,90 @@ public class CriarCorrida extends JFrame implements ActionListener{
         setTitle(Info.APP_NAME);
         setResizable(false);
     }
-    
-    private void initializate(){
-        
+
+    private void initializate() {
+
         fundo = new JPanel();
         drawer = new JPanel();
-        nomeCorridaJTextField = new JFormattedTextField();
-        dataCorridaJTextField = new JFormattedTextField();
-        numero_de_voltasJTextField = new JFormattedTextField();
         logo = new JLabel();
-        nomecorridaLabel = new JLabel();
-        dataLabel = new JLabel();   
-        tipocorridaLabel = new JLabel();
-        nomekartodromoLabel = new JLabel();     
-        tipokartLabel = new JLabel();
-        numero_de_voltasLabel = new JLabel();
+        lblDataDaCorrida = new JLabel();
+        lblNumeroDeVoltas = new JLabel();
+        lblNomeDaCorrida = new JLabel();
+        textFieldDataCorrida = new JFormattedTextField();
+        textFieldNomeCorrida = new JFormattedTextField();
+        textFieldVoltasDaCorrida = new JFormattedTextField();
         btnVoltar = new JButton();
         btnCriarCorrida = new JButton();
-        NomeKartodromojComboBox = new JComboBox<>();
-        TipoKartjComboBox = new JComboBox<>();
-        TipoCorridajComboBox = new JComboBox<>();
-        
+        tableKartodromo = new JTable();
+        listCorrida = new ArrayList<>();
+
     }
-    
+
     private void add() {
-        add(NomeKartodromojComboBox);
         add(logo);
-        add(TipoKartjComboBox);
-        add(TipoCorridajComboBox);
-        add(nomeCorridaJTextField);
-        add(dataCorridaJTextField);
-        add(nomecorridaLabel);
-        add(dataLabel);
-        add(tipocorridaLabel);
-        add(nomekartodromoLabel);
-        add(tipokartLabel);
-        add(numero_de_voltasLabel);
-        add(numero_de_voltasJTextField);
         add(btnVoltar);
+        add(lblDataDaCorrida);
+        add(lblNumeroDeVoltas);
+        add(lblNomeDaCorrida);
+        add(textFieldDataCorrida);
+        add(textFieldNomeCorrida);
+        add(textFieldVoltasDaCorrida);
+        add(tableKartodromo);
         add(btnCriarCorrida);
         add(drawer);
         add(fundo);
-        
     }
 
     private void setTheme() {
-        if (LoginFrame.getConfiguracao().isTema()) {
+
+        //LoginFrame.getConfiguracao().isTema()
+
+        if (true) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            nomeCorridaJTextField.setBackground(Colors.CINZALIGHTB);
-            nomeCorridaJTextField.setForeground(Colors.BRANCO);
-            dataCorridaJTextField.setBackground(Colors.CINZALIGHTB);
-            dataCorridaJTextField.setForeground(Colors.BRANCO);         
-            nomecorridaLabel.setForeground(Colors.CINZALIGHTB);
-            dataLabel.setForeground(Colors.CINZALIGHTB);   
-            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
-            nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
-            tipokartLabel.setForeground(Colors.CINZALIGHTB);
-            numero_de_voltasJTextField.setBackground(Colors.CINZALIGHTB);
-            numero_de_voltasJTextField.setForeground(Colors.BRANCO);
-            numero_de_voltasLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
+            lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
+            lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
+            lblDataDaCorrida.setForeground(Colors.CINZALIGHTB);
+            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldDataCorrida.setForeground(Colors.BRANCO);
+            textFieldNomeCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldNomeCorrida.setForeground(Colors.BRANCO);
+            textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldVoltasDaCorrida.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCriarCorrida.setBackground(Colors.VERDEDARK);
             btnCriarCorrida.setForeground(Colors.CINZADARKB);
-            TipoCorridajComboBox.setBackground(Colors.CINZALIGHTB);
-            TipoCorridajComboBox.setForeground(Colors.BRANCO);
-            NomeKartodromojComboBox.setBackground(Colors.CINZALIGHTB);
-            NomeKartodromojComboBox.setForeground(Colors.BRANCO);
-            TipoKartjComboBox.setBackground(Colors.CINZALIGHTB);
-            TipoKartjComboBox.setForeground(Colors.BRANCO);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            nomeCorridaJTextField.setBackground(Colors.CINZALIGHTB);
-            nomeCorridaJTextField.setForeground(Colors.CINZADARKA);
-            dataCorridaJTextField.setBackground(Colors.CINZALIGHTB);
-            dataCorridaJTextField.setForeground(Colors.CINZADARKA);               
-            nomecorridaLabel.setForeground(Colors.CINZALIGHTB);
-            dataLabel.setForeground(Colors.CINZALIGHTB);   
-            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
-            nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
-            tipokartLabel.setForeground(Colors.CINZALIGHTB);
-            numero_de_voltasJTextField.setBackground(Colors.CINZALIGHTB);
-            numero_de_voltasJTextField.setForeground(Colors.CINZADARKA);
-            numero_de_voltasLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
+            lblDataDaCorrida.setForeground(Colors.CINZALIGHTB);
+            lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
+            lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
+            textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldVoltasDaCorrida.setForeground(Colors.CINZADARKA);
+            textFieldNomeCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldNomeCorrida.setForeground(Colors.CINZADARKA);
+            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldDataCorrida.setForeground(Colors.CINZADARKA);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCriarCorrida.setBackground(Colors.VERDEDARK);
             btnCriarCorrida.setForeground(Colors.CINZADARKB);
-            TipoCorridajComboBox.setBackground(Colors.CINZALIGHTB);
-            TipoCorridajComboBox.setForeground(Colors.CINZADARKA);
-            NomeKartodromojComboBox.setBackground(Colors.CINZALIGHTB);
-            NomeKartodromojComboBox.setForeground(Colors.CINZADARKA);
-            TipoKartjComboBox.setBackground(Colors.CINZALIGHTB);
-            TipoKartjComboBox.setForeground(Colors.CINZADARKA);
         }
     }
 
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-        drawer.setBounds(0,0,800,100);
+        drawer.setBounds(0, 0, 800, 100);
 
-        nomeCorridaJTextField.setBorder(BorderFactory.createEmptyBorder());
-        nomeCorridaJTextField.setBounds(60,280,300,35);
-        nomeCorridaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
-
-        //aqui vai o nome do piloto
-        nomeCorridaJTextField.setText("Corrida do(a) NOMEPILOTO");
-        //
-        
-        nomecorridaLabel.setText("NOME DA CORRIDA:");
-        nomecorridaLabel.setBounds(60,250,200,35);
-  
-        dataCorridaJTextField.setBorder(BorderFactory.createEmptyBorder());
-        dataCorridaJTextField.setBounds(60,340,300,35);
-        dataCorridaJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
-        
-        numero_de_voltasJTextField.setBorder(BorderFactory.createEmptyBorder());
-        numero_de_voltasJTextField.setBounds(60,400,300,35);       
-        numero_de_voltasJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);       
-                
-        numero_de_voltasLabel.setText("NÚMERO DE VOLTAS:");
-        numero_de_voltasLabel .setBounds(60,370,300,35);
-                
-        try {
-            dataCorridaJTextField.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
-        } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "Não carregar a tela criar corrida");
-        }
-
-        dataLabel.setText("DATA DA CORRIDA:");
-        dataLabel.setBounds(60,310,200,35);
-                
-        TipoCorridajComboBox.setBorder(BorderFactory.createEmptyBorder());
-        TipoCorridajComboBox.setBounds(440,400,300,35);
-        TipoCorridajComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "CAMPEONATO","CORRIDA NORMAL" }));
-                
-        tipocorridaLabel.setText("TIPO DE CORRIDA:");
-        tipocorridaLabel.setBounds(440,370,200,35);
-
-        logo.setBounds(20 , 30,600,35);
-        logo.setText("CRIAR CORRIDA");
+        logo.setBounds(20, 30, 700, 35);
+        logo.setText("GERENCIAR CORRIDAS");
         logo.setFont(Fonts.SANSSERIFMIN);
-
-        TipoKartjComboBox.setBorder(BorderFactory.createEmptyBorder());
-        TipoKartjComboBox.setBounds(440,340,300,35);
-        
-        nomekartodromoLabel.setText("O KARTÓDROMO:");
-        nomekartodromoLabel.setBounds(440,250,300,35);
-        
-        NomeKartodromojComboBox.setBorder(BorderFactory.createEmptyBorder());
-        NomeKartodromojComboBox.setBounds(440,280,300,35);
 
 //        ClasseDao dao = new ClasseDao();
 //        for(classe c:dao.FindALL()){
@@ -227,64 +153,98 @@ public class CriarCorrida extends JFrame implements ActionListener{
 //        }
         //se selecionar um kartodromo em especifico ele
 
-        NomeKartodromojComboBox.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent e) {
+        tableKartodromo.setBounds(30,220,740,300);
+        tableKartodromo.setModel(new DefaultTableModel(
+                new Object[][]{
 
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    Kartodromo kartodromo = new Kartodromo();
-//                    kartodromo = (Kartodromo) e.getItem();
-//                    if(kartodromo.tipokartsemmarcha == true){
-//                        TipoKartjComboBox.addItem("KART SEM MARCHA");
-//                    }
-//                    if(se o kartodromo tem esse kart){
-//                      a combo coloco o tipo do kart como escolha
-//                    }
-//                    if(){
-//                    
-//                    }  
-//                    if(){
-//                    
-//                    }
+                },
+                new String[]{
+                        "NOME DA CORRIDA","DATA DA CORRIDA", "NÚMERO DE VOLTAS"
                 }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, false , false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
             }
-       });
 
-        tipokartLabel.setText("TIPO DE KART:");
-        tipokartLabel.setBounds(440,310,300,35);
+        });
 
-        btnVoltar.setText("VOLTAR");
+        tabelamento = (DefaultTableModel) tableKartodromo.getModel();
+
+        tabelamento.addRow(new Object[]{
+                "",
+                "",
+        });
+
+        textFieldVoltasDaCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldVoltasDaCorrida.setBounds(540,140,230,35);
+        textFieldVoltasDaCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+
+        textFieldNomeCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldNomeCorrida.setBounds(30,140,230,35);
+        textFieldNomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+
+        textFieldDataCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldDataCorrida.setBounds(285,140,230,35);
+        textFieldDataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+
+        lblNumeroDeVoltas.setText("Numero de voltas da corrida");
+        lblNumeroDeVoltas.setBounds(540,100,200,35);
+
+        lblDataDaCorrida.setText("Data da corrida");
+        lblDataDaCorrida.setBounds(285,100,200,35);
+
+        lblNomeDaCorrida.setText("Nome da corrida");
+        lblNomeDaCorrida.setBounds(30,100,200,35);
+
+        btnVoltar.setText("SALVAR / DESCARTAR");
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
-        btnVoltar.setBounds(20,550, 100,35);
-        
+        btnVoltar.setBounds(20, 550, 170, 35);
+
         btnCriarCorrida.setFocusPainted(false);
         btnCriarCorrida.setBorderPainted(false);
         btnCriarCorrida.addActionListener(this);
-        btnCriarCorrida.setText("CRIAR CORRIDA");
-        btnCriarCorrida.setBounds(620,550,160,35);
-    
+        btnCriarCorrida.setText("ADICIONAR CORRIDA");
+        btnCriarCorrida.setBounds(620, 550, 160, 35);
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnVoltar) {
-            dispose();
-            new PerfilPiloto(piloto);
+
+
+            if (JOptionPane.showConfirmDialog(null,
+                    "Deseja salvar alterações?",
+                    "Salvar",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+                this.dispose();
+                new CriarCampeonato(piloto , listCorrida);
+            } else {
+                this.dispose();
+                frame.setVisible(true);
+            }
+
         }
 
         if (e.getSource() == btnCriarCorrida) {
-            switch (JOptionPane.showConfirmDialog(null,
-                "Criar uma Corrida lhe torna automaticamente um ADM desta corrida,"
-                        + " você tem certeza que deseja assumir essa responsabilidade?",//contexto
-                        "Termo de responsabilidade",//nome
-                JOptionPane.YES_NO_OPTION)) {
-                case 0 : System.out.println("SIM");
-                    break;
-                default: System.out.println("APERTAR NO X OU CLICAR EM NÃO DA NA MESMA kk");
-            }
+
+            // AQUI CRIA TODAS AS CORRIDAS E DEVOLVE PARA A TELA "CRIAR CAMPEONATO" //
+
+            Corrida corrida = new Corrida();
+            corrida.setNumeroDeVoltas(2);
+            corrida.setDataCorrida(Tempo.getCurrentTime());
+
+            listCorrida.add(corrida);
+
+            // Adiciona na tabela //
+
         }
     }
 }

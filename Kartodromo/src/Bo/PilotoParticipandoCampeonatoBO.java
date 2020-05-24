@@ -54,11 +54,6 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
     }
 
     @Override
-    public PilotoParticipandoCampeonato logar(PilotoParticipandoCampeonato o) throws Exception {
-        return null;
-    }
-
-    @Override
     public PilotoParticipandoCampeonato getById(int id) throws Exception {
         if (validaId(id)) {
             pilotoDAO = new PilotoParticipandoCampeonatoDAO();
@@ -90,8 +85,4 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         }
     }
 
-    @Override
-    public boolean validaLogin(PilotoParticipandoCampeonato o) throws Exception {
-        return false;
-    }
 }

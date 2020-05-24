@@ -53,11 +53,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
     }
 
     @Override
-    public Campeonato logar(Campeonato o) throws Exception {
-        return null;
-    }
-
-    @Override
     public Campeonato getById(int id) throws Exception {
         if (validaId(id)) {
             campeonatoDAO = new CampeonatoDAO();
@@ -68,8 +63,21 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
 
     @Override
     public boolean valida(Campeonato o) throws Exception {
+
         if (o.getNome().equals("")) {
             throw new Exception("Nome do Campeonato não pode ficar em branco!");
+        }
+        if (o.getDataInicio().toString().equals("1000-01-01")) {
+            throw new Exception("Por favor adicione uma data de inicio para o campeonato!");
+        }
+        if (o.getDataFinalizacao().toString().equals("1000-01-01")) {
+            throw new Exception("Por favor adicione uma data de finalização para o campeonato!");
+        }
+        if (o.getCorrida() == null) {
+            throw new Exception("Campeonato não possui corridas!, clique em 'ADICIONAR CORRIDA'");
+        }
+        if (o.getKartodromo() == null) {
+            throw new Exception("Campeonato não possui um kartodromo! selecione ao lado");
         }
         return true;
     }
@@ -84,11 +92,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
 
     public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
         return campeonatoDAO.listarCampeonatosFinalizados();
-    }
-
-    @Override
-    public boolean validaLogin(Campeonato o) throws Exception {
-        return false;
     }
 
     public List<PilotoParticipandoCampeonato> listarPilotoParticipandoCampeonato(Piloto piloto) throws Exception {

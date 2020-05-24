@@ -12,9 +12,17 @@ public class Corrida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCorrida;
+    private String nomeCorrida;
     private Timestamp dataCorrida;
-    private String tipoKart;
     private int numeroDeVoltas;
+
+    public String getNomeCorrida() {
+        return nomeCorrida;
+    }
+
+    public void setNomeCorrida(String nomeCorrida) {
+        this.nomeCorrida = nomeCorrida;
+    }
 
     public int getIdCorrida() {
         return idCorrida;
@@ -32,14 +40,6 @@ public class Corrida {
         this.dataCorrida = dataCorrida;
     }
 
-    public String getTipoKart() {
-        return tipoKart;
-    }
-
-    public void setTipoKart(String tipoKart) {
-        this.tipoKart = tipoKart;
-    }
-
     public int getNumeroDeVoltas() {
         return numeroDeVoltas;
     }
@@ -48,10 +48,10 @@ public class Corrida {
         this.numeroDeVoltas = numeroDeVoltas;
     }
 
-    public Corrida(int idCorrida, Timestamp dataCorrida, String tipoKart, int numeroDeVoltas) {
+    public Corrida(int idCorrida, String nomeCorrida, Timestamp dataCorrida, int numeroDeVoltas) {
         this.idCorrida = idCorrida;
+        this.nomeCorrida = nomeCorrida;
         this.dataCorrida = dataCorrida;
-        this.tipoKart = tipoKart;
         this.numeroDeVoltas = numeroDeVoltas;
     }
 

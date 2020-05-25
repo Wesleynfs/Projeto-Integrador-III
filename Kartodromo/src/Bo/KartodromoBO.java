@@ -84,6 +84,20 @@ public class KartodromoBO implements GenericBO<Kartodromo> {
             throw new Exception("Email do kartodromo não pode ficar em branco!");
         } else if (o.getSenhaKartodromo().length() > 50) {
             throw new Exception("Senha maior do que o permitido");
+        } else if (o.getCidade().equals("")) {
+            throw new Exception("Cidade em branco!");
+        } else if (o.getNomeKartodromo().length() > 50) {
+            throw new Exception("Nome maior do que o permitido");
+        }else if (o.getEstado().equals("")) {
+            throw new Exception("Estado em branco!");
+        } else if (o.getRua().equals("")) {
+            throw new Exception("Rua em branco!");
+        } else if (o.getSenhaKartodromo().equals("")) {
+            throw new Exception("senha em branco!");
+        } else if (o.getRua().length() > 100) {
+            throw new Exception("Rua maior do que o permitido");
+        }else if (o.getEstado().length() > 50) {
+            throw new Exception("Estado maior do que o permitido");
         }
         return true;
     }

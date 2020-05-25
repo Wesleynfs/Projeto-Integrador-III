@@ -107,31 +107,14 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
         }
     }
     
-    public List<PilotoParticipandoCampeonato> listarPilotoParticipandoCampeonato(Piloto piloto) throws Exception {
-        try{
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where c.piloto = :pilotoatual "
-                    + "and c.campeonato.situacao = 'false'")
-                    .setParameter("pilotoatual", piloto)
-                    .getResultList();
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            
-        } finally {
-            entityManager.close();
-        }
-    }
-    public List<PilotoParticipandoCampeonato> listarPilotosParticipando(Campeonato campeonato) throws Exception {
+    public List<Campeonato> listarTodosCampeonatosFinalizados() throws Exception {
         try {
-            return entityManager.createQuery
-            ("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where campeonato = :campeonatoatual")
-                    .setParameter("campeonatoatual", campeonato)
-                    .getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.dataFinalizacao is not null ").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
             entityManager.close();
         }
     }
+    
 }

@@ -1,6 +1,7 @@
 package Dao;
 
 import Connections.ConnectionFactory;
+import Model.Campeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 
@@ -68,8 +69,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     @Override
     public List<PilotoParticipandoCampeonato> listarTodos(PilotoParticipandoCampeonato o) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where idPilotoParticipandoCampeonato = :id")
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where idPilotoParticipandoCampeonato = :id")
                     .setParameter("id", o.getIdPilotoParticipandoCampeonato())
                     .getResultList();
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     @Override
     public List<PilotoParticipandoCampeonato> listarTodos() throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c").getResultList();
+            return entityManager.createQuery("SELECT a FROM PilotoParticipandoCampeonato a ").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -104,6 +104,15 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
         try {
             return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
                     + "where piloto = :p").setParameter("p", piloto).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    public List<PilotoParticipandoCampeonato> ListarPilotoParticipadeCameponato(Campeonato campeonato) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.campeonato = :campeonato").setParameter("campeonato", campeonato).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

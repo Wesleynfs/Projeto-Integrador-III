@@ -134,5 +134,20 @@ public class PilotoDAO implements GenericDAO<Piloto> {
         }
 
     }
+    public boolean VerificarApelidoExistente(String apelido) throws Exception {
+        try {
+            List <Piloto> list = entityManager.createQuery
+        ("SELECT p FROM Piloto p where p.apelido = :apelido ")
+                    .setParameter("apelido", apelido).getResultList();
+            for(Piloto piloto : list){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
 }

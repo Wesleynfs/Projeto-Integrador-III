@@ -21,6 +21,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     private JFormattedTextField dataNascJTextField;
     private JFormattedTextField cpfJTextField;
     private JTextField senhaJTextField;
+    private JTextField apelidoJTextField;
     private JLabel version;
     private JLabel loginLabel;
     private JLabel senhaLabel;
@@ -29,6 +30,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     private JLabel nomeLabel;
     private JLabel cpfLabel;
     private JLabel dataNascLabel;
+    private JLabel apelidoLabel;
     private JButton btnCadastrar;
     private JButton btnAlterar;
     private JButton btnVoltar;
@@ -63,6 +65,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         nomeLabel = new JLabel();
         dataNascLabel = new JLabel();
         cpfLabel = new JLabel();
+        apelidoLabel = new JLabel();
+        apelidoJTextField = new JTextField();
         fundo = new JPanel();
         drawer = new JPanel();
         nomeJTextField = new JTextField();
@@ -91,6 +95,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         add(btnDeletar);
         add(btnAlterar);
         add(btnVoltar);
+        add(apelidoJTextField);
+        add(apelidoLabel);
         add(logo);
         add(version);
         add(loginLabel);
@@ -117,6 +123,9 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
             cpfJTextField.setForeground(Colors.BRANCO);
             nomeJTextField.setBackground(Colors.CINZALIGHTB);
             nomeJTextField.setForeground(Colors.BRANCO);
+            apelidoJTextField.setBackground(Colors.CINZALIGHTB);
+            apelidoJTextField.setForeground(Colors.BRANCO);
+            apelidoLabel.setForeground(Colors.CINZALIGHTB);
             dataNascJTextField.setBackground(Colors.CINZALIGHTB);
             dataNascJTextField.setForeground(Colors.BRANCO);
             loginLabel.setForeground(Colors.CINZALIGHTB);
@@ -141,6 +150,9 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
             emailJTextField.setForeground(Colors.CINZADARKA);
             senhaJTextField.setBackground(Colors.CINZALIGHTB);
             senhaJTextField.setForeground(Colors.CINZADARKA);
+            apelidoJTextField.setBackground(Colors.CINZALIGHTB);
+            apelidoJTextField.setForeground(Colors.CINZADARKA);
+            apelidoLabel.setForeground(Colors.CINZALIGHTB);
             nomeJTextField.setBackground(Colors.CINZALIGHTB);
             nomeJTextField.setForeground(Colors.CINZADARKA);
             cpfJTextField.setBackground(Colors.CINZALIGHTB);
@@ -188,7 +200,14 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         senhaJTextField.setBorder(BorderFactory.createEmptyBorder());
         senhaJTextField.setBounds(210, 400, 400, 35);
         senhaJTextField.setHorizontalAlignment(JPasswordField.CENTER);
-
+        
+        apelidoJTextField.setBorder(BorderFactory.createEmptyBorder());
+        apelidoJTextField.setBounds(210, 440, 400, 35);
+        apelidoJTextField.setHorizontalAlignment(JPasswordField.CENTER);
+                
+        apelidoLabel.setText("APELIDO");
+        apelidoLabel.setBounds(150, 440, 400, 35);
+                
         loginLabel.setText("EMAIL");
         loginLabel.setBounds(160, 240, 400, 35);
 
@@ -255,6 +274,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
         piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
         piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase());
+        piloto.setApelido(apelidoJTextField.getText().toLowerCase());
         piloto.setAtivo(true);
         piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
         piloto.setDataNascimentoPiloto(dataNascJTextField.getText().toLowerCase());
@@ -271,8 +291,14 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnCadastrar) {
             try {
+                if(pilotoBO.verificarapelido(piloto.getApelido())){
+                    JOptionPane.showMessageDialog(null,"Este Apelido já existe, por favor tente outro!","Apelido Existente",JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
                 if (pilotoBO.criar(piloto)) {
                     JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                    new MenuPrincipal(piloto);
                 }
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

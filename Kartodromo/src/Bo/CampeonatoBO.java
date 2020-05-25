@@ -91,14 +91,9 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
     }
 
     public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarCampeonatosFinalizados();
     }
 
-    public List<PilotoParticipandoCampeonato> listarPilotoParticipandoCampeonato(Piloto piloto) throws Exception {
-        return campeonatoDAO.listarPilotoParticipandoCampeonato(piloto);
-    }
-    public List<PilotoParticipandoCampeonato> listarPilotosParticipando(Campeonato campeonato) throws Exception {
-        return campeonatoDAO.listarPilotosParticipando(campeonato);
-    }
 }
 

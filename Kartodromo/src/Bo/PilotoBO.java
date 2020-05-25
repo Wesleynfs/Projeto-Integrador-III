@@ -63,17 +63,23 @@ public class PilotoBO implements GenericBO<Piloto>{
     public boolean valida(Piloto o) throws Exception {
         if (o.getNomePiloto().equals("")) {
             throw new Exception("Nome do piloto não pode ficar em branco!");
-        } else if (o.getSenhaPiloto().equals("")) {
+        } else if (o.getNomePiloto().length() > 50) {
+            throw new Exception("Nome Grande de mais! coloque um nome menor");
+        }else if (o.getSenhaPiloto().equals("")) {
             throw new Exception("Senha do piloto não pode ficar em branco!");
         } else if (o.getSenhaPiloto().length() > 50) {
-            throw new Exception("Senha maior do que o permitido");
+            throw new Exception("Senha grande de mais! coloque uma senha menor");
+        }else if (o.getApelido().equals("")) {
+            throw new Exception("Apelido do piloto não pode ficar em branco!");
+        } else if (o.getApelido().length() > 50) {
+            throw new Exception("Apelido Grande de mais! coloque um apelido menor");
         } else if (o.getEmailPiloto().equals("")) {
             throw new Exception("Email do piloto nao pode ser nulo!");
         } else if (o.getCpfPiloto().equals("   .   .   -  ")) {
             throw new Exception("Cpf do piloto não pode ficar em branco!");
         } else if (o.getDataNascimentoPiloto().equals("  /  /     ")) {
             throw new Exception("Data do piloto não pode ficar em branco!");
-        } else  {
+        } else {
             return true;
         }
     }
@@ -108,6 +114,10 @@ public class PilotoBO implements GenericBO<Piloto>{
         } else {
             throw new Exception("Piloto não validado!");
         }
+    }
+    public boolean verificarapelido(String apelido) throws Exception{
+        pilotoDAO = new PilotoDAO();
+        return pilotoDAO.VerificarApelidoExistente(apelido);
     }
 
 }

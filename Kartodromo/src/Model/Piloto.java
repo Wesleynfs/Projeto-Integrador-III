@@ -13,6 +13,7 @@ public class Piloto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPiloto;
     private String nomePiloto;
+    private String apelido;
     private String senhaPiloto;
     private String cpfPiloto;
     private String emailPiloto;
@@ -21,6 +22,14 @@ public class Piloto implements Serializable {
     private String dataNascimentoPiloto;
     private boolean ativo;
 
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+    
     public int getIdPiloto() {
         return idPiloto;
     }

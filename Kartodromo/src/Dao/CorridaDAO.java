@@ -1,11 +1,13 @@
 package Dao;
 
 import Connections.ConnectionFactory;
+import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import javax.persistence.Query;
 
 public class CorridaDAO implements GenericDAO<Corrida> {
 
@@ -17,7 +19,17 @@ public class CorridaDAO implements GenericDAO<Corrida> {
 
     @Override
     public boolean salvar(Corrida o) throws Exception {
-        return false;
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(o);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new Exception("Erro ao salvar Corrida [" + o.getIdCorrida() +"]");
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
@@ -27,33 +39,74 @@ public class CorridaDAO implements GenericDAO<Corrida> {
 
     @Override
     public boolean alterar(Corrida o) throws Exception {
-        return false;
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(o);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new Exception("Erro ao alterar a Corrida!");
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public boolean deletar(Corrida o) throws Exception {
-        return false;
+        try {
+            Corrida corrida1 = entityManager.find(Corrida.class, o.getIdCorrida());
+            entityManager.getTransaction().begin();
+            entityManager.remove(corrida1);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            throw new Exception("Erro ao deletar corrida!");
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public List<Corrida> listarTodos(Corrida o) throws Exception {
-        return null;
+        try {
+            return entityManager.createQuery("SELECT c FROM Corrida c "
+                    + "where c.idCorrida = :id")
+                    .setParameter("id", o.getIdCorrida())
+                    .getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public List<Corrida> listarTodos() throws Exception {
-        return null;
+        try {
+            return entityManager.createQuery("SELECT c FROM Corrida c").getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public Corrida getById(int id) throws Exception {
-        return null;
+        try {
+            return entityManager.find(Corrida.class, id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
     }
 
-    public List<Corrida> listarTodasAsCorridasMarcadas(Piloto piloto) throws Exception {
+    public List<Corrida> listarTodasAsCorridasMarcadasDeCampeonato(Campeonato o) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM Corrida c WHERE kartodromo = :kart")
-                    .setParameter("piloto" , piloto)
+            return entityManager.createQuery("SELECT c FROM Corrida c WHERE campeonato = campeonato1")
+                    .setParameter("campeonato1" , o)
                     .getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Corrida {
@@ -15,6 +16,19 @@ public class Corrida {
     private String nomeCorrida;
     private Timestamp dataCorrida;
     private int numeroDeVoltas;
+    
+    @ManyToOne
+    private Campeonato campeonato;
+
+    public Campeonato getCampeonato() {
+        return campeonato;
+    }
+
+    public void setCampeonato(Campeonato campeonato) {
+        this.campeonato = campeonato;
+    }
+    
+    
 
     public String getNomeCorrida() {
         return nomeCorrida;

@@ -175,23 +175,12 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
             }
 
 
-            for (Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(piloto)) {
+            for (Corrida corrida : new CorridaBO().listarTodos()) {
                 tabelamento.addRow(new Object[]{
                         corrida.getDataCorrida(),
                         corrida.getNumeroDeVoltas(),
                 });
             }
-
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.id,
-            //                class.nomeKartodromo,
-            //                class.data
-            //                   ...
-            //            });
-            //
-            //          }
 
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 220);

@@ -1,6 +1,7 @@
 package Bo;
 
 import Dao.CorridaDAO;
+import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
 
@@ -16,32 +17,38 @@ public class CorridaBO implements GenericBO<Corrida> {
 
     @Override
     public boolean criar(Corrida o) throws Exception {
-        return false;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.salvar(o);
     }
 
     @Override
     public boolean deletar(Corrida o) throws Exception {
-        return false;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.deletar(o);
     }
 
     @Override
     public boolean alterar(Corrida o) throws Exception {
-        return false;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.alterar(o);
     }
 
     @Override
     public List<Corrida> listarPorItem(Corrida o) throws Exception {
-        return null;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.listarTodos(o);
     }
 
     @Override
     public List<Corrida> listarTodos() throws Exception {
-        return null;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.listarTodos();
     }
 
     @Override
     public Corrida getById(int id) throws Exception {
-        return null;
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.getById(id);
     }
 
     @Override
@@ -54,9 +61,9 @@ public class CorridaBO implements GenericBO<Corrida> {
         return false;
     }
 
-    public List<Corrida> listarTodasAsCorridasMarcadas(Piloto piloto) throws Exception {
+    public List<Corrida> listarTodasAsCorridasMarcadas(Campeonato c) throws Exception {
         corridaDAO = new CorridaDAO();
-        return corridaDAO.listarTodasAsCorridasMarcadas(piloto);
+        return corridaDAO.listarTodasAsCorridasMarcadasDeCampeonato(c);
     }
 
 }

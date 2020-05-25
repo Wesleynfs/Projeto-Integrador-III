@@ -2,6 +2,7 @@ package Bo;
 
 import Dao.PilotoDAO;
 import Dao.PilotoParticipandoCampeonatoDAO;
+import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 
 import java.sql.Timestamp;
@@ -44,6 +45,10 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
 
     @Override
     public List<PilotoParticipandoCampeonato> listarPorItem(PilotoParticipandoCampeonato o) throws Exception {
+        if (valida(o)) {
+            pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+            return pilotoDAO.listarTodos(o);
+        }
         return null;
     }
 
@@ -83,6 +88,12 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         } else {
             return true;
         }
+    }
+    
+    public List<PilotoParticipandoCampeonato> listarTodosCampeonatosQuePilotoParticipa(Piloto piloto) throws Exception{
+            pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+            return pilotoDAO.ListarPilotoqueParticipadeCameponatos(piloto);
+
     }
 
 }

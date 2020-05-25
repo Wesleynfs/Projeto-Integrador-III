@@ -1,22 +1,22 @@
 package Dao;
 
 import Connections.ConnectionFactory;
+import Model.ConviteCampeonato;
 import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
-
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoParticipandoCampeonato> {
 
+public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
+    
     private EntityManager entityManager;
     
-    public PilotoParticipandoCampeonatoDAO(){
+    public ConviteCampeonatoDAO(){
             entityManager = new ConnectionFactory().getConnection();
     }
     
     @Override
-    public boolean salvar(PilotoParticipandoCampeonato o) throws Exception {
+    public boolean salvar(ConviteCampeonato o) throws Exception {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(o);
@@ -24,19 +24,19 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar PilotoParticipandoCampeonato [" + o.getIdPilotoParticipandoCampeonato() +"]");
+            throw new Exception("Erro ao salvar ConviteCampeonato [" + o.getIdPilotoConviteCampeonato() +"]");
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public boolean ler(PilotoParticipandoCampeonato o) throws Exception {
+    public boolean ler(ConviteCampeonato o) throws Exception {
         return false;
     }
 
     @Override
-    public boolean alterar(PilotoParticipandoCampeonato o) throws Exception {
+    public boolean alterar(ConviteCampeonato o) throws Exception {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(o);
@@ -44,16 +44,16 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao alterar a PilotoParticipandoCampeonato!");
+            throw new Exception("Erro ao alterar a ConviteCampeonato!");
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public boolean deletar(PilotoParticipandoCampeonato o) throws Exception {
+    public boolean deletar(ConviteCampeonato o) throws Exception {
         try {
-            PilotoParticipandoCampeonato p = entityManager.find(PilotoParticipandoCampeonato.class, o.getIdPilotoParticipandoCampeonato());
+            ConviteCampeonato p = entityManager.find(ConviteCampeonato.class, o.getIdPilotoConviteCampeonato());
             entityManager.getTransaction().begin();
             entityManager.remove(p);
             entityManager.getTransaction().commit();
@@ -66,11 +66,10 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     }
 
     @Override
-    public List<PilotoParticipandoCampeonato> listarTodos(PilotoParticipandoCampeonato o) throws Exception {
+    public List<ConviteCampeonato> listarTodos(ConviteCampeonato o) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where idPilotoParticipandoCampeonato = :id")
-                    .setParameter("id", o.getIdPilotoParticipandoCampeonato())
+            return entityManager.createQuery("SELECT c FROM ConviteCampeonato c where idPilotoConviteCampeonato = :id")
+                    .setParameter("id", o.getIdPilotoConviteCampeonato())
                     .getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -80,9 +79,9 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     }
 
     @Override
-    public List<PilotoParticipandoCampeonato> listarTodos() throws Exception {
+    public List<ConviteCampeonato> listarTodos() throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c").getResultList();
+            return entityManager.createQuery("SELECT c FROM ConviteCampeonato c").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -91,19 +90,23 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     }
 
     @Override
-    public PilotoParticipandoCampeonato getById(int id) throws Exception {
+    public ConviteCampeonato getById(int id) throws Exception {
         try {
-            return entityManager.find(PilotoParticipandoCampeonato.class, id);
+            return entityManager.find(ConviteCampeonato.class, id);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
             entityManager.close();
         }
     }
-    public List<PilotoParticipandoCampeonato> ListarPilotoqueParticipadeCameponatos(Piloto piloto) throws Exception {
+    public List<ConviteCampeonato> ListarConviteNaoVisualizadosPorPiloto(Piloto piloto) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where piloto = :p").setParameter("p", piloto).getResultList();
+            return entityManager.createQuery
+        ("SELECT c FROM ConviteCampeonato c "
+                + "where c.pilotoConvidado = :p "
+                + "AND c.statusConvite = 'nao vizualizado'")
+                    .setParameter("p", piloto)
+                    .getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

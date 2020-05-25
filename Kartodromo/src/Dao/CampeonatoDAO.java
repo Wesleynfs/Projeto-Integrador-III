@@ -109,7 +109,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     
     public List<Campeonato> listarTodosCampeonatosFinalizados() throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM Campeonato c where c.dataFinalizacao is not null ").getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'false' ").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

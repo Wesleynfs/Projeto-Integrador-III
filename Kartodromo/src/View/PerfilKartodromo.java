@@ -108,7 +108,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
     private void setTheme() {
 
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             tipokartsLabel.setForeground(Colors.CINZALIGHTB);
             diassemanaLabel.setForeground(Colors.CINZALIGHTB);

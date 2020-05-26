@@ -120,7 +120,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
 
     private void setTheme() {
 
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             estadoTextField.setBackground(Colors.CINZALIGHTB);
             estadoTextField.setForeground(Colors.BRANCO);

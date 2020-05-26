@@ -1,18 +1,16 @@
 package View;
 
+import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.Tempo;
+import Utilities.*;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class CriarCorrida extends JFrame implements ActionListener {
 
@@ -27,17 +25,21 @@ public class CriarCorrida extends JFrame implements ActionListener {
     private JFormattedTextField textFieldDataCorrida;
     private JButton btnVoltar;
     private JButton btnCriarCorrida;
-    private JTable tableKartodromo;
-    private List<Corrida> listCorrida;
-    private JFrame frame;
+    private JButton btnRemoverCorrida;
+    private JTable table;
+    private GerenciarCampeonato gerenciarCampeonato;
+    private JScrollPane scroll;
+    private DefaultTableCellRenderer renderer;
 
     private Piloto piloto;
-    private DefaultTableModel tabelamento;
+    private Campeonato campeonato;
+    private TabelaPiloto tabelaPiloto;
 
-    public CriarCorrida(Piloto piloto , JFrame frame) {
+    public CriarCorrida(Piloto piloto, Campeonato campeonato, GerenciarCampeonato gerenciarCampeonato) {
 
         this.piloto = piloto;
-        this.frame = frame;
+        this.gerenciarCampeonato = gerenciarCampeonato;
+        this.campeonato = campeonato;
 
         // Instancia de itens //
         initializate();
@@ -75,9 +77,12 @@ public class CriarCorrida extends JFrame implements ActionListener {
         textFieldNomeCorrida = new JFormattedTextField();
         textFieldVoltasDaCorrida = new JFormattedTextField();
         btnVoltar = new JButton();
+        btnRemoverCorrida = new JButton();
         btnCriarCorrida = new JButton();
-        tableKartodromo = new JTable();
-        listCorrida = new ArrayList<>();
+        table = new JTable();
+        tabelaPiloto = new TabelaPiloto();
+        renderer = new DefaultTableCellRenderer();
+        scroll = new JScrollPane(table);
 
     }
 
@@ -90,7 +95,9 @@ public class CriarCorrida extends JFrame implements ActionListener {
         add(textFieldDataCorrida);
         add(textFieldNomeCorrida);
         add(textFieldVoltasDaCorrida);
-        add(tableKartodromo);
+        add(table);
+        add(scroll);
+        add(btnRemoverCorrida);
         add(btnCriarCorrida);
         add(drawer);
         add(fundo);
@@ -98,9 +105,7 @@ public class CriarCorrida extends JFrame implements ActionListener {
 
     private void setTheme() {
 
-        //LoginFrame.getConfiguracao().isTema()
-
-        if (true) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -118,6 +123,8 @@ public class CriarCorrida extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCriarCorrida.setBackground(Colors.VERDEDARK);
             btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnRemoverCorrida.setBackground(Colors.VERDEDARK);
+            btnRemoverCorrida.setForeground(Colors.CINZADARKB);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
@@ -135,6 +142,8 @@ public class CriarCorrida extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCriarCorrida.setBackground(Colors.VERDEDARK);
             btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnRemoverCorrida.setBackground(Colors.VERDEDARK);
+            btnRemoverCorrida.setForeground(Colors.CINZADARKB);
         }
     }
 
@@ -147,58 +156,41 @@ public class CriarCorrida extends JFrame implements ActionListener {
         logo.setText("GERENCIAR CORRIDAS");
         logo.setFont(Fonts.SANSSERIFMIN);
 
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c:dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c);
-//        }
-        //se selecionar um kartodromo em especifico ele
+        scroll.setViewportView(table);
+        scroll.setBounds(30, 220, 740, 300);
 
-        tableKartodromo.setBounds(30,220,740,300);
-        tableKartodromo.setModel(new DefaultTableModel(
-                new Object[][]{
-
-                },
-                new String[]{
-                        "NOME DA CORRIDA","DATA DA CORRIDA", "NÚMERO DE VOLTAS"
-                }
-        ) {
-            boolean[] canEdit = new boolean[]{
-                    false, false , false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-
-        });
-
-        tabelamento = (DefaultTableModel) tableKartodromo.getModel();
-
-        tabelamento.addRow(new Object[]{
-                "",
-                "",
-        });
+        renderer.setHorizontalTextPosition(JLabel.CENTER);
+        table.setModel(tabelaPiloto);
+        table.setDefaultRenderer(String.class, renderer);
 
         textFieldVoltasDaCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldVoltasDaCorrida.setBounds(540,140,230,35);
+        textFieldVoltasDaCorrida.setBounds(540, 140, 230, 35);
         textFieldVoltasDaCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         textFieldNomeCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldNomeCorrida.setBounds(30,140,230,35);
+        textFieldNomeCorrida.setBounds(30, 140, 230, 35);
         textFieldNomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         textFieldDataCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldDataCorrida.setBounds(285,140,230,35);
+        textFieldDataCorrida.setBounds(285, 140, 230, 35);
         textFieldDataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
 
+        try {
+            textFieldDataCorrida.setFormatterFactory(
+                    new DefaultFormatterFactory(
+                            new MaskFormatter("##/##/####")));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
         lblNumeroDeVoltas.setText("Numero de voltas da corrida");
-        lblNumeroDeVoltas.setBounds(540,100,200,35);
+        lblNumeroDeVoltas.setBounds(540, 100, 200, 35);
 
         lblDataDaCorrida.setText("Data da corrida");
-        lblDataDaCorrida.setBounds(285,100,200,35);
+        lblDataDaCorrida.setBounds(285, 100, 200, 35);
 
         lblNomeDaCorrida.setText("Nome da corrida");
-        lblNomeDaCorrida.setBounds(30,100,200,35);
+        lblNomeDaCorrida.setBounds(30, 100, 200, 35);
 
         btnVoltar.setText("SALVAR / DESCARTAR");
         btnVoltar.setBorderPainted(false);
@@ -212,6 +204,12 @@ public class CriarCorrida extends JFrame implements ActionListener {
         btnCriarCorrida.setText("ADICIONAR CORRIDA");
         btnCriarCorrida.setBounds(620, 550, 160, 35);
 
+        btnRemoverCorrida.setFocusPainted(false);
+        btnRemoverCorrida.setBorderPainted(false);
+        btnRemoverCorrida.addActionListener(this);
+        btnRemoverCorrida.setText("REMOVER CORRIDA");
+        btnRemoverCorrida.setBounds(430, 550, 160, 35);
+
     }
 
     @Override
@@ -219,32 +217,37 @@ public class CriarCorrida extends JFrame implements ActionListener {
 
         if (e.getSource() == btnVoltar) {
 
-
             if (JOptionPane.showConfirmDialog(null,
                     "Deseja salvar alterações?",
                     "Salvar",
                     JOptionPane.YES_NO_OPTION) == 0) {
                 this.dispose();
-                new CriarCampeonato(piloto , listCorrida);
+
+                int tamanho = tabelaPiloto.getListCorrida().size();
+                campeonato.setCorrida(tabelaPiloto.getListCorrida().toArray(new Corrida[tamanho]));
+                gerenciarCampeonato.setCampeonato(campeonato);
+                gerenciarCampeonato.getBtnCriarCampeonato().setEnabled(true);
+                gerenciarCampeonato.setVisible(true);
             } else {
                 this.dispose();
-                frame.setVisible(true);
+                gerenciarCampeonato.setVisible(true);
             }
 
         }
 
         if (e.getSource() == btnCriarCorrida) {
-
-            // AQUI CRIA TODAS AS CORRIDAS E DEVOLVE PARA A TELA "CRIAR CAMPEONATO" //
-
             Corrida corrida = new Corrida();
-            corrida.setNumeroDeVoltas(2);
-            corrida.setDataCorrida(Tempo.getCurrentTime());
-
-            listCorrida.add(corrida);
-
-            // Adiciona na tabela //
-
+            corrida.setNomeCorrida(textFieldNomeCorrida.getText());
+            corrida.setNumeroDeVoltas(Integer.valueOf(textFieldVoltasDaCorrida.getText()));
+            corrida.setDataCorrida(Tempo.stringToDate(textFieldDataCorrida.getText()));
+            tabelaPiloto.addRow(corrida);
         }
+
+        if (e.getSource() == btnRemoverCorrida) {
+            if (table.getSelectedRow() != -1) {
+                tabelaPiloto.removeRow(table.getSelectedRow());
+            }
+        }
+
     }
 }

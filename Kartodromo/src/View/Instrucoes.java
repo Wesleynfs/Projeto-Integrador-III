@@ -66,7 +66,7 @@ public class Instrucoes extends JFrame implements ActionListener, MouseListener 
     }
 
     private void setTheme() {
-        if(LoginFrame.getConfiguracao().isTema()) {
+        if(SplashScreen.getConfiguracao().isTema()) {
             // Tema Escuro //
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.PRETO);

@@ -1,6 +1,8 @@
 package View;
 
 import Connections.ConnectionFactory;
+import Dao.ConfiguracaoDAO;
+import Model.Configuracao;
 import Utilities.Colors;
 import Utilities.Info;
 import Utilities.Fonts;
@@ -13,6 +15,11 @@ public class SplashScreen extends JFrame {
     private JLabel loadingBar;
     private JLabel connectingLabel;
     private JPanel background;
+    private static Configuracao configuracao;
+
+    public static Configuracao getConfiguracao() {
+        return configuracao;
+    }
 
     public SplashScreen() {
         // Instancia de itens //
@@ -65,7 +72,6 @@ public class SplashScreen extends JFrame {
         logo.setBounds(30,30,400,50);
 
         loadingBar.setBounds(250,300,160,30);
-        loadingBar.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/loading.gif")));
 
         background.setBounds(0,0,640,360);
     }
@@ -78,6 +84,7 @@ public class SplashScreen extends JFrame {
     }
 
     private void initializate() {
+        configuracao = new ConfiguracaoDAO().getConfiguracao();
         loadingBar = new JLabel();
         connectingLabel = new JLabel();
         logo = new JLabel();
@@ -85,9 +92,20 @@ public class SplashScreen extends JFrame {
     }
 
     private void setTheme() {
-        background.setBackground(Colors.CINZAMEDB);
-        logo.setForeground(Colors.VERDEDARK);
-        connectingLabel.setForeground(Colors.CINZALIGHTB);
+
+        if (getConfiguracao().isTema()) {
+            background.setBackground(Colors.CINZAMEDB);
+            logo.setForeground(Colors.VERDEDARK);
+            connectingLabel.setForeground(Colors.CINZALIGHTB);
+            loadingBar.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/loadingEscuro.gif")));
+        } else {
+            background.setBackground(Colors.CINZADARKA);
+            logo.setForeground(Colors.VERDEDARK);
+            connectingLabel.setForeground(Colors.CINZAMEDB);
+            loadingBar.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/loadingClaro.gif")));
+        }
+
+
     }
 
 }

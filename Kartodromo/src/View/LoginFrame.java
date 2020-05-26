@@ -34,11 +34,6 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     private JPopupMenu jPopupMenu_Desenvolvedor;
     private JComboBox<String> combo;
     private DefaultListCellRenderer renderer;
-    private static Configuracao configuracao;
-
-    public static Configuracao getConfiguracao() {
-        return configuracao;
-    }
 
     public LoginFrame() {
 
@@ -67,7 +62,6 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     }
 
     private void initializate() {
-        configuracao = new ConfiguracaoDAO().getConfiguracao();
         labelKartodromo = new JLabel();
         fundo = new JPanel();
         drawer = new JPanel();
@@ -106,7 +100,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     }
 
     private void setTheme() {
-        if (configuracao.isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             labelKartodromo.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDB);
@@ -342,7 +336,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (configuracao.isTema()) {
+            if (SplashScreen.getConfiguracao().isTema()) {
                 forgotLogin.setForeground(Colors.BRANCO);
             } else {
                 forgotLogin.setForeground(Colors.VERDEDARK);
@@ -353,7 +347,7 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (configuracao.isTema()) {
+            if (SplashScreen.getConfiguracao().isTema()) {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);
             } else {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);

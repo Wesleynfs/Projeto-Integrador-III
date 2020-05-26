@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
 public class Piloto implements Serializable {
@@ -19,17 +20,9 @@ public class Piloto implements Serializable {
     private String emailPiloto;
     private int numeroDeStrikesPiloto;
     private int numeroDeVitoriasPiloto;
-    private String dataNascimentoPiloto;
+    private Date dataNascimentoPiloto;
     private boolean ativo;
 
-    public String getApelido() {
-        return apelido;
-    }
-
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
-    
     public int getIdPiloto() {
         return idPiloto;
     }
@@ -44,6 +37,14 @@ public class Piloto implements Serializable {
 
     public void setNomePiloto(String nomePiloto) {
         this.nomePiloto = nomePiloto;
+    }
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
     public String getSenhaPiloto() {
@@ -74,19 +75,25 @@ public class Piloto implements Serializable {
         return numeroDeStrikesPiloto;
     }
 
-    public void setNumeroDeStrikesPiloto(int numeroDeStrikesPiloto) { this.numeroDeStrikesPiloto = numeroDeStrikesPiloto; }
+    public void setNumeroDeStrikesPiloto(int numeroDeStrikesPiloto) {
+        this.numeroDeStrikesPiloto = numeroDeStrikesPiloto;
+    }
 
     public int getNumeroDeVitoriasPiloto() {
         return numeroDeVitoriasPiloto;
     }
 
-    public void setNumeroDeVitoriasPiloto(int numeroDeVitoriasPiloto) { this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto; }
+    public void setNumeroDeVitoriasPiloto(int numeroDeVitoriasPiloto) {
+        this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto;
+    }
 
-    public String getDataNascimentoPiloto() {
+    public Date getDataNascimentoPiloto() {
         return dataNascimentoPiloto;
     }
 
-    public void setDataNascimentoPiloto(String dataNascimentoPiloto) { this.dataNascimentoPiloto = dataNascimentoPiloto; }
+    public void setDataNascimentoPiloto(Date dataNascimentoPiloto) {
+        this.dataNascimentoPiloto = dataNascimentoPiloto;
+    }
 
     public boolean isAtivo() {
         return ativo;
@@ -96,9 +103,10 @@ public class Piloto implements Serializable {
         this.ativo = ativo;
     }
 
-    public Piloto(int idPiloto, String nomePiloto, String senhaPiloto, String cpfPiloto, String emailPiloto, int numeroDeStrikesPiloto, int numeroDeVitoriasPiloto, String dataNascimentoPiloto, boolean ativo) {
+    public Piloto(int idPiloto, String nomePiloto, String apelido, String senhaPiloto, String cpfPiloto, String emailPiloto, int numeroDeStrikesPiloto, int numeroDeVitoriasPiloto, Date dataNascimentoPiloto, boolean ativo) {
         this.idPiloto = idPiloto;
         this.nomePiloto = nomePiloto;
+        this.apelido = apelido;
         this.senhaPiloto = senhaPiloto;
         this.cpfPiloto = cpfPiloto;
         this.emailPiloto = emailPiloto;

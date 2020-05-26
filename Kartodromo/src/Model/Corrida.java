@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.ManyToOne;
 
@@ -14,7 +15,7 @@ public class Corrida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCorrida;
     private String nomeCorrida;
-    private Timestamp dataCorrida;
+    private Date dataCorrida;
     private int numeroDeVoltas;
     
     @ManyToOne
@@ -27,8 +28,6 @@ public class Corrida {
     public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
     }
-    
-    
 
     public String getNomeCorrida() {
         return nomeCorrida;
@@ -46,11 +45,11 @@ public class Corrida {
         this.idCorrida = idCorrida;
     }
 
-    public Timestamp getDataCorrida() {
+    public Date getDataCorrida() {
         return dataCorrida;
     }
 
-    public void setDataCorrida(Timestamp dataCorrida) {
+    public void setDataCorrida(Date dataCorrida) {
         this.dataCorrida = dataCorrida;
     }
 
@@ -62,7 +61,7 @@ public class Corrida {
         this.numeroDeVoltas = numeroDeVoltas;
     }
 
-    public Corrida(int idCorrida, String nomeCorrida, Timestamp dataCorrida, int numeroDeVoltas) {
+    public Corrida(int idCorrida, String nomeCorrida, Date dataCorrida, int numeroDeVoltas) {
         this.idCorrida = idCorrida;
         this.nomeCorrida = nomeCorrida;
         this.dataCorrida = dataCorrida;
@@ -71,6 +70,6 @@ public class Corrida {
 
     public Corrida() {
 
-
     }
+
 }

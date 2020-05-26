@@ -1,6 +1,5 @@
 package View;
 
-import Bo.CampeonatoBO;
 import Dao.PilotoParticipandoCampeonatoDAO;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
@@ -22,7 +21,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JButton btnRelatar;
     private JButton btnSair;
     private JButton btnParticiparCorrida;
-    private JButton btnCriarCorrida;
+    private JButton btnGerenciarCampeonatos;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
     private JLabel nivelLabel;
@@ -78,7 +77,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnRelatar = new JButton();
         btnSair = new JButton();
         btnParticiparCorrida = new JButton();
-        btnCriarCorrida = new JButton();
+        btnGerenciarCampeonatos = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
         nivelLabel = new JLabel();
@@ -101,7 +100,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         add(btnRelatar);
         add(btnSair);
         add(btnParticiparCorrida);
-        add(btnCriarCorrida);
+        add(btnGerenciarCampeonatos);
         add(btnVerificarCorridas);
         add(btnAvaliarKartdromo);
         add(nivelLabel);
@@ -118,7 +117,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -129,14 +128,14 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             btnSair.setForeground(Colors.CINZADARKB);
             btnParticiparCorrida.setForeground(Colors.CINZADARKB);
-            btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
             btnRelatar.setForeground(Colors.CINZAMEDA);
             btnRelatar.setBackground(Colors.CINZAMEDB);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
-            btnCriarCorrida.setBackground(Colors.VERDEDARK);
+            btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
             headerTabelaCorridasParticipando.setBackground(Colors.CINZAMEDB);
@@ -157,13 +156,13 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
-            btnCriarCorrida.setBackground(Colors.VERDEDARK);
+            btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
             btnRelatar.setForeground(Colors.CINZAMEDB);
             btnSair.setForeground(Colors.CINZADARKB);
             btnParticiparCorrida.setForeground(Colors.CINZADARKB);
-            btnCriarCorrida.setForeground(Colors.CINZADARKB);
+            btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
             headerTabelaCorridasParticipando.setBackground(Colors.CINZAMEDA);
@@ -275,8 +274,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
-            
 
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
@@ -321,11 +318,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnParticiparCorrida.setBounds(400, 555, 200, 35);
         btnParticiparCorrida.setText("Participar de uma Corrida");
 
-        btnCriarCorrida.setBorderPainted(false);
-        btnCriarCorrida.setFocusPainted(false);
-        btnCriarCorrida.addActionListener(this);
-        btnCriarCorrida.setBounds(400, 505, 200, 35);
-        btnCriarCorrida.setText("Criar nova uma Corrida");
+        btnGerenciarCampeonatos.setBorderPainted(false);
+        btnGerenciarCampeonatos.setFocusPainted(false);
+        btnGerenciarCampeonatos.addActionListener(this);
+        btnGerenciarCampeonatos.setBounds(400, 505, 250, 35);
+        btnGerenciarCampeonatos.setText("Gerenciar Corridas e Campeonatos");
 
         perfilPilotoLabel.setBounds(20, 30, 500, 35);
         perfilPilotoLabel.setText("PERFIL DO PILOTO");
@@ -356,9 +353,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             dispose();
             new ParticiparCorrida(piloto);
         }
-        if (e.getSource() == btnCriarCorrida) {
+        if (e.getSource() == btnGerenciarCampeonatos) {
             dispose();
-            //new CriarCampeonato(piloto);
+            new GerenciarCampeonato(piloto);
         }
         if (e.getSource() == btnVerificarCorridas) {
             dispose();

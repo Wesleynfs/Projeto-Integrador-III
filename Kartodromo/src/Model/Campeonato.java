@@ -24,7 +24,7 @@ public class Campeonato {
     private Kartodromo kartodromo;
 
     @ManyToOne
-    private Corrida corrida;
+    private Corrida[] corrida;
 
     public Kartodromo getKartodromo() {
         return kartodromo;
@@ -32,14 +32,6 @@ public class Campeonato {
 
     public void setKartodromo(Kartodromo kartodromo) {
         this.kartodromo = kartodromo;
-    }
-
-    public Corrida getCorrida() {
-        return corrida;
-    }
-
-    public void setCorrida(Corrida corrida) {
-        this.corrida = corrida;
     }
 
     public int getIdCampeonato() {
@@ -114,7 +106,15 @@ public class Campeonato {
         this.tipoKart = tipoKart;
     }
 
-    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Date dataInicio, Kartodromo kartodromo, Corrida corrida) {
+    public Corrida[] getCorrida() {
+        return corrida;
+    }
+
+    public void setCorrida(Corrida[] corrida) {
+        this.corrida = corrida;
+    }
+
+    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Date dataInicio, Kartodromo kartodromo, Corrida[] corrida) {
         this.idCampeonato = idCampeonato;
         this.nome = nome;
         this.dataCadastro = dataCadastro;

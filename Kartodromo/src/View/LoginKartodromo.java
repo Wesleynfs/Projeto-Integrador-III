@@ -81,7 +81,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     }
 
     private void setTheme() {
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -190,7 +190,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (LoginFrame.getConfiguracao().isTema()) {
+            if (SplashScreen.getConfiguracao().isTema()) {
                 forgotLogin.setForeground(Colors.CINZADARKA);
             } else {
                 forgotLogin.setForeground(Colors.CINZADARKA);
@@ -201,7 +201,7 @@ public class LoginKartodromo extends JFrame implements ActionListener, MouseList
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == forgotLogin) {
-            if (LoginFrame.getConfiguracao().isTema()) {
+            if (SplashScreen.getConfiguracao().isTema()) {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);
             } else {
                 forgotLogin.setForeground(Colors.CINZALIGHTB);

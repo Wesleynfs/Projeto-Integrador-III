@@ -5,6 +5,7 @@ import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.Tempo;
 
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
@@ -111,7 +112,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
 
     private void setTheme() {
 
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -277,7 +278,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         piloto.setApelido(apelidoJTextField.getText().toLowerCase());
         piloto.setAtivo(true);
         piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
-        piloto.setDataNascimentoPiloto(dataNascJTextField.getText().toLowerCase());
+        piloto.setDataNascimentoPiloto(Tempo.stringToDate(dataNascJTextField.getText()));
         PilotoBO pilotoBO = new PilotoBO();
 
         if (e.getSource() == btnDeletar) {

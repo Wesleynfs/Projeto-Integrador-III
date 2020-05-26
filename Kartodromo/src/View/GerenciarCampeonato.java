@@ -4,6 +4,7 @@ package View;
 import Bo.CampeonatoBO;
 import Model.Campeonato;
 import Model.Corrida;
+import Model.Kartodromo;
 import Model.Piloto;
 import Utilities.Colors;
 
@@ -15,12 +16,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
-public class CriarCampeonato extends JFrame implements ActionListener {
+public class GerenciarCampeonato extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -41,33 +43,31 @@ public class CriarCampeonato extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JButton btnCriarCampeonato;
     private JButton btnAdicionarCorrida;
+    private List<Corrida> corridaList;
 
     private Piloto piloto;
     private Campeonato campeonato;
-    
-    public CriarCampeonato() {
 
-        this.piloto = null;
-
-        // Instancia de itens //
-        initializate();
-        // Coloca o tema na tela
-        setTheme();
-        // Adiciona o item na tela //
-        add();
-        // Configura o item da tela (btn,label...) //
-        configs();
-        // Configura esse frame //
-        configurateThis();
-       
+    public Campeonato getCampeonato() {
+        return campeonato;
     }
 
-    public CriarCampeonato(Piloto piloto , List<Corrida> corridaList) {
+    public void setCampeonato(Campeonato campeonato) {
+        this.campeonato = campeonato;
+    }
+
+    public JButton getBtnCriarCampeonato() {
+        return btnCriarCampeonato;
+    }
+
+    public void setBtnCriarCampeonato(JButton btnCriarCampeonato) {
+        this.btnCriarCampeonato = btnCriarCampeonato;
+    }
+
+    public GerenciarCampeonato(Piloto piloto) {
 
         this.piloto = piloto;
 
-        corridaList.forEach((C) -> campeonato.setCorrida(C));
-
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -81,7 +81,7 @@ public class CriarCampeonato extends JFrame implements ActionListener {
 
     }
 
-    private void configurateThis(){
+    private void configurateThis() {
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
         setLayout(null);
@@ -91,9 +91,9 @@ public class CriarCampeonato extends JFrame implements ActionListener {
         setTitle(Info.APP_NAME);
         setResizable(false);
     }
-    
-    private void initializate(){
-        
+
+    private void initializate() {
+
         fundo = new JPanel();
         btnAdicionarCorrida = new JButton();
         drawer = new JPanel();
@@ -103,7 +103,7 @@ public class CriarCampeonato extends JFrame implements ActionListener {
         lblNomeCampeonato = new JLabel();
         lblDataFinalCampeonato = new JLabel();
         tipocorridaLabel = new JLabel();
-        nomekartodromoLabel = new JLabel();     
+        nomekartodromoLabel = new JLabel();
         tipokartLabel = new JLabel();
         lblNumeroDeVoltas = new JLabel();
         btnVoltar = new JButton();
@@ -114,9 +114,10 @@ public class CriarCampeonato extends JFrame implements ActionListener {
         lblDataInicioCampeonato = new JLabel();
         textFieldDataInicioCampeonato = new JFormattedTextField();
         campeonato = new Campeonato();
-        
+        corridaList = new ArrayList<>();
+
     }
-    
+
     private void add() {
         add(btnAdicionarCorrida);
         add(comboNomeKartodromo);
@@ -140,8 +141,8 @@ public class CriarCampeonato extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
-        //LoginFrame.getConfiguracao().isTema()
-        if (true) {
+
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -154,7 +155,7 @@ public class CriarCampeonato extends JFrame implements ActionListener {
             lblNomeCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataFinalCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataInicioCampeonato.setForeground(Colors.CINZALIGHTB);
-            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
+            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
@@ -183,7 +184,7 @@ public class CriarCampeonato extends JFrame implements ActionListener {
             lblNomeCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataFinalCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataInicioCampeonato.setForeground(Colors.CINZALIGHTB);
-            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);       
+            tipocorridaLabel.setForeground(Colors.CINZALIGHTB);
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
@@ -206,23 +207,23 @@ public class CriarCampeonato extends JFrame implements ActionListener {
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-        drawer.setBounds(0,0,800,100);
+        drawer.setBounds(0, 0, 800, 100);
 
         lblNomeCampeonato.setText("NOME DO CAMPEONATO:");
-        lblNomeCampeonato.setBounds(60,185,200,35);
+        lblNomeCampeonato.setBounds(60, 185, 200, 35);
 
         textFieldNomeCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        textFieldNomeCampeonato.setBounds(60,215,300,35);
+        textFieldNomeCampeonato.setBounds(60, 215, 300, 35);
         textFieldNomeCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         textFieldDataInicioCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        textFieldDataInicioCampeonato.setBounds(60,280,300,35);
+        textFieldDataInicioCampeonato.setBounds(60, 280, 300, 35);
         textFieldDataInicioCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
-  
+
         textFieldDataFinalCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        textFieldDataFinalCampeonato.setBounds(60,340,300,35);
+        textFieldDataFinalCampeonato.setBounds(60, 340, 300, 35);
         textFieldDataFinalCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
-                
+
         try {
             textFieldDataInicioCampeonato.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
             textFieldDataFinalCampeonato.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
@@ -231,24 +232,24 @@ public class CriarCampeonato extends JFrame implements ActionListener {
         }
 
         lblDataFinalCampeonato.setText("DATA DE FIM DO CAMPEONATO:");
-        lblDataFinalCampeonato.setBounds(60,310,200,35);
+        lblDataFinalCampeonato.setBounds(60, 310, 200, 35);
 
         lblDataInicioCampeonato.setText("DATA DE INICIO DO CAMPEONATO:");
-        lblDataInicioCampeonato.setBounds(60,250,200,35);
-                
+        lblDataInicioCampeonato.setBounds(60, 250, 200, 35);
+
         comboStatusCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        comboStatusCampeonato.setBounds(440,400,300,35);
-        comboStatusCampeonato.setModel(new DefaultComboBoxModel<>(new String[] { "ATIVO","CANCELADO" }));
+        comboStatusCampeonato.setBounds(440, 400, 300, 35);
+        comboStatusCampeonato.setModel(new DefaultComboBoxModel<>(new String[]{"ATIVO", "CANCELADO"}));
 
         tipocorridaLabel.setText("STATUS DO CAMPEONATO:");
-        tipocorridaLabel.setBounds(440,370,200,35);
+        tipocorridaLabel.setBounds(440, 370, 200, 35);
 
-        logo.setBounds(20 , 30,600,35);
+        logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
-        comboTipoDeKart.setBounds(440,340,300,35);
+        comboTipoDeKart.setBounds(440, 340, 300, 35);
 
         /*
 
@@ -273,12 +274,12 @@ public class CriarCampeonato extends JFrame implements ActionListener {
         }
 
         */
-        
+
         nomekartodromoLabel.setText("O KARTÓDROMO:");
-        nomekartodromoLabel.setBounds(440,250,300,35);
-        
+        nomekartodromoLabel.setBounds(440, 250, 300, 35);
+
         comboNomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
-        comboNomeKartodromo.setBounds(440,280,300,35);
+        comboNomeKartodromo.setBounds(440, 280, 300, 35);
 
 //        ClasseDao dao = new ClasseDao();
 //        for(classe c:dao.FindALL()){
@@ -286,58 +287,48 @@ public class CriarCampeonato extends JFrame implements ActionListener {
 //        }
         //se selecionar um kartodromo em especifico ele
 
-        comboNomeKartodromo.addItemListener(new ItemListener(){
+        comboNomeKartodromo.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    Kartodromo kartodromo = new Kartodromo();
-//                    kartodromo = (Kartodromo) e.getItem();
-//                    if(kartodromo.tipokartsemmarcha == true){
-//                        TipoKartjComboBox.addItem("KART SEM MARCHA");
-//                    }
-//                    if(se o kartodromo tem esse kart){
-//                      a combo coloco o tipo do kart como escolha
-//                    }
-//                    if(){
-//                    
-//                    }  
-//                    if(){
-//                    
-//                    }
+                    /*
+                    Kartodromo kartodromo = new Kartodromo();
+                    kartodromo = (Kartodromo) e.getItem();
+                    if (kartodromo.tipokartsemmarcha == true) {
+                        TipoKartjComboBox.addItem("KART SEM MARCHA");
+                    }
+                    if (se o kartodromo tem esse kart){
+                        a combo coloco o tipo do kart como escolha
+                    }
+                    */
                 }
             }
-       });
+        });
 
         tipokartLabel.setText("TIPO DE KART:");
-        tipokartLabel.setBounds(440,310,300,35);
+        tipokartLabel.setBounds(440, 310, 300, 35);
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
-        btnVoltar.setBounds(20,550, 100,35);
-        
+        btnVoltar.setBounds(20, 550, 100, 35);
+
         btnCriarCampeonato.setFocusPainted(false);
         btnCriarCampeonato.setBorderPainted(false);
         btnCriarCampeonato.addActionListener(this);
         btnCriarCampeonato.setText("CRIAR CAMPEONATO");
-        btnCriarCampeonato.setBounds(620,550,160,35);
-
-        if (campeonato.getCorrida() != null) {
-            btnCriarCampeonato.setEnabled(true);
-        } else {
-            btnCriarCampeonato.setEnabled(false);
-        }
+        btnCriarCampeonato.setBounds(620, 550, 160, 35);
 
         btnAdicionarCorrida.setFocusPainted(false);
         btnAdicionarCorrida.setBorderPainted(false);
         btnAdicionarCorrida.addActionListener(this);
         btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
-        btnAdicionarCorrida.setBounds(130,400,160,35);
-    
+        btnAdicionarCorrida.setBounds(130, 400, 160, 35);
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -348,27 +339,24 @@ public class CriarCampeonato extends JFrame implements ActionListener {
 
         if (e.getSource() == btnCriarCampeonato) {
 
-            // VALIDAR CAMPEONATO //
-
-            try {
-                new CampeonatoBO().criar(campeonato);
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null,
-                        err.getMessage(),
-                        "Erro",JOptionPane.PLAIN_MESSAGE);
-            }
-
-            /*
             switch (JOptionPane.showConfirmDialog(null,
-                "Criar uma Corrida lhe torna automaticamente um ADM desta corrida,"
-                        + " você tem certeza que deseja assumir essa responsabilidade?",//contexto
-                        "Termo de responsabilidade",//nome
-                JOptionPane.YES_NO_OPTION)) {
-                case 0 : System.out.println("SIM");
+                    "Criar uma Corrida lhe torna automaticamente um ADM desta corrida,"
+                            + " você tem certeza que deseja assumir essa responsabilidade?",
+                    "Termo de responsabilidade",
+                    JOptionPane.YES_NO_OPTION)) {
+                case 0:
+                    try {
+                        new CampeonatoBO().criar(campeonato);
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null,
+                                err.getMessage(),
+                                "Erro", JOptionPane.PLAIN_MESSAGE);
+                    }
                     break;
-                default: System.out.println("APERTAR NO X OU CLICAR EM NÃO DA NA MESMA kk");
+                default:
+                    JOptionPane.showMessageDialog(null, "Ação cancelada! retornando ao menu principal!");
             }
-            */
+
         }
 
         if (e.getSource() == btnAdicionarCorrida) {
@@ -379,8 +367,8 @@ public class CriarCampeonato extends JFrame implements ActionListener {
             campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
             campeonato.setDataCadastro(Tempo.getCurrentTime());
 
-            dispose();
-            new CriarCorrida(piloto , this);
+            this.setVisible(false);
+            new CriarCorrida(piloto, campeonato, this);
         }
 
     }

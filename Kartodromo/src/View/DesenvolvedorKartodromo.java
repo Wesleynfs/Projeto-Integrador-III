@@ -185,7 +185,7 @@ public class DesenvolvedorKartodromo extends JFrame implements ActionListener{
         
     }
     private void setTheme() {
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             tableParticipantes_status.setBackground(Colors.VERDELIGHT);
             tableParticipantes_status.setForeground(Colors.CINZADARKB);

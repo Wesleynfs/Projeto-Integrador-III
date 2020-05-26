@@ -66,7 +66,7 @@ public class Opcoes extends JFrame implements ActionListener , ItemListener {
             buttons[x].setForeground(Colors.CINZADARKB);
         }
 
-        if (LoginFrame.getConfiguracao().isTema()) {
+        if (SplashScreen.getConfiguracao().isTema()) {
             background.setBackground(Colors.CINZAMEDB);
             labelTema.setForeground(Colors.CINZALIGHTB);
         } else {

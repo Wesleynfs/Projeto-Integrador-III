@@ -13,6 +13,8 @@ public class Main {
         // Executar sempre por essa tela e inserir as outras telas no programa //
         new SplashScreen();
 
+        //new GerenciarCampeonato();
+
     }
 
 }

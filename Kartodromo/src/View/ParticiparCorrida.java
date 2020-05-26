@@ -177,7 +177,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
 
             for (Corrida corrida : new CorridaBO().listarTodos()) {
                 tabelamento.addRow(new Object[]{
-                        corrida.getDataCorrida(),
+                        corrida.getCampeonato().getDataFinalizacao(),
                         corrida.getNumeroDeVoltas(),
                 });
             }

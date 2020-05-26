@@ -1,5 +1,6 @@
 package View;
 
+import Bo.CorridaBO;
 import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
@@ -11,18 +12,19 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CriarCorrida extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
     private JLabel logo;
-    private JLabel lblDataDaCorrida;
     private JLabel lblNumeroDeVoltas;
     private JLabel lblNomeDaCorrida;
     private JFormattedTextField textFieldNomeCorrida;
     private JFormattedTextField textFieldVoltasDaCorrida;
-    private JFormattedTextField textFieldDataCorrida;
     private JButton btnVoltar;
     private JButton btnCriarCorrida;
     private JButton btnRemoverCorrida;
@@ -70,10 +72,8 @@ public class CriarCorrida extends JFrame implements ActionListener {
         fundo = new JPanel();
         drawer = new JPanel();
         logo = new JLabel();
-        lblDataDaCorrida = new JLabel();
         lblNumeroDeVoltas = new JLabel();
         lblNomeDaCorrida = new JLabel();
-        textFieldDataCorrida = new JFormattedTextField();
         textFieldNomeCorrida = new JFormattedTextField();
         textFieldVoltasDaCorrida = new JFormattedTextField();
         btnVoltar = new JButton();
@@ -89,10 +89,8 @@ public class CriarCorrida extends JFrame implements ActionListener {
     private void add() {
         add(logo);
         add(btnVoltar);
-        add(lblDataDaCorrida);
         add(lblNumeroDeVoltas);
         add(lblNomeDaCorrida);
-        add(textFieldDataCorrida);
         add(textFieldNomeCorrida);
         add(textFieldVoltasDaCorrida);
         add(table);
@@ -113,9 +111,6 @@ public class CriarCorrida extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
-            lblDataDaCorrida.setForeground(Colors.CINZALIGHTB);
-            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
-            textFieldDataCorrida.setForeground(Colors.BRANCO);
             textFieldNomeCorrida.setBackground(Colors.CINZALIGHTB);
             textFieldNomeCorrida.setForeground(Colors.BRANCO);
             textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
@@ -129,15 +124,12 @@ public class CriarCorrida extends JFrame implements ActionListener {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
-            lblDataDaCorrida.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
             lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
             textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
             textFieldVoltasDaCorrida.setForeground(Colors.CINZADARKA);
             textFieldNomeCorrida.setBackground(Colors.CINZALIGHTB);
             textFieldNomeCorrida.setForeground(Colors.CINZADARKA);
-            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
-            textFieldDataCorrida.setForeground(Colors.CINZADARKA);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnCriarCorrida.setBackground(Colors.VERDEDARK);
@@ -171,23 +163,8 @@ public class CriarCorrida extends JFrame implements ActionListener {
         textFieldNomeCorrida.setBounds(30, 140, 230, 35);
         textFieldNomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        textFieldDataCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldDataCorrida.setBounds(285, 140, 230, 35);
-        textFieldDataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
-
-        try {
-            textFieldDataCorrida.setFormatterFactory(
-                    new DefaultFormatterFactory(
-                            new MaskFormatter("##/##/####")));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
         lblNumeroDeVoltas.setText("Numero de voltas da corrida");
         lblNumeroDeVoltas.setBounds(540, 100, 200, 35);
-
-        lblDataDaCorrida.setText("Data da corrida");
-        lblDataDaCorrida.setBounds(285, 100, 200, 35);
 
         lblNomeDaCorrida.setText("Nome da corrida");
         lblNomeDaCorrida.setBounds(30, 100, 200, 35);
@@ -202,13 +179,20 @@ public class CriarCorrida extends JFrame implements ActionListener {
         btnCriarCorrida.setBorderPainted(false);
         btnCriarCorrida.addActionListener(this);
         btnCriarCorrida.setText("ADICIONAR CORRIDA");
-        btnCriarCorrida.setBounds(620, 550, 160, 35);
+        btnCriarCorrida.setBounds(580, 550, 200, 35);
 
         btnRemoverCorrida.setFocusPainted(false);
         btnRemoverCorrida.setBorderPainted(false);
         btnRemoverCorrida.addActionListener(this);
         btnRemoverCorrida.setText("REMOVER CORRIDA");
-        btnRemoverCorrida.setBounds(430, 550, 160, 35);
+        btnRemoverCorrida.setBounds(380, 550, 160, 35);
+        
+        if(!gerenciarCampeonato.getCorridaList().isEmpty()){
+            for(Corrida corrida : gerenciarCampeonato.getCorridaList()){
+                tabelaPiloto.addRow(corrida);
+            }
+            gerenciarCampeonato.setCorridaList(null);
+        }
 
     }
 
@@ -222,11 +206,11 @@ public class CriarCorrida extends JFrame implements ActionListener {
                     "Salvar",
                     JOptionPane.YES_NO_OPTION) == 0) {
                 this.dispose();
-
-                int tamanho = tabelaPiloto.getListCorrida().size();
-                campeonato.setCorrida(tabelaPiloto.getListCorrida().toArray(new Corrida[tamanho]));
+                
                 gerenciarCampeonato.setCampeonato(campeonato);
+                gerenciarCampeonato.setCorridaList(tabelaPiloto.getListCorrida());
                 gerenciarCampeonato.getBtnCriarCampeonato().setEnabled(true);
+                gerenciarCampeonato.getBtnCriarCampeonato().setVisible(true);
                 gerenciarCampeonato.setVisible(true);
             } else {
                 this.dispose();
@@ -239,7 +223,6 @@ public class CriarCorrida extends JFrame implements ActionListener {
             Corrida corrida = new Corrida();
             corrida.setNomeCorrida(textFieldNomeCorrida.getText());
             corrida.setNumeroDeVoltas(Integer.valueOf(textFieldVoltasDaCorrida.getText()));
-            corrida.setDataCorrida(Tempo.stringToDate(textFieldDataCorrida.getText()));
             tabelaPiloto.addRow(corrida);
         }
 

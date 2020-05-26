@@ -15,7 +15,6 @@ public class Corrida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCorrida;
     private String nomeCorrida;
-    private Date dataCorrida;
     private int numeroDeVoltas;
     
     @ManyToOne
@@ -45,14 +44,6 @@ public class Corrida {
         this.idCorrida = idCorrida;
     }
 
-    public Date getDataCorrida() {
-        return dataCorrida;
-    }
-
-    public void setDataCorrida(Date dataCorrida) {
-        this.dataCorrida = dataCorrida;
-    }
-
     public int getNumeroDeVoltas() {
         return numeroDeVoltas;
     }
@@ -64,7 +55,6 @@ public class Corrida {
     public Corrida(int idCorrida, String nomeCorrida, Date dataCorrida, int numeroDeVoltas) {
         this.idCorrida = idCorrida;
         this.nomeCorrida = nomeCorrida;
-        this.dataCorrida = dataCorrida;
         this.numeroDeVoltas = numeroDeVoltas;
     }
 

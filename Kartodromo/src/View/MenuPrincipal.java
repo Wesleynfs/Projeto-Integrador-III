@@ -1,7 +1,9 @@
 package View;
 
 import Bo.CampeonatoBO;
+import Bo.CorridaBO;
 import Model.Campeonato;
+import Model.Corrida;
 import Model.Kartodromo;
 import Model.Piloto;
 import Utilities.Colors;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MenuPrincipal extends JFrame implements ActionListener {
 
@@ -153,10 +156,12 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         try {
 
             for (Campeonato campeonato : new CampeonatoBO().listarCampeonatosFinalizados()) {
+                List<Corrida> listacorrida= new CorridaBO().listarTodasAsCorridasMarcadas(campeonato);
+                
                 tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
                                 campeonato.getTipoCorrida(),
-                                campeonato.getTotalCorridas(),
+                                listacorrida.size(),
                                 campeonato.getDataCadastro(),
                                 campeonato.getDataFinalizacao()
                         }

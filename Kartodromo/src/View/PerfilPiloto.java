@@ -257,7 +257,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     });
                 } else {
                     for (PilotoParticipandoCampeonato list : lista_campeonatos) {
+                        System.out.println("dlspfcs");
                         List<PilotoParticipandoCampeonato> lista_total_piloto = pilotoparticipandocampeonatodao.ListarPilotoParticipadeCameponato(list.getCampeonato());
+                        System.out.println("dlspfcs");
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
                                 list.getCampeonato().getDataFinalizacao(),
@@ -315,13 +317,13 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnParticiparCorrida.setBorderPainted(false);
         btnParticiparCorrida.setFocusPainted(false);
         btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(400, 555, 200, 35);
+        btnParticiparCorrida.setBounds(370, 555, 250, 35);
         btnParticiparCorrida.setText("Participar de uma Corrida");
 
         btnGerenciarCampeonatos.setBorderPainted(false);
         btnGerenciarCampeonatos.setFocusPainted(false);
         btnGerenciarCampeonatos.addActionListener(this);
-        btnGerenciarCampeonatos.setBounds(400, 505, 250, 35);
+        btnGerenciarCampeonatos.setBounds(370, 505, 250, 35);
         btnGerenciarCampeonatos.setText("Gerenciar Corridas e Campeonatos");
 
         perfilPilotoLabel.setBounds(20, 30, 500, 35);

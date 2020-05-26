@@ -74,8 +74,6 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
             throw new Exception("Piloto não localizado!");
         } else if (o.getCampeonato().getIdCampeonato() < 0) {
             throw new Exception("Campeonato não localizado!");
-        } else if (o.isStatusAdm()) {
-            throw new Exception("Piloto administrador");
         } else {
             return true;
         }

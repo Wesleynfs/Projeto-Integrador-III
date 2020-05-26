@@ -2,6 +2,7 @@ package View;
 
 
 import Bo.CampeonatoBO;
+import Bo.KartodromoBO;
 import Model.Campeonato;
 import Model.Corrida;
 import Model.Kartodromo;
@@ -28,10 +29,9 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JPanel drawer;
     private JComboBox<Object> comboNomeKartodromo;
     private JComboBox<String> comboTipoDeKart;
-    private JComboBox<String> comboStatusCampeonato;
+    private JComboBox<String> comboTipoCampeonato;
     private JFormattedTextField textFieldNomeCampeonato;
     private JFormattedTextField textFieldDataFinalCampeonato;
-    private JFormattedTextField textFieldDataInicioCampeonato;
     private JLabel logo;
     private JLabel lblNomeCampeonato;
     private JLabel lblDataFinalCampeonato;
@@ -39,7 +39,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JLabel nomekartodromoLabel;
     private JLabel tipokartLabel;
     private JLabel lblNumeroDeVoltas;
-    private JLabel lblDataInicioCampeonato;
     private JButton btnVoltar;
     private JButton btnCriarCampeonato;
     private JButton btnAdicionarCorrida;
@@ -110,9 +109,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnCriarCampeonato = new JButton();
         comboNomeKartodromo = new JComboBox<>();
         comboTipoDeKart = new JComboBox<>();
-        comboStatusCampeonato = new JComboBox<>();
-        lblDataInicioCampeonato = new JLabel();
-        textFieldDataInicioCampeonato = new JFormattedTextField();
+        comboTipoCampeonato = new JComboBox<>();
         campeonato = new Campeonato();
         corridaList = new ArrayList<>();
 
@@ -123,13 +120,11 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         add(comboNomeKartodromo);
         add(logo);
         add(comboTipoDeKart);
-        add(comboStatusCampeonato);
+        add(comboTipoCampeonato);
         add(textFieldNomeCampeonato);
         add(textFieldDataFinalCampeonato);
-        add(textFieldDataInicioCampeonato);
         add(lblNomeCampeonato);
         add(lblDataFinalCampeonato);
-        add(lblDataInicioCampeonato);
         add(tipocorridaLabel);
         add(nomekartodromoLabel);
         add(tipokartLabel);
@@ -150,11 +145,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             textFieldNomeCampeonato.setForeground(Colors.BRANCO);
             textFieldDataFinalCampeonato.setBackground(Colors.CINZALIGHTB);
             textFieldDataFinalCampeonato.setForeground(Colors.BRANCO);
-            textFieldDataInicioCampeonato.setBackground(Colors.CINZALIGHTB);
-            textFieldDataInicioCampeonato.setForeground(Colors.BRANCO);
             lblNomeCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataFinalCampeonato.setForeground(Colors.CINZALIGHTB);
-            lblDataInicioCampeonato.setForeground(Colors.CINZALIGHTB);
             tipocorridaLabel.setForeground(Colors.CINZALIGHTB);
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
@@ -166,12 +158,12 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             btnAdicionarCorrida.setForeground(Colors.CINZADARKB);
             btnCriarCampeonato.setBackground(Colors.VERDEDARK);
             btnCriarCampeonato.setForeground(Colors.CINZADARKB);
-            comboStatusCampeonato.setBackground(Colors.CINZALIGHTB);
-            comboStatusCampeonato.setForeground(Colors.BRANCO);
             comboNomeKartodromo.setBackground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setForeground(Colors.BRANCO);
             comboTipoDeKart.setBackground(Colors.CINZALIGHTB);
             comboTipoDeKart.setForeground(Colors.BRANCO);
+            comboTipoCampeonato.setForeground(Colors.BRANCO);
+            comboTipoCampeonato.setBackground(Colors.CINZALIGHTB);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
@@ -179,11 +171,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             textFieldNomeCampeonato.setForeground(Colors.CINZADARKA);
             textFieldDataFinalCampeonato.setBackground(Colors.CINZALIGHTB);
             textFieldDataFinalCampeonato.setForeground(Colors.CINZADARKA);
-            textFieldDataInicioCampeonato.setBackground(Colors.CINZALIGHTB);
-            textFieldDataInicioCampeonato.setForeground(Colors.CINZADARKA);
             lblNomeCampeonato.setForeground(Colors.CINZALIGHTB);
             lblDataFinalCampeonato.setForeground(Colors.CINZALIGHTB);
-            lblDataInicioCampeonato.setForeground(Colors.CINZALIGHTB);
             tipocorridaLabel.setForeground(Colors.CINZALIGHTB);
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
@@ -195,12 +184,13 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             btnAdicionarCorrida.setForeground(Colors.CINZADARKB);
             btnCriarCampeonato.setBackground(Colors.VERDEDARK);
             btnCriarCampeonato.setForeground(Colors.CINZADARKB);
-            comboStatusCampeonato.setBackground(Colors.CINZALIGHTB);
-            comboStatusCampeonato.setForeground(Colors.CINZADARKA);
             comboNomeKartodromo.setBackground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setForeground(Colors.CINZADARKA);
             comboTipoDeKart.setBackground(Colors.CINZALIGHTB);
             comboTipoDeKart.setForeground(Colors.CINZADARKA);
+            comboTipoCampeonato.setBackground(Colors.CINZALIGHTB);
+            comboTipoCampeonato.setForeground(Colors.CINZADARKA);
+            
         }
     }
 
@@ -216,33 +206,34 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         textFieldNomeCampeonato.setBounds(60, 215, 300, 35);
         textFieldNomeCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        textFieldDataInicioCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        textFieldDataInicioCampeonato.setBounds(60, 280, 300, 35);
-        textFieldDataInicioCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
-
         textFieldDataFinalCampeonato.setBorder(BorderFactory.createEmptyBorder());
         textFieldDataFinalCampeonato.setBounds(60, 340, 300, 35);
         textFieldDataFinalCampeonato.setHorizontalAlignment(JFormattedTextField.CENTER);
 
         try {
-            textFieldDataInicioCampeonato.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
             textFieldDataFinalCampeonato.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
+            
+            List<Kartodromo> list = new KartodromoBO().listarTodos();
+            for (Kartodromo tipo : list) {
+                comboNomeKartodromo.addItem(tipo.getNomeKartodromo());
+            }
+        
+        
         } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "Não carregar a tela criar campeonato");
+            JOptionPane.showMessageDialog(null, "Não foi possível carregar a tela criar campeonato");
         }
 
         lblDataFinalCampeonato.setText("DATA DE FIM DO CAMPEONATO:");
         lblDataFinalCampeonato.setBounds(60, 310, 200, 35);
 
-        lblDataInicioCampeonato.setText("DATA DE INICIO DO CAMPEONATO:");
-        lblDataInicioCampeonato.setBounds(60, 250, 200, 35);
-
-        comboStatusCampeonato.setBorder(BorderFactory.createEmptyBorder());
-        comboStatusCampeonato.setBounds(440, 400, 300, 35);
-        comboStatusCampeonato.setModel(new DefaultComboBoxModel<>(new String[]{"ATIVO", "CANCELADO"}));
-
         tipocorridaLabel.setText("STATUS DO CAMPEONATO:");
-        tipocorridaLabel.setBounds(440, 370, 200, 35);
+        tipocorridaLabel.setBounds(440, 250, 200, 35);
+        
+        comboTipoCampeonato.setBorder(BorderFactory.createEmptyBorder());
+        comboTipoCampeonato.setBounds(440, 285, 300, 35);
+        
+        comboTipoCampeonato.addItem("CAMPEONATO NORMAL");
+        comboTipoCampeonato.addItem("CAMPEONATO OFICIAL");
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
@@ -251,58 +242,48 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
         comboTipoDeKart.setBounds(440, 340, 300, 35);
 
-        /*
-
-        if (campeonato.getKartodromo().isKartIndoor()) {
-            comboTipoDeKart.addItem("INDOOR");
-        }
-
-        if (campeonato.getKartodromo().isKartMotor2Tempos()) {
-            comboTipoDeKart.addItem("2 TEMPOS");
-        }
-
-        if (campeonato.getKartodromo().isKartMotor4Tempos()) {
-            comboTipoDeKart.addItem("4 TEMPOS");
-        }
-
-        if (campeonato.getKartodromo().isKartSemMarcha()) {
-            comboTipoDeKart.addItem("SEM MARCHA");
-        }
-
-        if (campeonato.getKartodromo().isKartShifter()) {
-            comboTipoDeKart.addItem("SHIFTER");
-        }
-
-        */
-
         nomekartodromoLabel.setText("O KARTÓDROMO:");
-        nomekartodromoLabel.setBounds(440, 250, 300, 35);
+        nomekartodromoLabel.setBounds(440, 185, 300, 35);
 
         comboNomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
-        comboNomeKartodromo.setBounds(440, 280, 300, 35);
+        comboNomeKartodromo.setBounds(440, 215, 300, 35);
 
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c:dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c);
-//        }
-        //se selecionar um kartodromo em especifico ele
-
+        
+            
         comboNomeKartodromo.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    /*
-                    Kartodromo kartodromo = new Kartodromo();
-                    kartodromo = (Kartodromo) e.getItem();
-                    if (kartodromo.tipokartsemmarcha == true) {
-                        TipoKartjComboBox.addItem("KART SEM MARCHA");
+                        try {
+                           comboTipoDeKart.removeAllItems();
+
+                           Kartodromo kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
+
+                           if (kartodromo.isKartIndoor()) {
+                                comboTipoDeKart.addItem("INDOOR");
+                            }
+
+                            if (kartodromo.isKartMotor2Tempos()) {
+                                comboTipoDeKart.addItem("2 TEMPOS");
+                            }
+
+                            if (kartodromo.isKartMotor4Tempos()) {
+                                comboTipoDeKart.addItem("4 TEMPOS");
+                            }
+
+                            if (kartodromo.isKartSemMarcha()) {
+                                comboTipoDeKart.addItem("SEM MARCHA");
+                            }
+
+                            if (kartodromo.isKartShifter()) {
+                                comboTipoDeKart.addItem("SHIFTER");
+                            }
+                        } catch (Exception error) {
+                            JOptionPane.showMessageDialog(null, "Não foi possível encontrar kartodromo escolhido");
+                        }
                     }
-                    if (se o kartodromo tem esse kart){
-                        a combo coloco o tipo do kart como escolha
-                    }
-                    */
-                }
+                
             }
         });
 
@@ -363,7 +344,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
             campeonato.setNome(textFieldNomeCampeonato.getText());
             campeonato.setKartodromo(campeonato.getKartodromo());
-            campeonato.setDataInicio(Tempo.stringToDate(textFieldDataInicioCampeonato.getText()));
             campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
             campeonato.setDataCadastro(Tempo.getCurrentTime());
 

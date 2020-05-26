@@ -18,7 +18,6 @@ public class Campeonato {
     private String tipoCorrida;
     private Date dataFinalizacao;
     private String tipoKart;
-    private Date dataInicio;
 
     @ManyToOne
     private Kartodromo kartodromo;
@@ -90,14 +89,6 @@ public class Campeonato {
         this.dataFinalizacao = dataFinalizacao;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
     public String getTipoKart() {
         return tipoKart;
     }
@@ -114,7 +105,7 @@ public class Campeonato {
         this.corrida = corrida;
     }
 
-    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Date dataInicio, Kartodromo kartodromo, Corrida[] corrida) {
+    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, boolean situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Kartodromo kartodromo, Corrida[] corrida) {
         this.idCampeonato = idCampeonato;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
@@ -123,7 +114,6 @@ public class Campeonato {
         this.tipoCorrida = tipoCorrida;
         this.dataFinalizacao = dataFinalizacao;
         this.tipoKart = tipoKart;
-        this.dataInicio = dataInicio;
         this.kartodromo = kartodromo;
         this.corrida = corrida;
     }

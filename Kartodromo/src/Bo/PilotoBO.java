@@ -77,7 +77,7 @@ public class PilotoBO implements GenericBO<Piloto>{
             throw new Exception("Email do piloto nao pode ser nulo!");
         } else if (o.getCpfPiloto().equals("   .   .   -  ")) {
             throw new Exception("Cpf do piloto não pode ficar em branco!");
-        } else if (o.getDataNascimentoPiloto().equals("  /  /     ")) {
+        } else if (o.getDataNascimentoPiloto().toString().equals("  /  /     ")) {
             throw new Exception("Data do piloto não pode ficar em branco!");
         } else {
             return true;

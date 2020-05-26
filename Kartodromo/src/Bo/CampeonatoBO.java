@@ -67,9 +67,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         if (o.getNome().equals("")) {
             throw new Exception("Nome do Campeonato não pode ficar em branco!");
         }
-        if (o.getDataInicio().toString().equals("1000-01-01")) {
-            throw new Exception("Por favor adicione uma data de inicio para o campeonato!");
-        }
         if (o.getDataFinalizacao().toString().equals("1000-01-01")) {
             throw new Exception("Por favor adicione uma data de finalização para o campeonato!");
         }

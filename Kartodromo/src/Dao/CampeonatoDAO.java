@@ -73,9 +73,9 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
 
     public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
         try {
-            List<Campeonato> campeonatos = null;
-            campeonatos = entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'false' ").getResultList();
-            return campeonatos;
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'false' ").getResultList();
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -86,9 +86,8 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     @Override
     public List<Campeonato> listarTodos() throws Exception {
         try {
-            List<Campeonato> campeonatos = null;
-            campeonatos = entityManager.createQuery("SELECT c FROM Campeonato c").getResultList();
-            return campeonatos;
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c ").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -109,6 +108,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     
     public List<Campeonato> listarTodosCampeonatosFinalizados() throws Exception {
         try {
+            entityManager = new ConnectionFactory().getConnection();
             return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'false' ").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());

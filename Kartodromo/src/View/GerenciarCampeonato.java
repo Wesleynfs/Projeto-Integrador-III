@@ -253,8 +253,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             mudarCombo();
         }
 
-        lblenderecokartodromo.setVisible(false);
-        lblenderecokartodromo.setBounds(440, 280, 300, 35);
+        lblenderecokartodromo.setBounds(440, 265, 300, 60);
 
         comboTipoCampeonato.addItem("CAMPEONATO NORMAL (CORRIDA RÁPIDA)");
         comboTipoCampeonato.addItem("CAMPEONATO OFICIAL (VALE PONTUAÇÕES)");
@@ -385,7 +384,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
             campeonato.setKartodromo(kartodromo);
             comboTipoDeKart.removeAllItems();
-            lblenderecokartodromo.setText("Endereço: " + campeonato.getKartodromo().getEstado() + ", " + campeonato.getKartodromo().getCidade() + ", " + campeonato.getKartodromo().getRua() + ", n°" + campeonato.getKartodromo().getNumero());
+            lblenderecokartodromo.setText("<html>Endereço: " + campeonato.getKartodromo().getEstado() + ", " + campeonato.getKartodromo().getCidade() + ", " + campeonato.getKartodromo().getRua() + ", n°" + campeonato.getKartodromo().getNumero() + "</html>" );
 
             if (kartodromo.isKartIndoor()) {
                 comboTipoDeKart.addItem("INDOOR");

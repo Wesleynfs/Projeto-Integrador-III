@@ -121,5 +121,19 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
             entityManager.close();
         }
     }
+    public List<PilotoParticipandoCampeonato> Listarcampeonatosparticipaticipando(Piloto piloto, Campeonato campeonato) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.piloto = :piloto AND c.campeonato = :campeonato")
+                    .setParameter("piloto", piloto)
+                    .setParameter("campeonato", campeonato)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
 
 }

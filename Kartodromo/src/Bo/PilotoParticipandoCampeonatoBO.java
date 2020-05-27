@@ -2,6 +2,7 @@ package Bo;
 
 import Dao.PilotoDAO;
 import Dao.PilotoParticipandoCampeonatoDAO;
+import Model.Campeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 
@@ -93,5 +94,15 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
             return pilotoDAO.ListarPilotoqueParticipadeCameponatos(piloto);
 
     }
+    public List<PilotoParticipandoCampeonato> Listarcampeonatosparticipaticipando(Piloto piloto,Campeonato campeonato) throws Exception{
+            pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+            return pilotoDAO.Listarcampeonatosparticipaticipando(piloto, campeonato);
 
+    }
+    
+    public List<PilotoParticipandoCampeonato> ListarPilotoParticipadeCameponato(Campeonato campeonato) throws Exception{
+            pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+            return pilotoDAO.ListarPilotoParticipadeCameponato(campeonato);
+
+    }
 }

@@ -49,6 +49,7 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
 
     @Override
     public List<Campeonato> listarTodos() throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarTodos();
     }
 

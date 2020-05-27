@@ -8,13 +8,8 @@ package kartodromo;
 import View.*;
 
 public class Main {
-
     public static void main(String[] args) {
         // Executar sempre por essa tela e inserir as outras telas no programa //
         new SplashScreen();
-
-        //new GerenciarCampeonato();
-
     }
-
 }

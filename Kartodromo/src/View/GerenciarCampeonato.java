@@ -46,7 +46,9 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JButton btnCriarCampeonato;
     private JButton btnAdicionarCorrida;
-    
+
+    private Kartodromo kartodromo;
+
     private List<Corrida> corridaList;
 
     public List<Corrida> getCorridaList() {
@@ -207,7 +209,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             comboTipoDeKart.setForeground(Colors.CINZADARKA);
             comboTipoCampeonato.setBackground(Colors.CINZALIGHTB);
             comboTipoCampeonato.setForeground(Colors.CINZADARKA);
-            
         }
     }
 
@@ -229,31 +230,34 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
         try {
             textFieldDataFinalCampeonato.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
-            
-            List<Kartodromo> list = new KartodromoBO().listarTodos();
-            for (Kartodromo tipo : list) {
+
+            for (Kartodromo tipo : new KartodromoBO().listarTodos()) {
                 comboNomeKartodromo.addItem(tipo.getNomeKartodromo());
             }
-        
-        
+
+
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, "Não foi possível carregar a tela criar campeonato");
         }
 
-        lblDataFinalCampeonato.setText("DATA DE FIM DO CAMPEONATO:");
+        lblDataFinalCampeonato.setText("DATA DO CAMPEONATO:");
         lblDataFinalCampeonato.setBounds(60, 310, 200, 35);
 
         tipocorridaLabel.setText("STATUS DO CAMPEONATO:");
         tipocorridaLabel.setBounds(60, 250, 200, 35);
-        
+
         comboTipoCampeonato.setBorder(BorderFactory.createEmptyBorder());
         comboTipoCampeonato.setBounds(60, 280, 300, 35);
-        
+
+        if (kartodromo == null) {
+            mudarCombo();
+        }
+
         lblenderecokartodromo.setVisible(false);
         lblenderecokartodromo.setBounds(440, 280, 300, 35);
-        
-        comboTipoCampeonato.addItem("CAMPEONATO NORMAL");
-        comboTipoCampeonato.addItem("CAMPEONATO OFICIAL");
+
+        comboTipoCampeonato.addItem("CAMPEONATO NORMAL (CORRIDA RÁPIDA)");
+        comboTipoCampeonato.addItem("CAMPEONATO OFICIAL (VALE PONTUAÇÕES)");
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
@@ -262,50 +266,19 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
         comboTipoDeKart.setBounds(440, 340, 300, 35);
 
-        nomekartodromoLabel.setText("O KARTÓDROMO:");
+        nomekartodromoLabel.setText("KARTÓDROMO:");
         nomekartodromoLabel.setBounds(440, 185, 300, 35);
 
         comboNomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
         comboNomeKartodromo.setBounds(440, 215, 300, 35);
 
-        
-            
         comboNomeKartodromo.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                        try {
-                           comboTipoDeKart.removeAllItems();
-
-                           Kartodromo kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
-                           campeonato.setKartodromo(kartodromo);
-                           lblenderecokartodromo.setText("Endereço: " + campeonato.getKartodromo().getEstado()+", "+campeonato.getKartodromo().getCidade()+", "+campeonato.getKartodromo().getRua() + ", n°"+campeonato.getKartodromo().getNumero());
-        
-                           if (kartodromo.isKartIndoor()) {
-                                comboTipoDeKart.addItem("INDOOR");
-                            }
-
-                            if (kartodromo.isKartMotor2Tempos()) {
-                                comboTipoDeKart.addItem("2 TEMPOS");
-                            }
-
-                            if (kartodromo.isKartMotor4Tempos()) {
-                                comboTipoDeKart.addItem("4 TEMPOS");
-                            }
-
-                            if (kartodromo.isKartSemMarcha()) {
-                                comboTipoDeKart.addItem("SEM MARCHA");
-                            }
-
-                            if (kartodromo.isKartShifter()) {
-                                comboTipoDeKart.addItem("SHIFTER");
-                            }
-                        } catch (Exception error) {
-                            JOptionPane.showMessageDialog(null, "Não foi possível encontrar kartodromo escolhido");
-                        }
-                    }
-                
+                    mudarCombo();
+                }
             }
         });
 
@@ -324,7 +297,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnCriarCampeonato.setText("CRIAR CAMPEONATO");
         btnCriarCampeonato.setBounds(570, 550, 210, 35);
         btnCriarCampeonato.setVisible(false);
-        
+
         btnAdicionarCorrida.setFocusPainted(false);
         btnAdicionarCorrida.setBorderPainted(false);
         btnAdicionarCorrida.addActionListener(this);
@@ -349,37 +322,45 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                     "Termo de responsabilidade",
                     JOptionPane.YES_NO_OPTION)) {
                 case 0:
+
+                    campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
+                    campeonato.setNome(textFieldNomeCampeonato.getText());
+                    campeonato.setSituacao("Aguardando Participantes");
+                    campeonato.setTipoCorrida(comboTipoCampeonato.getSelectedItem().toString());
+                    campeonato.setTipoKart(this.comboTipoDeKart.getSelectedItem().toString());
+
+                    PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
+
+                    pilotoadm.setPiloto(piloto);
+                    pilotoadm.setStatusAdm(true);
+                    pilotoadm.setCampeonato(campeonato);
+                    pilotoadm.setPontuacao(0);
+                    pilotoadm.setPosicao(0);
+
                     try {
-                        campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
-                        campeonato.setNome(textFieldNomeCampeonato.getText());
-                        campeonato.setSituacao("Aguardando Participantes");
-                        campeonato.setTipoCorrida(comboTipoCampeonato.getSelectedItem().toString());
-                        campeonato.setTipoKart(this.comboTipoDeKart.getSelectedItem().toString());
-//
+
                         new CampeonatoBO().criar(campeonato);
+
                         CorridaBO corridabo = new CorridaBO();
-                        for(Corrida corrida : getCorridaList()){
+                        for (Corrida corrida : getCorridaList()) {
                             corrida.setCampeonato(campeonato);
                             corridabo.criar(corrida);
                         }
-                        PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
-                        
-                        pilotoadm.setPiloto(piloto);
-                        pilotoadm.setStatusAdm(true);
-                        pilotoadm.setCampeonato(campeonato);
-                        pilotoadm.setPontuacao(0);
-                        pilotoadm.setPosicao(0);
-                        
-                        PilotoParticipandoCampeonatoBO pilotoadmbo = new PilotoParticipandoCampeonatoBO();
-                        pilotoadmbo.criar(pilotoadm);
+
+                        new PilotoParticipandoCampeonatoBO().criar(pilotoadm);
+
                     } catch (Exception err) {
                         JOptionPane.showMessageDialog(null,
                                 err.getMessage(),
                                 "Erro", JOptionPane.PLAIN_MESSAGE);
                     }
+
+                    dispose();
+                    new PerfilPiloto(piloto);
+
                     break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Ação cancelada! retornando ao menu principal!");
+                    
+                default: JOptionPane.showMessageDialog(null, "Ação cancelada! retornando ao menu principal!");
             }
 
         }
@@ -395,5 +376,39 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             new CriarCorrida(piloto, campeonato, this);
         }
 
+    }
+
+    private void mudarCombo() {
+
+        try {
+
+            kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
+            campeonato.setKartodromo(kartodromo);
+            comboTipoDeKart.removeAllItems();
+            lblenderecokartodromo.setText("Endereço: " + campeonato.getKartodromo().getEstado() + ", " + campeonato.getKartodromo().getCidade() + ", " + campeonato.getKartodromo().getRua() + ", n°" + campeonato.getKartodromo().getNumero());
+
+            if (kartodromo.isKartIndoor()) {
+                comboTipoDeKart.addItem("INDOOR");
+            }
+
+            if (kartodromo.isKartMotor2Tempos()) {
+                comboTipoDeKart.addItem("2 TEMPOS");
+            }
+
+            if (kartodromo.isKartMotor4Tempos()) {
+                comboTipoDeKart.addItem("4 TEMPOS");
+            }
+
+            if (kartodromo.isKartSemMarcha()) {
+                comboTipoDeKart.addItem("SEM MARCHA");
+            }
+
+            if (kartodromo.isKartShifter()) {
+                comboTipoDeKart.addItem("SHIFTER");
+            }
+
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encontrar kartodromo escolhido");
+        }
     }
 }

@@ -62,6 +62,16 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         return null;
     }
 
+    public Campeonato getByNome(String nome) throws Exception {
+            campeonatoDAO = new CampeonatoDAO();
+            List<Campeonato> list=  campeonatoDAO.getByNome(nome);
+            
+            for (Campeonato campeonato : list){
+                return campeonato;
+            }
+            return null;
+    }
+    
     @Override
     public boolean valida(Campeonato o) throws Exception {
 
@@ -89,6 +99,18 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarCampeonatosFinalizados();
     }
-
+    
+    public List<Campeonato> listarPorData() throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
+        return campeonatoDAO.listarPorData();
+    }
+    public List<Campeonato> listarPorNome() throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
+        return campeonatoDAO.listarPorNome();
+    }
+    public List<Campeonato> listarPorKartodromo() throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
+        return campeonatoDAO.listarPorKartodromo();
+    }
 }
 

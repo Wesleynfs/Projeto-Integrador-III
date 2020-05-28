@@ -327,7 +327,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                     campeonato.setSituacao("Aguardando Participantes");
                     campeonato.setTipoCorrida(comboTipoCampeonato.getSelectedItem().toString());
                     campeonato.setTipoKart(this.comboTipoDeKart.getSelectedItem().toString());
-
+                    campeonato.setDataCadastro(Tempo.getCurrentTime());
                     PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
 
                     pilotoadm.setPiloto(piloto);
@@ -369,7 +369,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             campeonato.setNome(textFieldNomeCampeonato.getText());
             campeonato.setKartodromo(campeonato.getKartodromo());
             campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
-            campeonato.setDataCadastro(Tempo.getCurrentTime());
 
             this.setVisible(false);
             new CriarCorrida(piloto, campeonato, this);

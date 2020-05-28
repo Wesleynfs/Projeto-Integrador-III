@@ -106,6 +106,17 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
         }
     }
     
+    public List<Campeonato> getByNome(String nome) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.nome = :nome ").setParameter("nome", nome).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
     public List<Campeonato> listarTodosCampeonatosFinalizados() throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
@@ -116,5 +127,38 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
             entityManager.close();
         }
     }
+    
+    public List<Campeonato> listarPorNome() throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c order by c.nome").getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    public List<Campeonato> listarPorKartodromo() throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c order by c.kartodromo.nomeKartodromo").getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
+    public List<Campeonato> listarPorData() throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c order by c.dataFinalizacao").getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
     
 }

@@ -1,23 +1,18 @@
 package View;
 
 import Bo.CampeonatoBO;
-import Bo.CorridaBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Campeonato;
-import Model.Corrida;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 import java.awt.GridLayout;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class ParticiparCorrida extends JFrame implements ActionListener {
@@ -37,10 +32,10 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
     private DefaultTableModel tabelamento;
-    private JPanel painel_Ordenar;
+    private JPanel painelOrdenar;
 
     private Piloto piloto;
-    
+
     public ParticiparCorrida(Piloto piloto) {
 
         this.piloto = piloto;
@@ -84,7 +79,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
         CorridasjComboBox = new JComboBox<>();
-        painel_Ordenar = new JPanel();
+        painelOrdenar = new JPanel();
     }
 
     private void add() {
@@ -95,7 +90,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         add(corridaLabel);
         add(CorridasjComboBox);
         add(jScrollPaneCorridasMarcadas);
-        add(painel_Ordenar);
+        add(painelOrdenar);
         add(drawer);
         add(fundo);
     }
@@ -113,7 +108,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
             btnVoltar.setBackground(Colors.VERDEDARK);
             CorridasjComboBox.setBackground(Colors.VERDEDARK);
-            CorridasjComboBox.setForeground(Colors.CINZADARKB); 
+            CorridasjComboBox.setForeground(Colors.CINZADARKB);
             btnOrdenarNome.setBackground(Colors.VERDEDARK);
             btnOrdenarNome.setForeground(Colors.CINZADARKB);
             btnOrdenarData.setBackground(Colors.VERDEDARK);
@@ -161,7 +156,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "CAMPEONATO","KARTÓDROMO","DATA","ENDEREÇO","TIPO KART","VAGAS","TIPO"
+                            "CAMPEONATO", "KARTÓDROMO", "DATA", "ENDEREÇO", "TIPO KART", "VAGAS", "TIPO"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -175,18 +170,17 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
             });
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
-            
-            CampeonatoBO campeonatobo = new CampeonatoBO(); 
-            PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
-            for(Campeonato campeonato : campeonatobo.listarTodos()){
-                List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listarcampeonatosparticipaticipando(piloto, campeonato);
-                if(campeonato_para_participar.isEmpty()){//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                    List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.ListarPilotoParticipadeCameponato(campeonato);
-                    if(true){ //incluir regras de negocio como piloto menor de idade e max de pessoas
-                        
+
+            PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBo = new PilotoParticipandoCampeonatoBO();
+            for (Campeonato campeonato : new CampeonatoBO().listarTodos()) {
+
+                if (pilotoParticipandoCampeonatoBo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+
+                    List<PilotoParticipandoCampeonato> numeroDeParticipantes = pilotoParticipandoCampeonatoBo.listarPilotoParticipaDeCampeonato(campeonato);
+
+                    if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
+
                         CorridasjComboBox.addItem(campeonato.getNome());
-                        
-                        
                         tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
                                 campeonato.getKartodromo().getNomeKartodromo(),
@@ -195,34 +189,35 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
                                 "<html>"
                                         + campeonato.getKartodromo().getEstado()
                                         + ", " + campeonato.getKartodromo().getCidade()
-                                        + ", " + campeonato.getKartodromo().getRua() 
-                                        + ", n°" + campeonato.getKartodromo().getNumero() 
+                                        + ", " + campeonato.getKartodromo().getRua()
+                                        + ", n°" + campeonato.getKartodromo().getNumero()
                                         + "</html>",
                                 campeonato.getTipoKart(),
-                                numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
+                                numeroDeParticipantes.size(),//aqui vai um calculo para descobrir o total de vagas
                                 campeonato.getTipoCorrida()
 
                         });
-                                        
+
                     }
                 }
             }
+
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 220);
-
             CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            CorridasjComboBox.setBounds(250,480,300,35);
+            CorridasjComboBox.setBounds(250, 480, 300, 35);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        painel_Ordenar.setLayout(new GridLayout());
-        painel_Ordenar.setBounds(60, 400, 500, 40);
-        painel_Ordenar.add(this.btnOrdenarNome);
-        painel_Ordenar.add(this.btnOrdenarData);
-        painel_Ordenar.add(this.btnOrdenarKartodromo);
-        painel_Ordenar.add(this.btnOrdenarVagas);
-        
+
+        painelOrdenar.setLayout(new GridLayout());
+        painelOrdenar.setBounds(60, 400, 500, 40);
+        painelOrdenar.add(this.btnOrdenarNome);
+        painelOrdenar.add(this.btnOrdenarData);
+        painelOrdenar.add(this.btnOrdenarKartodromo);
+        painelOrdenar.add(this.btnOrdenarVagas);
+
         btnOrdenarNome.setText("NOME");
         btnOrdenarNome.addActionListener(this);
         btnOrdenarData.setText("DATA");
@@ -231,7 +226,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         btnOrdenarKartodromo.addActionListener(this);
         btnOrdenarVagas.setText("VAGAS");
         btnOrdenarVagas.addActionListener(this);
-        
+
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
@@ -241,158 +236,155 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
         btnParticiparCorrida.setBorderPainted(false);
         btnParticiparCorrida.setFocusPainted(false);
         btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(550 , 550, 200 , 35);
+        btnParticiparCorrida.setBounds(550, 550, 200, 35);
         btnParticiparCorrida.setText("Participar de uma Corrida");
 
-        logo.setBounds(20 , 30,500,35);
+        logo.setBounds(20, 30, 500, 35);
         logo.setText("PARTICIPAR DE CORRIDAS");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         // Mudar para valores reais aqui //
 
-        ordenarporLabel.setBounds(60 , 370,200,30);
+        ordenarporLabel.setBounds(60, 370, 200, 30);
         ordenarporLabel.setText("ORDENAR TABELA POR:");
 
-        corridaLabel.setBounds(310 , 450,200,35);
+        corridaLabel.setBounds(310, 450, 200, 35);
         corridaLabel.setText("ESCOLHER UMA CORRIDA:");
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)  {
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
-           dispose();
-           new PerfilPiloto(piloto);
+            dispose();
+            new PerfilPiloto(piloto);
         }
         if (e.getSource() == btnParticiparCorrida) {
-            
-            CampeonatoBO campeonatobo = new CampeonatoBO();
+
             try {
-                Campeonato campeonato = campeonatobo.getByNome(CorridasjComboBox.getSelectedItem().toString());
+
+                Campeonato campeonato = new CampeonatoBO().getByNome(CorridasjComboBox.getSelectedItem().toString());
                 PilotoParticipandoCampeonato pilotoparticipante = new PilotoParticipandoCampeonato();
                 pilotoparticipante.setCampeonato(campeonato);
                 pilotoparticipante.setPiloto(piloto);
                 pilotoparticipante.setStatusAdm(false);
-                
-                PilotoParticipandoCampeonatoBO pilotoparticipantebo = new PilotoParticipandoCampeonatoBO();
-                pilotoparticipantebo.criar(pilotoparticipante);
+                new PilotoParticipandoCampeonatoBO().criar(pilotoparticipante);
                 JOptionPane.showMessageDialog(null, " Você está participando do Campeonato:" + campeonato.getNome() + " !");
-            
-      
+
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro: "+ ex +", Não foi possível Participar deste campeonato!");
+                JOptionPane.showMessageDialog(null, "Erro: " + ex + ", Não foi possível Participar deste campeonato!");
             }
-            
-            
+
         }
+
         if (e.getSource() == btnOrdenarNome) {
-            CampeonatoBO campeonatobo = new CampeonatoBO(); 
             PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
             try {
-                for(Campeonato campeonato : campeonatobo.listarPorNome()){
-                    List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listarcampeonatosparticipaticipando(piloto, campeonato);
-                    if(campeonato_para_participar.isEmpty()){//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.ListarPilotoParticipadeCameponato(campeonato);
-                        if(true){ //incluir regras de negocio como piloto menor de idade e max de pessoas
+                for (Campeonato campeonato : new CampeonatoBO().listarPorNome()) {
+                    List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.listarCampeonatosParticipaticipando(piloto, campeonato);
+                    if (campeonato_para_participar.isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarPilotoParticipaDeCampeonato(campeonato);
+                        if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
-                                campeonato.getNome(),
-                                campeonato.getKartodromo().getNomeKartodromo(),
-                                campeonato.getDataFinalizacao(),
-                                //MUDAR DATA PARA PT-BR
-                                "<html>"
-                                        + campeonato.getKartodromo().getEstado()
-                                        + ", " + campeonato.getKartodromo().getCidade()
-                                        + ", " + campeonato.getKartodromo().getRua()
-                                        + ", n°" + campeonato.getKartodromo().getNumero() 
-                                        + "</html>",
-                                campeonato.getTipoKart(),
-                                numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
-                                campeonato.getTipoCorrida()
-                                    
+                                    campeonato.getNome(),
+                                    campeonato.getKartodromo().getNomeKartodromo(),
+                                    campeonato.getDataFinalizacao(),
+                                    //MUDAR DATA PARA PT-BR
+                                    "<html>"
+                                            + campeonato.getKartodromo().getEstado()
+                                            + ", " + campeonato.getKartodromo().getCidade()
+                                            + ", " + campeonato.getKartodromo().getRua()
+                                            + ", n°" + campeonato.getKartodromo().getNumero()
+                                            + "</html>",
+                                    campeonato.getTipoKart(),
+                                    numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
+                                    campeonato.getTipoCorrida()
                             });
-                            
                         }
                     }
                 }
             } catch (Exception ex) {
-                Logger.getLogger(ParticiparCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-  
         }
-        
+
         if (e.getSource() == btnOrdenarData) {
-            
-            CampeonatoBO campeonatobo = new CampeonatoBO(); 
+
             PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
+
             try {
-                for(Campeonato campeonato : campeonatobo.listarPorData()){
-                    List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listarcampeonatosparticipaticipando(piloto, campeonato);
-                    if(campeonato_para_participar.isEmpty()){//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.ListarPilotoParticipadeCameponato(campeonato);
-                        if(true){ //incluir regras de negocio como piloto menor de idade e max de pessoas
+
+                for (Campeonato campeonato : new CampeonatoBO().listarPorData()) {
+                    if (pilotoparticipandocampeonatobo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarPilotoParticipaDeCampeonato(campeonato);
+                        if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
-                                campeonato.getNome(),
-                                campeonato.getKartodromo().getNomeKartodromo(),
-                                campeonato.getDataFinalizacao(),
-                                //MUDAR DATA PARA PT-BR
-                                "<html>"
-                                        + campeonato.getKartodromo().getEstado()
-                                        + ", " + campeonato.getKartodromo().getCidade()
-                                        + ", " + campeonato.getKartodromo().getRua()
-                                        + ", n°" + campeonato.getKartodromo().getNumero() 
-                                        + "</html>",
-                                campeonato.getTipoKart(),
-                                numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
-                                campeonato.getTipoCorrida()
-                                    
+                                    campeonato.getNome(),
+                                    campeonato.getKartodromo().getNomeKartodromo(),
+                                    campeonato.getDataFinalizacao(),
+                                    //MUDAR DATA PARA PT-BR
+                                    "<html>"
+                                            + campeonato.getKartodromo().getEstado()
+                                            + ", " + campeonato.getKartodromo().getCidade()
+                                            + ", " + campeonato.getKartodromo().getRua()
+                                            + ", n°" + campeonato.getKartodromo().getNumero()
+                                            + "</html>",
+                                    campeonato.getTipoKart(),
+                                    numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
+                                    campeonato.getTipoCorrida()
+
                             });
-                            
                         }
                     }
                 }
             } catch (Exception ex) {
-                Logger.getLogger(ParticiparCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
+
         if (e.getSource() == btnOrdenarKartodromo) {
 
-            CampeonatoBO campeonatobo = new CampeonatoBO(); 
             PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
+
             try {
-                for(Campeonato campeonato : campeonatobo.listarPorKartodromo()){
-                    List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listarcampeonatosparticipaticipando(piloto, campeonato);
-                    if(campeonato_para_participar.isEmpty()){//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.ListarPilotoParticipadeCameponato(campeonato);
-                        if(true){ //incluir regras de negocio como piloto menor de idade e max de pessoas
+                for (Campeonato campeonato : new CampeonatoBO().listarPorKartodromo()) {
+
+                    if (pilotoparticipandocampeonatobo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarPilotoParticipaDeCampeonato(campeonato);
+                        if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
-                                campeonato.getNome(),
-                                campeonato.getKartodromo().getNomeKartodromo(),
-                                campeonato.getDataFinalizacao(),
-                                //MUDAR DATA PARA PT-BR
-                                "<html>"
-                                        + campeonato.getKartodromo().getEstado()
-                                        + ", " + campeonato.getKartodromo().getCidade()
-                                        + ", " + campeonato.getKartodromo().getRua()
-                                        + ", n°" + campeonato.getKartodromo().getNumero() 
-                                        + "</html>",
-                                campeonato.getTipoKart(),
-                                numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
-                                campeonato.getTipoCorrida()
-                                    
+                                    campeonato.getNome(),
+                                    campeonato.getKartodromo().getNomeKartodromo(),
+                                    campeonato.getDataFinalizacao(),
+                                    //MUDAR DATA PARA PT-BR
+                                    "<html>"
+                                            + campeonato.getKartodromo().getEstado()
+                                            + ", " + campeonato.getKartodromo().getCidade()
+                                            + ", " + campeonato.getKartodromo().getRua()
+                                            + ", n°" + campeonato.getKartodromo().getNumero()
+                                            + "</html>",
+                                    campeonato.getTipoKart(),
+                                    numero_de_participantes.size(),//aqui vai um calculo para descobrir o total de vagas
+                                    campeonato.getTipoCorrida()
+
                             });
-                            
+
                         }
+
                     }
+
                 }
+
             } catch (Exception ex) {
-                Logger.getLogger(ParticiparCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
+
         }
+
         if (e.getSource() == btnOrdenarVagas) {
 
         }
 
     }
-
 
 } 

@@ -84,6 +84,7 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         if (o.getKartodromo() == null) {
             throw new Exception("Campeonato não possui um kartodromo! selecione ao lado");
         }
+
         return true;
     }
 

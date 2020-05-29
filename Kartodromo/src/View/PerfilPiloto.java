@@ -57,6 +57,22 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     }
 
+    public PerfilPiloto() {
+
+
+        // Instancia de itens //
+        initializate();
+        // Coloca o tema na tela
+        setTheme();
+        // Adiciona o item na tela //
+        add();
+        // Configura o item da tela (btn,label...) //
+        configs();
+        // Configura esse frame //
+        configurateThis();
+
+    }
+
     private void configurateThis() {
 
         setUndecorated(true);
@@ -117,6 +133,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
+
         if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
@@ -299,31 +316,31 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(this);
-        btnSair.setBounds(670, 550, 100, 35);
+        btnSair.setBounds(20, 555, 100, 35);
         btnSair.setText("Voltar");
+
+        btnParticiparCorrida.setBorderPainted(false);
+        btnParticiparCorrida.setFocusPainted(false);
+        btnParticiparCorrida.addActionListener(this);
+        btnParticiparCorrida.setBounds(535, 555, 250, 35);
+        btnParticiparCorrida.setText("Participar de uma Corrida");
 
         btnVerificarCorridas.setBorderPainted(false);
         btnVerificarCorridas.setFocusPainted(false);
         btnVerificarCorridas.addActionListener(this);
-        btnVerificarCorridas.setBounds(20, 505, 200, 35);
+        btnVerificarCorridas.setBounds(315, 510, 200, 35);
         btnVerificarCorridas.setText("Verificar Suas Corridas");
 
         btnAvaliarKartdromo.setBorderPainted(false);
         btnAvaliarKartdromo.setFocusPainted(false);
         btnAvaliarKartdromo.addActionListener(this);
-        btnAvaliarKartdromo.setBounds(20, 550, 200, 35);
+        btnAvaliarKartdromo.setBounds(315, 555, 200, 35);
         btnAvaliarKartdromo.setText("Avaliar Kartodromo");
-
-        btnParticiparCorrida.setBorderPainted(false);
-        btnParticiparCorrida.setFocusPainted(false);
-        btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(370, 555, 250, 35);
-        btnParticiparCorrida.setText("Participar de uma Corrida");
 
         btnGerenciarCampeonatos.setBorderPainted(false);
         btnGerenciarCampeonatos.setFocusPainted(false);
         btnGerenciarCampeonatos.addActionListener(this);
-        btnGerenciarCampeonatos.setBounds(370, 505, 250, 35);
+        btnGerenciarCampeonatos.setBounds(535, 510, 250, 35);
         btnGerenciarCampeonatos.setText("Gerenciar Corridas e Campeonatos");
 
         perfilPilotoLabel.setBounds(20, 30, 500, 35);

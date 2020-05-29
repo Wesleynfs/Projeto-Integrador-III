@@ -3,9 +3,10 @@
  * Alunos : Wesley de Araujo , Felipe Fillus
  * Turma : Análise e Desenvolvimento de Sistemas III
  */
+
 package kartodromo;
 
-import View.*;
+import View.SplashScreen;
 
 public class Main {
     public static void main(String[] args) {

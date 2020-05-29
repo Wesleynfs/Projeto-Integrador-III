@@ -23,6 +23,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
     private JScrollPane contextojScrollPane;
     private JButton btnVoltar;
     private JButton btnEnviar;
+    private JLabel infoPiloto;
 
     private Piloto piloto;
 
@@ -67,6 +68,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
         contextoLabel = new JLabel();
+        infoPiloto = new JLabel();
         
         contextojScrollPane = new JScrollPane();
         
@@ -79,6 +81,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
         add(logo);
         add(assuntoTextField);
         add(contextojScrollPane);
+        add(infoPiloto);
         add(relatoLabel);
         add(assuntoLabel);
         add(contextoLabel);
@@ -93,6 +96,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
+            infoPiloto.setForeground(Colors.CINZALIGHTB);
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
             assuntoTextField.setForeground(Colors.BRANCO);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
@@ -111,6 +115,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.CINZADARKA);
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
+            infoPiloto.setForeground(Colors.CINZALIGHTB);
             assuntoTextField.setForeground(Colors.CINZADARKA);                  
             relatoLabel.setForeground(Colors.CINZALIGHTB);
             assuntoLabel.setForeground(Colors.CINZALIGHTB);   
@@ -139,6 +144,12 @@ public class EnviarAviso extends JFrame implements ActionListener {
        
         contextoLabel.setText("CONTEXTO DO AVISO:");
         contextoLabel.setBounds(200,250,300,35);
+        
+            infoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
+            + "APELIDO: "+piloto.getApelido()+ "<br/>"
+            + "NÍVEL: "+piloto.getNivel() + "<br/>"
+            +"</html>");
+            infoPiloto.setBounds(10,110,200,90);
 
         logo.setBounds(20 , 30,600,35);
         logo.setText("ENVIAR AVISO AOS PILOTOS");

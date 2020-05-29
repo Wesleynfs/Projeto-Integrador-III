@@ -16,9 +16,30 @@ public class Corrida {
     private int idCorrida;
     private String nomeCorrida;
     private int numeroDeVoltas;
+    private String tipoKart;
+
+    public String getTipoKart() {
+        return tipoKart;
+    }
+
+    public void setTipoKart(String tipoKart) {
+        this.tipoKart = tipoKart;
+    }
     
     @ManyToOne
     private Campeonato campeonato;
+
+    @ManyToOne
+    private Kartodromo kartodromo;
+
+    
+    public Kartodromo getKartodromo() {
+        return kartodromo;
+    }
+
+    public void setKartodromo(Kartodromo kartodromo) {
+        this.kartodromo = kartodromo;
+    }
 
     public Campeonato getCampeonato() {
         return campeonato;

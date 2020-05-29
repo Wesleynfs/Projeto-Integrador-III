@@ -1,5 +1,6 @@
 package View;
 
+import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -14,14 +15,17 @@ public class Historico extends JFrame implements ActionListener {
     private JPanel fundo;
     private JPanel drawer;
     private JButton btnVoltar;
+    private JLabel lblinfoPiloto;
     private JLabel logo;
     private JLabel corridas_participandoinfoLabel;
     private JScrollPane jScrollPaneCorridasRealizadas;
     private JTable tableTodasAsCorridasRealizadas;
     private DefaultTableModel tabelamento;
+    
+    private Piloto piloto;
 
-    public Historico() {
-
+    public Historico(Piloto piloto) {
+        this.piloto = piloto;
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -55,6 +59,7 @@ public class Historico extends JFrame implements ActionListener {
 
         logo = new JLabel();
         corridas_participandoinfoLabel = new JLabel();
+        lblinfoPiloto = new JLabel();
 
         jScrollPaneCorridasRealizadas = new JScrollPane();
         tableTodasAsCorridasRealizadas = new JTable();
@@ -65,6 +70,7 @@ public class Historico extends JFrame implements ActionListener {
         add(logo);
         add(corridas_participandoinfoLabel);
         add(jScrollPaneCorridasRealizadas);
+        add(lblinfoPiloto);
         add(drawer);
         add(fundo);
     }
@@ -77,6 +83,7 @@ public class Historico extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDA);
+            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
@@ -85,6 +92,7 @@ public class Historico extends JFrame implements ActionListener {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);            
+            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZALIGHTB);
@@ -107,7 +115,7 @@ public class Historico extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Nome","Kartódromo","Data","Pontuação"
+                            "Nome","Data","Posição","Pontuação"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -128,18 +136,16 @@ public class Historico extends JFrame implements ActionListener {
                     "test2",
                     "test3"
             });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //                class.tipo,
-            //                class.data
-            //            });
-            //
-            //          }
-            jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
-            jScrollPaneCorridasRealizadas.setBounds(60, 150, 680, 350);
 
+            jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
+            jScrollPaneCorridasRealizadas.setBounds(60, 200, 680, 350);
+
+            lblinfoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
+            + "APELIDO: "+piloto.getApelido()+ "<br/>"
+            + "NÍVEL: "+piloto.getNivel() + "<br/>"
+            +"</html>");
+            lblinfoPiloto.setBounds(10,110,200,90);
+            
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);
             btnVoltar.addActionListener(this);
@@ -150,7 +156,7 @@ public class Historico extends JFrame implements ActionListener {
             logo.setBounds(20 , 30,500,35);
             logo.setText("HISTÓRICO DE PARTIDAS");
 
-            corridas_participandoinfoLabel.setBounds(60 , 120,300,30);
+            corridas_participandoinfoLabel.setBounds(60 , 170,300,30);
             corridas_participandoinfoLabel.setText("Corridas que você participou:");
 
         } catch (Exception e) {
@@ -164,7 +170,7 @@ public class Historico extends JFrame implements ActionListener {
        
         if (e.getSource() == btnVoltar) {
             dispose();
-            //new VerificarCorrida();
+            new VerificarCorrida(piloto);
         }
 
     }

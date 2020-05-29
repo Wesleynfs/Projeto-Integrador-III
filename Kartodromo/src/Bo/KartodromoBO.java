@@ -103,7 +103,7 @@ public class KartodromoBO implements GenericBO<Kartodromo> {
     }
 
     public Kartodromo logar(Kartodromo o) throws Exception {
-        if (validaLogin(o)) {
+        if (!o.getEmailKartodromo().equals("") && !o.getSenhaKartodromo().equals("")) {
             List<Kartodromo> list = new KartodromoDAO().listarTodos(o);
             if (list.size() > 0) {
                 return list.get(0);

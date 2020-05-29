@@ -344,7 +344,7 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
         }
         if (e.getSource() == btnVerHistorico) {
             dispose();
-            new Historico();
+            new Historico(piloto);
         }
         if (e.getSource() == btnIniciarCorrida) {
             try {

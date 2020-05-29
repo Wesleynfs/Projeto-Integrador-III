@@ -19,7 +19,16 @@ public class Piloto implements Serializable {
     private String cpfPiloto;
     private String emailPiloto;
     private int numeroDeStrikesPiloto;
-    private int numeroDeVitoriasPiloto;
+    private int nivel;
+    private int pontuacao_nivel;
+
+    public int getPontuacao_nivel() {
+        return pontuacao_nivel;
+    }
+
+    public void setPontuacao_nivel(int pontuacao_nivel) {
+        this.pontuacao_nivel = pontuacao_nivel;
+    }
     private Date dataNascimentoPiloto;
     private boolean ativo;
 
@@ -79,12 +88,12 @@ public class Piloto implements Serializable {
         this.numeroDeStrikesPiloto = numeroDeStrikesPiloto;
     }
 
-    public int getNumeroDeVitoriasPiloto() {
-        return numeroDeVitoriasPiloto;
+    public int getNivel() {
+        return nivel;
     }
 
-    public void setNumeroDeVitoriasPiloto(int numeroDeVitoriasPiloto) {
-        this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public Date getDataNascimentoPiloto() {
@@ -111,7 +120,7 @@ public class Piloto implements Serializable {
         this.cpfPiloto = cpfPiloto;
         this.emailPiloto = emailPiloto;
         this.numeroDeStrikesPiloto = numeroDeStrikesPiloto;
-        this.numeroDeVitoriasPiloto = numeroDeVitoriasPiloto;
+        this.nivel = numeroDeVitoriasPiloto;
         this.dataNascimentoPiloto = dataNascimentoPiloto;
         this.ativo = ativo;
     }

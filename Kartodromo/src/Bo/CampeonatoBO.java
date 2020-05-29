@@ -81,10 +81,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         if (o.getDataFinalizacao().toString().equals("1000-01-01")) {
             throw new Exception("Por favor adicione uma data de finalização para o campeonato!");
         }
-        if (o.getKartodromo() == null) {
-            throw new Exception("Campeonato não possui um kartodromo! selecione ao lado");
-        }
-
         return true;
     }
 

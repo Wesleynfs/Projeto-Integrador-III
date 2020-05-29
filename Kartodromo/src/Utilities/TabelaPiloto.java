@@ -10,7 +10,7 @@ public class TabelaPiloto extends AbstractTableModel {
 
     private List<Corrida> listCorrida;
     private String[] colunas = {"NOME DA CORRIDA",
-            "NÚMERO DE VOLTAS"};
+            "NÚMERO DE VOLTAS","KARTODROMO","TIPO KART"};
 
     @Override
     public String getColumnName(int column) {
@@ -34,6 +34,10 @@ public class TabelaPiloto extends AbstractTableModel {
                 return listCorrida.get(linha).getNomeCorrida();
             case 1 :
                 return listCorrida.get(linha).getNumeroDeVoltas();
+            case 2 :
+                return listCorrida.get(linha).getKartodromo().getNomeKartodromo();
+            case 3 :
+                return listCorrida.get(linha).getTipoKart();
         }
         return null;
     }

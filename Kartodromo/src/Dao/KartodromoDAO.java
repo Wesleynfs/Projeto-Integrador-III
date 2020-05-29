@@ -68,11 +68,13 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
     @Override
     public List<Kartodromo> listarTodos(Kartodromo o) throws Exception {
         try {
-
-            Query query = entityManager.createQuery("SELECT k FROM Kartodromo k WHERE emailkartodromo = :email and senhakartodromo = :senha");
-            query.setParameter("email", o.getEmailKartodromo());
-            query.setParameter("senha", o.getSenhaKartodromo());
-            return query.getResultList();
+            return entityManager.createQuery
+            ("SELECT k FROM Kartodromo k "
+                    + "WHERE k.emailKartodromo = :email "
+                    + "and k.senhaKartodromo = :senha")
+                    .setParameter("email", o.getEmailKartodromo())
+                    .setParameter("senha", o.getSenhaKartodromo())
+                    .getResultList();
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());

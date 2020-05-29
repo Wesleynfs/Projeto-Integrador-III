@@ -42,6 +42,14 @@ public class InformacoesTutoriais {
 
                     "<html>Apelidos dos pilotos servem para diferenciar todos os pilotos,"
                             + " para evitar confusões entre os nomes dos pilotos.</html>",
+                    
+                    "<html>Na hora de criar seus campeonatos, verifique se a pontuação está"
+                    +       " coerente de acordo com a posição dos pilotos, o sistema não permite"
+                    +       " uma pontuação de uma posição inferior, ser maior que uma pontuação de uma "
+                    +       " posição superior.</html>",
+                    "<html>Todo campeonato pode ter muitas corridas e cada corrida pode ser realizada em um kartódromo diferente</html>",
+                    "<html></html>",
+                    "<html></html>",
             };
 
 }

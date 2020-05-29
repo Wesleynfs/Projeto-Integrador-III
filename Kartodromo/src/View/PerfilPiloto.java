@@ -24,10 +24,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JButton btnGerenciarCampeonatos;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
-    private JLabel nivelLabel;
-    private JLabel nomePilotoLabel;
+    private JLabel infoPiloto;
     private JLabel perfilPilotoLabel;
-    private JLabel numeroStrikesLabel;
     private JLabel corridasParticipandoLabel;
     private JLabel corridasMarcadasLabel;
     private JScrollPane jScrollPaneCorridasMarcadas;
@@ -37,6 +35,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private DefaultTableModel tabelamento;
     JTableHeader headerTabelaCorridasParticipando;
     JTableHeader headerTabelaTodasAsCorridasMarcadas;
+    
+    private String nivel_elo;
 
     private Piloto piloto;
 
@@ -96,9 +96,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnGerenciarCampeonatos = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
-        nivelLabel = new JLabel();
-        nomePilotoLabel = new JLabel();
-        numeroStrikesLabel = new JLabel();
+        infoPiloto = new JLabel();
         corridasParticipandoLabel = new JLabel();
         corridasMarcadasLabel = new JLabel();
         perfilPilotoLabel = new JLabel();
@@ -119,12 +117,10 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         add(btnGerenciarCampeonatos);
         add(btnVerificarCorridas);
         add(btnAvaliarKartdromo);
-        add(nivelLabel);
         add(perfilPilotoLabel);
-        add(nomePilotoLabel);
-        add(numeroStrikesLabel);
         add(corridasParticipandoLabel);
         add(corridasMarcadasLabel);
+        add(infoPiloto);
         add(jScrollPaneCorridasMarcadas);
         add(jScrollPaneCorridasParticipando);
         add(drawer);
@@ -138,9 +134,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            nivelLabel.setForeground(Colors.CINZAMEDA);
-            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
-            numeroStrikesLabel.setForeground(Colors.CINZAMEDA);
+            infoPiloto.setForeground(Colors.CINZALIGHTB);
             corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             btnSair.setForeground(Colors.CINZADARKB);
@@ -159,17 +153,14 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             headerTabelaCorridasParticipando.setForeground(Colors.CINZAMEDA);
             headerTabelaTodasAsCorridasMarcadas.setBackground(Colors.CINZAMEDB);
             headerTabelaTodasAsCorridasMarcadas.setForeground(Colors.CINZAMEDA);
-            nomePilotoLabel.setForeground(Colors.CINZAMEDA);
 
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            nivelLabel.setForeground(Colors.CINZALIGHTB);
-            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
-            numeroStrikesLabel.setForeground(Colors.CINZALIGHTB);
             corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
+            infoPiloto.setForeground(Colors.CINZALIGHTB); 
             btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
@@ -186,7 +177,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             headerTabelaCorridasParticipando.setForeground(Colors.CINZAMEDB);
             headerTabelaTodasAsCorridasMarcadas.setBackground(Colors.CINZAMEDA);
             headerTabelaTodasAsCorridasMarcadas.setForeground(Colors.CINZAMEDB);
-            nomePilotoLabel.setForeground(Colors.CINZALIGHTB);
         }
     }
 
@@ -202,11 +192,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "CAMPEONATOS PARTICIPANDO", "DATA", "KARTÓDROMO", "TOTAL DE PARTICIPANTES"
+                            "CAMPEONATOS PARTICIPANDO", "DATA", "TOTAL DE PARTICIPANTES"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false
+                        false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -229,12 +219,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
                                 list.getCampeonato().getDataFinalizacao(),
-                                /*
-
-                                Fazer a converção da data para o dia/mes/ano PT BR
-
-                                */
-                                list.getCampeonato().getKartodromo().getNomeKartodromo(),
                                 lista_total_piloto.size()
                         });
                     }
@@ -251,7 +235,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "CAMPEONATOS", "DATA", "KARTÓDROMO", "TOTAL DE PARTICIPANTES"
+                            "CAMPEONATOS", "DATA", "N° DE PILOTOS "
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -274,18 +258,10 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     });
                 } else {
                     for (PilotoParticipandoCampeonato list : lista_campeonatos) {
-                        System.out.println("dlspfcs");
                         List<PilotoParticipandoCampeonato> lista_total_piloto = pilotoparticipandocampeonatodao.ListarPilotoParticipadeCameponato(list.getCampeonato());
-                        System.out.println("dlspfcs");
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
                                 list.getCampeonato().getDataFinalizacao(),
-                                /*
-
-                                Fazer a converção da data para o dia/mes/ano PT BR
-
-                                */
-                                list.getCampeonato().getKartodromo().getNomeKartodromo(),
                                 lista_total_piloto.size()
                         });
                     }
@@ -300,6 +276,21 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
+        if(piloto.getNivel() < 5){
+                nivel_elo = "PILOTO INICIANTE";
+            }else if(piloto.getNivel() < 10){
+                nivel_elo = "PILOTO AVANÇADO";
+            }else{
+                nivel_elo = "PILOTO VETERANO";
+            }
+            infoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
+                    + "APELIDO: "+piloto.getApelido()+ "<br/>"
+                    + "NÍVEL: "+piloto.getNivel() + "<br/>"
+                    + nivel_elo + "<br/>"
+                    + "NÚMERO DE STRIKERS: "+piloto.getNumeroDeStrikesPiloto()
+                    +"</html>");
+            infoPiloto.setBounds(10,110,200,90);
 
         corridasParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");
         corridasParticipandoLabel.setBounds(20, 270, 400, 35);
@@ -346,15 +337,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         perfilPilotoLabel.setBounds(20, 30, 500, 35);
         perfilPilotoLabel.setText("PERFIL DO PILOTO");
         perfilPilotoLabel.setFont(Fonts.SANSSERIFMIN);
-
-        nomePilotoLabel.setBounds(20, 110, 500, 35);
-        nomePilotoLabel.setText("BEM VINDO: " + piloto.getNomePiloto().toUpperCase());
-
-        nivelLabel.setBounds(20, 145, 500, 35);
-        nivelLabel.setText("VITÓRIAS: " + piloto.getNumeroDeVitoriasPiloto());
-
-        numeroStrikesLabel.setBounds(20, 180, 500, 35);
-        numeroStrikesLabel.setText("STRIKES: " + piloto.getNumeroDeStrikesPiloto());
 
     }
 

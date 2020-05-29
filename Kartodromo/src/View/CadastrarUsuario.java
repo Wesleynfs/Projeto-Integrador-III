@@ -279,6 +279,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         piloto.setAtivo(true);
         piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
         piloto.setDataNascimentoPiloto(Tempo.stringToDate(dataNascJTextField.getText()));
+        piloto.setNivel(0);
+        piloto.setPontuacao_nivel(0);
         PilotoBO pilotoBO = new PilotoBO();
 
         if (e.getSource() == btnDeletar) {

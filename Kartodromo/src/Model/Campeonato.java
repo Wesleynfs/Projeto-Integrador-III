@@ -14,27 +14,15 @@ public class Campeonato {
     private String nome;
     private Timestamp dataCadastro;
     private String situacao;
-
+    private String tipoCorrida;
+    private Date dataFinalizacao;
+    
     public String getSituacao() {
         return situacao;
     }
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
-    }
-    private String tipoCorrida;
-    private Date dataFinalizacao;
-    private String tipoKart;
-
-    @ManyToOne
-    private Kartodromo kartodromo;
-
-    public Kartodromo getKartodromo() {
-        return kartodromo;
-    }
-
-    public void setKartodromo(Kartodromo kartodromo) {
-        this.kartodromo = kartodromo;
     }
 
     public int getIdCampeonato() {
@@ -77,14 +65,6 @@ public class Campeonato {
     public void setDataFinalizacao(Date dataFinalizacao) {
         this.dataFinalizacao = dataFinalizacao;
     }
-
-    public String getTipoKart() {
-        return tipoKart;
-    }
-
-    public void setTipoKart(String tipoKart) {
-        this.tipoKart = tipoKart;
-    }
     
     public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, String situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Kartodromo kartodromo) {
         this.idCampeonato = idCampeonato;
@@ -93,8 +73,6 @@ public class Campeonato {
         this.situacao = situacao;
         this.tipoCorrida = tipoCorrida;
         this.dataFinalizacao = dataFinalizacao;
-        this.tipoKart = tipoKart;
-        this.kartodromo = kartodromo;
     }
 
     public Campeonato() {

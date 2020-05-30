@@ -6,54 +6,54 @@
 package Bo;
 
 import Dao.Pontuacao_posicaoDAO;
-import Model.Pontuacao_posicao;
+import Model.PontuacaoPosicao;
 import java.util.List;
 
 /**
  *
  * @author lino
  */
-public class Pontuacao_posicaoBO implements GenericBO<Pontuacao_posicao> {
+public class PontuacaoPosicaoBO implements GenericBO<PontuacaoPosicao> {
     private Pontuacao_posicaoDAO pontuacao_posicaoDAO;
     
     @Override
-    public boolean criar(Pontuacao_posicao o) throws Exception {
+    public boolean criar(PontuacaoPosicao o) throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.salvar(o);
     }
     
     @Override
-    public boolean deletar(Pontuacao_posicao o) throws Exception {
+    public boolean deletar(PontuacaoPosicao o) throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.deletar(o);
     }
 
     @Override
-    public boolean alterar(Pontuacao_posicao o) throws Exception {
+    public boolean alterar(PontuacaoPosicao o) throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.alterar(o);
     }
 
     @Override
-    public List<Pontuacao_posicao> listarPorItem(Pontuacao_posicao o) throws Exception {
+    public List<PontuacaoPosicao> listarPorItem(PontuacaoPosicao o) throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.listarTodos(o);
     }
 
     @Override
-    public List<Pontuacao_posicao> listarTodos() throws Exception {
+    public List<PontuacaoPosicao> listarTodos() throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.listarTodos();
     }
 
     @Override
-    public Pontuacao_posicao getById(int id) throws Exception {
+    public PontuacaoPosicao getById(int id) throws Exception {
         pontuacao_posicaoDAO = new Pontuacao_posicaoDAO();
         return pontuacao_posicaoDAO.getById(id);
     }
 
     @Override
-    public boolean valida(Pontuacao_posicao o) throws Exception {
+    public boolean valida(PontuacaoPosicao o) throws Exception {
         return false;
     }
 

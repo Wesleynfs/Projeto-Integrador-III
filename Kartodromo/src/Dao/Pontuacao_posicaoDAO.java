@@ -6,7 +6,7 @@
 package Dao;
 
 import Connections.ConnectionFactory;
-import Model.Pontuacao_posicao;
+import Model.PontuacaoPosicao;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
  *
  * @author lino
  */
-public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
+public class Pontuacao_posicaoDAO implements GenericDAO<PontuacaoPosicao> {
     
     private EntityManager entityManager;
 
@@ -23,7 +23,7 @@ public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
     }
 
     @Override
-    public boolean salvar(Pontuacao_posicao pontuacao_posicao) throws Exception {
+    public boolean salvar(PontuacaoPosicao pontuacao_posicao) throws Exception {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(pontuacao_posicao);
@@ -38,12 +38,12 @@ public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
     }
 
     @Override
-    public boolean ler(Pontuacao_posicao pontuacao_posicao) throws Exception {
+    public boolean ler(PontuacaoPosicao pontuacao_posicao) throws Exception {
         return false;
     }
 
     @Override
-    public boolean alterar(Pontuacao_posicao pontuacao_posicao) throws Exception {
+    public boolean alterar(PontuacaoPosicao pontuacao_posicao) throws Exception {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(pontuacao_posicao);
@@ -58,9 +58,9 @@ public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
     }
 
     @Override
-    public boolean deletar(Pontuacao_posicao pontuacao_posicao) throws Exception {
+    public boolean deletar(PontuacaoPosicao pontuacao_posicao) throws Exception {
         try {
-            Pontuacao_posicao pontuacao_posicao1 = entityManager.find(Pontuacao_posicao.class, pontuacao_posicao.getIdPontuacao_posicao());
+            PontuacaoPosicao pontuacao_posicao1 = entityManager.find(PontuacaoPosicao.class, pontuacao_posicao.getIdPontuacao_posicao());
             entityManager.getTransaction().begin();
             entityManager.remove(pontuacao_posicao1);
             entityManager.getTransaction().commit();
@@ -73,14 +73,14 @@ public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
     }
 
     @Override
-    public List<Pontuacao_posicao> listarTodos(Pontuacao_posicao pontuacao_posicao) throws Exception {
+    public List<PontuacaoPosicao> listarTodos(PontuacaoPosicao pontuacao_posicao) throws Exception {
         return null;
     }
 
     @Override
-    public List<Pontuacao_posicao> listarTodos() throws Exception {
+    public List<PontuacaoPosicao> listarTodos() throws Exception {
         try {
-            List<Pontuacao_posicao> pontuacao_posicao = null;
+            List<PontuacaoPosicao> pontuacao_posicao = null;
             pontuacao_posicao = entityManager.createQuery("SELECT a FROM Pontuacao_posicao a").getResultList();
             return pontuacao_posicao;
         } catch (Exception e) {
@@ -91,9 +91,9 @@ public class Pontuacao_posicaoDAO implements GenericDAO<Pontuacao_posicao> {
     }
 
     @Override
-    public Pontuacao_posicao getById(int id) throws Exception {
+    public PontuacaoPosicao getById(int id) throws Exception {
         try {
-            return entityManager.find(Pontuacao_posicao.class,id);
+            return entityManager.find(PontuacaoPosicao.class,id);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

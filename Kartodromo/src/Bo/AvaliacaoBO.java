@@ -5,6 +5,7 @@ import Model.Avaliacao;
 import Model.Kartodromo;
 import Model.Piloto;
 
+import javax.swing.*;
 import java.util.List;
 
 public class AvaliacaoBO implements GenericBO<Avaliacao> {

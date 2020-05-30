@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
  * @author lino
  */
 @Entity
-public class Pontuacao_posicao {
+public class PontuacaoPosicao {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

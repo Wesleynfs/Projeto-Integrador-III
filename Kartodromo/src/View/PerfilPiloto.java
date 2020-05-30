@@ -1,5 +1,6 @@
 package View;
 
+import Bo.PilotoParticipandoCampeonatoBO;
 import Dao.PilotoParticipandoCampeonatoDAO;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
@@ -35,7 +36,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private DefaultTableModel tabelamento;
     JTableHeader headerTabelaCorridasParticipando;
     JTableHeader headerTabelaTodasAsCorridasMarcadas;
-    
+
     private String nivel_elo;
 
     private Piloto piloto;
@@ -160,7 +161,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             drawer.setBackground(Colors.VERDEDARK);
             corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
-            infoPiloto.setForeground(Colors.CINZALIGHTB); 
+            infoPiloto.setForeground(Colors.CINZALIGHTB);
             btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
@@ -185,119 +186,115 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
 
+        tableCorridasParticipando.setModel(new DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                        "CAMPEONATOS PARTICIPANDO", "DATA", "TOTAL DE PARTICIPANTES"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+
+        });
+
+        tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
+
+        PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO = new PilotoParticipandoCampeonatoBO();
+
         try {
-
-            tableCorridasParticipando.setModel(new DefaultTableModel(
-                    new Object[][]{
-
-                    },
-                    new String[]{
-                            "CAMPEONATOS PARTICIPANDO", "DATA", "TOTAL DE PARTICIPANTES"
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                        false, false, false
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit[columnIndex];
-                }
-
-            });
-
-            tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
-            PilotoParticipandoCampeonatoDAO pilotoparticipandocampeonatodao = new PilotoParticipandoCampeonatoDAO();
-            try {
-                List<PilotoParticipandoCampeonato> lista_campeonato_do_piloto = pilotoparticipandocampeonatodao.ListarPilotoqueParticipadeCameponatos(piloto);
-                if (lista_campeonato_do_piloto.isEmpty()) {
+            List<PilotoParticipandoCampeonato> listaCampeonatoDoPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(piloto);
+            if (listaCampeonatoDoPiloto.isEmpty()) {
+                tabelamento.addRow(new Object[]{
+                        "Nem uma corrida na lista!"
+                });
+            } else {
+                for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
+                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                     tabelamento.addRow(new Object[]{
-                            "Nem uma corrida na lista!"
+                            list.getCampeonato().getNome(),
+                            list.getCampeonato().getDataFinalizacao(),
+                            listaTotalPiloto.size()
                     });
-                } else {
-                    for (PilotoParticipandoCampeonato list : lista_campeonato_do_piloto) {
-                        List<PilotoParticipandoCampeonato> lista_total_piloto = pilotoparticipandocampeonatodao.ListarPilotoParticipadeCameponato(list.getCampeonato());
-                        tabelamento.addRow(new Object[]{
-                                list.getCampeonato().getNome(),
-                                list.getCampeonato().getDataFinalizacao(),
-                                lista_total_piloto.size()
-                        });
-                    }
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
-
-            jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
-            jScrollPaneCorridasParticipando.setBounds(20, 300, 760, 200);
-
-            tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
-                    new Object[][]{
-
-                    },
-                    new String[]{
-                            "CAMPEONATOS", "DATA", "N° DE PILOTOS "
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                        false, false, false
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit[columnIndex];
-                }
-
-            });
-
-            tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
-            pilotoparticipandocampeonatodao = new PilotoParticipandoCampeonatoDAO();
-            try {
-                List<PilotoParticipandoCampeonato> lista_campeonatos = pilotoparticipandocampeonatodao.listarTodos();
-                if (lista_campeonatos.isEmpty()) {
-                    tabelamento.addRow(new Object[]{
-                            "Nem uma corrida na lista!"
-                    });
-                } else {
-                    for (PilotoParticipandoCampeonato list : lista_campeonatos) {
-                        List<PilotoParticipandoCampeonato> lista_total_piloto = pilotoparticipandocampeonatodao.ListarPilotoParticipadeCameponato(list.getCampeonato());
-                        tabelamento.addRow(new Object[]{
-                                list.getCampeonato().getNome(),
-                                list.getCampeonato().getDataFinalizacao(),
-                                lista_total_piloto.size()
-                        });
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-            jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
-            jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        if(piloto.getNivel() < 5){
-                nivel_elo = "PILOTO INICIANTE";
-            }else if(piloto.getNivel() < 10){
-                nivel_elo = "PILOTO AVANÇADO";
-            }else{
-                nivel_elo = "PILOTO VETERANO";
+
+        jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
+        jScrollPaneCorridasParticipando.setBounds(20, 300, 760, 200);
+
+        tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                        "CAMPEONATOS", "DATA", "N° DE PILOTOS "
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
             }
-            infoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-                    + "APELIDO: "+piloto.getApelido()+ "<br/>"
-                    + "NÍVEL: "+piloto.getNivel() + "<br/>"
-                    + nivel_elo + "<br/>"
-                    + "NÚMERO DE STRIKERS: "+piloto.getNumeroDeStrikesPiloto()
-                    +"</html>");
-            infoPiloto.setBounds(10,110,200,90);
+
+        });
+
+        tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+
+        try {
+            List<PilotoParticipandoCampeonato> listaCampeonatos = pilotoParticipandoCampeonatoBO.listarTodos();
+            if (listaCampeonatos.isEmpty()) {
+                tabelamento.addRow(new Object[]{
+                        "Nem uma corrida na lista!"
+                });
+            } else {
+                for (PilotoParticipandoCampeonato list : listaCampeonatos) {
+                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
+                    tabelamento.addRow(new Object[]{
+                            list.getCampeonato().getNome(),
+                            list.getCampeonato().getDataFinalizacao(),
+                            listaTotalPiloto.size()
+                    });
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
+        jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
+
+        if (piloto.getNivel() < 5) {
+            nivel_elo = "PILOTO INICIANTE";
+        } else if (piloto.getNivel() < 10) {
+            nivel_elo = "PILOTO AVANÇADO";
+        } else {
+            nivel_elo = "PILOTO VETERANO";
+        }
+        infoPiloto.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
+                + "APELIDO: " + piloto.getApelido() + "<br/>"
+                + "NÍVEL: " + piloto.getNivel() + "<br/>"
+                + nivel_elo + "<br/>"
+                + "NÚMERO DE STRIKERS: " + piloto.getNumeroDeStrikesPiloto()
+                + "</html>");
+        infoPiloto.setBounds(10, 110, 200, 90);
 
         corridasParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");
         corridasParticipandoLabel.setBounds(20, 270, 400, 35);
-        
+
         corridasMarcadasLabel.setText("TODOS OS CAMPEONATOS CRIADOS");
         corridasMarcadasLabel.setBounds(200, 100, 400, 35);
-        
+
         btnRelatar.setBorderPainted(false);
         btnRelatar.setFocusPainted(false);
         btnRelatar.addActionListener(this);

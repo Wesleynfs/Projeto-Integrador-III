@@ -3,8 +3,9 @@ package Bo;
 import Dao.CorridaDAO;
 import Model.Campeonato;
 import Model.Corrida;
-import Model.Piloto;
+import Utilities.TabelaPiloto;
 
+import javax.swing.*;
 import java.util.List;
 
 public class CorridaBO implements GenericBO<Corrida> {
@@ -53,7 +54,10 @@ public class CorridaBO implements GenericBO<Corrida> {
 
     @Override
     public boolean valida(Corrida o) throws Exception {
-        return false;
+        if(o.getNumeroDeVoltas() > 10){
+            throw new Exception("Uma corrida não pode conter mais que 10 voltas!");
+        }
+        return true;
     }
 
     @Override
@@ -64,6 +68,13 @@ public class CorridaBO implements GenericBO<Corrida> {
     public List<Corrida> listarTodasAsCorridasMarcadas(Campeonato c) throws Exception {
         corridaDAO = new CorridaDAO();
         return corridaDAO.listarTodasAsCorridasMarcadasDeCampeonato(c);
+    }
+
+    public boolean validaTabelaPiloto(TabelaPiloto tabelaPiloto) throws Exception {
+        if (tabelaPiloto.getRowCount() > 10) {
+            throw new Exception("Um campeonato não pede ter mais que 10 Corridas ao mesmo tempo!");
+        }
+        return true;
     }
 
 }

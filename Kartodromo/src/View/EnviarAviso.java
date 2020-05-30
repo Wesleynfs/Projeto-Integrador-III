@@ -1,6 +1,8 @@
 package View;
 
+import Model.AvisoCampeonato;
 import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -28,6 +30,9 @@ public class EnviarAviso extends JFrame implements ActionListener {
     private Piloto piloto;
 
     public EnviarAviso(Piloto piloto) {
+
+        this.piloto = piloto;
+
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -38,12 +43,10 @@ public class EnviarAviso extends JFrame implements ActionListener {
         configs();
         // Configura esse frame //
         configurateThis();
-   
-        this.piloto = piloto;
 
     }
 
-    private void configurateThis(){
+    private void configurateThis() {
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
         setLayout(null);
@@ -53,30 +56,24 @@ public class EnviarAviso extends JFrame implements ActionListener {
         setTitle(Info.APP_NAME);
         setResizable(false);
     }
-    
-    private void initializate(){
-        
+
+    private void initializate() {
+
         fundo = new JPanel();
         drawer = new JPanel();
-
         logo = new JLabel();
-        
         assuntoTextField = new JFormattedTextField();
-        
         contextojTextPane1 = new JTextPane();
-                
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
         contextoLabel = new JLabel();
         infoPiloto = new JLabel();
-        
         contextojScrollPane = new JScrollPane();
-        
         btnVoltar = new JButton();
         btnEnviar = new JButton();
-        
+
     }
-    
+
     private void add() {
         add(logo);
         add(assuntoTextField);
@@ -89,8 +86,8 @@ public class EnviarAviso extends JFrame implements ActionListener {
         add(btnEnviar);
         add(drawer);
         add(fundo);
-        
     }
+
     private void setTheme() {
         if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
@@ -100,10 +97,10 @@ public class EnviarAviso extends JFrame implements ActionListener {
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
             assuntoTextField.setForeground(Colors.BRANCO);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
-            contextojTextPane1.setForeground(Colors.BRANCO);           
+            contextojTextPane1.setForeground(Colors.BRANCO);
             relatoLabel.setForeground(Colors.CINZALIGHTB);
-            assuntoLabel.setForeground(Colors.CINZALIGHTB);   
-            contextoLabel.setForeground(Colors.CINZALIGHTB);       
+            assuntoLabel.setForeground(Colors.CINZALIGHTB);
+            contextoLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
@@ -116,10 +113,10 @@ public class EnviarAviso extends JFrame implements ActionListener {
             contextojTextPane1.setForeground(Colors.CINZADARKA);
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
             infoPiloto.setForeground(Colors.CINZALIGHTB);
-            assuntoTextField.setForeground(Colors.CINZADARKA);                  
+            assuntoTextField.setForeground(Colors.CINZADARKA);
             relatoLabel.setForeground(Colors.CINZALIGHTB);
-            assuntoLabel.setForeground(Colors.CINZALIGHTB);   
-            contextoLabel.setForeground(Colors.CINZALIGHTB);       
+            assuntoLabel.setForeground(Colors.CINZALIGHTB);
+            contextoLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
@@ -129,29 +126,30 @@ public class EnviarAviso extends JFrame implements ActionListener {
     }
 
     private void configs() {
-        fundo.setSize(800,600);
-        drawer.setBounds(0,0,800,100);
+
+        fundo.setSize(Info.MINSCREENSIZE);
+        drawer.setBounds(0, 0, 800, 100);
 
         relatoLabel.setText("AVISO DO PILOTO ADM: NOME DO PILOTO");
-        relatoLabel.setBounds(280,150, 300,35);
-  
-        contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        contextojScrollPane.setBounds(200,280,400,240);
-        contextojScrollPane.setViewportView(contextojTextPane1);
-                
-        assuntoLabel.setText("AVISO DA CORRIDA: NOME DA CORRIDA");
-        assuntoLabel.setBounds(280,200,300,35);
-       
-        contextoLabel.setText("CONTEXTO DO AVISO:");
-        contextoLabel.setBounds(200,250,300,35);
-        
-            infoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-            + "APELIDO: "+piloto.getApelido()+ "<br/>"
-            + "NÍVEL: "+piloto.getNivel() + "<br/>"
-            +"</html>");
-            infoPiloto.setBounds(10,110,200,90);
+        relatoLabel.setBounds(280, 150, 300, 35);
 
-        logo.setBounds(20 , 30,600,35);
+        contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        contextojScrollPane.setBounds(200, 280, 400, 240);
+        contextojScrollPane.setViewportView(contextojTextPane1);
+
+        assuntoLabel.setText("AVISO DA CORRIDA: NOME DA CORRIDA");
+        assuntoLabel.setBounds(280, 200, 300, 35);
+
+        contextoLabel.setText("CONTEXTO DO AVISO:");
+        contextoLabel.setBounds(200, 250, 300, 35);
+
+        infoPiloto.setBounds(10, 110, 200, 90);
+        infoPiloto.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
+                + "APELIDO: " + piloto.getApelido() + "<br/>"
+                + "NÍVEL: " + piloto.getNivel() + "<br/>"
+                + "</html>");
+
+        logo.setBounds(20, 30, 600, 35);
         logo.setText("ENVIAR AVISO AOS PILOTOS");
         logo.setFont(Fonts.SANSSERIFMIN);
 
@@ -159,16 +157,16 @@ public class EnviarAviso extends JFrame implements ActionListener {
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
-        btnVoltar.setBounds(20,550, 100,35);
-        
+        btnVoltar.setBounds(20, 550, 100, 35);
+
         btnEnviar.setFocusPainted(false);
         btnEnviar.setBorderPainted(false);
         btnEnviar.addActionListener(this);
         btnEnviar.setText("ENVIAR AVISO");
-        btnEnviar.setBounds(620,550,160,35);
-    
+        btnEnviar.setBounds(620, 550, 160, 35);
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
@@ -176,18 +174,22 @@ public class EnviarAviso extends JFrame implements ActionListener {
             new PerfilPiloto(piloto);
         }
 
-        if(e.getSource() == btnEnviar) {
+        if (e.getSource() == btnEnviar) {
             try {
-                //enviar aviso
-                
 
+                AvisoCampeonato avisoCampeonato = new AvisoCampeonato();
+                avisoCampeonato.setAviso(contextojTextPane1.getText());
+                //avisoCampeonato.setCampeonato();
+                avisoCampeonato.setPiloto(piloto);
+                avisoCampeonato.setStatusAviso("ATIVO");
 
-                //
+                // TERMINAR DE FAZER ESTA PARTE //
+
                 JOptionPane.showMessageDialog(null, "Aviso enviado aos outros piltos!");
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Não foi possível enviar o aviso");
             }
         }
     }
-    
+
 }

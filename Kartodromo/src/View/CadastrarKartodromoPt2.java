@@ -27,7 +27,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
     private JLabel cidadeLabel;
     private JLabel ruaLabel;
     private JLabel numeroLabel;
-    private JButton btn_Voltar;
+    private JButton btnVoltar;
     private JButton btnCadastrar;
     private JLabel telefoneLabel;
     private JFormattedTextField telefoneTextField;
@@ -79,7 +79,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         numeroLabel = new JLabel();
         diassemanaLabel = new JLabel();
         tipokartsLabel = new JLabel();
-        btn_Voltar = new JButton();
+        btnVoltar = new JButton();
         btnCadastrar = new JButton();
         listCheckBox = new JCheckBox[12];
         telefoneTextField = new JFormattedTextField();
@@ -112,7 +112,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         add(version);
         add(logo);
         add(btnCadastrar);
-        add(btn_Voltar);
+        add(btnVoltar);
         add(drawer);
         add(fundo);
 
@@ -141,8 +141,8 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
             diassemanaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            btn_Voltar.setBackground(Colors.VERDEDARK);
-            btn_Voltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
             fundo.setBackground(Colors.CINZAMEDB);
@@ -174,8 +174,8 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
             diassemanaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            btn_Voltar.setBackground(Colors.VERDEDARK);
-            btn_Voltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
+            btnVoltar.setForeground(Colors.CINZADARKB);
             btnCadastrar.setBackground(Colors.VERDEDARK);
             btnCadastrar.setForeground(Colors.CINZADARKB);
             fundo.setBackground(Colors.CINZAMEDA);
@@ -297,11 +297,11 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         logo.setFont(Fonts.SANSSERIF);
         logo.setBounds(20, 40, 700, 180);
 
-        btn_Voltar.setText("VOLTAR");
-        btn_Voltar.setBorderPainted(false);
-        btn_Voltar.setFocusPainted(false);
-        btn_Voltar.addActionListener(this);
-        btn_Voltar.setBounds(20, 550, 100, 35);
+        btnVoltar.setText("VOLTAR");
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.addActionListener(this);
+        btnVoltar.setBounds(20, 550, 100, 35);
 
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setBorderPainted(false);
@@ -314,7 +314,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == btn_Voltar) {
+        if (e.getSource() == btnVoltar) {
             if (JOptionPane.showConfirmDialog(null, "Tem certeza?", "Confirmação", JOptionPane.YES_NO_OPTION) == 0) {
                 dispose();
                 new CadastrarKartodromoPt1();

@@ -86,9 +86,9 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         }
     }
 
-    public List<PilotoParticipandoCampeonato> listarTodosCampeonatosQuePilotoParticipa(Piloto piloto) throws Exception {
+    public List<PilotoParticipandoCampeonato> listarTodosPilotosQuePilotoParticipaNoCampeonato(Piloto piloto) throws Exception {
         pilotoDAO = new PilotoParticipandoCampeonatoDAO();
-        return pilotoDAO.ListarPilotoqueParticipadeCameponatos(piloto);
+        return pilotoDAO.listarPilotoQueParticipaDeCampeonato(piloto);
     }
 
     public List<PilotoParticipandoCampeonato> listarCampeonatosParticipaticipando(Piloto piloto, Campeonato campeonato) throws Exception {
@@ -96,9 +96,9 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         return pilotoDAO.Listarcampeonatosparticipaticipando(piloto, campeonato);
     }
 
-    public List<PilotoParticipandoCampeonato> listarPilotoParticipaDeCampeonato(Campeonato campeonato) throws Exception {
+    public List<PilotoParticipandoCampeonato> listarTodosPilotosQuePilotoParticipaNoCampeonato(Campeonato campeonato) throws Exception {
         pilotoDAO = new PilotoParticipandoCampeonatoDAO();
-        return pilotoDAO.ListarPilotoParticipadeCameponato(campeonato);
+        return pilotoDAO.listarPilotoQueParticipaDeCampeonato(campeonato);
     }
 
 }

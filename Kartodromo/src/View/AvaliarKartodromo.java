@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 
-public class AvaliarKartodromo extends JFrame implements ActionListener{
-    
+public class AvaliarKartodromo extends JFrame implements ActionListener {
+
     private JPanel fundo;
     private JPanel drawer;
     private JTextPane contextojTextPane1;
@@ -35,7 +35,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
     private JButton btnVerPerfil;
     private JLabel estrelasLabel[] = new JLabel[5];
     private JComboBox<String> kartodromojComboBox;
-    
+
     private String nivel_elo;
 
     private Piloto piloto;
@@ -57,7 +57,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
 
     }
 
-    private void configurateThis(){
+    private void configurateThis() {
 
         setUndecorated(true);
         setSize(Info.MINSCREENSIZE);
@@ -69,9 +69,9 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         setResizable(false);
 
     }
-    
-    private void initializate(){
-        
+
+    private void initializate() {
+
         fundo = new JPanel();
         drawer = new JPanel();
         logo = new JLabel();
@@ -88,13 +88,13 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         btnEnviar = new JButton();
         btnVerPerfil = new JButton();
 
-        for (int x = 0 ; x < estrelasLabel.length ; x++) {
+        for (int x = 0; x < estrelasLabel.length; x++) {
             estrelasLabel[x] = new JLabel();
             add(estrelasLabel[x]);
         }
 
     }
-    
+
     private void add() {
 
         add(logo);
@@ -112,7 +112,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
         add(btnEnviar);
         add(drawer);
         add(fundo);
-        
+
     }
 
     private void setTheme() {
@@ -122,9 +122,9 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
-            contextojTextPane1.setForeground(Colors.BRANCO);           
+            contextojTextPane1.setForeground(Colors.BRANCO);
             nomeKartodromoLabel.setForeground(Colors.CINZALIGHTB);
-            nota.setForeground(Colors.CINZALIGHTB);   
+            nota.setForeground(Colors.CINZALIGHTB);
             valorNotaLabel.setForeground(Colors.CINZALIGHTB);
             infoPilotoLabel.setForeground(Colors.CINZALIGHTB);
             comentarioLabel.setForeground(Colors.CINZALIGHTB);
@@ -141,12 +141,12 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
-            contextojTextPane1.setForeground(Colors.CINZADARKA);                  
+            contextojTextPane1.setForeground(Colors.CINZADARKA);
             nomeKartodromoLabel.setForeground(Colors.CINZALIGHTB);
             valorNotaLabel.setForeground(Colors.CINZALIGHTB);
-            comentarioLabel.setForeground(Colors.CINZALIGHTB); 
-            infoPilotoLabel.setForeground(Colors.CINZALIGHTB); 
-            nota.setForeground(Colors.CINZALIGHTB); 
+            comentarioLabel.setForeground(Colors.CINZALIGHTB);
+            infoPilotoLabel.setForeground(Colors.CINZALIGHTB);
+            nota.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
@@ -163,85 +163,85 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
 
         try {
             fundo.setSize(Info.MINSCREENSIZE);
-            drawer.setBounds(0,0,800,100);
-            
+            drawer.setBounds(0, 0, 800, 100);
+
             contextojTextPane1.setBorder(BorderFactory.createEmptyBorder());
-            contextojTextPane1.setSize(400,200);
-            
+            contextojTextPane1.setSize(400, 200);
+
             contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
-            contextojScrollPane.setBounds(360,150,400,200);
+            contextojScrollPane.setBounds(360, 150, 400, 200);
             contextojScrollPane.setViewportView(contextojTextPane1);
-            
-            infoPilotoLabel.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-                    + "APELIDO: "+piloto.getApelido()+ "<br/>"
-                    + "NÍVEL: "+piloto.getNivel() + "<br/>"
-                    +"</html>");
-            infoPilotoLabel.setBounds(10,110,200,90);
-            
+
+            infoPilotoLabel.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
+                    + "APELIDO: " + piloto.getApelido() + "<br/>"
+                    + "NÍVEL: " + piloto.getNivel() + "<br/>"
+                    + "</html>");
+            infoPilotoLabel.setBounds(10, 110, 200, 90);
+
             nomeKartodromoLabel.setText("NOME DO KARTÓDROMO:");
-            nomeKartodromoLabel.setBounds(360,350,200,35);
-            
+            nomeKartodromoLabel.setBounds(360, 350, 200, 35);
+
             valorNotaLabel.setText("MUITO BOM");
-            valorNotaLabel.setBounds(100,290,200,35);
-            
+            valorNotaLabel.setBounds(100, 290, 200, 35);
+
             comentarioLabel.setText("SEU COMENTÁRIO:");
-            comentarioLabel.setBounds(360,120,200,35);
-            
+            comentarioLabel.setBounds(360, 120, 200, 35);
+
             nota.setText("<html>Nota que você está atribuindo:</html>");
-            nota.setBounds(40,245,100,60);
-            
-            estrelasLabel[0].setBounds(130,275,16,16);
-            estrelasLabel[1].setBounds(146,275,16,16);
-            estrelasLabel[2].setBounds(162,275,16,16);
-            estrelasLabel[3].setBounds(178,275,16,16);
-            estrelasLabel[4].setBounds(194,275,16,16);
-            
-            for (int x = 0 ; x < estrelasLabel.length -1  ; x++) {
+            nota.setBounds(40, 245, 100, 60);
+
+            estrelasLabel[0].setBounds(130, 275, 16, 16);
+            estrelasLabel[1].setBounds(146, 275, 16, 16);
+            estrelasLabel[2].setBounds(162, 275, 16, 16);
+            estrelasLabel[3].setBounds(178, 275, 16, 16);
+            estrelasLabel[4].setBounds(194, 275, 16, 16);
+
+            for (int x = 0; x < estrelasLabel.length - 1; x++) {
                 estrelasLabel[x].setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/star.png")));
             }
-            
+
             estrelasLabel[4].setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/award_star_add.png")));
-            logo.setBounds(20 , 30,600,35);
+            logo.setBounds(20, 30, 600, 35);
             logo.setText("AVALIAR KARTÓDROMO");
             logo.setFont(Fonts.SANSSERIFMIN);
-            
+
             notajSlider.setMaximum(5);
             notajSlider.setMinimum(1);
             notajSlider.setOrientation(JSlider.VERTICAL);
             notajSlider.setBounds(60, 300, 30, 200);
             notajSlider.setBackground(Colors.CINZAMEDB);
-            
+
             kartodromojComboBox.setBorder(BorderFactory.createEmptyBorder());
-            kartodromojComboBox.setBounds(360,380,200,35);
-            
-            List<Kartodromo> list = new KartodromoBO().listarTodos();
-            for (Kartodromo tipo : list) {
+            kartodromojComboBox.setBounds(360, 380, 200, 35);
+
+            for (Kartodromo tipo : new KartodromoBO().listarTodos()) {
                 kartodromojComboBox.addItem(tipo.getNomeKartodromo());
             }
-            
+
             btnVoltar.setText("VOLTAR");
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);
             btnVoltar.addActionListener(this);
-            btnVoltar.setBounds(20,550, 100,35);
-            
+            btnVoltar.setBounds(20, 550, 100, 35);
+
             btnVerPerfil.setText("VER PERFIL DO KARTÓDROMO");
             btnVerPerfil.setBorderPainted(false);
             btnVerPerfil.setFocusPainted(false);
             btnVerPerfil.addActionListener(this);
-            btnVerPerfil.setBounds(250,550, 250,35);
-            
+            btnVerPerfil.setBounds(250, 550, 250, 35);
+
             btnEnviar.setFocusPainted(false);
             btnEnviar.setBorderPainted(false);
             btnEnviar.addActionListener(this);
             btnEnviar.setText("MANDAR AVALIAÇÃO");
-            btnEnviar.setBounds(600,550,180,35);
-            
+            btnEnviar.setBounds(600, 550, 180, 35);
+
             notajSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-                public void stateChanged(ChangeEvent evt) {
-                    notajSliderstateChanged(evt);
+                public void stateChanged(ChangeEvent e) {
+                    notajSliderstateChanged(e);
                 }
             });
+
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Error:", JOptionPane.ERROR_MESSAGE);
         }
@@ -252,34 +252,34 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
             case 5:
                 estrelasLabel[4].setVisible(true);
                 valorNotaLabel.setText("MUITO BOM");
-                valorNotaLabel.setBounds(100,290,200,35);
+                valorNotaLabel.setBounds(100, 290, 200, 35);
                 break;
             case 4:
                 estrelasLabel[3].setVisible(true);
                 estrelasLabel[4].setVisible(false);
                 valorNotaLabel.setText("BOM");
-                valorNotaLabel.setBounds(100,338,200,35);
+                valorNotaLabel.setBounds(100, 338, 200, 35);
                 break;
             case 3:
                 estrelasLabel[1].setVisible(true);
                 estrelasLabel[2].setVisible(true);
                 estrelasLabel[3].setVisible(false);
                 valorNotaLabel.setText("MÉDIO");
-                valorNotaLabel.setBounds(100,384,200,35);
+                valorNotaLabel.setBounds(100, 384, 200, 35);
                 break;
             case 2:
                 estrelasLabel[0].setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/star.png")));
                 estrelasLabel[1].setVisible(true);
                 estrelasLabel[2].setVisible(false);
                 valorNotaLabel.setText("RUIM");
-                valorNotaLabel.setBounds(100,430,200,35);
+                valorNotaLabel.setBounds(100, 430, 200, 35);
                 break;
             default:
                 estrelasLabel[0].setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/award_star_delete.png")));
                 estrelasLabel[1].setVisible(false);
                 estrelasLabel[2].setVisible(false);
                 valorNotaLabel.setText("MUITO RUIM");
-                valorNotaLabel.setBounds(100,478,200,35);
+                valorNotaLabel.setBounds(100, 478, 200, 35);
                 break;
         }
 
@@ -292,51 +292,44 @@ public class AvaliarKartodromo extends JFrame implements ActionListener{
             new PerfilPiloto(piloto);
         }
 
-        if(e.getSource() == btnEnviar) {
+        if (e.getSource() == btnEnviar) {
+
             try {
-                //validacao se tiver um comentario ja sobre
-   
-                
-//                Curti muito o kartódromo, mas não ter o cafézinho para os clientes matou um pouco o local, fica a dica.
-                Kartodromo kartodromo = new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1);
-                Avaliacao avaliacao = new Avaliacao(); 
+
+                Avaliacao avaliacao = new Avaliacao();
                 avaliacao.setComentario(contextojTextPane1.getText());
                 avaliacao.setNumeroEstrelas(this.notajSlider.getValue());
-                avaliacao.setKartodromo(kartodromo);
+                avaliacao.setKartodromo(new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1));
                 avaliacao.setPiloto(piloto);
-                
-                AvaliacaoBO avaliacaobo = new AvaliacaoBO();
-                List<Avaliacao> list = new AvaliacaoBO().listarTodos();
-                for (Avaliacao validacao : list) {
-                    if(validacao.getKartodromo().getIdKartodromo() == avaliacao.getKartodromo().getIdKartodromo()
-                            && validacao.getPiloto().getIdPiloto() == avaliacao.getPiloto().getIdPiloto()){
-                        int i = JOptionPane.showConfirmDialog
-                    (null, 
-                    "Você já fez uma avaliação anteriormente,"
-                    + " deseja altera-lá para sua avaliação atual?",
-                    "Substituir?", JOptionPane.YES_NO_OPTION);
-                        if(i == 0){
-                            avaliacao.setIdAvaliacao(validacao.getIdAvaliacao());
-                            avaliacaobo.alterar(avaliacao);
+
+                AvaliacaoBO avaliacaoBo = new AvaliacaoBO();
+                for (Avaliacao avalia : avaliacaoBo.listarTodos()) {
+                    if (avalia.getKartodromo().getIdKartodromo() == avaliacao.getKartodromo().getIdKartodromo()
+                            && avalia.getPiloto().getIdPiloto() == avaliacao.getPiloto().getIdPiloto()) {
+                        if (JOptionPane.showConfirmDialog(null,
+                                "Você já fez uma avaliação anteriormente,"
+                                        + " deseja altera-lá para sua avaliação atual?",
+                                "Substituir?", JOptionPane.YES_NO_OPTION) == 0) {
+                            avaliacao.setIdAvaliacao(avalia.getIdAvaliacao());
+                            avaliacaoBo.alterar(avaliacao);
                         }
-                        return;
                     }
                 }
-                System.out.println("1");
 
-                if(avaliacaobo.criar(avaliacao)){
+                if (avaliacaoBo.criar(avaliacao)) {
                     JOptionPane.showMessageDialog(null, "SUA AVALIAÇÃO FOI FEITA COM SUCESSO!");
                 }
+
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Não foi possível enviar sua avaliação");
             }
+
         }
 
-        if(e.getSource() == btnVerPerfil) {
-            try{
-                Kartodromo kartodromo = new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1);
+        if (e.getSource() == btnVerPerfil) {
+            try {
                 dispose();
-                new AvaliacoesDeKartodromo(piloto, kartodromo);
+                new AvaliacoesDeKartodromo(piloto, new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1));
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");
             }

@@ -8,6 +8,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+
 import java.awt.GridLayout;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -162,9 +163,10 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
             PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBo = new PilotoParticipandoCampeonatoBO();
             for (Campeonato campeonato : new CampeonatoBO().listarTodos()) {
 
-                if (pilotoParticipandoCampeonatoBo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+                if (pilotoParticipandoCampeonatoBo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {
+                    //verificação onde caso o campeonato for nulo quer dizer que o piloto não participa deste campeonato
 
-                    List<PilotoParticipandoCampeonato> numeroDeParticipantes = pilotoParticipandoCampeonatoBo.listarPilotoParticipaDeCampeonato(campeonato);
+                    List<PilotoParticipandoCampeonato> numeroDeParticipantes = pilotoParticipandoCampeonatoBo.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
 
                     if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
 
@@ -253,10 +255,10 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
                 for (Campeonato campeonato : new CampeonatoBO().listarPorNome()) {
                     List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.listarCampeonatosParticipaticipando(piloto, campeonato);
                     if (campeonato_para_participar.isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarPilotoParticipaDeCampeonato(campeonato);
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                         if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
-                                    campeonato.getNome(),       
+                                    campeonato.getNome(),
                                     campeonato.getDataFinalizacao(),
                                     campeonato.getTipoCorrida()
                             });
@@ -276,7 +278,7 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
 
                 for (Campeonato campeonato : new CampeonatoBO().listarPorData()) {
                     if (pilotoparticipandocampeonatobo.listarCampeonatosParticipaticipando(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarPilotoParticipaDeCampeonato(campeonato);
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                         if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
                                     campeonato.getNome(),
@@ -287,12 +289,11 @@ public class ParticiparCorrida extends JFrame implements ActionListener {
                         }
                     }
                 }
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-
-
     }
 
 } 

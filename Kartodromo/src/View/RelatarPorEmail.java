@@ -129,6 +129,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
     }
 
     private void configs() {
+
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0,0,800,100);
 
@@ -188,7 +189,6 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
 
         if(e.getSource() == btnEnviar) {
             try {
-                
                 JOptionPane.showMessageDialog(null, "Enviado! Agradeçemos o feedback");
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Não foi possível enviar o Email");

@@ -181,7 +181,6 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-
         drawer.setBounds(0, 0, 800, 100);
 
         try {

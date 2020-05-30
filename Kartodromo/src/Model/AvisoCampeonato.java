@@ -63,4 +63,8 @@ public class AvisoCampeonato {
         this.campeonato = campeonato;
         this.piloto = piloto;
     }
+
+    public AvisoCampeonato() {
+
+    }
 }

@@ -54,13 +54,10 @@ public class Historico extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
-        
         btnVoltar = new JButton();
-
         logo = new JLabel();
         corridas_participandoinfoLabel = new JLabel();
         lblinfoPiloto = new JLabel();
-
         jScrollPaneCorridasRealizadas = new JScrollPane();
         tableTodasAsCorridasRealizadas = new JTable();
     }
@@ -97,9 +94,9 @@ public class Historico extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZALIGHTB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
-
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDEDARK);
+
         }
     }
     private void configs() {

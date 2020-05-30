@@ -21,8 +21,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     private JTextField emailJTextField;
     private JFormattedTextField dataNascJTextField;
     private JFormattedTextField cpfJTextField;
-    private JTextField senhaJTextField;
-    private JTextField apelidoJTextField;
+    private JFormattedTextField senhaJTextField;
+    private JFormattedTextField apelidoJTextField;
     private JLabel version;
     private JLabel loginLabel;
     private JLabel senhaLabel;
@@ -67,14 +67,14 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         dataNascLabel = new JLabel();
         cpfLabel = new JLabel();
         apelidoLabel = new JLabel();
-        apelidoJTextField = new JTextField();
+        apelidoJTextField = new JFormattedTextField();
         fundo = new JPanel();
         drawer = new JPanel();
         nomeJTextField = new JTextField();
         dataNascJTextField = new JFormattedTextField();
         cpfJTextField = new JFormattedTextField();
         emailJTextField = new JTextField();
-        senhaJTextField = new JTextField();
+        senhaJTextField = new JFormattedTextField();
         version = new JLabel();
         loginLabel = new JLabel();
         senhaLabel = new JLabel();
@@ -179,6 +179,7 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     }
 
     private void configs() {
+
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 200);
 
@@ -197,14 +198,17 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         dataNascJTextField.setBorder(BorderFactory.createEmptyBorder());
         dataNascJTextField.setBounds(210, 360, 400, 35);
         dataNascJTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
+        dataNascJTextField.setFocusLostBehavior(JFormattedTextField.PERSIST);
 
         senhaJTextField.setBorder(BorderFactory.createEmptyBorder());
         senhaJTextField.setBounds(210, 400, 400, 35);
         senhaJTextField.setHorizontalAlignment(JPasswordField.CENTER);
+        senhaJTextField.setFocusLostBehavior(JFormattedTextField.PERSIST);
         
         apelidoJTextField.setBorder(BorderFactory.createEmptyBorder());
         apelidoJTextField.setBounds(210, 440, 400, 35);
         apelidoJTextField.setHorizontalAlignment(JPasswordField.CENTER);
+        apelidoJTextField.setFocusLostBehavior(JFormattedTextField.PERSIST);
                 
         apelidoLabel.setText("APELIDO");
         apelidoLabel.setBounds(150, 440, 400, 35);
@@ -262,6 +266,10 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
                     new MaskFormatter("##/##/####")));
             cpfJTextField.setFormatterFactory(new DefaultFormatterFactory(
                     new MaskFormatter("###.###.###-##")));
+            apelidoJTextField.setFormatterFactory(new DefaultFormatterFactory(
+                    new MaskFormatter("AAAAAAAAAAAAAAAAAAAA")));
+            senhaJTextField.setFormatterFactory(new DefaultFormatterFactory(
+                    new MaskFormatter("AAAAAAAAAAAAAAAAAAAA")));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -294,17 +302,13 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnCadastrar) {
             try {
-                if(pilotoBO.verificarapelido(piloto.getApelido())){
-                    JOptionPane.showMessageDialog(null,"Este Apelido já existe, por favor tente outro!","Apelido Existente",JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
                 if (pilotoBO.criar(piloto)) {
                     JOptionPane.showMessageDialog(null,"Piloto criado com sucesso!","Error",JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                     new MenuPrincipal(piloto);
                 }
             } catch (Exception error) {
-                JOptionPane.showMessageDialog(null,error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,error.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
             }
         }
 

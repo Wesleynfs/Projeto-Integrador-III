@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CriarCorrida extends JFrame implements ActionListener {
-    
-    
+public class GerenciarCorrida extends JFrame implements ActionListener {
+
+
     private JPanel fundo;
     private JPanel drawer;
     private JLabel logo;
@@ -42,13 +42,13 @@ public class CriarCorrida extends JFrame implements ActionListener {
     private JLabel nomekartodromoLabel;
     private JLabel tipokartLabel;
     private JLabel lblenderecokartodromo;
-    
+
     private Kartodromo kartodromo;
     private Piloto piloto;
     private Campeonato campeonato;
     private TabelaPiloto tabelaPiloto;
 
-    public CriarCorrida(Piloto piloto, Campeonato campeonato, GerenciarCampeonato gerenciarCampeonato) {
+    public GerenciarCorrida(Piloto piloto, Campeonato campeonato, GerenciarCampeonato gerenciarCampeonato) {
 
         this.piloto = piloto;
         this.gerenciarCampeonato = gerenciarCampeonato;
@@ -186,19 +186,19 @@ public class CriarCorrida extends JFrame implements ActionListener {
         logo.setBounds(20, 30, 700, 35);
         logo.setText("GERENCIAR CORRIDAS");
         logo.setFont(Fonts.SANSSERIFMIN);
+
         try {
-            
-            for (Kartodromo tipo : new KartodromoBO().listarTodos()) {
-                comboNomeKartodromo.addItem(tipo.getNomeKartodromo());
+            for (Kartodromo kartodromo : new KartodromoBO().listarTodos()) {
+                comboNomeKartodromo.addItem(kartodromo.getNomeKartodromo());
             }
-        } catch (Exception error) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível carregar a tela criar campeonato");
         }
-        
+
         if (kartodromo == null) {
             mudarCombo();
         }
-        
+
         comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
         comboTipoDeKart.setBounds(300, 200, 150, 35);
 
@@ -209,7 +209,6 @@ public class CriarCorrida extends JFrame implements ActionListener {
         comboNomeKartodromo.setBounds(300, 140, 150, 35);
 
         comboNomeKartodromo.addItemListener(new ItemListener() {
-
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -241,7 +240,7 @@ public class CriarCorrida extends JFrame implements ActionListener {
 
         lblNomeDaCorrida.setText("Nome da corrida");
         lblNomeDaCorrida.setBounds(30, 100, 200, 35);
-        
+
         lblenderecokartodromo.setBounds(480, 195, 250, 60);
 
         btnVoltar.setText("SALVAR / DESCARTAR");
@@ -261,9 +260,9 @@ public class CriarCorrida extends JFrame implements ActionListener {
         btnRemoverCorrida.addActionListener(this);
         btnRemoverCorrida.setText("REMOVER CORRIDA");
         btnRemoverCorrida.setBounds(380, 550, 160, 35);
-        
-        if(!gerenciarCampeonato.getCorridaList().isEmpty()){
-            for(Corrida corrida : gerenciarCampeonato.getCorridaList()){
+
+        if (!gerenciarCampeonato.getCorridaList().isEmpty()) {
+            for (Corrida corrida : gerenciarCampeonato.getCorridaList()) {
                 tabelaPiloto.addRow(corrida);
             }
             gerenciarCampeonato.setCorridaList(null);
@@ -280,13 +279,14 @@ public class CriarCorrida extends JFrame implements ActionListener {
                     "Deseja salvar alterações?",
                     "Salvar",
                     JOptionPane.YES_NO_OPTION) == 0) {
+
                 this.dispose();
-                
                 gerenciarCampeonato.setCampeonato(campeonato);
                 gerenciarCampeonato.setCorridaList(tabelaPiloto.getListCorrida());
                 gerenciarCampeonato.getBtnCriarCampeonato().setEnabled(true);
                 gerenciarCampeonato.getBtnCriarCampeonato().setVisible(true);
                 gerenciarCampeonato.setVisible(true);
+
             } else {
                 this.dispose();
                 gerenciarCampeonato.setVisible(true);
@@ -295,24 +295,23 @@ public class CriarCorrida extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnCriarCorrida) {
-            if(tabelaPiloto.getRowCount() > 10){
-                JOptionPane.showMessageDialog(null, "Um campeonato não pede ter mais que 10 Corridas ao mesmo tempo!");
-                return;
-            }
-            Corrida corrida = new Corrida();
-            corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
+
             try {
+                Corrida corrida = new Corrida();
+                corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
                 corrida.setKartodromo(new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1));
-            } catch (Exception ex) {
+                corrida.setNomeCorrida(textFieldNomeCorrida.getText());
+                corrida.setNumeroDeVoltas(Integer.valueOf(textFieldVoltasDaCorrida.getText()));
+                CorridaBO corridaBO = new CorridaBO();
+                if (corridaBO.validaTabelaPiloto(tabelaPiloto)) {
+                    if (corridaBO.valida(corrida)) {
+                        tabelaPiloto.addRow(corrida);
+                    }
+                }
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error.getMessage());
             }
-            corrida.setNomeCorrida(textFieldNomeCorrida.getText());
-            corrida.setNumeroDeVoltas(Integer.valueOf(textFieldVoltasDaCorrida.getText()));
-            if(corrida.getNumeroDeVoltas() < 10){
-                tabelaPiloto.addRow(corrida);
-            }else{
-                JOptionPane.showMessageDialog(null, "Uma corrida não pode conter mais que 10 voltas!");
-            }
-            
+
         }
 
         if (e.getSource() == btnRemoverCorrida) {
@@ -322,14 +321,14 @@ public class CriarCorrida extends JFrame implements ActionListener {
         }
 
     }
-    
-        private void mudarCombo() {
+
+    private void mudarCombo() {
 
         try {
 
             kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
             comboTipoDeKart.removeAllItems();
-            lblenderecokartodromo.setText("<html>Endereço: " + kartodromo.getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>" );
+            lblenderecokartodromo.setText("<html>Endereço: " + kartodromo.getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
 
             if (kartodromo.isKartIndoor()) {
                 comboTipoDeKart.addItem("INDOOR");

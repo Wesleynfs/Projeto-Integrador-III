@@ -3,15 +3,13 @@ package View;
 
 import Bo.CampeonatoBO;
 import Bo.CorridaBO;
-import Bo.KartodromoBO;
 import Bo.PilotoParticipandoCampeonatoBO;
-import Bo.Pontuacao_posicaoBO;
+import Bo.PontuacaoPosicaoBO;
 import Model.Campeonato;
 import Model.Corrida;
-import Model.Kartodromo;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
-import Model.Pontuacao_posicao;
+import Model.PontuacaoPosicao;
 import Utilities.Colors;
 
 import Utilities.Fonts;
@@ -20,8 +18,6 @@ import Utilities.Tempo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -49,7 +45,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JButton btnCriarCampeonato;
     private JButton btnAdicionarCorrida;
     private DefaultTableModel tabelamento;
-    
+
     private List<Corrida> corridaList;
 
     public List<Corrida> getCorridaList() {
@@ -184,7 +180,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             lblpontuacoes.setForeground(Colors.CINZALIGHTB);
             tipocorridaLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            lblinfoPiloto.setForeground(Colors.CINZALIGHTB); 
+            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
@@ -227,15 +223,12 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoCampeonato.setBorder(BorderFactory.createEmptyBorder());
         comboTipoCampeonato.setBounds(60, 280, 300, 35);
 
-
-
         comboTipoCampeonato.addItem("CAMPEONATO NORMAL (CORRIDA RÁPIDA)");
         comboTipoCampeonato.addItem("CAMPEONATO OFICIAL (VALE PONTUAÇÕES)");
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
         logo.setFont(Fonts.SANSSERIFMIN);
-
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
@@ -255,44 +248,44 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnAdicionarCorrida.addActionListener(this);
         btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
         btnAdicionarCorrida.setBounds(100, 400, 190, 35);
-        
-        lblinfoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-        + "APELIDO: "+piloto.getApelido()+ "<br/>"
-        + "NÍVEL: "+piloto.getNivel() + "<br/>"
-        +"</html>");
-        lblinfoPiloto.setBounds(10,110,200,90);
-        
+
+        lblinfoPiloto.setBounds(10, 105, 200, 90);
+        lblinfoPiloto.setText("<html>NOME: " + piloto.getNomePiloto().toUpperCase() + "<br/>"
+                + "APELIDO: " + piloto.getApelido().toUpperCase() + "<br/>"
+                + "NÍVEL: " + piloto.getNivel() + "<br/>"
+                + "</html>");
+
         table.setModel(new DefaultTableModel(
-                    new Object[][]{
+                new Object[][]{
 
-                    },
-                    new String[]{
-                            "Posição", "VALOR"
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                        false, true
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit[columnIndex];
+                },
+                new String[]{
+                        "Posição", "Valor"
                 }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                    false, true
+            };
 
-            });
-
-            tabelamento = (DefaultTableModel) table.getModel();
-            for(int posicao = 1; posicao <= 10; posicao++){
-                tabelamento.addRow(new Object[]{
-                        posicao,
-                        11 - posicao//por padrão uma pontuação que o piloto pode mudar
-                });
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
             }
-            
-            scroll.setViewportView(table);
-            scroll.setBounds(400, 220, 230, 180);
-            
-            lblpontuacoes.setText("<html>Informe as Pontuações das 10 primeiras posições:</html>");
-            lblpontuacoes.setBounds(400, 160, 240, 60);
+
+        });
+
+        tabelamento = (DefaultTableModel) table.getModel();
+        for (int posicao = 1; posicao <= 10; posicao++) {
+            tabelamento.addRow(new Object[]{
+                    posicao,
+                    11 - posicao//por padrão uma pontuação que o piloto pode mudar
+            });
+        }
+
+        scroll.setViewportView(table);
+        scroll.setBounds(400, 220, 230, 180);
+
+        lblpontuacoes.setText("<html>Informe as Pontuações das 10 primeiras posições:</html>");
+        lblpontuacoes.setBounds(400, 160, 240, 60);
 
     }
 
@@ -312,32 +305,12 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                     "Termo de responsabilidade",
                     JOptionPane.YES_NO_OPTION)) {
                 case 0:
-                    try {
-                        int verificar_consistencia = 0;
-                        for (int i = 0 ; tabelamento.getRowCount() > i; i++ ) {
-                            if(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()) > 100){
-                                JOptionPane.showMessageDialog(null,
-                                "<html>Sua pontuação está muito elevada!<br/>Use pontuações menores que 100!</html>",
-                                "Erro", JOptionPane.PLAIN_MESSAGE);
-                            }
-                            if(i == 0 ){
-                                verificar_consistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
-                                continue;
-                            }
-                            if(verificar_consistencia < Integer.valueOf(tabelamento.getValueAt(i, 1).toString())){
-                                JOptionPane.showMessageDialog(null,
-                                "<html>Sua pontuação está incoerente!<br/>Coloque em ordem do maior para menor</html>",
-                                "Erro", JOptionPane.PLAIN_MESSAGE);
-                                return;
-                            }
-                            verificar_consistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
-                        }
 
+                    try {
+                        new CampeonatoBO().validarTabelaPontuacaoCampeonato(tabelamento);
                     } catch (Exception err) {
-                        JOptionPane.showMessageDialog(null,
-                                "<html>Sua pontuação está com informações inválidas!<br/>Coloque apenas números inteiros</html>",
+                        JOptionPane.showMessageDialog(null, err.getMessage(),
                                 "Erro", JOptionPane.PLAIN_MESSAGE);
-                        return;
                     }
 
                     campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
@@ -345,7 +318,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                     campeonato.setSituacao("Aguardando Participantes");
                     campeonato.setTipoCorrida(comboTipoCampeonato.getSelectedItem().toString());
                     campeonato.setDataCadastro(Tempo.getCurrentTime());
-                    
+
                     PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
 
                     pilotoadm.setPiloto(piloto);
@@ -353,26 +326,26 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                     pilotoadm.setCampeonato(campeonato);
                     pilotoadm.setPontuacao(0);
                     pilotoadm.setPosicao(0);
- 
+
                     try {
 
                         new CampeonatoBO().criar(campeonato);
-                        
+
                         try {
 
-                        Pontuacao_posicaoBO pontuacao_posicaobo = new Pontuacao_posicaoBO(); 
-                        for (int i = 0 ; tabelamento.getRowCount() > i; i++ ) {
-                                Pontuacao_posicao pontuacao_posicao = new Pontuacao_posicao();     
-                                pontuacao_posicao.setPontuacao(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()));
-                                pontuacao_posicao.setPosicao(Integer.valueOf(tabelamento.getValueAt(i, 0).toString()));
-                                pontuacao_posicao.setCampeonato(campeonato);
-                                System.out.println(pontuacao_posicao.getPontuacao()+" / "+ pontuacao_posicao.getPosicao());
-                                pontuacao_posicaobo.criar(pontuacao_posicao);
-                        }
+                            PontuacaoPosicaoBO pontuacaoPosicaoBo = new PontuacaoPosicaoBO();
+                            for (int i = 0; tabelamento.getRowCount() > i; i++) {
+                                PontuacaoPosicao pontuacaoPosicao = new PontuacaoPosicao();
+                                pontuacaoPosicao.setPontuacao(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()));
+                                pontuacaoPosicao.setPosicao(Integer.valueOf(tabelamento.getValueAt(i, 0).toString()));
+                                pontuacaoPosicao.setCampeonato(campeonato);
+                                System.out.println(pontuacaoPosicao.getPontuacao() + " / " + pontuacaoPosicao.getPosicao());
+                                pontuacaoPosicaoBo.criar(pontuacaoPosicao);
+                            }
 
                         } catch (Exception err) {
                             JOptionPane.showMessageDialog(null,
-                                    err,"Erro", JOptionPane.PLAIN_MESSAGE);
+                                    err, "Erro", JOptionPane.PLAIN_MESSAGE);
                         }
 
                         CorridaBO corridabo = new CorridaBO();
@@ -391,21 +364,18 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
                     dispose();
                     new PerfilPiloto(piloto);
-
                     break;
-                    
+
                 default: JOptionPane.showMessageDialog(null, "Ação cancelada! retornando ao menu principal!");
             }
 
         }
 
         if (e.getSource() == btnAdicionarCorrida) {
-
             campeonato.setNome(textFieldNomeCampeonato.getText());
             campeonato.setDataFinalizacao(Tempo.stringToDate(textFieldDataFinalCampeonato.getText()));
-
             this.setVisible(false);
-            new CriarCorrida(piloto, campeonato, this);
+            new GerenciarCorrida(piloto, campeonato, this);
         }
 
     }

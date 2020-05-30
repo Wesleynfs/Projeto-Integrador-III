@@ -5,6 +5,8 @@ import Model.Campeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public class CampeonatoBO implements GenericBO<Campeonato>{
@@ -101,13 +103,38 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarPorData();
     }
+
     public List<Campeonato> listarPorNome() throws Exception {
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarPorNome();
     }
+
     public List<Campeonato> listarPorKartodromo() throws Exception {
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarPorKartodromo();
     }
+
+    public boolean validarTabelaPontuacaoCampeonato(DefaultTableModel tabelamento) {
+        int verificarConsistencia = 0;
+        for (int i = 0 ; tabelamento.getRowCount() > i; i++ ) {
+            if(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()) > 100){
+                JOptionPane.showMessageDialog(null,
+                        "<html>Sua pontuação está muito elevada!<br/>Use pontuações menores que 100!</html>",
+                        "Erro", JOptionPane.PLAIN_MESSAGE);
+            }
+            if(i == 0){
+                verificarConsistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
+                continue;
+            }
+            if(verificarConsistencia < Integer.valueOf(tabelamento.getValueAt(i, 1).toString())){
+                JOptionPane.showMessageDialog(null,
+                        "<html>Sua pontuação está incoerente!<br/>Coloque em ordem do maior para menor</html>",
+                        "Erro", JOptionPane.PLAIN_MESSAGE);
+            }
+            verificarConsistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
+        }
+        return true;
+    }
+
 }
 

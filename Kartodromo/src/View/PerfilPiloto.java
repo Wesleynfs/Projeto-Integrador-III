@@ -34,8 +34,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneCorridasParticipando;
     private JTable tableCorridasParticipando;
     private DefaultTableModel tabelamento;
-    JTableHeader headerTabelaCorridasParticipando;
-    JTableHeader headerTabelaTodasAsCorridasMarcadas;
+    private JTableHeader headerTabelaCorridasParticipando;
+    private JTableHeader headerTabelaTodasAsCorridasMarcadas;
 
     private String nivel_elo;
 

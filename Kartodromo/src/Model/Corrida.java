@@ -83,4 +83,15 @@ public class Corrida {
 
     }
 
+    @Override
+    public String toString() {
+        return "Corrida{" +
+                "idCorrida=" + idCorrida +
+                ", nomeCorrida='" + nomeCorrida + '\'' +
+                ", numeroDeVoltas=" + numeroDeVoltas +
+                ", tipoKart='" + tipoKart + '\'' +
+                ", campeonato=" + campeonato +
+                ", kartodromo=" + kartodromo +
+                '}';
+    }
 }

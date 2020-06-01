@@ -1,27 +1,37 @@
 package Utilities;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 public class Tempo {
 
-    public static Timestamp getCurrentTime() {
+    public static Date getCurrentDate() {
         try {
-            return new Timestamp(System.currentTimeMillis());
+            return new Date(new java.util.Date().getTime());
+        } catch (Exception e) {
+            System.out.println("Não foi possivel pegar a data do sistema");
+            return null;
+        }
+    }
+
+    public static Time getCurrentTime() {
+        try {
+            return new Time(new java.util.Date().getTime());
         } catch (Exception e) {
             System.out.println("Não foi possivel pegar horario do sistema");
             return null;
         }
     }
 
-    public static java.sql.Date stringToDate(String data) {
+    public static Date stringToDate(String data) {
         try {
-            return java.sql.Date.valueOf(LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            return Date.valueOf(LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         } catch (Exception e) {
-            return java.sql.Date.valueOf(LocalDate.parse("01/01/1000", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            return Date.valueOf(LocalDate.parse("01/01/1000", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         }
     }
 

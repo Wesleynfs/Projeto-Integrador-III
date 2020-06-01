@@ -5,8 +5,6 @@ import Model.Piloto;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PilotoBO implements GenericBO<Piloto>{
 
@@ -97,7 +95,7 @@ public class PilotoBO implements GenericBO<Piloto>{
         if (o.getDataNascimentoPiloto().toString().equals("  /  /     ")) {
             throw new Exception("Data do piloto não pode ficar em branco!");
         }
-        if (!ValidarString.isData(o.getDataNascimentoPiloto().toString())) {
+        if (!ValidarString.isDataPadraoEUA(o.getDataNascimentoPiloto().toString())) {
             throw new Exception("Data do piloto deve possuir os 4 digitos do ano, verifique-a novamente!");
         }
         if (!o.getDataNascimentoPiloto().before(new Date(System.currentTimeMillis()))) {

@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,7 +13,7 @@ public class Campeonato {
     private int idCampeonato;
 
     private String nome;
-    private Timestamp dataCadastro;
+    private Date dataCadastro;
     private String situacao;
     private String tipoCorrida;
     private Date dataFinalizacao;
@@ -33,22 +34,19 @@ public class Campeonato {
         this.idCampeonato = idCampeonato;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() { return nome; }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public Timestamp getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Timestamp dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-
 
     public String getTipoCorrida() {
         return tipoCorrida;
@@ -66,7 +64,7 @@ public class Campeonato {
         this.dataFinalizacao = dataFinalizacao;
     }
     
-    public Campeonato(int idCampeonato, String nome, Timestamp dataCadastro, int totalCorridas, String situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Kartodromo kartodromo) {
+    public Campeonato(int idCampeonato, String nome, Date dataCadastro, int totalCorridas, String situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Kartodromo kartodromo) {
         this.idCampeonato = idCampeonato;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
@@ -79,4 +77,15 @@ public class Campeonato {
 
     }
 
+    @Override
+    public String toString() {
+        return "Campeonato{" +
+                "idCampeonato=" + idCampeonato +
+                ", nome='" + nome + '\'' +
+                ", dataCadastro=" + dataCadastro +
+                ", situacao='" + situacao + '\'' +
+                ", tipoCorrida='" + tipoCorrida + '\'' +
+                ", dataFinalizacao=" + dataFinalizacao +
+                '}';
+    }
 }

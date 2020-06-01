@@ -76,7 +76,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
     
     @Override
     public boolean valida(Campeonato o) throws Exception {
-
         if (o.getNome().equals("")) {
             throw new Exception("Nome do Campeonato não pode ficar em branco!");
         }

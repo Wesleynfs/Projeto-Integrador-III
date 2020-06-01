@@ -21,28 +21,24 @@ public class Piloto implements Serializable {
     private int numeroDeStrikesPiloto;
     private int nivel;
     private int pontuacao_nivel;
+    private Date dataNascimentoPiloto;
+    private boolean ativo;
+
+    public void setPontuacao_nivel(int pontuacao_nivel) {
+        this.pontuacao_nivel = pontuacao_nivel;
+    }
 
     public int getPontuacao_nivel() {
         return pontuacao_nivel;
     }
 
-    public void setPontuacao_nivel(int pontuacao_nivel) {
-        this.pontuacao_nivel = pontuacao_nivel;
-    }
-    private Date dataNascimentoPiloto;
-    private boolean ativo;
-
     public int getIdPiloto() {
         return idPiloto;
     }
 
-    public void setIdPiloto(int idPiloto) {
-        this.idPiloto = idPiloto;
-    }
+    public void setIdPiloto(int idPiloto) { this.idPiloto = idPiloto; }
 
-    public String getNomePiloto() {
-        return nomePiloto;
-    }
+    public String getNomePiloto() { return nomePiloto; }
 
     public void setNomePiloto(String nomePiloto) {
         this.nomePiloto = nomePiloto;
@@ -60,9 +56,7 @@ public class Piloto implements Serializable {
         return senhaPiloto;
     }
 
-    public void setSenhaPiloto(String senhaPiloto) {
-        this.senhaPiloto = senhaPiloto;
-    }
+    public void setSenhaPiloto(String senhaPiloto) { this.senhaPiloto = senhaPiloto; }
 
     public String getCpfPiloto() {
         return cpfPiloto;
@@ -129,4 +123,20 @@ public class Piloto implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Piloto{" +
+                "idPiloto=" + idPiloto +
+                ", nomePiloto='" + nomePiloto + '\'' +
+                ", apelido='" + apelido + '\'' +
+                ", senhaPiloto='" + senhaPiloto + '\'' +
+                ", cpfPiloto='" + cpfPiloto + '\'' +
+                ", emailPiloto='" + emailPiloto + '\'' +
+                ", numeroDeStrikesPiloto=" + numeroDeStrikesPiloto +
+                ", nivel=" + nivel +
+                ", pontuacao_nivel=" + pontuacao_nivel +
+                ", dataNascimentoPiloto=" + dataNascimentoPiloto +
+                ", ativo=" + ativo +
+                '}';
+    }
 }

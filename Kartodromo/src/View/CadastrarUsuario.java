@@ -1,6 +1,7 @@
 package View;
 
 import Bo.PilotoBO;
+import Bo.ValidarString;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
@@ -282,8 +283,8 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
         Piloto piloto = new Piloto();
         piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
         piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
-        piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase());
-        piloto.setApelido(apelidoJTextField.getText().toLowerCase());
+        piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase().replaceAll(" " , ""));
+        piloto.setApelido(apelidoJTextField.getText().toLowerCase().replaceAll(" " , ""));
         piloto.setAtivo(true);
         piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());
         piloto.setDataNascimentoPiloto(Tempo.stringToDate(dataNascJTextField.getText()));

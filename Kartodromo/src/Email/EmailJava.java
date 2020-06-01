@@ -24,8 +24,7 @@ public class EmailJava {
     public boolean recuperarEmail(String email) throws Exception {
          return enviarEmailGmail(new StringBuilder(email),
                 "Recuperar senha 'KART ON ROAD'",
-                "Seu Email é: [" + email +
-                        "] Essa é sua nova senha (sem aspas) -> 'kart'" +
+                "Seu Email é: [" + email + "] Essa é sua nova senha (sem aspas) -> 'kart'" +
                         " Vá em 'GERENCIAR PILOTO' então altere sua senha para efetuar um login novamente! ");
     }
 

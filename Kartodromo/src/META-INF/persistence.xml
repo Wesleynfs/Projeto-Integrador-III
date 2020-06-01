@@ -12,6 +12,7 @@
     <class>Model.Kartodromo</class>
     <class>Model.Piloto</class>
     <class>Model.PilotoParticipandoCampeonato</class>
+    <class>Model.PontuacaoPosicao</class>
     <!--  -->
     <class>View.CadastrarKartodromo</class>
     <properties>

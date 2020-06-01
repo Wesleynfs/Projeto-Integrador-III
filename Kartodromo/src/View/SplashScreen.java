@@ -45,7 +45,7 @@ public class SplashScreen extends JFrame {
         try {
             Thread.sleep(5000);
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
         this.dispose();
         new LoginFrame();
@@ -63,16 +63,12 @@ public class SplashScreen extends JFrame {
     }
 
     private void configs() {
-
         connectingLabel.setText("Conectando...");
         connectingLabel.setBounds(290,270,160,30);
-
-        logo.setText("Kart on Road");
+        logo.setText("KART ON ROAD");
         logo.setFont(Fonts.SANSSERIF);
         logo.setBounds(30,30,400,50);
-
         loadingBar.setBounds(250,300,160,30);
-
         background.setBounds(0,0,640,360);
     }
 

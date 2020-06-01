@@ -25,8 +25,12 @@ public class ValidarString {
         return Pattern.compile("[0-9]").matcher(texto).find();
     }
 
-    public static boolean isData(String texto) {
+    public static boolean isDataPadraoEUA(String texto) {
         return Pattern.compile("^(19|20)\\d\\d[--.](0[1-9]|1[012])[--.](0[1-9]|[12][0-9]|3[01])").matcher(texto).find();
+    }
+
+    public static boolean isDataPadraoBRA(String texto) {
+        return Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\\d\\d").matcher(texto).find();
     }
 
     public static boolean isApenasLetras(String texto) {

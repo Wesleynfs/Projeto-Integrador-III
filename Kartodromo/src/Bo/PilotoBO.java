@@ -119,7 +119,12 @@ public class PilotoBO implements GenericBO<Piloto>{
             return true;
         }
     }
-
+    
+    public Piloto listarporapelido(String apelido) throws Exception{
+        pilotoDAO = new PilotoDAO();
+        return pilotoDAO.listarporapelido(apelido);
+    }
+        
     public boolean validaLogin(Piloto o) throws Exception {
         if (o.getEmailPiloto().isEmpty()) {
             throw new Exception("Email em branco!");

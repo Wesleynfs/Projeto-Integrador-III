@@ -95,6 +95,18 @@ public class PilotoDAO implements GenericDAO<Piloto> {
             entityManager.close();
         }
     }
+    
+    public Piloto listarporapelido(String apelido) throws Exception {
+        try {
+            Query query = entityManager.createQuery("SELECT p FROM Piloto p where p.apelido = :apelido").setParameter("apelido", apelido);
+            List<Piloto> list = query.getResultList();
+            return list.get(0);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
     @Override
     public Piloto getById(int id) throws Exception {

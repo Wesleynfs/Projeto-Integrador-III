@@ -1,7 +1,9 @@
 package View;
 
 import Bo.CampeonatoBO;
+import Bo.ConviteCampeonatoBO;
 import Bo.CorridaBO;
+import Bo.PilotoBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Bo.PontuacaoPosicaoBO;
 import Model.*;
@@ -14,6 +16,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements ActionListener {
@@ -25,12 +28,14 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private JButton btnFinalizar;
     private JFrame retornarPara;
     private Piloto piloto;
-    private JScrollPane scroll;
-    private TabelaNotificarPilotos tabelaNotificarPilotos;
+    private JButton btnConvidarPiloto;
+    private JComboBox<Object> piloto_convidarjComboBox;
+    
     private Campeonato campeonato;
     private DefaultTableModel tabelamento;
     private List<Corrida> corridaList;
-
+    private List<ConviteCampeonato> convites;
+    
     public GerenciarCampeonatoAdicionarPilotos(JFrame retornarPara, Piloto piloto, Campeonato campeonato, DefaultTableModel tabelamento, List<Corrida> corridaList) {
 
         this.retornarPara = retornarPara;
@@ -38,7 +43,6 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         this.campeonato = campeonato;
         this.tabelamento = tabelamento;
         this.corridaList = corridaList;
-
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -53,7 +57,9 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     }
 
     private void add() {
+        add(btnConvidarPiloto);
         add(btnVoltar);
+        add(piloto_convidarjComboBox);
         add(btnFinalizar);
         add(logo);
         add(drawer);
@@ -61,12 +67,15 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     }
 
     private void initializate() {
-        scroll = new JScrollPane();
         fundo = new JPanel();
         logo = new JLabel();
         drawer = new JPanel();
         btnVoltar = new JButton();
+        btnConvidarPiloto = new JButton();
         btnFinalizar = new JButton();
+        piloto_convidarjComboBox = new JComboBox();
+        
+       convites = new ArrayList<>();
     }
 
     private void setTheme() {
@@ -77,16 +86,24 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
+            piloto_convidarjComboBox.setBackground(Colors.CINZALIGHTB);
+            piloto_convidarjComboBox.setForeground(Colors.BRANCO);
             btnFinalizar.setBackground(Colors.VERDEDARK);
             btnFinalizar.setForeground(Colors.CINZADARKB);
+            btnConvidarPiloto.setBackground(Colors.VERDEDARK);
+            btnConvidarPiloto.setForeground(Colors.CINZADARKB);
         } else {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
+            piloto_convidarjComboBox.setForeground(Colors.CINZADARKA);
+            piloto_convidarjComboBox.setBackground(Colors.CINZALIGHTB);
             btnFinalizar.setBackground(Colors.VERDEDARK);
             btnFinalizar.setForeground(Colors.CINZADARKB);
+            btnConvidarPiloto.setBackground(Colors.VERDEDARK);
+            btnConvidarPiloto.setForeground(Colors.CINZADARKB);
         }
     }
 
@@ -106,11 +123,31 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         btnFinalizar.setFocusPainted(false);
         btnFinalizar.addActionListener(this);
         btnFinalizar.setBounds(680, 550, 100, 35);
-
+        
+        btnConvidarPiloto.setText("CONVIDAR PILOTO");
+        btnConvidarPiloto.setBorderPainted(false);
+        btnConvidarPiloto.addActionListener(this);
+        btnConvidarPiloto.setFocusPainted(false);
+        btnConvidarPiloto.setBounds(325, 550, 150, 35);
+                
+        piloto_convidarjComboBox.setBorder(BorderFactory.createEmptyBorder());
+        piloto_convidarjComboBox.setBounds(300, 300, 200, 40);
+                
         logo.setBounds(20, 30, 700, 35);
         logo.setText("GERENCIAR PILOTOS");
         logo.setFont(Fonts.SANSSERIFMIN);
-
+        
+        try {
+            piloto_convidarjComboBox.removeAllItems();
+            for(Piloto pilotos : new PilotoBO().listarTodos()){
+               if(pilotos.getIdPiloto() != piloto.getIdPiloto()){
+                    piloto_convidarjComboBox.addItem(pilotos.getApelido());
+                } 
+            }
+            
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
+        }
     }
 
     private void configurateThis() {
@@ -131,6 +168,26 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
             dispose();
             this.retornarPara.setVisible(true);
         }
+        
+            if (e.getSource() == btnConvidarPiloto) {
+                try {
+        
+                    
+                    Piloto piloto_convidado = new PilotoBO().listarporapelido(piloto_convidarjComboBox.getSelectedItem().toString());
+                    ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
+                    conviteCampeonato.setPilotoQueConvidou(piloto);
+                    conviteCampeonato.setCampeonato(campeonato);
+                    conviteCampeonato.setPilotoConvidado(piloto_convidado);
+                    conviteCampeonato.setStatusConvite("Não respondido");
+                    convites.add(conviteCampeonato);
+                 System.out.println("msdkhhhhhhhhhhhhhhhhhhhhlllljsol");
+                    piloto_convidarjComboBox.removeItemAt(piloto_convidarjComboBox.getSelectedIndex());
+                    JOptionPane.showMessageDialog(null, "Convite enviado ao piloto: "+piloto_convidado.getApelido());
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível enviar o convite");
+                }
+        }
+        
 
         if (e.getSource() == btnFinalizar) {
 
@@ -138,6 +195,18 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
 
             try {
                 new CampeonatoBO().criar(campeonato);
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err.getMessage());
+            }
+            //criar convites //
+            
+            try {
+                for (ConviteCampeonato conviteCampeonato : convites){
+                    if(new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false){
+                        
+                        new ConviteCampeonatoBO().criar(conviteCampeonato);
+                    }
+                }
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err.getMessage());
             }

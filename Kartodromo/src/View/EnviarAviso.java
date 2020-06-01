@@ -1,6 +1,9 @@
 package View;
 
+import Bo.AvisoCampeonatoBO;
+import Bo.PilotoParticipandoCampeonatoBO;
 import Model.AvisoCampeonato;
+import Model.Campeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
@@ -26,11 +29,11 @@ public class EnviarAviso extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JButton btnEnviar;
     private JLabel infoPiloto;
-
+    private Campeonato campeonato;
     private Piloto piloto;
 
-    public EnviarAviso(Piloto piloto) {
-
+    public EnviarAviso(Piloto piloto, Campeonato campeonato) {
+        this.campeonato = campeonato;
         this.piloto = piloto;
 
         // Instancia de itens //
@@ -130,14 +133,14 @@ public class EnviarAviso extends JFrame implements ActionListener {
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
 
-        relatoLabel.setText("AVISO DO PILOTO ADM: NOME DO PILOTO");
+        relatoLabel.setText("AVISO DO PILOTO ADM: "+piloto.getApelido());
         relatoLabel.setBounds(280, 150, 300, 35);
 
         contextojScrollPane.setBorder(BorderFactory.createEmptyBorder());
         contextojScrollPane.setBounds(200, 280, 400, 240);
         contextojScrollPane.setViewportView(contextojTextPane1);
 
-        assuntoLabel.setText("AVISO DA CORRIDA: NOME DA CORRIDA");
+        assuntoLabel.setText("AVISO DO CAMPEONATO: "+campeonato.getNome());
         assuntoLabel.setBounds(280, 200, 300, 35);
 
         contextoLabel.setText("CONTEXTO DO AVISO:");
@@ -176,16 +179,19 @@ public class EnviarAviso extends JFrame implements ActionListener {
 
         if (e.getSource() == btnEnviar) {
             try {
-
-                AvisoCampeonato avisoCampeonato = new AvisoCampeonato();
-                avisoCampeonato.setAviso(contextojTextPane1.getText());
-                //avisoCampeonato.setCampeonato();
-                avisoCampeonato.setPiloto(piloto);
-                avisoCampeonato.setStatusAviso("ATIVO");
-
-                // TERMINAR DE FAZER ESTA PARTE //
-
+                for(PilotoParticipandoCampeonato pilotos : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)){
+                    AvisoCampeonato avisoCampeonato = new AvisoCampeonato();
+                    avisoCampeonato.setAviso(contextojTextPane1.getText());
+                    avisoCampeonato.setCampeonato(campeonato);
+                    avisoCampeonato.setPilotoqueenviou(piloto);
+                    avisoCampeonato.setStatusAviso("Não vizualizado");
+                    avisoCampeonato.setPilotos(pilotos.getPiloto());
+                    new AvisoCampeonatoBO().criar(avisoCampeonato);
+                }
                 JOptionPane.showMessageDialog(null, "Aviso enviado aos outros piltos!");
+                
+                dispose();
+                new VerificarCampeonatos(piloto);
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Não foi possível enviar o aviso");
             }

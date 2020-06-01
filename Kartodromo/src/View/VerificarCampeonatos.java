@@ -1,5 +1,11 @@
 package View;
 
+import Bo.CampeonatoBO;
+import Bo.ConviteCampeonatoBO;
+import Bo.PilotoBO;
+import Bo.PilotoParticipandoCampeonatoBO;
+import Model.Campeonato;
+import Model.ConviteCampeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
@@ -11,9 +17,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class VerificarCorrida extends JFrame implements ActionListener, ItemListener {
+public class VerificarCampeonatos extends JFrame implements ActionListener{
 
     private JPanel fundo;
     private JPanel drawer;
@@ -37,7 +46,7 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
 
     private Piloto piloto;
 
-    public VerificarCorrida(Piloto piloto) {
+    public VerificarCampeonatos(Piloto piloto) {
 
         this.piloto = piloto;
 
@@ -190,11 +199,11 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
 
                     },
                     new String[]{
-                            "NOME DA CORRIDA", "KARTODROMO", "TIPO DE KART", "DATA", "ENDEREÇO"
+                            "CAMPEONATO", "DATA", "TOTAL DE PARTICIPANTES"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false, false
+                        false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -205,24 +214,31 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "Test",
-                    "test1",
-                    "test2",
-                    "test3",
-                    "test4"
-            });
+            PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO = new PilotoParticipandoCampeonatoBO();
 
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //                class.tipo,
-            //                class.data
-            //            });
-            //
-            //          }
-
+            try {
+                List<PilotoParticipandoCampeonato> listaCampeonatoDoPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(piloto);
+                if (listaCampeonatoDoPiloto.isEmpty()) {
+                    tabelamento.addRow(new Object[]{
+                            "Nem um campeonato na lista!"
+                    });
+                } else {
+                    for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
+                        corridas_participandojComboBox.addItem(list.getCampeonato().getNome());
+                        List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
+                        tabelamento.addRow(new Object[]{
+                                list.getCampeonato().getNome(),
+                                list.getCampeonato().getDataFinalizacao(),
+                                listaTotalPiloto.size()
+                        });
+                    }
+                    mudarComboConvites();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            
+            
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 200);
 
@@ -247,8 +263,8 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
             tornarAdm.setBounds(340, 400, 140, 30);
             tornarAdm.setText("Ser Administrador");
             tornarAdm.setFocusPainted(false);
-            tornarAdm.addItemListener(this);
-
+            tornarAdm.addActionListener(this);
+            
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20, 30, 500, 35);
             logo.setText("VERIFICAR CORRIDAS");
@@ -260,23 +276,11 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
             corridas_participandoLabel.setText("Campeonatos:");
 
             corridas_participandojComboBox.setBorder(BorderFactory.createEmptyBorder());
-            corridas_participandojComboBox.setBounds(540, 400, 200, 35);
-
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c : dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c.nome_corrida);
-//        }
-
+            corridas_participandojComboBox.setBounds(60, 400, 200, 35);
+            
             piloto_convidarjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            piloto_convidarjComboBox.setBounds(60, 400, 200, 35);
-
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c:dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c.nome_corrida);
-//        }
-
-//          if(piloto for adm então){
-
+            piloto_convidarjComboBox.setBounds(540, 400, 200, 35);
+            
             se_e_piloto_admLabel.setBounds(600, 120, 200, 30);
             se_e_piloto_admLabel.setText("Você é um piloto ADM");
 
@@ -300,9 +304,16 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
             btnIniciarCorrida.addActionListener(this);
             btnIniciarCorrida.setBounds(300, 500, 200, 35);
             btnIniciarCorrida.setText("Iniciar Corrida");
-
-//          }
-
+            
+            corridas_participandojComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    mudarComboConvites();
+                }
+            }
+            });
+    
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -313,11 +324,40 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnDesinscrever) {
             try {
-                //Desinscrever o piloto 
-
-
-                //
+                if (JOptionPane.showConfirmDialog(null,
+                        "você tem certeza que deseja se desincrever?",
+                        "Desincrever de Campeonato",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                        
+                        Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+                        
+                        for(PilotoParticipandoCampeonato pilotoqueparticipamcampeonatodesincrever : new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(piloto, campeonato)){
+                            new PilotoParticipandoCampeonatoBO().deletar(pilotoqueparticipamcampeonatodesincrever);
+                        }
+                        
+                        corridas_participandojComboBox.removeItemAt(corridas_participandojComboBox.getSelectedIndex());
+                       
+                    }
                 JOptionPane.showMessageDialog(null, "Desinscrição Realizada! você não participa mais dessa corrida!");
+               
+                dispose();
+                new VerificarCampeonatos(piloto);
+                
+                
+                
+                
+                //funciona kappa XD minha missão é deixar funcional 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Eita, não foi possível fazer a desinscrição!");
             }
@@ -328,18 +368,35 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
         }
         if (e.getSource() == btnConvidarPiloto) {
             try {
-                //enviar convite
-
-
-                //
-                JOptionPane.showMessageDialog(null, "Convite enviado ao piloto: NOME DO PILOTO");
+                
+                Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+        
+                Piloto piloto_convidado = new PilotoBO().listarporapelido(piloto_convidarjComboBox.getSelectedItem().toString());
+                
+                ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
+                conviteCampeonato.setCampeonato(campeonato);
+                conviteCampeonato.setPilotoQueConvidou(piloto);
+                conviteCampeonato.setPilotoConvidado(piloto_convidado);
+                conviteCampeonato.setStatusConvite("Não respondido");
+                if(new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false){
+                    new ConviteCampeonatoBO().criar(conviteCampeonato);
+                    piloto_convidarjComboBox.removeItemAt(piloto_convidarjComboBox.getSelectedIndex());
+                }
+                JOptionPane.showMessageDialog(null, "Convite enviado ao piloto: "+piloto_convidado.getApelido());
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Não foi possível enviar o convite");
             }
         }
         if (e.getSource() == btnEnviarAviso) {
-            dispose();
-            new EnviarAviso(piloto);
+            try {
+                Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+                dispose();
+                new EnviarAviso(piloto, campeonato);
+            
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível entrar em enviar aviso");
+            }
+                       
         }
         if (e.getSource() == btnVerHistorico) {
             dispose();
@@ -353,12 +410,114 @@ public class VerificarCorrida extends JFrame implements ActionListener, ItemList
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
             }
         }
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent itemEvent) {
-        if (itemEvent.getSource() == tornarAdm && tornarAdm.isSelected()) {
-
+        if (e.getSource() == tornarAdm) {
+            try {
+                if(tornarAdm.isSelected()){
+                    if (JOptionPane.showConfirmDialog(null,
+                        "você tem certeza que deseja assumir a responsabilidade de ADM?",
+                        "Termo de responsabilidade",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                        mudarstatusadm();
+                    }
+                }else{
+                    if (JOptionPane.showConfirmDialog(null,
+   
+                        "você tem certeza que deseja remover seu ADM desse campeonato?",
+                        "Remover status de ADM",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                        mudarstatusadm();
+                    }
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar status de ADM!");
+            }
+         
         }
     }
+
+    private void mudarstatusadm() throws Exception{
+        Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+        
+        List<PilotoParticipandoCampeonato> pilotoqueparticipamcampeonato = new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(piloto, campeonato);
+        
+        PilotoParticipandoCampeonato pilotoatual = pilotoqueparticipamcampeonato.get(0);
+        if(pilotoatual.isStatusAdm()){
+            pilotoatual.setStatusAdm(false);
+        }else{
+            pilotoatual.setStatusAdm(true);
+        }
+        PilotoParticipandoCampeonatoBO pilotoparticipandobo = new PilotoParticipandoCampeonatoBO();
+        
+        pilotoparticipandobo.alterar(pilotoatual);
+        
+        verificarADM(campeonato);
+        JOptionPane.showMessageDialog(null, "Status de ADM alterado!");
+    }
+    
+    private void mudarComboConvites() {
+
+        try {
+            piloto_convidarjComboBox.removeAllItems();
+            Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+            for(Piloto pilotos : new PilotoBO().listarTodos()){
+               if(pilotos.getIdPiloto() != piloto.getIdPiloto()){
+                   //remove o proprio piloto
+                   boolean pilotoparticipadocampeonato = false;
+                   for(PilotoParticipandoCampeonato pilotoqueparticipamcampeonato : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)){
+                     //remove pilotos participando desse corrida sobra todos outros kappa
+                        if(pilotoqueparticipamcampeonato.getPiloto().getIdPiloto() == pilotos.getIdPiloto()){
+                            pilotoparticipadocampeonato = true;
+                        }
+                    }
+                    ConviteCampeonato verificarsejafoiconvidado = new ConviteCampeonato();
+                    verificarsejafoiconvidado.setCampeonato(campeonato);
+                    verificarsejafoiconvidado.setPilotoConvidado(pilotos);
+                    if(pilotoparticipadocampeonato == false && new ConviteCampeonatoBO().verificarConviteExistente(verificarsejafoiconvidado) == false){
+                       piloto_convidarjComboBox.addItem(pilotos.getApelido());
+                    }
+                } 
+            }
+            verificarADM(campeonato);
+            
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
+        }
+        
+    }
+    private void verificarADM(Campeonato campeonato) throws Exception{
+            List <PilotoParticipandoCampeonato> lista = new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(piloto, campeonato);
+            PilotoParticipandoCampeonato pilotoparticipando = lista.get(0);
+            if(pilotoparticipando.isStatusAdm()){
+                se_e_piloto_admLabel.setText("Você é um piloto ADM");
+
+                convidar_pilotoLabel.setVisible(true);
+
+                btnConvidarPiloto.setVisible(true);
+
+                btnEnviarAviso.setVisible(true);
+
+                btnIniciarCorrida.setVisible(true);
+                
+                piloto_convidarjComboBox.setVisible(true);
+                
+                tornarAdm.setSelected(true);
+
+            }else{
+                se_e_piloto_admLabel.setText("Você é não um piloto ADM");
+
+                convidar_pilotoLabel.setVisible(false);
+
+                btnConvidarPiloto.setVisible(false);
+
+                btnEnviarAviso.setVisible(false);
+
+                btnIniciarCorrida.setVisible(false);
+                
+                piloto_convidarjComboBox.setVisible(false);
+                
+                tornarAdm.setSelected(false);
+            
+            }
+    }
+    
 }

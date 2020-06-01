@@ -77,6 +77,22 @@ public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
             entityManager.close();
         }
     }
+    
+    public boolean verificarConviteExistente(ConviteCampeonato o) throws Exception {
+        try {
+            List <ConviteCampeonato> list = entityManager.createQuery("SELECT c FROM ConviteCampeonato c where c.campeonato = :campeonato AND c.pilotoConvidado = :piloto")
+                    .setParameter("piloto", o.getPilotoConvidado())
+                    .setParameter("campeonato", o.getCampeonato())
+                    .getResultList();
+
+            return !list.isEmpty();
+            
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
     @Override
     public List<ConviteCampeonato> listarTodos() throws Exception {
@@ -104,7 +120,7 @@ public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
             return entityManager.createQuery
         ("SELECT c FROM ConviteCampeonato c "
                 + "where c.pilotoConvidado = :p "
-                + "AND c.statusConvite = 'nao vizualizado'")
+                + "AND c.statusConvite = 'Não respondido'")
                     .setParameter("p", piloto)
                     .getResultList();
         } catch (Exception e) {

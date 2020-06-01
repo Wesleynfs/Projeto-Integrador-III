@@ -91,6 +91,9 @@ public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
     public List<ConviteCampeonato> listarConvitesNaoVizualizadosPorPiloto(Piloto piloto) throws Exception{
             conviteDAO = new ConviteCampeonatoDAO();
             return conviteDAO.ListarConviteNaoVisualizadosPorPiloto(piloto);
-
+    }
+    public boolean verificarConviteExistente(ConviteCampeonato o) throws Exception {
+        conviteDAO = new ConviteCampeonatoDAO();
+        return conviteDAO.verificarConviteExistente(o);
     }
 }

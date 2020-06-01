@@ -2,6 +2,7 @@ package Dao;
 
 import Connections.ConnectionFactory;
 import Model.AvisoCampeonato;
+import Model.Piloto;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -85,6 +86,17 @@ public class AvisoCampeonatoDAO implements GenericDAO<AvisoCampeonato> {
     public AvisoCampeonato getById(int id) throws Exception {
         try {
             return entityManager.find(AvisoCampeonato.class,id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
+        public List<AvisoCampeonato> listarAvisoNaoVizualizados(Piloto piloto) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT a FROM AvisoCampeonato a where a.statusAviso = 'Não vizualizado' AND a.pilotos = :piloto").setParameter("piloto", piloto).getResultList();
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

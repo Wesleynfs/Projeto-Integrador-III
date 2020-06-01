@@ -108,11 +108,6 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         return campeonatoDAO.listarPorNome();
     }
 
-    public List<Campeonato> listarPorKartodromo() throws Exception {
-        campeonatoDAO = new CampeonatoDAO();
-        return campeonatoDAO.listarPorKartodromo();
-    }
-
     public boolean validarTabelaPontuacaoCampeonato(DefaultTableModel tabelamento) {
         int verificarConsistencia = 0;
         for (int i = 0 ; tabelamento.getRowCount() > i; i++ ) {

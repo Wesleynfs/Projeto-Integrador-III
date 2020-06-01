@@ -167,7 +167,7 @@ public class Historico extends JFrame implements ActionListener {
        
         if (e.getSource() == btnVoltar) {
             dispose();
-            new VerificarCorrida(piloto);
+            new VerificarCampeonatos(piloto);
         }
 
     }

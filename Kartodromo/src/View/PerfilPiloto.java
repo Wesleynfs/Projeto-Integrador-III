@@ -1,7 +1,13 @@
 package View;
 
+import Bo.AvisoCampeonatoBO;
+import Bo.CampeonatoBO;
+import Bo.ConviteCampeonatoBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Dao.PilotoParticipandoCampeonatoDAO;
+import Model.AvisoCampeonato;
+import Model.Campeonato;
+import Model.ConviteCampeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
@@ -12,6 +18,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -21,13 +29,14 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JPanel drawer;
     private JButton btnRelatar;
     private JButton btnSair;
-    private JButton btnParticiparCorrida;
+    private JButton btnParticiparCampeonato;
+    private JButton btnVerificarconvites_avisos;
     private JButton btnGerenciarCampeonatos;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
     private JLabel infoPiloto;
     private JLabel perfilPilotoLabel;
-    private JLabel corridasParticipandoLabel;
+    private JLabel CampeonatoParticipandoLabel;
     private JLabel corridasMarcadasLabel;
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
@@ -93,12 +102,13 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         drawer = new JPanel();
         btnRelatar = new JButton();
         btnSair = new JButton();
-        btnParticiparCorrida = new JButton();
+        btnVerificarconvites_avisos = new JButton();
+        btnParticiparCampeonato = new JButton();
         btnGerenciarCampeonatos = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
         infoPiloto = new JLabel();
-        corridasParticipandoLabel = new JLabel();
+        CampeonatoParticipandoLabel = new JLabel();
         corridasMarcadasLabel = new JLabel();
         perfilPilotoLabel = new JLabel();
         jScrollPaneCorridasMarcadas = new JScrollPane();
@@ -114,14 +124,15 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
         add(btnRelatar);
         add(btnSair);
-        add(btnParticiparCorrida);
+        add(btnParticiparCampeonato);
         add(btnGerenciarCampeonatos);
         add(btnVerificarCorridas);
         add(btnAvaliarKartdromo);
         add(perfilPilotoLabel);
-        add(corridasParticipandoLabel);
+        add(CampeonatoParticipandoLabel);
         add(corridasMarcadasLabel);
         add(infoPiloto);
+        add(btnVerificarconvites_avisos);
         add(jScrollPaneCorridasMarcadas);
         add(jScrollPaneCorridasParticipando);
         add(drawer);
@@ -136,17 +147,19 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             infoPiloto.setForeground(Colors.CINZALIGHTB);
-            corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
+            CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             btnSair.setForeground(Colors.CINZADARKB);
-            btnParticiparCorrida.setForeground(Colors.CINZADARKB);
+            btnVerificarconvites_avisos.setForeground(Colors.CINZADARKB);
+            btnVerificarconvites_avisos.setBackground(Colors.VERDEDARK);
+            btnParticiparCampeonato.setForeground(Colors.CINZADARKB);
             btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
             btnRelatar.setForeground(Colors.CINZAMEDA);
             btnRelatar.setBackground(Colors.CINZAMEDB);
             btnSair.setBackground(Colors.VERDEDARK);
-            btnParticiparCorrida.setBackground(Colors.VERDEDARK);
+            btnParticiparCampeonato.setBackground(Colors.VERDEDARK);
             btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
@@ -159,21 +172,23 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
-            corridasParticipandoLabel.setForeground(Colors.CINZALIGHTB);
+            CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             infoPiloto.setForeground(Colors.CINZALIGHTB);
             btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
-            btnParticiparCorrida.setBackground(Colors.VERDEDARK);
+            btnParticiparCampeonato.setBackground(Colors.VERDEDARK);
             btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
             btnRelatar.setForeground(Colors.CINZAMEDB);
             btnSair.setForeground(Colors.CINZADARKB);
-            btnParticiparCorrida.setForeground(Colors.CINZADARKB);
+            btnParticiparCampeonato.setForeground(Colors.CINZADARKB);
             btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
+            btnVerificarconvites_avisos.setBackground(Colors.VERDEDARK);
+            btnVerificarconvites_avisos.setForeground(Colors.CINZADARKB);
             headerTabelaCorridasParticipando.setBackground(Colors.CINZAMEDA);
             headerTabelaCorridasParticipando.setForeground(Colors.CINZAMEDB);
             headerTabelaTodasAsCorridasMarcadas.setBackground(Colors.CINZAMEDA);
@@ -252,19 +267,20 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
 
         try {
-            List<PilotoParticipandoCampeonato> listaCampeonatos = pilotoParticipandoCampeonatoBO.listarTodos();
+            List<Campeonato> listaCampeonatos = new CampeonatoBO().listarTodos();
             if (listaCampeonatos.isEmpty()) {
                 tabelamento.addRow(new Object[]{
-                        "Nem uma corrida na lista!"
+                        "Nem um campeonato na lista!"
                 });
             } else {
-                for (PilotoParticipandoCampeonato list : listaCampeonatos) {
-                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
-                    tabelamento.addRow(new Object[]{
-                            list.getCampeonato().getNome(),
-                            list.getCampeonato().getDataFinalizacao(),
-                            listaTotalPiloto.size()
-                    });
+                for(Campeonato campeonato : listaCampeonatos){          
+                        List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
+                        tabelamento.addRow(new Object[]{
+                                campeonato.getNome(),
+                                campeonato.getDataFinalizacao(),
+                                listaTotalPiloto.size()
+                        });
+     
                 }
             }
         } catch (Exception e) {
@@ -289,8 +305,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                 + "</html>");
         infoPiloto.setBounds(10, 110, 200, 90);
 
-        corridasParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");
-        corridasParticipandoLabel.setBounds(20, 270, 400, 35);
+        CampeonatoParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");
+        CampeonatoParticipandoLabel.setBounds(20, 270, 400, 35);
 
         corridasMarcadasLabel.setText("TODOS OS CAMPEONATOS CRIADOS");
         corridasMarcadasLabel.setBounds(200, 100, 400, 35);
@@ -304,20 +320,26 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnSair.setBorderPainted(false);
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(this);
-        btnSair.setBounds(20, 555, 100, 35);
+        btnSair.setBounds(20, 555, 150, 35);
         btnSair.setText("Voltar");
+        
+        btnVerificarconvites_avisos.setBorderPainted(false);
+        btnVerificarconvites_avisos.setFocusPainted(false);   
+        btnVerificarconvites_avisos.addActionListener(this);      
+        btnVerificarconvites_avisos.setBounds(20, 510, 150, 35);
+        btnVerificarconvites_avisos.setText("<html>   Verificar<br>avisos e convites</html>");
 
-        btnParticiparCorrida.setBorderPainted(false);
-        btnParticiparCorrida.setFocusPainted(false);
-        btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(535, 555, 250, 35);
-        btnParticiparCorrida.setText("Participar de uma Corrida");
+        btnParticiparCampeonato.setBorderPainted(false);
+        btnParticiparCampeonato.setFocusPainted(false);
+        btnParticiparCampeonato.addActionListener(this);
+        btnParticiparCampeonato.setBounds(535, 555, 250, 35);
+        btnParticiparCampeonato.setText("Participar de um Campeonato");
 
         btnVerificarCorridas.setBorderPainted(false);
         btnVerificarCorridas.setFocusPainted(false);
         btnVerificarCorridas.addActionListener(this);
         btnVerificarCorridas.setBounds(315, 510, 200, 35);
-        btnVerificarCorridas.setText("Verificar Suas Corridas");
+        btnVerificarCorridas.setText("Verificar Seus Campeonato");
 
         btnAvaliarKartdromo.setBorderPainted(false);
         btnAvaliarKartdromo.setFocusPainted(false);
@@ -347,9 +369,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             dispose();
             new RelatarPorEmail(piloto);
         }
-        if (e.getSource() == btnParticiparCorrida) {
+        if (e.getSource() == btnParticiparCampeonato) {
             dispose();
-            new ParticiparCorrida(piloto);
+            new ParticiparCampeonato(piloto);
         }
         if (e.getSource() == btnGerenciarCampeonatos) {
             dispose();
@@ -357,11 +379,54 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnVerificarCorridas) {
             dispose();
-            new VerificarCorrida(piloto);
+            new VerificarCampeonatos(piloto);
         }
         if (e.getSource() == btnAvaliarKartdromo) {
             dispose();
             new AvaliarKartodromo(piloto);
         }
+        if(e.getSource() == btnVerificarconvites_avisos){
+            try {
+                boolean avisodenenhumaaviso_convite = true;
+                for(AvisoCampeonato aviso : new AvisoCampeonatoBO().listarAvisoNaoVizualizados(piloto)){
+                        JOptionPane.showMessageDialog(null, "<html>AVISO SOBRE O CAMPEONATO: "+aviso.getCampeonato().getNome()
+                                + "<br>DO PILOTO: "+aviso.getPilotoqueenviou().getApelido()
+                                + "<br>MENSAGEM: " + aviso.getAviso()+"</html>");
+                    aviso.setStatusAviso("Vizualizado");
+                    new AvisoCampeonatoBO().alterar(aviso);
+                    avisodenenhumaaviso_convite = false;
+                }
+                for(ConviteCampeonato convite : new ConviteCampeonatoBO().listarConvitesNaoVizualizadosPorPiloto(piloto)){
+                
+                    if (JOptionPane.showConfirmDialog(null,
+                        "<html>Você foi convidado por "+convite.getPilotoQueConvidou().getApelido()
+                                + "<br>Para participar do campeonato: "+convite.getCampeonato().getNome()
+                                + "<br>Na Data " +convite.getCampeonato().getDataFinalizacao()
+                                + "<br>Deseja Participar?"
+                                + "<html>",
+                        "Convite para Campeonato!",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                            PilotoParticipandoCampeonato pilotoaceitouconvite = new PilotoParticipandoCampeonato();
+                            pilotoaceitouconvite.setCampeonato(convite.getCampeonato());
+                            pilotoaceitouconvite.setPiloto(piloto);
+                            pilotoaceitouconvite.setPontuacao(0);
+                            pilotoaceitouconvite.setStatusAdm(false);
+                            pilotoaceitouconvite.setPosicao(0);
+                            new PilotoParticipandoCampeonatoBO().criar(pilotoaceitouconvite);
+                    }
+                    convite.setStatusConvite("Respondido");
+                    new ConviteCampeonatoBO().alterar(convite);
+                    avisodenenhumaaviso_convite = false;
+                }
+                if(avisodenenhumaaviso_convite){
+                    JOptionPane.showMessageDialog(null,"Nenhum aviso ou convite no momento!");
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex + ", Não foi possível Fazer a verificação");
+            }
+        
+        }
     }
 } 
+

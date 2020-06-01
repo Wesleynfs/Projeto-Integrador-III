@@ -14,7 +14,19 @@ public class AvisoCampeonato {
     @ManyToOne
     private Campeonato campeonato;
     @ManyToOne
-    private Piloto piloto;
+    private Piloto pilotoqueenviou;
+    @ManyToOne
+    private Piloto pilotos;
+
+    public Piloto getPilotos() {
+        return pilotos;
+    }
+
+    public void setPilotos(Piloto pilotos) {
+        this.pilotos = pilotos;
+    }
+
+    
 
     public int getIdAvisoCampeonato() {
         return idAvisoCampeonato;
@@ -46,12 +58,12 @@ public class AvisoCampeonato {
         this.campeonato = campeonato;
     }
 
-    public Piloto getPiloto() {
-        return piloto;
+    public Piloto getPilotoqueenviou() {
+        return pilotoqueenviou;
     }
 
-    public void setPiloto(Piloto piloto) {
-        this.piloto = piloto;
+    public void setPilotoqueenviou(Piloto pilotoqueenviou) {
+        this.pilotoqueenviou = pilotoqueenviou;
     }
 
     public AvisoCampeonato(int idAvisoCampeonato, String statusAviso,
@@ -61,7 +73,7 @@ public class AvisoCampeonato {
         this.statusAviso = statusAviso;
         this.aviso = aviso;
         this.campeonato = campeonato;
-        this.piloto = piloto;
+        this.pilotoqueenviou = piloto;
     }
 
     public AvisoCampeonato() {

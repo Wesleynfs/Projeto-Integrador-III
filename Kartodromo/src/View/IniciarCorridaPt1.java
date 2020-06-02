@@ -1,5 +1,11 @@
 package View;
 
+import Bo.CampeonatoBO;
+import Bo.PilotoBO;
+import Bo.PilotoParticipandoCampeonatoBO;
+import Model.Campeonato;
+import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -7,6 +13,9 @@ import Utilities.Info;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class IniciarCorridaPt1 extends JFrame implements ActionListener {
@@ -30,9 +39,11 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     private JTable tablePilotosCorrida;
     
     private DefaultTableModel tabelamento;
+    
+    private Piloto piloto;
 
-    public IniciarCorridaPt1() {
-
+    public IniciarCorridaPt1(Piloto piloto) {
+        this.piloto = piloto;
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -142,11 +153,11 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "TIPO","NOME DA CORRIDA","Data","VAGAS"
+                            "TIPO","NOME DA CORRIDA","Data"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false
+                        false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -157,60 +168,35 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "Test",
-                    "test1",
-                    "test2",
-                    "test3"
-            });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //            });
-            //
-            //          }
+            try {
+                List<PilotoParticipandoCampeonato> listaCampeonatoDoPiloto = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(piloto);
+                if (listaCampeonatoDoPiloto.isEmpty()) {
+                    tabelamento.addRow(new Object[]{
+                            "Nem um campeonato na lista!"
+                    });
+                } else {
+                    for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
+                        corridasjComboBox.addItem(list.getCampeonato().getNome());
+                        List<PilotoParticipandoCampeonato> listaTotalPiloto = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
+                        tabelamento.addRow(new Object[]{
+                                list.getCampeonato().getNome(),
+                                list.getCampeonato().getDataFinalizacao(),
+                                listaTotalPiloto.size()
+                        });
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 200);
 
-            tablePilotosCorrida.setModel(new DefaultTableModel(
-                    new Object[][]{
-
-                    },
-                    new String[]{
-                            "PARTICIPANTES"
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                        false
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit[columnIndex];
-                }
-
-            });
-
-            tabelamento = (DefaultTableModel) tablePilotosCorrida.getModel();
-
-            tabelamento.addRow(new Object[]{
-                    "Test"
-            });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //                class.tipo,
-            //                class.data
-            //            });
-            //
-            //          }
-            jScrollPanePilotosCorrida.setViewportView(tablePilotosCorrida);
+            mudarPilotosParticipando();
             jScrollPanePilotosCorrida.setBounds(60, 370, 230 , 150);
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
-            logo.setText("INICIAR CORRIDA");
+            logo.setText("INICIAR CAMPEONATO");
 
             corrida_escolhidaLabel.setBounds(570 , 355,300,30);
             corrida_escolhidaLabel.setText("Selecionar Corrida:");
@@ -220,10 +206,6 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
                     
             corridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
             corridasjComboBox.setBounds(570,390,200,35);
-//        ClasseDao dao = new ClasseDao();
-//        for(classe c:dao.FindALL()){
-//            NomeKartodromojComboBox.addItem(c);
-//        }
 
             btnIniciarCorrida.setBorderPainted(false);
             btnIniciarCorrida.setFocusPainted(false);
@@ -236,6 +218,15 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             btnVoltar.addActionListener(this);
             btnVoltar.setBounds(60 , 550,200,35);
             btnVoltar.setText("Voltar");
+            
+            this.corridasjComboBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        mudarPilotosParticipando();
+                    }
+                }
+            });
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -247,13 +238,25 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            //new VerificarCorrida();
+            new VerificarCampeonatos(piloto);
         }
 
         if (e.getSource() == btnIniciarCorrida) {
             try{
-                dispose();
-                new IniciarCorridaPt2();
+               
+                Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
+                List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
+                if ((list.size() >= Info.numero_minimo_de_pilotos_em_campeonato_oficial
+                        && Info.campeonato_oficial.equals(campeonato.getTipoCorrida()))){
+                    dispose();
+                    new IniciarCorridaPt2(piloto,campeonato); 
+                }else if (Info.campeonato_normal.equals(campeonato.getTipoCorrida())) {
+                    dispose();
+                    new IniciarCorridaPt2(piloto,campeonato);
+                } else {
+                        JOptionPane.showMessageDialog(null, "Você não pode iniciar essa corrida, ela não possui competidores suficientes");
+                }
+                            
                 
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
@@ -262,5 +265,48 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
     }
 
+    private void mudarPilotosParticipando() {
 
+        try {
+                        tablePilotosCorrida.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "PARTICIPANTES","NÍVEL"
+                    }
+            ) {
+                boolean[] canEdit = new boolean[]{
+                        false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+
+            });
+
+            tabelamento = (DefaultTableModel) tablePilotosCorrida.getModel();
+            Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
+         
+            for (PilotoParticipandoCampeonato pilotosparticipantes : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
+                tabelamento.addRow(new Object[]{
+                    pilotosparticipantes.getPiloto().getApelido(),
+                    pilotosparticipantes.getPiloto().getNivel()
+                });
+                
+            }
+            
+            
+            
+            
+            jScrollPanePilotosCorrida.setViewportView(tablePilotosCorrida);
+            
+
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
+        }
+
+    }
+    
 } 

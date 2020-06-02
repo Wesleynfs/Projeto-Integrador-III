@@ -13,12 +13,21 @@ public class PilotoParticipandoCampeonato {
     private int posicao;
     private int pontuacao;
     private Timestamp tempoParaTerminar;
+    private String presenca;
 
     @ManyToOne
     private Piloto piloto;
     @ManyToOne
     private Campeonato campeonato;
 
+    public String getPresenca() {
+        return presenca;
+    }
+
+    public void setPresenca(String presenca) {
+        this.presenca = presenca;
+    }
+    
     public boolean isStatusAdm() {
         return statusAdm;
     }

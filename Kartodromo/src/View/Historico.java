@@ -1,6 +1,8 @@
 package View;
 
+import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -17,7 +19,7 @@ public class Historico extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JLabel lblinfoPiloto;
     private JLabel logo;
-    private JLabel corridas_participandoinfoLabel;
+    private JLabel campeonatos_participandoinfoLabel;
     private JScrollPane jScrollPaneCorridasRealizadas;
     private JTable tableTodasAsCorridasRealizadas;
     private DefaultTableModel tabelamento;
@@ -56,7 +58,7 @@ public class Historico extends JFrame implements ActionListener {
         drawer = new JPanel();
         btnVoltar = new JButton();
         logo = new JLabel();
-        corridas_participandoinfoLabel = new JLabel();
+        campeonatos_participandoinfoLabel = new JLabel();
         lblinfoPiloto = new JLabel();
         jScrollPaneCorridasRealizadas = new JScrollPane();
         tableTodasAsCorridasRealizadas = new JTable();
@@ -65,7 +67,7 @@ public class Historico extends JFrame implements ActionListener {
     private void add() {
         add(btnVoltar);
         add(logo);
-        add(corridas_participandoinfoLabel);
+        add(campeonatos_participandoinfoLabel);
         add(jScrollPaneCorridasRealizadas);
         add(lblinfoPiloto);
         add(drawer);
@@ -81,7 +83,7 @@ public class Historico extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDA);
             lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
-            corridas_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
+            campeonatos_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
 
@@ -93,7 +95,7 @@ public class Historico extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZALIGHTB);
-            corridas_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
+            campeonatos_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDEDARK);
 
@@ -112,11 +114,11 @@ public class Historico extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Nome","Data","Posição","Pontuação"
+                            "Nome","Data","Posição","Pontuação","Tempo Total"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false
+                        false, false, false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -127,15 +129,20 @@ public class Historico extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasRealizadas.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "Test",
-                    "test1",
-                    "test2",
-                    "test3"
-            });
+            for(PilotoParticipandoCampeonato pilotoparticipando : new PilotoParticipandoCampeonatoBO().ListarpilotocampeonatoFinalizados(piloto)){
+                tabelamento.addRow(new Object[]{
+                    pilotoparticipando.getCampeonato().getNome(),
+                    pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                    pilotoparticipando.getPosicao(),
+                    pilotoparticipando.getPontuacao(),
+                    pilotoparticipando.getTempoParaTerminar()
 
+                });
+            
+            }
+            
             jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
-            jScrollPaneCorridasRealizadas.setBounds(60, 200, 680, 350);
+            jScrollPaneCorridasRealizadas.setBounds(60, 220, 680, 300);
 
             lblinfoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
             + "APELIDO: "+piloto.getApelido()+ "<br/>"
@@ -153,8 +160,8 @@ public class Historico extends JFrame implements ActionListener {
             logo.setBounds(20 , 30,500,35);
             logo.setText("HISTÓRICO DE PARTIDAS");
 
-            corridas_participandoinfoLabel.setBounds(60 , 170,300,30);
-            corridas_participandoinfoLabel.setText("Corridas que você participou:");
+            campeonatos_participandoinfoLabel.setBounds(60 , 170,300,30);
+            campeonatos_participandoinfoLabel.setText("Campeonato que você participou:");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

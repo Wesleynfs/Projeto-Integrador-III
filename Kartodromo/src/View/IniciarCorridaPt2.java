@@ -1,12 +1,20 @@
 package View;
 
+import Bo.CampeonatoBO;
+import Bo.PilotoBO;
+import Bo.PilotoParticipandoCampeonatoBO;
+import Model.Campeonato;
 import Model.Piloto;
+import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class IniciarCorridaPt2 extends JFrame implements ActionListener {
@@ -24,9 +32,11 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
     private DefaultTableModel tabelamento;
 
     private Piloto piloto;
+    private Campeonato campeonato;
 
-    public IniciarCorridaPt2() {
-
+    public IniciarCorridaPt2(Piloto piloto, Campeonato campeonato) {
+        this.piloto = piloto;
+        this.campeonato = campeonato;
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -147,26 +157,23 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableParticipantes_status.getModel();
 
-            tabelamento.addRow(new Object[]{
-                    "FILLUS",
+            for (PilotoParticipandoCampeonato pilotosparticipantes : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
+                tabelamento.addRow(new Object[]{
+                    pilotosparticipantes.getPiloto().getApelido(),
                     "PRESENTE"
-            });
-            //Subistituir as linhas anteriores
-            //          for (classe : classeDao.findALL()){
-            //            tabelamento.addRow(new Object[]{
-            //                class.nome,
-            //            });
-            //
-            //          }
+                });
+                
+            }
+            
             jScrollPaneParticipantes.setViewportView(tableParticipantes_status);
             jScrollPaneParticipantes.setBounds(60, 150, 680, 250);
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
-            logo.setText("INICIAR CORRIDA");
+            logo.setText("INICIAR CAMPEONATO");
 
             SelecioneLabel.setBounds(60, 120, 680, 35);
-            SelecioneLabel.setText("Selecionar Corrida:");
+            SelecioneLabel.setText("Selecione os pilotos participante para atribuir FALTA OU PRESENÇA:");
 
             btndarfalta.setBorderPainted(false);
             btndarfalta.setFocusPainted(false);
@@ -184,7 +191,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             btnIniciarCorrida.setFocusPainted(false);
             btnIniciarCorrida.addActionListener(this);
             btnIniciarCorrida.setBounds(570, 550, 200, 35);
-            btnIniciarCorrida.setText("Iniciar Corrida");
+            btnIniciarCorrida.setText("Iniciar Campeonato");
             
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);
@@ -202,24 +209,47 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             dispose();
-            new IniciarCorridaPt1();
+            new IniciarCorridaPt1(piloto);
         }
         if (e.getSource() == btndarfalta) {
-            
+            int[] index = tableParticipantes_status.getSelectedRows();
+
+            for (int x = 0; x < index.length; x++) {
+                if(piloto.getApelido().equals(tableParticipantes_status.getValueAt(index[x],0))){
+                        JOptionPane.showMessageDialog(null, "Você não pode dar falta a você mesmo!");
+                }else{
+                    tableParticipantes_status.setValueAt("FALTOU",index[x],1);
+                }
+            }
         }
         if (e.getSource() == btndarpresenca) {
             
+            int[] index = tableParticipantes_status.getSelectedRows();
+
+            for (int x = 0; x < index.length; x++) {
+                tableParticipantes_status.setValueAt("PRESENTE",index[x],1);
+            }
         }
         if (e.getSource() == btnIniciarCorrida) {
+            for(int x = 0; x < tableParticipantes_status.getRowCount();x++){
+                try {
+                    Piloto pilotoparticipante = new PilotoBO().listarPorApelido((String) tableParticipantes_status.getValueAt(x, 0));
+                    
+                    List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(pilotoparticipante, campeonato);
+                    list.get(0).setPresenca((String) tableParticipantes_status.getValueAt(x, 1));
+                    new PilotoParticipandoCampeonatoBO().alterar(list.get(0));
+                
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi pssivel modificar o status dos pilotos!");
+                }
+            }
+            
+            
             dispose();
-            new ResultadoCorrida(piloto);
+            new ResultadoCorrida(piloto,campeonato);
         }
 
     }
 
-
 } 
-//Nessa tabela a ideia é o usuario selecionar na JTABLE o participante que 
-//ele deseja colocar o status de falta ou presença
-//quando ele colocar o status de falta e confimar a corrida
-//os pilotos com a falta devem ter o numero de strikers aumentado em 1
+

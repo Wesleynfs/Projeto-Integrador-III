@@ -85,13 +85,11 @@ public class Corrida {
 
     @Override
     public String toString() {
-        return "Corrida{" +
-                "idCorrida=" + idCorrida +
-                ", nomeCorrida='" + nomeCorrida + '\'' +
-                ", numeroDeVoltas=" + numeroDeVoltas +
-                ", tipoKart='" + tipoKart + '\'' +
-                ", campeonato=" + campeonato +
-                ", kartodromo=" + kartodromo +
-                '}';
+        return "<html>Corrida:" + nomeCorrida + "do kartódormo " 
+                + kartodromo.getNomeKartodromo()
+                + "<br>localizado em "+kartodromo.getEstado()+", "+kartodromo.getCidade()+", "
+                +kartodromo.getRua()+", "+kartodromo.getNumero()
+                +"<br> usando o tipo kart: "+tipoKart+" com um total de "
+                +numeroDeVoltas+" voltas</html>";
     }
 }

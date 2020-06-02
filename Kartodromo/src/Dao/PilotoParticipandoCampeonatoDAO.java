@@ -103,8 +103,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     public List<PilotoParticipandoCampeonato> listarPilotoQueParticipaDeCampeonato(Piloto piloto) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c "
-                    + "where piloto = :p").setParameter("p", piloto).getResultList();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where piloto = :p AND c.campeonato.situacao != 'Finalizado'").setParameter("p", piloto).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -114,7 +113,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     public List<PilotoParticipandoCampeonato> listarPilotoQueParticipaDeCampeonato(Campeonato campeonato) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where campeonato = :campeonato").setParameter("campeonato", campeonato).getResultList();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where campeonato = :campeonato AND c.campeonato.situacao != 'Finalizado'").setParameter("campeonato", campeonato).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -135,6 +134,20 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
         } finally {
             entityManager.close();
         }
+    }
+    
+        public List<PilotoParticipandoCampeonato> ListarpilotocampeonatoFinalizados(Piloto piloto) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.piloto = :piloto AND c.campeonato.situacao = 'Finalizado'")
+                    .setParameter("piloto", piloto)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        
     }
     
 

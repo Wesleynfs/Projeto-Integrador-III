@@ -1,8 +1,10 @@
 package View;
 
 import Bo.CampeonatoBO;
+import Bo.CorridaBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Campeonato;
+import Model.Corrida;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
@@ -14,6 +16,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class ParticiparCampeonato extends JFrame implements ActionListener {
@@ -24,6 +28,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JButton btnOrdenarNome;
     private JButton btnOrdenarData;
+    private JButton btnInfos;
     private JLabel logo;
     private JLabel ordenarporLabel;
     private JLabel corridaLabel;
@@ -68,6 +73,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         drawer = new JPanel();
         btnVoltar = new JButton();
         btnParticiparCorrida = new JButton();
+        btnInfos = new JButton();
         btnOrdenarNome = new JButton();
         btnOrdenarData = new JButton();
         logo = new JLabel();
@@ -85,6 +91,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         add(logo);
         add(ordenarporLabel);
         add(corridaLabel);
+        add(btnInfos);
         add(CorridasjComboBox);
         add(jScrollPaneCorridasMarcadas);
         add(painelOrdenar);
@@ -104,6 +111,8 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
             btnVoltar.setBackground(Colors.VERDEDARK);
+            btnInfos.setForeground(Colors.CINZADARKB);
+            btnInfos.setBackground(Colors.VERDEDARK);
             CorridasjComboBox.setBackground(Colors.VERDEDARK);
             CorridasjComboBox.setForeground(Colors.CINZADARKB);
             btnOrdenarNome.setBackground(Colors.VERDEDARK);
@@ -120,6 +129,8 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             corridaLabel.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
+            btnInfos.setForeground(Colors.CINZADARKB);
+            btnInfos.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnParticiparCorrida.setForeground(Colors.CINZADARKB);
             CorridasjComboBox.setForeground(Colors.CINZADARKB);
@@ -191,7 +202,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 220);
             CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            CorridasjComboBox.setBounds(250, 480, 300, 35);
+            CorridasjComboBox.setBounds(60, 480, 300, 35);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -211,15 +222,21 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         btnVoltar.addActionListener(this);
         btnVoltar.setBounds(60, 550, 100, 35);
         btnVoltar.setText("Voltar");
-
+        
+        btnInfos.setBorderPainted(false);
+        btnInfos.setFocusPainted(false);
+        btnInfos.addActionListener(this);
+        btnInfos.setBounds(520, 400, 230, 35);
+        btnInfos.setText("Ver informações do campeonato");
+                
         btnParticiparCorrida.setBorderPainted(false);
         btnParticiparCorrida.setFocusPainted(false);
         btnParticiparCorrida.addActionListener(this);
-        btnParticiparCorrida.setBounds(550, 550, 200, 35);
-        btnParticiparCorrida.setText("Participar de uma Corrida");
+        btnParticiparCorrida.setBounds(520, 550, 230, 35);
+        btnParticiparCorrida.setText("Participar de uma Campeonato");
 
         logo.setBounds(20, 30, 500, 35);
-        logo.setText("PARTICIPAR DE CORRIDAS");
+        logo.setText("PARTICIPAR DE Campeonato");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         // Mudar para valores reais aqui //
@@ -227,8 +244,8 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         ordenarporLabel.setBounds(60, 370, 200, 30);
         ordenarporLabel.setText("ORDENAR TABELA POR:");
 
-        corridaLabel.setBounds(310, 450, 200, 35);
-        corridaLabel.setText("ESCOLHER UMA CORRIDA:");
+        corridaLabel.setBounds(60, 450, 200, 35);
+        corridaLabel.setText("ESCOLHER UM Campeonato:");
 
     }
 
@@ -237,6 +254,19 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         if (e.getSource() == btnVoltar) {
             dispose();
             new PerfilPiloto(piloto);
+        }
+        if (e.getSource() == btnInfos) {
+            try {
+                Campeonato campeonato = new CampeonatoBO().getByNome(CorridasjComboBox.getSelectedItem().toString());
+                int posicao  = 1;
+                for(Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
+                    JOptionPane.showMessageDialog(null, "<html>Campeonato: "+campeonato.getNome()+ "<br>Corrida n°"+posicao+"<br>"+corrida.toString()+"</html>");
+                    posicao++;
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível verificar informações de campeonato");
+            }
+        
         }
         if (e.getSource() == btnParticiparCorrida) {
 
@@ -256,25 +286,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                 
                 
                 //Preguiça de remover os campeonatos vizualmente 
-////                n tenho proble em deixar assim n kappa
 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
@@ -299,10 +311,6 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listar_o_piloto_do_campeonato(piloto, campeonato);
                     if (campeonato_para_participar.isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
                         List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
-                        
-                        
-                        
-                        
                         
                         
                         

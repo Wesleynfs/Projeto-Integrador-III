@@ -36,14 +36,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private Piloto piloto;
     private Campeonato campeonato;
 
-    public Campeonato getCampeonato() {
-        return campeonato;
-    }
-
-    public void setCampeonato(Campeonato campeonato) {
-        this.campeonato = campeonato;
-    }
-
     public GerenciarCampeonato(Piloto piloto) {
 
         this.piloto = piloto;
@@ -181,8 +173,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoCampeonato.setBorder(BorderFactory.createEmptyBorder());
         comboTipoCampeonato.setBounds(60, 280, 300, 35);
 
-        comboTipoCampeonato.addItem("CAMPEONATO NORMAL (CORRIDA RÁPIDA)");
-        comboTipoCampeonato.addItem("CAMPEONATO OFICIAL (VALE PONTUAÇÕES)");
+        comboTipoCampeonato.addItem(Info.campeonato_normal);
+        comboTipoCampeonato.addItem(Info.campeonato_oficial);
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");

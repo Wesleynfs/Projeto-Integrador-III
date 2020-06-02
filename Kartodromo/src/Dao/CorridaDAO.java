@@ -105,8 +105,8 @@ public class CorridaDAO implements GenericDAO<Corrida> {
 
     public List<Corrida> listarTodasAsCorridasMarcadasDeCampeonato(Campeonato o) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM Corrida c WHERE campeonato = campeonato1")
-                    .setParameter("campeonato1" , o)
+            return entityManager.createQuery("SELECT c FROM Corrida c WHERE c.campeonato = :campeonato")
+                    .setParameter("campeonato" , o)
                     .getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());

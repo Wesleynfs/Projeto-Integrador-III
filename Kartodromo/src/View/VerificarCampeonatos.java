@@ -389,7 +389,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         if (e.getSource() == btnIniciarCorrida) {
             try {
                 dispose();
-                new IniciarCorridaPt1();
+                new IniciarCorridaPt1(piloto);
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
             }
@@ -448,7 +448,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                     //remove o proprio piloto
                     boolean pilotoparticipadocampeonato = false;
                     for (PilotoParticipandoCampeonato pilotoqueparticipamcampeonato : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
-                        //remove pilotos participando desse corrida sobra todos outros kappa
+
                         if (pilotoqueparticipamcampeonato.getPiloto().getIdPiloto() == pilotos.getIdPiloto()) {
                             pilotoparticipadocampeonato = true;
                         }

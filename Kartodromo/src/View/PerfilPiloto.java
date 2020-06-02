@@ -327,7 +327,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnVerificarconvites_avisos.setFocusPainted(false);   
         btnVerificarconvites_avisos.addActionListener(this);      
         btnVerificarconvites_avisos.setBounds(20, 510, 150, 35);
-        btnVerificarconvites_avisos.setText("<html>   Verificar<br>avisos e convites</html>");
+        btnVerificarconvites_avisos.setText("Avisos e Convites");
 
         btnParticiparCampeonato.setBorderPainted(false);
         btnParticiparCampeonato.setFocusPainted(false);
@@ -339,7 +339,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnVerificarCorridas.setFocusPainted(false);
         btnVerificarCorridas.addActionListener(this);
         btnVerificarCorridas.setBounds(315, 510, 200, 35);
-        btnVerificarCorridas.setText("Verificar Seus Campeonato");
+        btnVerificarCorridas.setText("Verificar Seus Campeonatos");
 
         btnAvaliarKartdromo.setBorderPainted(false);
         btnAvaliarKartdromo.setFocusPainted(false);

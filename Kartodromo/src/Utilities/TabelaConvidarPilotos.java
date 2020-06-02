@@ -7,12 +7,12 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabelaNotificarPilotos extends AbstractTableModel {
+public class TabelaConvidarPilotos extends AbstractTableModel {
 
     private List<Piloto> listPiloto;
-    private String[] colunas = {"NOME DO PILOTO"};
+    private String[] colunas = {"LISTA COM TODOS OS PILOTOS (SELECIONE-OS COM O BOTÃO 'CTRL')"};
 
-    public TabelaNotificarPilotos() {
+    public TabelaConvidarPilotos() {
         listPiloto = new ArrayList<>();
     }
 
@@ -51,6 +51,10 @@ public class TabelaNotificarPilotos extends AbstractTableModel {
             case 0 : return listPiloto.get(linha).getNomePiloto();
         }
         return null;
+    }
+
+    public Object getPilotoPelaLinha(int linha) {
+        return listPiloto.get(linha);
     }
 
 }

@@ -120,9 +120,14 @@ public class PilotoBO implements GenericBO<Piloto>{
         }
     }
     
-    public Piloto listarporapelido(String apelido) throws Exception{
+    public Piloto listarPorApelido(String apelido) throws Exception{
         pilotoDAO = new PilotoDAO();
         return pilotoDAO.listarporapelido(apelido);
+    }
+
+    public Piloto listarPorPiloto(Piloto o) throws Exception {
+        pilotoDAO = new PilotoDAO();
+        return pilotoDAO.listarporapelido(o.getApelido());
     }
         
     public boolean validaLogin(Piloto o) throws Exception {

@@ -69,7 +69,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     @Override
     public List<PilotoParticipandoCampeonato> listarTodos(PilotoParticipandoCampeonato o) throws Exception {
         try {
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where idPilotoParticipandoCampeonato = :id")
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where idPilotoParticipandoCampeonato = :id AND c.campeonato.situacao != 'Finalizado'")
                     .setParameter("id", o.getIdPilotoParticipandoCampeonato())
                     .getResultList();
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     @Override
     public List<PilotoParticipandoCampeonato> listarTodos() throws Exception {
         try {
-            return entityManager.createQuery("SELECT a FROM PilotoParticipandoCampeonato a ").getResultList();
+            return entityManager.createQuery("SELECT a FROM PilotoParticipandoCampeonato a where a.campeonato.situacao != 'Finalizado'").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -125,7 +125,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     public List<PilotoParticipandoCampeonato> Listar_o_piloto_do_campeonato(Piloto piloto, Campeonato campeonato) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.piloto = :piloto AND c.campeonato = :campeonato")
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.piloto = :piloto AND c.campeonato = :campeonato AND c.campeonato.situacao != 'Finalizado'")
                     .setParameter("piloto", piloto)
                     .setParameter("campeonato", campeonato)
                     .getResultList();
@@ -148,6 +148,16 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
             entityManager.close();
         }
         
+    }
+        public List<PilotoParticipandoCampeonato> listarPilotoQueParticipaDeCampeonatoOrderPontuacao(Campeonato campeonato) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where campeonato = :campeonato order by c.pontuacao desc").setParameter("campeonato", campeonato).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
     }
     
 

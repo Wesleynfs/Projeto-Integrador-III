@@ -6,6 +6,7 @@
 package Dao;
 
 import Connections.ConnectionFactory;
+import Model.Campeonato;
 import Model.PontuacaoPosicao;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -80,9 +81,7 @@ public class PontuacaoPosicaoDAO implements GenericDAO<PontuacaoPosicao> {
     @Override
     public List<PontuacaoPosicao> listarTodos() throws Exception {
         try {
-            List<PontuacaoPosicao> pontuacaoPosicaoList = null;
-            pontuacaoPosicaoList = entityManager.createQuery("SELECT a FROM PontuacaoPosicao a").getResultList();
-            return pontuacaoPosicaoList;
+            return entityManager.createQuery("SELECT a FROM PontuacaoPosicao a").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -94,6 +93,16 @@ public class PontuacaoPosicaoDAO implements GenericDAO<PontuacaoPosicao> {
     public PontuacaoPosicao getById(int id) throws Exception {
         try {
             return entityManager.find(PontuacaoPosicao.class,id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    
+        public List<PontuacaoPosicao> listarPorCampeonato(Campeonato campeonato) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT a FROM PontuacaoPosicao a where a.campeonato = :campeonato order by a.posicao").setParameter("campeonato", campeonato).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

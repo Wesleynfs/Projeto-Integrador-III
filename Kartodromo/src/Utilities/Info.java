@@ -12,4 +12,5 @@ public class Info {
     public static final String CAMPEONATO_OFICIAL = "CAMPEONATO OFICIAL (VALE PONTUAÇÕES)";
     public static final String CAMPEONATO_NORMAL = "CAMPEONATO NORMAL (CORRIDA RÁPIDA)";
     public static final int NUMERO_MINIMO_DE_PILOTOS_CAMPEONATO_OFFICIAL = 10;
+    public static final int PRIMEIRO_COLOCADO_EXTRA_PONTOS = 100;
 }

@@ -4,6 +4,7 @@ import Dao.PilotoParticipaCorridaDAO;
 import Dao.PilotoParticipandoCampeonatoDAO;
 import Model.Corrida;
 import Model.PilotoParticipaCorrida;
+import Model.PilotoParticipandoCampeonato;
 import java.util.List;
 
 public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrida>{
@@ -63,6 +64,15 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
             return pilotoDAO.getById(id);
         }
         return null;
+    }
+    
+    public List<PilotoParticipaCorrida> listarTodosAscTime() throws Exception {
+        pilotoDAO = new PilotoParticipaCorridaDAO();
+        return pilotoDAO.listarTodosAscTime();
+    }
+    public PilotoParticipaCorrida listarPilotoCorrida(Corrida corrida, PilotoParticipandoCampeonato piloto) throws Exception {
+        pilotoDAO = new PilotoParticipaCorridaDAO();
+        return pilotoDAO.listarPilotoCorrida(corrida, piloto);
     }
 
     @Override

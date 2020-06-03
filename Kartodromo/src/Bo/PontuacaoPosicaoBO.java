@@ -6,6 +6,10 @@
 package Bo;
 
 import Dao.PontuacaoPosicaoDAO;
+import Model.Campeonato;
+import Model.Corrida;
+import Model.PilotoParticipaCorrida;
+import Model.PilotoParticipandoCampeonato;
 import Model.PontuacaoPosicao;
 import java.util.List;
 
@@ -50,7 +54,12 @@ public class PontuacaoPosicaoBO implements GenericBO<PontuacaoPosicao> {
         pontuacao_posicaoDAO = new PontuacaoPosicaoDAO();
         return pontuacao_posicaoDAO.listarTodos();
     }
-
+    
+    public List<PontuacaoPosicao> listarPorCampeonato(Campeonato campeonato) throws Exception {
+        pontuacao_posicaoDAO = new PontuacaoPosicaoDAO();
+        return pontuacao_posicaoDAO.listarPorCampeonato(campeonato);
+    }
+    
     @Override
     public PontuacaoPosicao getById(int id) throws Exception {
         pontuacao_posicaoDAO = new PontuacaoPosicaoDAO();

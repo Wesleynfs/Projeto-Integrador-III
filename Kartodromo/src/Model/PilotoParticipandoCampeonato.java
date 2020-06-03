@@ -13,7 +13,6 @@ public class PilotoParticipandoCampeonato {
     private boolean statusAdm;
     private int posicao;
     private int pontuacao;
-    private Time tempoParaTerminar;
     private String presenca;
 
     @ManyToOne
@@ -51,14 +50,6 @@ public class PilotoParticipandoCampeonato {
         this.pontuacao = pontuacao;
     }
 
-    public Time getTempoParaTerminar() {
-        return tempoParaTerminar;
-    }
-
-    public void setTempoParaTerminar(Time tempoParaTerminar) {
-        this.tempoParaTerminar = tempoParaTerminar;
-    }
-
     public int getIdPilotoParticipandoCampeonato() {
         return idPilotoParticipandoCampeonato;
     }
@@ -83,12 +74,11 @@ public class PilotoParticipandoCampeonato {
         this.campeonato = campeonato;
     }
 
-    public PilotoParticipandoCampeonato(int idPilotoParticipandoCampeonato, boolean statusAdm, int posicao, int pontuacao, Time tempoParaTerminar, Piloto piloto, Campeonato campeonato) {
+    public PilotoParticipandoCampeonato(int idPilotoParticipandoCampeonato, boolean statusAdm, int posicao, int pontuacao, Piloto piloto, Campeonato campeonato) {
         this.idPilotoParticipandoCampeonato = idPilotoParticipandoCampeonato;
         this.statusAdm = statusAdm;
         this.posicao = posicao;
         this.pontuacao = pontuacao;
-        this.tempoParaTerminar = tempoParaTerminar;
         this.piloto = piloto;
         this.campeonato = campeonato;
     }

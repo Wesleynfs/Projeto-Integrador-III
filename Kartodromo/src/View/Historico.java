@@ -115,11 +115,11 @@ public class Historico extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Nome","Data","Posição","Pontuação","Tempo Total"
+                            "Nome","Data","Posição","Pontuação"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false, false
+                        false, false, false, false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -136,7 +136,6 @@ public class Historico extends JFrame implements ActionListener {
                     pilotoparticipando.getCampeonato().getDataFinalizacao(),
                     pilotoparticipando.getPosicao(),
                     pilotoparticipando.getPontuacao(),
-                    pilotoparticipando.getTempoParaTerminar()
 
                 });
             

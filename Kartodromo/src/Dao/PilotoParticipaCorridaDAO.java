@@ -99,5 +99,24 @@ public class PilotoParticipaCorridaDAO implements GenericDAO<PilotoParticipaCorr
             entityManager.close();
         }
     }
-
+    
+    public List<PilotoParticipaCorrida> listarTodosAscTime() throws Exception {
+        try {
+            return entityManager.createQuery("SELECT a FROM PilotoParticipaCorrida a order by a.tempoParaTerminar asc").getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+    public PilotoParticipaCorrida listarPilotoCorrida(Corrida corrida, PilotoParticipandoCampeonato piloto) throws Exception {
+        try {
+            List<PilotoParticipaCorrida> list = entityManager.createQuery("SELECT a FROM PilotoParticipaCorrida a where a.corrida = :corrida AND a.pilotoparticipacampeonato = :piloto").setParameter("corrida", corrida).setParameter("piloto", piloto).getResultList();
+            return list.get(0);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 }

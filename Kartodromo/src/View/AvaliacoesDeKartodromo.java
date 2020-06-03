@@ -27,7 +27,6 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
     private JScrollPane jScrollPanekartodromo;
     private JTable tableKartodromo;
     private DefaultTableModel tabelamento;
-
     private Piloto piloto;
     private Kartodromo kartodromo;
 

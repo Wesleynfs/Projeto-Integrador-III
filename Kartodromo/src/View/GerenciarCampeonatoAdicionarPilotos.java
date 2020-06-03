@@ -29,11 +29,9 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private JButton btnFinalizar;
     private JFrame retornarPara;
     private Piloto piloto;
-
     private TabelaConvidarPilotos tabelaConvidarPilotos;
     private JScrollPane jScrollPane;
     private JTable table;
-
     private Campeonato campeonato;
     private DefaultTableModel tabelamento;
     private List<Corrida> corridaList;

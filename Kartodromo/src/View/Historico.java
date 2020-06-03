@@ -6,6 +6,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ public class Historico extends JFrame implements ActionListener {
     private JPanel fundo;
     private JPanel drawer;
     private JButton btnVoltar;
-    private JLabel lblinfoPiloto;
+    private InformacoesPiloto informacoesPiloto;
     private JLabel logo;
     private JLabel campeonatos_participandoinfoLabel;
     private JScrollPane jScrollPaneCorridasRealizadas;
@@ -59,7 +60,7 @@ public class Historico extends JFrame implements ActionListener {
         btnVoltar = new JButton();
         logo = new JLabel();
         campeonatos_participandoinfoLabel = new JLabel();
-        lblinfoPiloto = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         jScrollPaneCorridasRealizadas = new JScrollPane();
         tableTodasAsCorridasRealizadas = new JTable();
     }
@@ -69,7 +70,7 @@ public class Historico extends JFrame implements ActionListener {
         add(logo);
         add(campeonatos_participandoinfoLabel);
         add(jScrollPaneCorridasRealizadas);
-        add(lblinfoPiloto);
+        add(informacoesPiloto);
         add(drawer);
         add(fundo);
     }
@@ -82,7 +83,7 @@ public class Historico extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDA);
-            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             campeonatos_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
@@ -90,8 +91,8 @@ public class Historico extends JFrame implements ActionListener {
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
-            drawer.setBackground(Colors.VERDEDARK);            
-            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
+            drawer.setBackground(Colors.VERDEDARK);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZALIGHTB);
@@ -144,11 +145,8 @@ public class Historico extends JFrame implements ActionListener {
             jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
             jScrollPaneCorridasRealizadas.setBounds(60, 220, 680, 300);
 
-            lblinfoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-            + "APELIDO: "+piloto.getApelido()+ "<br/>"
-            + "NÍVEL: "+piloto.getNivel() + "<br/>"
-            +"</html>");
-            lblinfoPiloto.setBounds(10,110,200,90);
+            informacoesPiloto.setBounds(10,110,200,90);
+            informacoesPiloto.setPiloto(piloto);
             
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);

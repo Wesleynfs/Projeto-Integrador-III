@@ -10,6 +10,7 @@ import Utilities.Colors;
 
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
     private JScrollPane contextojScrollPane;
     private JButton btnVoltar;
     private JButton btnEnviar;
-    private JLabel infoPiloto;
+    private InformacoesPiloto informacoesPiloto;
     private Campeonato campeonato;
     private Piloto piloto;
 
@@ -70,7 +71,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
         contextoLabel = new JLabel();
-        infoPiloto = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         contextojScrollPane = new JScrollPane();
         btnVoltar = new JButton();
         btnEnviar = new JButton();
@@ -81,7 +82,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
         add(logo);
         add(assuntoTextField);
         add(contextojScrollPane);
-        add(infoPiloto);
+        add(informacoesPiloto);
         add(relatoLabel);
         add(assuntoLabel);
         add(contextoLabel);
@@ -96,7 +97,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            infoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
             assuntoTextField.setForeground(Colors.BRANCO);
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
@@ -115,7 +116,7 @@ public class EnviarAviso extends JFrame implements ActionListener {
             contextojTextPane1.setBackground(Colors.CINZALIGHTB);
             contextojTextPane1.setForeground(Colors.CINZADARKA);
             assuntoTextField.setBackground(Colors.CINZALIGHTB);
-            infoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             assuntoTextField.setForeground(Colors.CINZADARKA);
             relatoLabel.setForeground(Colors.CINZALIGHTB);
             assuntoLabel.setForeground(Colors.CINZALIGHTB);
@@ -146,11 +147,8 @@ public class EnviarAviso extends JFrame implements ActionListener {
         contextoLabel.setText("CONTEXTO DO AVISO:");
         contextoLabel.setBounds(200, 250, 300, 35);
 
-        infoPiloto.setBounds(10, 110, 200, 90);
-        infoPiloto.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
-                + "APELIDO: " + piloto.getApelido() + "<br/>"
-                + "NÍVEL: " + piloto.getNivel() + "<br/>"
-                + "</html>");
+        informacoesPiloto.setBounds(10, 110, 200, 90);
+        informacoesPiloto.setPiloto(piloto);
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("ENVIAR AVISO AOS PILOTOS");

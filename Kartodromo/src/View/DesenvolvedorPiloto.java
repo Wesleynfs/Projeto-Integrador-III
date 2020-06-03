@@ -10,28 +10,23 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DesenvolvedorPiloto extends JFrame implements ActionListener{
+public class DesenvolvedorPiloto extends JFrame implements ActionListener {
+
     private JPanel fundo;
     private JPanel drawer;
-    
     private JFormattedTextField Nome_TextField;
     private JFormattedTextField senha_TextField;
     private JFormattedTextField cpf_TextField;
     private JFormattedTextField email_TextField;
     private JFormattedTextField data_nascimento_TextField;
     private JFormattedTextField status_atividade_TextField;
-    
     private JSpinner numero_strikersJSpinner;
     private JSpinner numero_vitoriasJSpinner;
     private JSpinner idJSpinner;
-    
     private JLabel logo;
-    
     private JScrollPane jScrollPaneParticipantes;
     private JTable tableParticipantes_status;
-    
     private DefaultTableModel tabelamento;
-    
     private JLabel nomeLabel;
     private JLabel senhaLabel;
     private JLabel cpfLabel;
@@ -41,7 +36,6 @@ public class DesenvolvedorPiloto extends JFrame implements ActionListener{
     private JLabel data_nascimentoLabel;
     private JLabel status_atividadeLabel;
     private JLabel idLabel;
-            
     private JButton btnSair;
     private JButton btnIrkartodromo;
     private JButton btnCadastrar;

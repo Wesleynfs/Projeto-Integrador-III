@@ -28,16 +28,13 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
     private JLabel nota;
     private JLabel comentarioLabel;
     private JLabel valorNotaLabel;
-    private JLabel infoPilotoLabel;
+    private InformacoesPiloto informacoesPiloto;
     private JSlider notajSlider;
     private JButton btnVoltar;
     private JButton btnEnviar;
     private JButton btnVerPerfil;
     private JLabel estrelasLabel[] = new JLabel[5];
     private JComboBox<String> kartodromojComboBox;
-
-    private String nivel_elo;
-
     private Piloto piloto;
 
     public AvaliarKartodromo(Piloto piloto) {
@@ -78,7 +75,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
         contextojTextPane1 = new JTextPane();
         nomeKartodromoLabel = new JLabel();
         nota = new JLabel();
-        infoPilotoLabel = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         comentarioLabel = new JLabel();
         valorNotaLabel = new JLabel();
         contextojScrollPane = new JScrollPane();
@@ -103,7 +100,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
         add(nota);
         add(comentarioLabel);
         add(valorNotaLabel);
-        add(infoPilotoLabel);
+        add(informacoesPiloto);
         add(notajSlider);
         add(valorNotaLabel);
         add(kartodromojComboBox);
@@ -126,7 +123,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
             nomeKartodromoLabel.setForeground(Colors.CINZALIGHTB);
             nota.setForeground(Colors.CINZALIGHTB);
             valorNotaLabel.setForeground(Colors.CINZALIGHTB);
-            infoPilotoLabel.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             comentarioLabel.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -145,7 +142,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
             nomeKartodromoLabel.setForeground(Colors.CINZALIGHTB);
             valorNotaLabel.setForeground(Colors.CINZALIGHTB);
             comentarioLabel.setForeground(Colors.CINZALIGHTB);
-            infoPilotoLabel.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             nota.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -172,11 +169,8 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
             contextojScrollPane.setBounds(360, 150, 400, 200);
             contextojScrollPane.setViewportView(contextojTextPane1);
 
-            infoPilotoLabel.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
-                    + "APELIDO: " + piloto.getApelido() + "<br/>"
-                    + "NÍVEL: " + piloto.getNivel() + "<br/>"
-                    + "</html>");
-            infoPilotoLabel.setBounds(10, 110, 200, 90);
+            informacoesPiloto.setBounds(10, 110, 200, 90);
+            informacoesPiloto.setPiloto(piloto);
 
             nomeKartodromoLabel.setText("NOME DO KARTÓDROMO:");
             nomeKartodromoLabel.setBounds(360, 350, 200, 35);

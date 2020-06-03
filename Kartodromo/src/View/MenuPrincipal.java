@@ -9,7 +9,6 @@ import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;

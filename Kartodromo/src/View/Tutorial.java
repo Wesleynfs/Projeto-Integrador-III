@@ -21,7 +21,6 @@ public class Tutorial extends JFrame implements ActionListener {
     private JFrame menuPrincipal;
     private JPanel panelLabel;
     private JLabel logo;
-
     private int posicaoTutorial;
 
     public Tutorial(JFrame frame) {

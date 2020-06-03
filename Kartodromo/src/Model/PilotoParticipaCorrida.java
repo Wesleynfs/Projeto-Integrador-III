@@ -1,7 +1,7 @@
 package Model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 @Entity
 public class PilotoParticipaCorrida {
@@ -11,7 +11,7 @@ public class PilotoParticipaCorrida {
     private int idPilotoParticipaCorrida;
     private int posicao;
     private int pontuacao;
-    private Timestamp tempoParaTerminar;
+    private Time tempoParaTerminar;
     private int posicaoDeLargada;
 
     @ManyToOne
@@ -23,9 +23,7 @@ public class PilotoParticipaCorrida {
         return idPilotoParticipaCorrida;
     }
 
-    public void setIdPilotoParticipaCorrida(int idPilotoParticipaCorrida) {
-        this.idPilotoParticipaCorrida = idPilotoParticipaCorrida;
-    }
+    public void setIdPilotoParticipaCorrida(int idPilotoParticipaCorrida) { this.idPilotoParticipaCorrida = idPilotoParticipaCorrida; }
 
     public int getPosicao() {
         return posicao;
@@ -43,11 +41,11 @@ public class PilotoParticipaCorrida {
         this.pontuacao = pontuacao;
     }
 
-    public Timestamp getTempoParaTerminar() {
+    public Time getTempoParaTerminar() {
         return tempoParaTerminar;
     }
 
-    public void setTempoParaTerminar(Timestamp tempoParaTerminar) {
+    public void setTempoParaTerminar(Time tempoParaTerminar) {
         this.tempoParaTerminar = tempoParaTerminar;
     }
 
@@ -63,10 +61,6 @@ public class PilotoParticipaCorrida {
         return pilotoparticipacampeonato;
     }
 
-    public void setPilotoparticipacampeonato(PilotoParticipandoCampeonato pilotoparticipacampeonato) {
-        this.pilotoparticipacampeonato = pilotoparticipacampeonato;
-    }
-
     public Corrida getCorrida() {
         return corrida;
     }
@@ -74,10 +68,22 @@ public class PilotoParticipaCorrida {
     public void setCorrida(Corrida corrida) {
         this.corrida = corrida;
     }
-    
-    
-    
-    PilotoParticipaCorrida(){
+
+    public void setPilotoparticipacampeonato(PilotoParticipandoCampeonato pilotoparticipacampeonato) {
+        this.pilotoparticipacampeonato = pilotoparticipacampeonato;
+    }
+
+    public PilotoParticipaCorrida(int idPilotoParticipaCorrida, int posicao, int pontuacao, Time tempoParaTerminar, int posicaoDeLargada, PilotoParticipandoCampeonato pilotoparticipacampeonato, Corrida corrida) {
+        this.idPilotoParticipaCorrida = idPilotoParticipaCorrida;
+        this.posicao = posicao;
+        this.pontuacao = pontuacao;
+        this.tempoParaTerminar = tempoParaTerminar;
+        this.posicaoDeLargada = posicaoDeLargada;
+        this.pilotoparticipacampeonato = pilotoparticipacampeonato;
+        this.corrida = corrida;
+    }
+
+    public PilotoParticipaCorrida() {
     
     }
 }

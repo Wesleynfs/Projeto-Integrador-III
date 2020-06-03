@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,7 +13,7 @@ public class PilotoParticipandoCampeonato {
     private boolean statusAdm;
     private int posicao;
     private int pontuacao;
-    private Timestamp tempoParaTerminar;
+    private Time tempoParaTerminar;
     private String presenca;
 
     @ManyToOne
@@ -50,11 +51,11 @@ public class PilotoParticipandoCampeonato {
         this.pontuacao = pontuacao;
     }
 
-    public Timestamp getTempoParaTerminar() {
+    public Time getTempoParaTerminar() {
         return tempoParaTerminar;
     }
 
-    public void setTempoParaTerminar(Timestamp tempoParaTerminar) {
+    public void setTempoParaTerminar(Time tempoParaTerminar) {
         this.tempoParaTerminar = tempoParaTerminar;
     }
 
@@ -82,7 +83,7 @@ public class PilotoParticipandoCampeonato {
         this.campeonato = campeonato;
     }
 
-    public PilotoParticipandoCampeonato(int idPilotoParticipandoCampeonato, boolean statusAdm, int posicao, int pontuacao, Timestamp tempoParaTerminar, Piloto piloto, Campeonato campeonato) {
+    public PilotoParticipandoCampeonato(int idPilotoParticipandoCampeonato, boolean statusAdm, int posicao, int pontuacao, Time tempoParaTerminar, Piloto piloto, Campeonato campeonato) {
         this.idPilotoParticipandoCampeonato = idPilotoParticipandoCampeonato;
         this.statusAdm = statusAdm;
         this.posicao = posicao;

@@ -4,7 +4,6 @@ import Bo.AvisoCampeonatoBO;
 import Bo.CampeonatoBO;
 import Bo.ConviteCampeonatoBO;
 import Bo.PilotoParticipandoCampeonatoBO;
-import Dao.PilotoParticipandoCampeonatoDAO;
 import Model.AvisoCampeonato;
 import Model.Campeonato;
 import Model.ConviteCampeonato;
@@ -13,13 +12,11 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
-
+import Utilities.InformacoesPiloto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -34,7 +31,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JButton btnGerenciarCampeonatos;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
-    private JLabel infoPiloto;
     private JLabel perfilPilotoLabel;
     private JLabel CampeonatoParticipandoLabel;
     private JLabel corridasMarcadasLabel;
@@ -45,9 +41,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private DefaultTableModel tabelamento;
     private JTableHeader headerTabelaCorridasParticipando;
     private JTableHeader headerTabelaTodasAsCorridasMarcadas;
-
-    private String nivel_elo;
-
+    private InformacoesPiloto informacoesPiloto;
     private Piloto piloto;
 
     public PerfilPiloto(Piloto piloto) {
@@ -68,7 +62,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     public PerfilPiloto() {
-
 
         // Instancia de itens //
         initializate();
@@ -100,6 +93,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
+        informacoesPiloto = new InformacoesPiloto();
         btnRelatar = new JButton();
         btnSair = new JButton();
         btnVerificarconvites_avisos = new JButton();
@@ -107,7 +101,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnGerenciarCampeonatos = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
-        infoPiloto = new JLabel();
         CampeonatoParticipandoLabel = new JLabel();
         corridasMarcadasLabel = new JLabel();
         perfilPilotoLabel = new JLabel();
@@ -131,7 +124,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         add(perfilPilotoLabel);
         add(CampeonatoParticipandoLabel);
         add(corridasMarcadasLabel);
-        add(infoPiloto);
+        add(informacoesPiloto);
         add(btnVerificarconvites_avisos);
         add(jScrollPaneCorridasMarcadas);
         add(jScrollPaneCorridasParticipando);
@@ -146,7 +139,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            infoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             btnSair.setForeground(Colors.CINZADARKB);
@@ -174,7 +167,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             drawer.setBackground(Colors.VERDEDARK);
             CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
-            infoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnRelatar.setBackground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.VERDEDARK);
             btnParticiparCampeonato.setBackground(Colors.VERDEDARK);
@@ -290,20 +283,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
         jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
 
-        if (piloto.getNivel() < 5) {
-            nivel_elo = "PILOTO INICIANTE";
-        } else if (piloto.getNivel() < 10) {
-            nivel_elo = "PILOTO AVANÇADO";
-        } else {
-            nivel_elo = "PILOTO VETERANO";
-        }
-        infoPiloto.setText("<html>NOME: " + piloto.getNomePiloto() + "<br/>"
-                + "APELIDO: " + piloto.getApelido() + "<br/>"
-                + "NÍVEL: " + piloto.getNivel() + "<br/>"
-                + nivel_elo + "<br/>"
-                + "NÚMERO DE STRIKERS: " + piloto.getNumeroDeStrikesPiloto()
-                + "</html>");
-        infoPiloto.setBounds(10, 110, 200, 90);
+        informacoesPiloto.setBounds(10, 110, 200, 90);
+        informacoesPiloto.setPiloto(piloto);
 
         CampeonatoParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");
         CampeonatoParticipandoLabel.setBounds(20, 270, 400, 35);

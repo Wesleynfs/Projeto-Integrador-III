@@ -2,11 +2,9 @@
 package View;
 
 import Bo.CorridaBO;
+import Bo.PilotoParticipaCorridaBO;
 import Bo.PilotoParticipandoCampeonatoBO;
-import Model.Campeonato;
-import Model.Corrida;
-import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
+import Model.*;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
@@ -179,7 +177,6 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             
             jScrollPaneCorrida.setViewportView(tabelaCorrida);
             jScrollPaneCorrida.setBounds(655, 150, 600, 400);
-            
 
             logo.setFont(Fonts.SANSSERIFMIN);
             logo.setBounds(20 , 30,500,35);
@@ -192,8 +189,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             GanhadorLabel.setText("GRANDE GANHADOR: NOME PILOTO VENCEDOR");
             //AQUI COLOCA O NOME DO PRIMEIRO COLOCADO DA CORRIDA      
             //        
-                    
-                    
+
             btnFinalizarCorrida.setBorderPainted(false);
             btnFinalizarCorrida.setFocusPainted(false);
             btnFinalizarCorrida.addActionListener(this);
@@ -217,6 +213,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
     }
 
     public void estiloninjaVamo_da_GG_nisso_carai(){
+
        tabelaCorrida.setModel(new DefaultTableModel(
                 new Object[][]{
 
@@ -237,9 +234,13 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
 
         tabelamento = (DefaultTableModel) tabelaCorrida.getModel();
         try {
+
             for(Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
                 List<PilotoParticipandoCampeonato> pilotos = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
-                    
+
+                PilotoParticipaCorrida pilotoParticipaCorrida = new PilotoParticipaCorrida();
+                pilotoParticipaCorrida.setCorrida(corrida);
+
                 //criar PilotoParticipaCorrida
                 
                 //caso o piloto falte ao campeonato set 0 em tudo
@@ -252,10 +253,11 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
                 
                 //somar tempo de todas as corrida e colocar em tempo no pilotoparticipacampeonato
                 //somar pontuação das corridas e colocar em pontuação de pilotoparticipacampeonato
-                //setar posiçãono campeonato de acordo com a pontuação
+                //setar posição no campeonato de acordo com a pontuação
                 
                 //colocar na tabela de campeonato os dados de pilotoparticipacampeonato caso seja diferente de zero
             }
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível Criar o resultado");
         }

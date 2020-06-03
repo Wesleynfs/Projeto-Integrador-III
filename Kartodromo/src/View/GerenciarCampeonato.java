@@ -4,10 +4,8 @@ import Bo.CampeonatoBO;
 import Bo.ValidarString;
 import Model.Campeonato;
 import Model.Piloto;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.Tempo;
+import Utilities.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -28,7 +26,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JLabel lblPontuacoes;
     private JLabel lblNomeCampeonato;
     private JLabel lblDataFinalCampeonato;
-    private JLabel lblInfoPiloto;
+    private InformacoesPiloto informacoesPiloto;
     private JLabel lblTipoCorrida;
     private JButton btnVoltar;
     private JButton btnAdicionarCorrida;
@@ -76,7 +74,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         lblPontuacoes = new JLabel();
         logo = new JLabel();
         lblNomeCampeonato = new JLabel();
-        lblInfoPiloto = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         lblDataFinalCampeonato = new JLabel();
         lblTipoCorrida = new JLabel();
         btnVoltar = new JButton();
@@ -96,7 +94,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         add(lblNomeCampeonato);
         add(lblDataFinalCampeonato);
         add(lblTipoCorrida);
-        add(lblInfoPiloto);
+        add(informacoesPiloto);
         add(btnVoltar);
         add(drawer);
         add(fundo);
@@ -119,7 +117,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
-            lblInfoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
             btnAdicionarCorrida.setForeground(Colors.CINZADARKB);
             comboTipoCampeonato.setForeground(Colors.BRANCO);
@@ -136,7 +134,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             lblPontuacoes.setForeground(Colors.CINZALIGHTB);
             lblTipoCorrida.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            lblInfoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
@@ -173,8 +171,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoCampeonato.setBorder(BorderFactory.createEmptyBorder());
         comboTipoCampeonato.setBounds(60, 280, 300, 35);
 
-        comboTipoCampeonato.addItem(Info.campeonato_normal);
-        comboTipoCampeonato.addItem(Info.campeonato_oficial);
+        comboTipoCampeonato.addItem(Info.CAMPEONATO_NORMAL);
+        comboTipoCampeonato.addItem(Info.CAMPEONATO_OFICIAL);
 
         logo.setBounds(20, 30, 600, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
@@ -192,11 +190,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
         btnAdicionarCorrida.setBounds(590, 550, 190, 35);
 
-        lblInfoPiloto.setBounds(10, 105, 200, 90);
-        lblInfoPiloto.setText("<html>NOME: " + piloto.getNomePiloto().toUpperCase() + "<br/>"
-                + "APELIDO: " + piloto.getApelido().toUpperCase() + "<br/>"
-                + "NÍVEL: " + piloto.getNivel() + "<br/>"
-                + "</html>");
+        informacoesPiloto.setBounds(10, 105, 200, 90);
+        informacoesPiloto.setPiloto(piloto);
 
         table.setModel(new DefaultTableModel(
                 new Object[][]{

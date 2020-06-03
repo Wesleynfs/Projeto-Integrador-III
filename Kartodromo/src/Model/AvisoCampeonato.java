@@ -26,8 +26,6 @@ public class AvisoCampeonato {
         this.pilotos = pilotos;
     }
 
-    
-
     public int getIdAvisoCampeonato() {
         return idAvisoCampeonato;
     }

@@ -21,24 +21,19 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
     private JLabel version;
     private JLabel logo;
-    private JLabel diassemanaLabel;
+    private JLabel diaSemanaLabel;
     private JLabel tipokartsLabel;
     private JButton btn_Voltar;
     private JButton btnMudar;
-
     private Kartodromo kartodromo;
-
     private JCheckBox[] listCheckBox;
-    
     private JLabel avaliacoesLabel;
     private JLabel MediaLabel;
     private JScrollPane jScrollPanekartodromo;
     private JTable tableKartodromo;
     private DefaultTableModel tabelamento;
-
 
     public PerfilKartodromo(Kartodromo kartodromo) {
         this.kartodromo = kartodromo;
@@ -72,7 +67,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         drawer = new JPanel();
         version = new JLabel();
         logo = new JLabel();
-        diassemanaLabel = new JLabel();
+        diaSemanaLabel = new JLabel();
         tipokartsLabel = new JLabel();
         btn_Voltar = new JButton();
         btnMudar = new JButton();
@@ -96,7 +91,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         add(avaliacoesLabel);
         add(MediaLabel);
         add(jScrollPanekartodromo);
-        add(diassemanaLabel);
+        add(diaSemanaLabel);
         add(tipokartsLabel);
         add(version);
         add(logo);
@@ -111,7 +106,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             tipokartsLabel.setForeground(Colors.CINZALIGHTB);
-            diassemanaLabel.setForeground(Colors.CINZALIGHTB);
+            diaSemanaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btn_Voltar.setBackground(Colors.VERDEDARK);
@@ -135,7 +130,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             MediaLabel.setForeground(Colors.CINZALIGHTB);
             avaliacoesLabel.setForeground(Colors.CINZALIGHTB);
             tipokartsLabel.setForeground(Colors.CINZALIGHTB);
-            diassemanaLabel.setForeground(Colors.CINZALIGHTB);
+            diaSemanaLabel.setForeground(Colors.CINZALIGHTB);
             version.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
             btn_Voltar.setBackground(Colors.VERDEDARK);
@@ -156,8 +151,8 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         try {
             fundo.setSize(Info.MINSCREENSIZE);
             drawer.setBounds(0, 0, 800, 200);
-            diassemanaLabel.setText("Dias de Funcionamento:");
-            diassemanaLabel.setBounds(20, 230, 150, 35);
+            diaSemanaLabel.setText("Dias de Funcionamento:");
+            diaSemanaLabel.setBounds(20, 230, 150, 35);
             tipokartsLabel.setText("Tipos de Kart (MOTOR)");
             tipokartsLabel.setBounds(210, 230, 150, 35);
 

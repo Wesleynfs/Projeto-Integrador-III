@@ -54,7 +54,15 @@ public class PontuacaoPosicao {
     public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
     }
-    
-    
 
+    public PontuacaoPosicao(int idPontuacao_posicao, int posicao, int pontuacao, Campeonato campeonato) {
+        this.idPontuacao_posicao = idPontuacao_posicao;
+        this.posicao = posicao;
+        this.pontuacao = pontuacao;
+        this.campeonato = campeonato;
+    }
+
+    public PontuacaoPosicao() {
+
+    }
 }

@@ -1,7 +1,6 @@
 package View;
 
 import Bo.CampeonatoBO;
-import Bo.PilotoBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Campeonato;
 import Model.Piloto;
@@ -22,24 +21,17 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
-
     private JButton btnVoltar;
     private JButton btnIniciarCorrida;
-
     private JLabel logo;
     private JLabel corrida_escolhidaLabel;
     private JLabel corridas_participandoLabel;
-
     private JComboBox<Object> corridasjComboBox;
-
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
-    
     private JScrollPane jScrollPanePilotosCorrida;
     private JTable tablePilotosCorrida;
-    
     private DefaultTableModel tabelamento;
-    
     private Piloto piloto;
 
     public IniciarCorridaPt1(Piloto piloto) {
@@ -246,11 +238,11 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
                
                 Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
                 List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
-                if ((list.size() >= Info.numero_minimo_de_pilotos_em_campeonato_oficial
-                        && Info.campeonato_oficial.equals(campeonato.getTipoCorrida()))){
+                if ((list.size() >= Info.NUMERO_MINIMO_DE_PILOTOS_CAMPEONATO_OFFICIAL
+                        && Info.CAMPEONATO_OFICIAL.equals(campeonato.getTipoCorrida()))){
                     dispose();
                     new IniciarCorridaPt2(piloto,campeonato); 
-                }else if (Info.campeonato_normal.equals(campeonato.getTipoCorrida())) {
+                }else if (Info.CAMPEONATO_NORMAL.equals(campeonato.getTipoCorrida())) {
                     dispose();
                     new IniciarCorridaPt2(piloto,campeonato);
                 } else {

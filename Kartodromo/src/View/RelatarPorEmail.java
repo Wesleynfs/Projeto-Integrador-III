@@ -1,10 +1,11 @@
 package View;
 
-import Email.EmailJava;
 import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
     private JButton btnVoltar;
     private JButton btnEnviar;
     private JLabel pilotoLabel;
-    private JLabel lblinfoPiloto;
+    private InformacoesPiloto informacoesPiloto;
 
     private Piloto piloto;
 
@@ -65,7 +66,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
         relatoLabel = new JLabel();
         assuntoLabel = new JLabel();
         contextoLabel = new JLabel();
-        lblinfoPiloto = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         contextojScrollPane = new JScrollPane();
         btnVoltar = new JButton();
         btnEnviar = new JButton();
@@ -81,7 +82,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
         add(relatoLabel);
         add(assuntoLabel);
         add(contextoLabel);
-        add(lblinfoPiloto);
+        add(informacoesPiloto);
         add(btnVoltar);
         add(btnEnviar);
         add(drawer);
@@ -105,7 +106,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnEnviar.setBackground(Colors.VERDEDARK);
-            lblinfoPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnEnviar.setForeground(Colors.CINZADARKB);
             pilotoLabel.setForeground(Colors.CINZALIGHTB);
         } else {
@@ -121,7 +122,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
-            lblinfoPiloto.setForeground(Colors.CINZALIGHTB); 
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnEnviar.setBackground(Colors.VERDEDARK);
             btnEnviar.setForeground(Colors.CINZADARKB);
             pilotoLabel.setForeground(Colors.CINZALIGHTB);
@@ -171,12 +172,9 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
         btnEnviar.addActionListener(this);
         btnEnviar.setText("ENVIAR EMAIL");
         btnEnviar.setBounds(620,550,160,35);
-        
-        lblinfoPiloto.setText("<html>NOME: "+piloto.getNomePiloto()+ "<br/>"
-        + "APELIDO: "+piloto.getApelido()+ "<br/>"
-        + "NÍVEL: "+piloto.getNivel() + "<br/>"
-        +"</html>");
-        lblinfoPiloto.setBounds(10,110,200,90);
+
+        informacoesPiloto.setBounds(10,110,200,90);
+        informacoesPiloto.setPiloto(piloto);
     
     }
     

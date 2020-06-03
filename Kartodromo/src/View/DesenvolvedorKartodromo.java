@@ -11,9 +11,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class DesenvolvedorKartodromo extends JFrame implements ActionListener{
+
     private JPanel fundo;
     private JPanel drawer;
-    
     private JFormattedTextField paisJTextField;
     private JFormattedTextField estadoJTextField;
     private JFormattedTextField cidadeJTextField;
@@ -21,17 +21,12 @@ public class DesenvolvedorKartodromo extends JFrame implements ActionListener{
     private JFormattedTextField nomeJTextField;
     private JFormattedTextField senhaJTextField;
     private JFormattedTextField emailJTextField;
-    
     private JSpinner numeroJSpinner;
     private JSpinner idJSpinner;
-    
     private JLabel logo;
-    
     private JScrollPane jScrollPaneParticipantes;
     private JTable tableParticipantes_status;
-    
     private DefaultTableModel tabelamento;
-    
     private JLabel diassemanaLabel;
     private JLabel tipokartsLabel;
     private JLabel paisLabel;
@@ -50,13 +45,11 @@ public class DesenvolvedorKartodromo extends JFrame implements ActionListener{
     private JCheckBox quintaCheckBox;
     private JCheckBox sextaCheckBox;
     private JCheckBox sabadoCheckBox;
-    
     private JCheckBox kartindoorCheckBox;
     private JCheckBox kart2motorCheckBox;
     private JCheckBox kart4motorCheckBox;
     private JCheckBox kartshiCheckBox;
     private JCheckBox kartsemmarchaCheckBox;
-            
     private JButton btnSair;
     private JButton btnIrparapiloto;
     private JButton btnCadastrar;

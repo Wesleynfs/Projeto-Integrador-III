@@ -3,6 +3,7 @@ package View;
 
 import Bo.CampeonatoBO;
 import Bo.CorridaBO;
+import Bo.PilotoBO;
 import Bo.PilotoParticipaCorridaBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Bo.PontuacaoPosicaoBO;
@@ -165,7 +166,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             btnFinalizarCorrida.setBorderPainted(false);
             btnFinalizarCorrida.setFocusPainted(false);
             btnFinalizarCorrida.addActionListener(this);
-            btnFinalizarCorrida.setBounds(1220 , 640,200,35);
+            btnFinalizarCorrida.setBounds(300 , 640,200,35);
             btnFinalizarCorrida.setText("FINALIZAR CAMPEONATO"); 
             
             estiloninjaVamo_da_GG_nisso_carai();
@@ -186,7 +187,6 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
     }
 
     public void estiloninjaVamo_da_GG_nisso_carai(){
-        System.out.println("sdifsifkjsdfksdf  1");
        tabelaCorrida.setModel(new DefaultTableModel(
                 new Object[][]{
 
@@ -207,6 +207,8 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
        
         tabelamento = (DefaultTableModel) tabelaCorrida.getModel();
         try {
+            int posicao = 0;
+            List<PontuacaoPosicao> valoresPontuacao = new PontuacaoPosicaoBO().listarPorCampeonato(campeonato); 
             List<PilotoParticipandoCampeonato> pilotos = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
             for(Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
                 for(int x =0; x < pilotos.size();x++){
@@ -222,18 +224,10 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
                         pilotos.get(x).setPosicao(0);
                     }
                 }
-                int posicao = 1;
-                List<PontuacaoPosicao> valoresPontuacao = new PontuacaoPosicaoBO().listarPorCampeonato(campeonato);
-                for(PilotoParticipaCorrida pilotoCorrida : new PilotoParticipaCorridaBO().listarTodosAscTime()){
-                    //malandragem: pego os valores ordenados do menor tempo para o maior logo eu só preciso atribuir os valores
+                posicao = 1;
+                for(PilotoParticipaCorrida pilotoCorrida : new PilotoParticipaCorridaBO().listarTodosAscTimePorCorrida(corrida)){
                     pilotoCorrida.setPosicao(posicao);
                     if(posicao -1 < 10){//o numero de valoresPontuacao só vai até dez então posicao só precisa informar até 10
-                        //ok sei que isso ta muito louco mas os valores de valoresPontuacao
-                        //estão ordenados por pontuação e da mesma forma que pilotoCorrida
-                        //está ordenado pelo menor tempo que leva ao acordo de que é da
-                        //primeira posicao a ultima o atributo int posicao - 1 sempre começa no zero ate
-                        // o tamanho final do List, enfim não sei dizer se ficou claro mas
-                        // a logíca leva aos valores corretos
                         pilotoCorrida.setPontuacao(valoresPontuacao.get(posicao-1).getPontuacao());
                     }else{
                         pilotoCorrida.setPontuacao(0);
@@ -246,18 +240,17 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
                         pilotoCorrida.getPosicao(),
                         pilotoCorrida.getPontuacao()
                     });
-                    
                     posicao++;
                 }
+                
+            }
                 for(int x =0; x < pilotos.size();x++){
                     if(pilotos.get(x).getPresenca().equals("PRESENTE")){
-                    
                         for(Corrida corridas : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
                     
                             PilotoParticipaCorrida pilotocorridas = new PilotoParticipaCorridaBO().listarPilotoCorrida(corridas, pilotos.get(x));
-                                pilotos.get(x).setPontuacao(pilotos.get(x).getPontuacao()+pilotocorridas.getPontuacao());  
-                                new PilotoParticipandoCampeonatoBO().alterar(pilotos.get(x));
-        
+                            pilotos.get(x).setPontuacao(pilotos.get(x).getPontuacao()+pilotocorridas.getPontuacao());  
+                            new PilotoParticipandoCampeonatoBO().alterar(pilotos.get(x));
                         }
                     }
                 }
@@ -273,11 +266,12 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
                                 GanhadorLabel.setText("GRANDE GANHADOR: "+pilotoscampeonato.getPiloto().getApelido());
                             }
                             new PilotoParticipandoCampeonatoBO().alterar(pilotoscampeonato);
-
                             Piloto piloto_ganhos = pilotoscampeonato.getPiloto();
                             piloto_ganhos.setPontuacao_nivel(pilotoscampeonato.getPontuacao()+piloto_ganhos.getPontuacao_nivel());
-                            piloto_ganhos.setNivel(piloto_ganhos.getPontuacao_nivel()/2);
+                            piloto_ganhos.setNivel(piloto_ganhos.getPontuacao_nivel()/Info.PONTUACAO_POR_LEVEL);
                             posicao++;
+                            System.out.println(piloto_ganhos.toString());
+                            new PilotoBO().alterar(piloto_ganhos);
                         }
                     }
                 }else{
@@ -291,7 +285,8 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
                     }
                 
                 }
-            }
+            
+                
             tabelaCampeonato.setModel(new DefaultTableModel(
                 new Object[][]{
 

@@ -66,9 +66,9 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
         return null;
     }
     
-    public List<PilotoParticipaCorrida> listarTodosAscTime() throws Exception {
+    public List<PilotoParticipaCorrida> listarTodosAscTimePorCorrida(Corrida corrida) throws Exception {
         pilotoDAO = new PilotoParticipaCorridaDAO();
-        return pilotoDAO.listarTodosAscTime();
+        return pilotoDAO.listarTodosAscTimePorCorrida(corrida);
     }
     public PilotoParticipaCorrida listarPilotoCorrida(Corrida corrida, PilotoParticipandoCampeonato piloto) throws Exception {
         pilotoDAO = new PilotoParticipaCorridaDAO();

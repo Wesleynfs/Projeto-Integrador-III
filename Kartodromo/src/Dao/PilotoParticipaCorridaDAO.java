@@ -100,9 +100,9 @@ public class PilotoParticipaCorridaDAO implements GenericDAO<PilotoParticipaCorr
         }
     }
     
-    public List<PilotoParticipaCorrida> listarTodosAscTime() throws Exception {
+    public List<PilotoParticipaCorrida> listarTodosAscTimePorCorrida(Corrida corrida) throws Exception {
         try {
-            return entityManager.createQuery("SELECT a FROM PilotoParticipaCorrida a order by a.tempoParaTerminar asc").getResultList();
+            return entityManager.createQuery("SELECT a FROM PilotoParticipaCorrida a where a.corrida = :corrida order by a.tempoParaTerminar asc").setParameter("corrida", corrida).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

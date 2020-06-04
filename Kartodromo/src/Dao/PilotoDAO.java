@@ -41,6 +41,7 @@ public class PilotoDAO implements GenericDAO<Piloto> {
     @Override
     public boolean alterar(Piloto piloto) throws Exception {
         try {
+            
             entityManager.getTransaction().begin();
             entityManager.merge(piloto);
             entityManager.getTransaction().commit();

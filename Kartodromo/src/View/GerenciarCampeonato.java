@@ -174,7 +174,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         comboTipoCampeonato.addItem(Info.CAMPEONATO_NORMAL);
         comboTipoCampeonato.addItem(Info.CAMPEONATO_OFICIAL);
 
-        logo.setBounds(20, 30, 600, 35);
+        logo.setBounds(20, 30, 760, 35);
         logo.setText("GERENCIAR CAMPEONATOS");
         logo.setFont(Fonts.SANSSERIFMIN);
 

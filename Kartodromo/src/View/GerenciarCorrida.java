@@ -189,8 +189,8 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
 
-        logo.setBounds(20, 30, 700, 35);
-        logo.setText("GERENCIAR CORRIDAS");
+        logo.setBounds(20, 30, 760, 35);
+        logo.setText("GERENCIAR CORRIDAS - "+campeonato.getNome());
         logo.setFont(Fonts.SANSSERIFMIN);
 
         try {

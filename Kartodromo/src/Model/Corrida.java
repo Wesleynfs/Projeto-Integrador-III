@@ -86,9 +86,9 @@ public class Corrida {
     public String toString() {
         return "<html>Corrida:" + nomeCorrida + "do kartódormo " 
                 + kartodromo.getNomeKartodromo()
-                + "<br>localizado em "+kartodromo.getEstado()+", "+kartodromo.getCidade()+", "
+                + "<br>Localizado em "+kartodromo.getEstado()+", "+kartodromo.getCidade()+", "
                 +kartodromo.getRua()+", "+kartodromo.getNumero()
-                +"<br> usando o tipo kart: "+tipoKart+" com um total de "
+                +"<br> Usando o tipo kart: "+tipoKart+" com um total de "
                 +numeroDeVoltas+" voltas</html>";
     }
 }

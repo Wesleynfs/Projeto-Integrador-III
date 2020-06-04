@@ -234,8 +234,9 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
                
                 Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
                 List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
-                if ((list.size() >= Info.NUMERO_MINIMO_DE_PILOTOS_CAMPEONATO_OFFICIAL
+                if ((list.toArray().length >= Info.NUMERO_MINIMO_DE_PILOTOS_CAMPEONATO_OFFICIAL
                         && Info.CAMPEONATO_OFICIAL.equals(campeonato.getTipoCorrida()))){
+                    System.out.println(list.toArray().length);
                     dispose();
                     new IniciarCorridaPt2(piloto,campeonato); 
                 }else if (Info.CAMPEONATO_NORMAL.equals(campeonato.getTipoCorrida())) {

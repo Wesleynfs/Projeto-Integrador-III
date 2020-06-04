@@ -123,8 +123,8 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         btnFinalizar.addActionListener(this);
         btnFinalizar.setBounds(680, 550, 100, 35);
 
-        logo.setBounds(20, 30, 700, 35);
-        logo.setText("GERENCIAR PILOTOS");
+        logo.setBounds(20, 30, 760, 35);
+        logo.setText("GERENCIAR PILOTOS - "+campeonato.getNome());
         logo.setFont(Fonts.SANSSERIFMIN);
 
         ajuda.setBounds(200,450,500,35);

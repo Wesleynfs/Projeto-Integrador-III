@@ -149,7 +149,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             }
 
         });
-
+        tableUltimosCampeonatos.getColumnModel().getColumn(0).setPreferredWidth(190);
+        tableUltimosCampeonatos.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tableUltimosCampeonatos.getColumnModel().getColumn(2).setPreferredWidth(190);
+        tableUltimosCampeonatos.getColumnModel().getColumn(3).setPreferredWidth(190);
+        tableUltimosCampeonatos.getColumnModel().getColumn(4).setPreferredWidth(190);
         tabelamento = (DefaultTableModel) tableUltimosCampeonatos.getModel();
 
         try {

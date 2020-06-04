@@ -229,7 +229,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                             list.getCampeonato().getNome(),
                             list.getCampeonato().getDataFinalizacao(),
                             listaTotalPiloto.size()
-                    });
+                    }); 
                 }
             }
         } catch (Exception e) {
@@ -378,26 +378,28 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     avisodenenhumaaviso_convite = false;
                 }
                 for(ConviteCampeonato convite : new ConviteCampeonatoBO().listarConvitesNaoVizualizadosPorPiloto(piloto)){
-                
-                    if (JOptionPane.showConfirmDialog(null,
-                        "<html>Você foi convidado por "+convite.getPilotoQueConvidou().getApelido()
-                                + "<br>Para participar do campeonato: "+convite.getCampeonato().getNome()
-                                + "<br>Na Data " +convite.getCampeonato().getDataFinalizacao()
-                                + "<br>Deseja Participar?"
-                                + "<html>",
-                        "Convite para Campeonato!",
-                        JOptionPane.YES_NO_OPTION) == 0) {
-                            PilotoParticipandoCampeonato pilotoaceitouconvite = new PilotoParticipandoCampeonato();
-                            pilotoaceitouconvite.setCampeonato(convite.getCampeonato());
-                            pilotoaceitouconvite.setPiloto(piloto);
-                            pilotoaceitouconvite.setPontuacao(0);
-                            pilotoaceitouconvite.setStatusAdm(false);
-                            pilotoaceitouconvite.setPosicao(0);
-                            new PilotoParticipandoCampeonatoBO().criar(pilotoaceitouconvite);
+                    List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(convite.getCampeonato());
+                    if(list.size() < Info.MAX_PILOTOS_CAMPEONATO){
+                        if (JOptionPane.showConfirmDialog(null,
+                            "<html>Você foi convidado por "+convite.getPilotoQueConvidou().getApelido()
+                                    + "<br>Para participar do campeonato: "+convite.getCampeonato().getNome()
+                                    + "<br>Na Data " +convite.getCampeonato().getDataFinalizacao()
+                                    + "<br>Deseja Participar?"
+                                    + "<html>",
+                            "Convite para Campeonato!",
+                            JOptionPane.YES_NO_OPTION) == 0) {
+                                PilotoParticipandoCampeonato pilotoaceitouconvite = new PilotoParticipandoCampeonato();
+                                pilotoaceitouconvite.setCampeonato(convite.getCampeonato());
+                                pilotoaceitouconvite.setPiloto(piloto);
+                                pilotoaceitouconvite.setPontuacao(0);
+                                pilotoaceitouconvite.setStatusAdm(false);
+                                pilotoaceitouconvite.setPosicao(0);
+                                new PilotoParticipandoCampeonatoBO().criar(pilotoaceitouconvite);
+                        }
+                        convite.setStatusConvite("Respondido");
+                        new ConviteCampeonatoBO().alterar(convite);
+                        avisodenenhumaaviso_convite = false;
                     }
-                    convite.setStatusConvite("Respondido");
-                    new ConviteCampeonatoBO().alterar(convite);
-                    avisodenenhumaaviso_convite = false;
                 }
                 if(avisodenenhumaaviso_convite){
                     JOptionPane.showMessageDialog(null,"Nenhum aviso ou convite no momento!");

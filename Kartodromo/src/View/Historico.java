@@ -121,12 +121,6 @@ public class Historico extends JFrame implements ActionListener {
         }
     }
 
-    private void limparTabela() {
-        for (int x = 0; x < tabelamento.getRowCount(); x++) {
-            tabelamento.removeRow(x);
-        }
-    }
-
     private void configs() {
 
         try {
@@ -211,6 +205,10 @@ public class Historico extends JFrame implements ActionListener {
         }
 
     }
+    
+    private void limparTabela() {
+        tabelamento.setRowCount(0);
+    }
 
     private void listarCampeonatos() {
 
@@ -232,15 +230,13 @@ public class Historico extends JFrame implements ActionListener {
             }
         } else {
             try {
-                for (PilotoParticipandoCampeonato pilotoparticipando : pilotoparticipando) {
-                    if (comboCampeonato.getModel().getSelectedItem().toString().equalsIgnoreCase(pilotoparticipando.getCampeonato().getNome())) {
-                        tabelamento.addRow(new Object[]{
-                                pilotoparticipando.getCampeonato().getNome(),
-                                pilotoparticipando.getCampeonato().getDataFinalizacao(),
-                                pilotoparticipando.getPosicao(),
-                                pilotoparticipando.getPontuacao(),
-                        });
-                    }
+                for (PilotoParticipandoCampeonato pilotoparticipando : new PilotoParticipandoCampeonatoBO().listarPilotoCampeonatoFinalizadosPorNome(piloto, comboCampeonato.getModel().getSelectedItem().toString())) {
+                    tabelamento.addRow(new Object[]{
+                            pilotoparticipando.getCampeonato().getNome(),
+                            pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                            pilotoparticipando.getPosicao(),
+                            pilotoparticipando.getPontuacao(),
+                    });
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());

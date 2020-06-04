@@ -104,6 +104,10 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         pilotoDAO = new PilotoParticipandoCampeonatoDAO();
         return pilotoDAO.listarPilotoCampeonatoFinalizados(piloto);
     }
+    public List<PilotoParticipandoCampeonato> listarPilotoCampeonatoFinalizadosPorNome(Piloto piloto , String nome) throws Exception {
+        pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+        return pilotoDAO.listarPilotoCampeonatoFinalizadosPorNome(piloto , nome);
+    }
     public List<PilotoParticipandoCampeonato> listarPilotoQueParticipaDeCampeonatoOrderPontuacao(Campeonato campeonato) throws Exception {
         pilotoDAO = new PilotoParticipandoCampeonatoDAO();
         return pilotoDAO.listarPilotoQueParticipaDeCampeonatoOrderPontuacao(campeonato);

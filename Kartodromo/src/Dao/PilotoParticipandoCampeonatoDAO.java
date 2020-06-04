@@ -136,7 +136,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
         }
     }
     
-        public List<PilotoParticipandoCampeonato> ListarpilotocampeonatoFinalizados(Piloto piloto) throws Exception {
+        public List<PilotoParticipandoCampeonato> listarPilotoCampeonatoFinalizados(Piloto piloto) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
             return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where c.piloto = :piloto AND c.campeonato.situacao = 'Finalizado'")

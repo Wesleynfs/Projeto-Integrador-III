@@ -27,9 +27,9 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     private JLabel corrida_escolhidaLabel;
     private JLabel corridas_participandoLabel;
     private JComboBox<Object> corridasjComboBox;
+    private JScrollPane jScrollPanePilotosCorrida;
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
-    private JScrollPane jScrollPanePilotosCorrida;
     private JTable tablePilotosCorrida;
     private DefaultTableModel tabelamento;
     private Piloto piloto;
@@ -64,19 +64,14 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
-
         btnVoltar = new JButton();
         btnIniciarCorrida = new JButton();
-
         logo = new JLabel();
         corrida_escolhidaLabel = new JLabel();
-        corridas_participandoLabel = new JLabel();;
-    
+        corridas_participandoLabel = new JLabel();
         corridasjComboBox = new JComboBox();
-
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
-        
         jScrollPanePilotosCorrida = new JScrollPane();
         tablePilotosCorrida = new JTable();
     }
@@ -145,7 +140,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "TIPO","NOME DA CORRIDA","Data"
+                            "NOME DO CAMPEONATO","DATA DO CAMPEONATO","PILOTOS CONFIRMADOS"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -180,6 +175,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
             jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 200);
 
@@ -190,19 +186,19 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             logo.setBounds(20 , 30,500,35);
             logo.setText("INICIAR CAMPEONATO");
 
-            corrida_escolhidaLabel.setBounds(570 , 355,300,30);
-            corrida_escolhidaLabel.setText("Selecionar Corrida:");
+            corrida_escolhidaLabel.setBounds(540 , 355,300,30);
+            corrida_escolhidaLabel.setText("Selecionar Campeonato:");
 
             corridas_participandoLabel.setBounds(60 , 120,300,30);
             corridas_participandoLabel.setText("Corridas participando:");
                     
             corridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            corridasjComboBox.setBounds(570,390,200,35);
+            corridasjComboBox.setBounds(540,390,200,35);
 
             btnIniciarCorrida.setBorderPainted(false);
             btnIniciarCorrida.setFocusPainted(false);
             btnIniciarCorrida.addActionListener(this);
-            btnIniciarCorrida.setBounds(570, 550, 200, 35);
+            btnIniciarCorrida.setBounds(540, 550, 200, 35);
             btnIniciarCorrida.setText("Iniciar Corrida");
             
             btnVoltar.setBorderPainted(false);

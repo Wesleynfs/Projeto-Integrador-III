@@ -165,7 +165,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             btnFinalizarCorrida.setBorderPainted(false);
             btnFinalizarCorrida.setFocusPainted(false);
             btnFinalizarCorrida.addActionListener(this);
-            btnFinalizarCorrida.setBounds(320 , 640,200,35);
+            btnFinalizarCorrida.setBounds(1220 , 640,200,35);
             btnFinalizarCorrida.setText("FINALIZAR CAMPEONATO"); 
             
             estiloninjaVamo_da_GG_nisso_carai();

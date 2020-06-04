@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
-public class CampeonatoBO implements GenericBO<Campeonato>{
+public class CampeonatoBO implements GenericBO<Campeonato> {
 
     private CampeonatoDAO campeonatoDAO;
 
@@ -65,15 +65,13 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
     }
 
     public Campeonato getByNome(String nome) throws Exception {
-            campeonatoDAO = new CampeonatoDAO();
-            List<Campeonato> list=  campeonatoDAO.getByNome(nome);
-            
-            for (Campeonato campeonato : list){
-                return campeonato;
-            }
-            return null;
+        campeonatoDAO = new CampeonatoDAO();
+        for (Campeonato campeonato : campeonatoDAO.getByNome(nome)) {
+            return campeonato;
+        }
+        return null;
     }
-    
+
     @Override
     public boolean valida(Campeonato o) throws Exception {
         if (o.getNome().equals("")) {
@@ -97,7 +95,7 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarCampeonatosFinalizados();
     }
-    
+
     public List<Campeonato> listarPorData() throws Exception {
         campeonatoDAO = new CampeonatoDAO();
         return campeonatoDAO.listarPorData();
@@ -110,17 +108,17 @@ public class CampeonatoBO implements GenericBO<Campeonato>{
 
     public boolean validarTabelaPontuacaoCampeonato(DefaultTableModel tabelamento) {
         int verificarConsistencia = 0;
-        for (int i = 0 ; tabelamento.getRowCount() > i; i++ ) {
-            if(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()) > 100){
+        for (int i = 0; tabelamento.getRowCount() > i; i++) {
+            if (Integer.valueOf(tabelamento.getValueAt(i, 1).toString()) > 100) {
                 JOptionPane.showMessageDialog(null,
                         "<html>Sua pontuação está muito elevada!<br/>Use pontuações menores que 100!</html>",
                         "Erro", JOptionPane.PLAIN_MESSAGE);
             }
-            if(i == 0){
+            if (i == 0) {
                 verificarConsistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
                 continue;
             }
-            if(verificarConsistencia < Integer.valueOf(tabelamento.getValueAt(i, 1).toString())){
+            if (verificarConsistencia < Integer.valueOf(tabelamento.getValueAt(i, 1).toString())) {
                 JOptionPane.showMessageDialog(null,
                         "<html>Sua pontuação está incoerente!<br/>Coloque em ordem do maior para menor</html>",
                         "Erro", JOptionPane.PLAIN_MESSAGE);

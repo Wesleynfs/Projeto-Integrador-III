@@ -65,12 +65,9 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
-
         btnVoltar = new JButton();
         btnIniciarCorrida = new JButton();
-
         logo = new JLabel();
-
         jScrollPaneParticipantes = new JScrollPane();
         tableParticipantes_status = new JTable();
         SelecioneLabel = new JLabel();
@@ -178,19 +175,19 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             btndarfalta.setBorderPainted(false);
             btndarfalta.setFocusPainted(false);
             btndarfalta.addActionListener(this);
-            btndarfalta.setBounds(570, 500, 200, 35);
+            btndarfalta.setBounds(540, 500, 200, 35);
             btndarfalta.setText("Atribuir Falta"); 
             
             btndarpresenca.setBorderPainted(false);
             btndarpresenca.setFocusPainted(false);
             btndarpresenca.addActionListener(this);
-            btndarpresenca.setBounds(570, 450, 200, 35);
+            btndarpresenca.setBounds(540, 450, 200, 35);
             btndarpresenca.setText("Atribuir Presenca");   
 
             btnIniciarCorrida.setBorderPainted(false);
             btnIniciarCorrida.setFocusPainted(false);
             btnIniciarCorrida.addActionListener(this);
-            btnIniciarCorrida.setBounds(570, 550, 200, 35);
+            btnIniciarCorrida.setBounds(540, 550, 200, 35);
             btnIniciarCorrida.setText("Iniciar Campeonato");
             
             btnVoltar.setBorderPainted(false);

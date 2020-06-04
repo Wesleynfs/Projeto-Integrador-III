@@ -11,6 +11,7 @@ import Utilities.InformacoesPiloto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class Historico extends JFrame implements ActionListener {
@@ -18,13 +19,17 @@ public class Historico extends JFrame implements ActionListener {
     private JPanel fundo;
     private JPanel drawer;
     private JButton btnVoltar;
+    private JButton btnListar;
     private InformacoesPiloto informacoesPiloto;
     private JLabel logo;
-    private JLabel campeonatos_participandoinfoLabel;
+    private JLabel logoLabelCampeonato;
+    private JLabel campeonatosParticipandoInfoLabel;
     private JScrollPane jScrollPaneCorridasRealizadas;
     private JTable tableTodasAsCorridasRealizadas;
+    private JComboBox<String> comboCampeonato;
     private DefaultTableModel tabelamento;
-    
+    private List<PilotoParticipandoCampeonato> pilotoparticipando;
+
     private Piloto piloto;
 
     public Historico(Piloto piloto) {
@@ -57,18 +62,24 @@ public class Historico extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
+        btnListar = new JButton();
         btnVoltar = new JButton();
         logo = new JLabel();
-        campeonatos_participandoinfoLabel = new JLabel();
+        logoLabelCampeonato = new JLabel();
+        campeonatosParticipandoInfoLabel = new JLabel();
         informacoesPiloto = new InformacoesPiloto();
+        comboCampeonato = new JComboBox<>();
         jScrollPaneCorridasRealizadas = new JScrollPane();
         tableTodasAsCorridasRealizadas = new JTable();
     }
 
     private void add() {
         add(btnVoltar);
+        add(btnListar);
         add(logo);
-        add(campeonatos_participandoinfoLabel);
+        add(logoLabelCampeonato);
+        add(comboCampeonato);
+        add(campeonatosParticipandoInfoLabel);
         add(jScrollPaneCorridasRealizadas);
         add(informacoesPiloto);
         add(drawer);
@@ -76,15 +87,19 @@ public class Historico extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
+
         if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
+            logoLabelCampeonato.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-            logo.setForeground(Colors.CINZAMEDA);
+            btnListar.setForeground(Colors.CINZADARKB);
+            btnListar.setBackground(Colors.VERDEDARK);
+            logo.setForeground(Colors.CINZAMEDB);
             informacoesPiloto.setForeground(Colors.CINZALIGHTB);
-            campeonatos_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
+            campeonatosParticipandoInfoLabel.setForeground(Colors.CINZAMEDA);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
 
@@ -92,21 +107,27 @@ public class Historico extends JFrame implements ActionListener {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
+            logoLabelCampeonato.setForeground(Colors.CINZAMEDB);
             informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-            logo.setForeground(Colors.CINZALIGHTB);
-            campeonatos_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
+            btnListar.setForeground(Colors.CINZADARKB);
+            btnListar.setBackground(Colors.VERDEDARK);
+            logo.setForeground(Colors.CINZAMEDB);
+            campeonatosParticipandoInfoLabel.setForeground(Colors.CINZALIGHTB);
             tableTodasAsCorridasRealizadas.setForeground(Colors.CINZADARKB);
             tableTodasAsCorridasRealizadas.setBackground(Colors.VERDEDARK);
 
         }
     }
+
+    private void limparTabela() {
+        for (int x = 0; x < tabelamento.getRowCount(); x++) {
+            tabelamento.removeRow(x);
+        }
+    }
+
     private void configs() {
-
-        fundo.setSize(Info.MINSCREENSIZE);
-
-        drawer.setBounds(0, 0, 800, 100);
 
         try {
 
@@ -115,7 +136,7 @@ public class Historico extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "Nome","Data","Posição","Pontuação"
+                            "Nome", "Data", "Posição", "Pontuação"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -130,51 +151,101 @@ public class Historico extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasRealizadas.getModel();
 
-            for(PilotoParticipandoCampeonato pilotoparticipando : new PilotoParticipandoCampeonatoBO().ListarpilotocampeonatoFinalizados(piloto)){
-                tabelamento.addRow(new Object[]{
-                    pilotoparticipando.getCampeonato().getNome(),
-                    pilotoparticipando.getCampeonato().getDataFinalizacao(),
-                    pilotoparticipando.getPosicao(),
-                    pilotoparticipando.getPontuacao(),
+            fundo.setSize(Info.MINSCREENSIZE);
+            drawer.setBounds(0, 0, 800, 100);
 
-                });
-            
+            logoLabelCampeonato.setBounds(540, 120, 200, 35);
+            logoLabelCampeonato.setText("Selecione o Campeonato");
+
+            comboCampeonato.setBounds(540, 150, 200, 35);
+
+            pilotoparticipando = new PilotoParticipandoCampeonatoBO().listarPilotoCampeonatosFinalizados(piloto);
+
+            comboCampeonato.addItem("TODOS OS CAMPEONATOS");
+
+            for (PilotoParticipandoCampeonato pilotoParticipandoCampeonato : pilotoparticipando) {
+                comboCampeonato.addItem(pilotoParticipandoCampeonato.getCampeonato().getNome());
             }
-            
-            jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
-            jScrollPaneCorridasRealizadas.setBounds(60, 220, 680, 300);
 
-            informacoesPiloto.setBounds(10,110,200,90);
+            jScrollPaneCorridasRealizadas.setViewportView(tableTodasAsCorridasRealizadas);
+            jScrollPaneCorridasRealizadas.setBounds(60, 230, 680, 300);
+
+            informacoesPiloto.setBounds(10, 110, 200, 90);
             informacoesPiloto.setPiloto(piloto);
-            
+
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);
             btnVoltar.addActionListener(this);
-            btnVoltar.setBounds(60 , 550,200,35);
+            btnVoltar.setBounds(60, 550, 200, 35);
             btnVoltar.setText("Voltar");
-            
+
+            btnListar.setBorderPainted(false);
+            btnListar.setFocusPainted(false);
+            btnListar.addActionListener(this);
+            btnListar.setBounds(540, 550, 200, 35);
+            btnListar.setText("Listar");
+
             logo.setFont(Fonts.SANSSERIFMIN);
-            logo.setBounds(20 , 30,500,35);
+            logo.setBounds(20, 30, 500, 35);
             logo.setText("HISTÓRICO DE PARTIDAS");
 
-            campeonatos_participandoinfoLabel.setBounds(60 , 170,300,30);
-            campeonatos_participandoinfoLabel.setText("Campeonato que você participou:");
+            campeonatosParticipandoInfoLabel.setBounds(60, 200, 300, 30);
+            campeonatosParticipandoInfoLabel.setText("Campeonato que você participou:");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-      
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-       
+
         if (e.getSource() == btnVoltar) {
             dispose();
             new VerificarCampeonatos(piloto);
         }
 
+        if (e.getSource() == btnListar) {
+            listarCampeonatos();
+        }
+
     }
 
+    private void listarCampeonatos() {
+
+        limparTabela();
+
+        if (comboCampeonato.getSelectedIndex() == 0) {
+            try {
+                for (PilotoParticipandoCampeonato pilotoparticipando : pilotoparticipando) {
+                    tabelamento.addRow(new Object[]{
+                            pilotoparticipando.getCampeonato().getNome(),
+                            pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                            pilotoparticipando.getPosicao(),
+                            pilotoparticipando.getPontuacao(),
+                    });
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } else {
+            try {
+                for (PilotoParticipandoCampeonato pilotoparticipando : pilotoparticipando) {
+                    if (comboCampeonato.getModel().getSelectedItem().toString().equalsIgnoreCase(pilotoparticipando.getCampeonato().getNome())) {
+                        tabelamento.addRow(new Object[]{
+                                pilotoparticipando.getCampeonato().getNome(),
+                                pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                                pilotoparticipando.getPosicao(),
+                                pilotoparticipando.getPontuacao(),
+                        });
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }
 
 } 

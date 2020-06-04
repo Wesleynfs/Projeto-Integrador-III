@@ -249,7 +249,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         lblNomeDaCorrida.setText("Nome da corrida");
         lblNomeDaCorrida.setBounds(30, 100, 200, 35);
 
-        lblenderecokartodromo.setBounds(480, 195, 250, 60);
+        lblenderecokartodromo.setBounds(480, 180, 250, 60);
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);

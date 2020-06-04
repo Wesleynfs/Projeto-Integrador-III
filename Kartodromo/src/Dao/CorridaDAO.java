@@ -115,5 +115,16 @@ public class CorridaDAO implements GenericDAO<Corrida> {
             entityManager.close();
         }
     }
+    
+        public Corrida getByNome(String nome) throws Exception {
+        try {
+            List<Corrida> lista = entityManager.createQuery("SELECT c FROM Corrida c where c.nomeCorrida = :nome ").setParameter("nome", nome).getResultList();
+            return lista.get(0);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 
 }

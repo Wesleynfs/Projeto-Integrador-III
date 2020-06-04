@@ -277,20 +277,6 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                 new ParticiparCampeonato(piloto);
                 
                 
-                
-                //Preguiça de remover os campeonatos vizualmente 
-
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Erro: " + ex + ", Não foi possível Participar deste campeonato!");
             }
@@ -300,6 +286,26 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         if (e.getSource() == btnOrdenarNome) {
             PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
             try {
+                tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "CAMPEONATO", "DATA", "TIPO"
+                    }
+                ) {
+                    boolean[] canEdit = new boolean[]{
+                            false, false, false
+                    };
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+
+                });
+
+                tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+
                 for (Campeonato campeonato : new CampeonatoBO().listarPorNome()) {
                     List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listar_o_piloto_do_campeonato(piloto, campeonato);
                     if (campeonato_para_participar.isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
@@ -307,26 +313,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                         
                         
                         
-                        if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
-                            tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
-                                new Object[][]{
-
-                                },
-                                new String[]{
-                                        "CAMPEONATO", "DATA", "TIPO"
-                                }
-                            ) {
-                                boolean[] canEdit = new boolean[]{
-                                        false, false, false
-                                };
-
-                                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                                    return canEdit[columnIndex];
-                                }
-
-                            });
-                            
-                            tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+                        if (numero_de_participantes.size() < Info.MAX_PILOTOS_CAMPEONATO) { //incluir regras de negocio como piloto menor de idade e max de pessoas
 
                             
                             tabelamento.addRow(new Object[]{
@@ -347,36 +334,41 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             PilotoParticipandoCampeonatoBO pilotoparticipandocampeonatobo = new PilotoParticipandoCampeonatoBO();
 
             try {
+                tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "CAMPEONATO", "DATA", "TIPO"
+                    }
+                ) {
+                    boolean[] canEdit = new boolean[]{
+                            false, false, false
+                    };
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+
+                });
+
+                tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+
 
                 for (Campeonato campeonato : new CampeonatoBO().listarPorData()) {
-                    if (pilotoparticipandocampeonatobo.Listar_o_piloto_do_campeonato(piloto, campeonato).isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
-                        tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
-                                new Object[][]{
-
-                                },
-                                new String[]{
-                                        "CAMPEONATO", "DATA", "TIPO"
-                                }
-                            ) {
-                                boolean[] canEdit = new boolean[]{
-                                        false, false, false
-                                };
-
-                                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                                    return canEdit[columnIndex];
-                                }
-
-                            });
-                            
-                            tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+                    List<PilotoParticipandoCampeonato> campeonato_para_participar = pilotoparticipandocampeonatobo.Listar_o_piloto_do_campeonato(piloto, campeonato);
+                    if (campeonato_para_participar.isEmpty()) {//verificação de se o campeonato for nulo quer dizer que o piloto não participa deste campeonato
+                        List<PilotoParticipandoCampeonato> numero_de_participantes = pilotoparticipandocampeonatobo.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
+                        
+                        
+                        
+                        if (numero_de_participantes.size() < Info.MAX_PILOTOS_CAMPEONATO) { //incluir regras de negocio como piloto menor de idade e max de pessoas
 
                             
-                        if (true) { //incluir regras de negocio como piloto menor de idade e max de pessoas
                             tabelamento.addRow(new Object[]{
                                     campeonato.getNome(),
                                     campeonato.getDataFinalizacao(),
                                     campeonato.getTipoCorrida()
-
                             });
                         }
                     }

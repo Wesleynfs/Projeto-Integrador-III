@@ -216,14 +216,13 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
 
             try {
 
-                for (Corrida corrida : corridaList) {
-                    System.out.println(corrida.toString());
-                }
-
+                int x =1;//olá sou eu a gambiarra!
                 CorridaBO corridabo = new CorridaBO();
                 for (Corrida corrida : corridaList) {
                     corrida.setCampeonato(campeonato);
+                    corrida.setNomeCorrida(corrida.getNomeCorrida()+" "+x+"°");
                     corridabo.criar(corrida);
+                    x++;
                 }
 
             } catch (Exception err) {

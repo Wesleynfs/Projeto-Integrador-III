@@ -84,7 +84,7 @@ public class Corrida {
 
     @Override
     public String toString() {
-        return "<html>Corrida:" + nomeCorrida + "do kartódormo " 
+        return "<html>Corrida:" + nomeCorrida + " do kartódormo " 
                 + kartodromo.getNomeKartodromo()
                 + "<br>Localizado em "+kartodromo.getEstado()+", "+kartodromo.getCidade()+", "
                 +kartodromo.getRua()+", "+kartodromo.getNumero()

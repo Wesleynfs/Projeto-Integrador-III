@@ -69,7 +69,10 @@ public class CorridaBO implements GenericBO<Corrida> {
         corridaDAO = new CorridaDAO();
         return corridaDAO.listarTodasAsCorridasMarcadasDeCampeonato(c);
     }
-
+    public Corrida getByNome(String nome) throws Exception {
+        corridaDAO = new CorridaDAO();
+        return corridaDAO.getByNome(nome);
+    }
     public boolean validaTabelaPiloto(TabelaPiloto tabelaPiloto) throws Exception {
         if (tabelaPiloto.getRowCount() > 10) {
             throw new Exception("Um campeonato não pede ter mais que 10 Corridas ao mesmo tempo!");

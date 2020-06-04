@@ -1,4 +1,3 @@
-
 package View;
 
 import Bo.CampeonatoBO;
@@ -16,6 +15,8 @@ import java.sql.Time;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,10 +41,12 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
     private JTable tabelaCampeonato;
     private JScrollPane jScrollPaneCorrida;
     private JTable tabelaCorrida;
+    private JLabel campeonatosLabel;
+    private JComboBox<String> CorridasjComboBox;
+    
     
     private DefaultTableModel tabelamento;
-    
-    private Date data;
+
     private Random aleatorio;
 
     private Piloto piloto;
@@ -82,9 +85,12 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
         
         fundo = new JPanel();
         drawer = new JPanel();
-
+        
+        CorridasjComboBox = new JComboBox<>();
+        
         btnFinalizarCorrida = new JButton();
-
+        
+        campeonatosLabel = new JLabel();
         logo = new JLabel();
         ReultadodacorridaLabel = new JLabel();
         GanhadorLabel = new JLabel();
@@ -101,7 +107,9 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
         add(btnFinalizarCorrida);
         add(ReultadodacorridaLabel);
         add(GanhadorLabel);
+        add(campeonatosLabel);
         add(jScrollPaneCorrida);
+        add(CorridasjComboBox);
         add(logo);
         add(jScrollPaneCampeonato);
         add(drawer);
@@ -121,6 +129,9 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             tabelaCorrida.setForeground(Colors.CINZADARKB);
             GanhadorLabel.setForeground(Colors.CINZAMEDA);
             ReultadodacorridaLabel.setForeground(Colors.CINZAMEDA);
+            campeonatosLabel.setForeground(Colors.CINZAMEDA);
+            CorridasjComboBox.setBackground(Colors.VERDEDARK);
+            CorridasjComboBox.setForeground(Colors.CINZADARKB);
             btnFinalizarCorrida.setForeground(Colors.CINZADARKB);
             btnFinalizarCorrida.setBackground(Colors.VERDEDARK);
 
@@ -131,6 +142,9 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             logo.setForeground(Colors.CINZAMEDB);
             tabelaCampeonato.setForeground(Colors.CINZADARKB);
             tabelaCampeonato.setBackground(Colors.VERDEDARK);
+            campeonatosLabel.setForeground(Colors.CINZALIGHTB);
+            CorridasjComboBox.setForeground(Colors.CINZADARKB);
+            CorridasjComboBox.setBackground(Colors.VERDEDARK);
             tabelaCorrida.setForeground(Colors.CINZADARKB);
             tabelaCorrida.setBackground(Colors.VERDEDARK);
             GanhadorLabel.setForeground(Colors.CINZALIGHTB);
@@ -155,19 +169,33 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             jScrollPaneCorrida.setBounds(655, 150, 600, 400);
 
             logo.setFont(Fonts.SANSSERIFMIN);
-            logo.setBounds(20 , 30,500,35);
-            logo.setText("RESULTADO DA CORRIDA");
+            logo.setBounds(20 , 30,760,35);
+            logo.setText("RESULTADO DA CORRIDA - "+campeonato.getNome());
 
-            ReultadodacorridaLabel.setBounds(300, 120, 300, 35);
+            ReultadodacorridaLabel.setBounds(30, 100, 300, 35);
             ReultadodacorridaLabel.setText("REULTADO DE "+campeonato.getNome());
 
-            GanhadorLabel.setBounds(280, 580, 300, 35);
+            GanhadorLabel.setBounds(180, 610, 300, 35);
             
             btnFinalizarCorrida.setBorderPainted(false);
             btnFinalizarCorrida.setFocusPainted(false);
             btnFinalizarCorrida.addActionListener(this);
-            btnFinalizarCorrida.setBounds(300 , 640,200,35);
+            btnFinalizarCorrida.setBounds(180 , 640,200,35);
             btnFinalizarCorrida.setText("FINALIZAR CAMPEONATO"); 
+            
+            campeonatosLabel.setText("Selecionar resultado da corrida:");
+            campeonatosLabel.setBounds(805 , 610,250,35);
+            
+            CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
+            CorridasjComboBox.setBounds(805, 640, 200, 35);
+            CorridasjComboBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        mudarTabelaCorrida();
+                    }
+                }
+            });
             
             estiloninjaVamo_da_GG_nisso_carai();
 
@@ -184,6 +212,42 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             new PerfilPiloto(piloto);
         }
 
+    }
+    public void mudarTabelaCorrida(){
+        try {
+            Corrida corrida = new CorridaBO().getByNome(CorridasjComboBox.getSelectedItem().toString());
+                   tabelaCorrida.setModel(new DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                       "CORRIDA","PARTICIPANTE","TEMPO","POSIÇÃO","PONTUAÇÃO"
+                }
+                ) {
+                    boolean[] canEdit = new boolean[]{
+                            false,false ,false, false, false
+                    };
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+
+                });
+       
+                tabelamento = (DefaultTableModel) tabelaCorrida.getModel();
+                for(PilotoParticipaCorrida pilotoscorrida : new PilotoParticipaCorridaBO().listarPilotoCorridaOrderPontuacao(corrida)){
+                    tabelamento.addRow(new Object[]{
+                        pilotoscorrida.getCorrida().getNomeCorrida(),
+                        pilotoscorrida.getPilotoparticipacampeonato().getPiloto().getApelido(),
+                        pilotoscorrida.getTempoParaTerminar(),
+                        pilotoscorrida.getPosicao(),
+                        pilotoscorrida.getPontuacao()
+                    });   
+                }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível Localizar Corridas na Combo");
+        }
+        
     }
 
     public void estiloninjaVamo_da_GG_nisso_carai(){
@@ -211,6 +275,9 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             List<PontuacaoPosicao> valoresPontuacao = new PontuacaoPosicaoBO().listarPorCampeonato(campeonato); 
             List<PilotoParticipandoCampeonato> pilotos = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
             for(Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
+                
+                CorridasjComboBox.addItem(corrida.getNomeCorrida());
+                
                 for(int x =0; x < pilotos.size();x++){
                     if(pilotos.get(x).getPresenca().equals("PRESENTE")){
                         PilotoParticipaCorrida pilotoParticipaCorrida = new PilotoParticipaCorrida();

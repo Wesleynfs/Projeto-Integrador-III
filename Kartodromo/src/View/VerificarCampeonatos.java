@@ -441,12 +441,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
     private void mudarComboConvites() {
 
         try {
-            System.out.println("PONTO ZERO");
             piloto_convidarjComboBox.removeAllItems();
-            System.out.println("AQUI PRIMEIRO");
-            System.out.println("VALOR : " + corridas_participandojComboBox.getSelectedItem().toString());
             Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
-            System.out.println("ANTES DO FOR");
             for (Piloto pilotos : new PilotoBO().listarTodos()) {
 
                 if (pilotos.getIdPiloto() != piloto.getIdPiloto()) {

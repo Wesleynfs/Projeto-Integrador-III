@@ -372,7 +372,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                 for(AvisoCampeonato aviso : new AvisoCampeonatoBO().listarAvisoNaoVizualizados(piloto)){
                         JOptionPane.showMessageDialog(null, "<html>AVISO SOBRE O CAMPEONATO: "+aviso.getCampeonato().getNome()
                                 + "<br>DO PILOTO: "+aviso.getPilotoqueenviou().getApelido()
-                                + "<br>MENSAGEM: " + aviso.getAviso()+"</html>");
+                                + "<br>MENSAGEM: " + aviso.getAviso()+" </html>");
                     aviso.setStatusAviso("Vizualizado");
                     new AvisoCampeonatoBO().alterar(aviso);
                     avisodenenhumaaviso_convite = false;

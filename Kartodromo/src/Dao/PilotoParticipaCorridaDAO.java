@@ -119,4 +119,13 @@ public class PilotoParticipaCorridaDAO implements GenericDAO<PilotoParticipaCorr
             entityManager.close();
         }
     }
+    public List<PilotoParticipaCorrida> listarPilotoCorridaOrderPontuacao(Corrida corrida) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT a FROM PilotoParticipaCorrida a where a.corrida = :corrida order by a.pontuacao desc").setParameter("corrida", corrida).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
 }

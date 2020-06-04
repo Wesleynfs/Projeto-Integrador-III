@@ -74,6 +74,12 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
         pilotoDAO = new PilotoParticipaCorridaDAO();
         return pilotoDAO.listarPilotoCorrida(corrida, piloto);
     }
+    
+    public List<PilotoParticipaCorrida> listarPilotoCorridaOrderPontuacao(Corrida corrida) throws Exception {
+        pilotoDAO = new PilotoParticipaCorridaDAO();
+        return pilotoDAO.listarPilotoCorridaOrderPontuacao(corrida);
+    }
+    
 
     @Override
     public boolean valida(PilotoParticipaCorrida o) throws Exception {

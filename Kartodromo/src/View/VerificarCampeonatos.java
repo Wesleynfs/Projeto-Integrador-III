@@ -29,7 +29,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
     private JButton btnConvidarPiloto;
     private JButton btnEnviarAviso;
     private JButton btnVerHistorico;
-    private JButton btnIniciarCorrida;
+    private JButton btnIniciarCampeonato;
     private JLabel logo;
     private JLabel corridas_participandoinfoLabel;
     private JLabel corridas_participandoLabel;
@@ -81,7 +81,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         btnConvidarPiloto = new JButton();
         btnEnviarAviso = new JButton();
         btnVerHistorico = new JButton();
-        btnIniciarCorrida = new JButton();
+        btnIniciarCampeonato = new JButton();
         logo = new JLabel();
         corridas_participandoinfoLabel = new JLabel();
         corridas_participandoLabel = new JLabel();
@@ -103,7 +103,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         add(btnConvidarPiloto);
         add(btnEnviarAviso);
         add(btnVerHistorico);
-        add(btnIniciarCorrida);
+        add(btnIniciarCampeonato);
         add(logo);
         add(corridas_participandoinfoLabel);
         add(corridas_participandoLabel);
@@ -135,8 +135,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnEnviarAviso.setBackground(Colors.VERDEDARK);
             btnVerHistorico.setForeground(Colors.CINZADARKB);
             btnVerHistorico.setBackground(Colors.VERDEDARK);
-            btnIniciarCorrida.setForeground(Colors.CINZADARKB);
-            btnIniciarCorrida.setBackground(Colors.VERDEDARK);
+            btnIniciarCampeonato.setForeground(Colors.CINZADARKB);
+            btnIniciarCampeonato.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZAMEDA);
             corridas_participandoLabel.setForeground(Colors.CINZAMEDA);
@@ -163,8 +163,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnEnviarAviso.setBackground(Colors.VERDEDARK);
             btnVerHistorico.setForeground(Colors.CINZADARKB);
             btnVerHistorico.setBackground(Colors.VERDEDARK);
-            btnIniciarCorrida.setForeground(Colors.CINZADARKB);
-            btnIniciarCorrida.setBackground(Colors.VERDEDARK);
+            btnIniciarCampeonato.setForeground(Colors.CINZADARKB);
+            btnIniciarCampeonato.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             corridas_participandoinfoLabel.setForeground(Colors.CINZALIGHTB);
             corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
@@ -297,11 +297,11 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnConvidarPiloto.setBounds(300, 550, 200, 35);
             btnConvidarPiloto.setText("Convidar Piloto");
 
-            btnIniciarCorrida.setBorderPainted(false);
-            btnIniciarCorrida.setFocusPainted(false);
-            btnIniciarCorrida.addActionListener(this);
-            btnIniciarCorrida.setBounds(300, 500, 200, 35);
-            btnIniciarCorrida.setText("Iniciar Corrida");
+            btnIniciarCampeonato.setBorderPainted(false);
+            btnIniciarCampeonato.setFocusPainted(false);
+            btnIniciarCampeonato.addActionListener(this);
+            btnIniciarCampeonato.setBounds(300, 500, 200, 35);
+            btnIniciarCampeonato.setText("Iniciar Campeonato");
 
             corridas_participandojComboBox.addItemListener(new ItemListener() {
                 @Override
@@ -386,7 +386,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             dispose();
             new Historico(piloto);
         }
-        if (e.getSource() == btnIniciarCorrida) {
+        if (e.getSource() == btnIniciarCampeonato) {
             try {
                 dispose();
                 new IniciarCorridaPt1(piloto);
@@ -475,34 +475,20 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         PilotoParticipandoCampeonato pilotoparticipando = lista.get(0);
         if (pilotoparticipando.isStatusAdm()) {
             se_e_piloto_admLabel.setText("Você é um piloto ADM");
-
             convidar_pilotoLabel.setVisible(true);
-
             btnConvidarPiloto.setVisible(true);
-
             btnEnviarAviso.setVisible(true);
-
-            btnIniciarCorrida.setVisible(true);
-
+            btnIniciarCampeonato.setVisible(true);
             piloto_convidarjComboBox.setVisible(true);
-
             tornarAdm.setSelected(true);
-
         } else {
             se_e_piloto_admLabel.setText("Você é não um piloto ADM");
-
             convidar_pilotoLabel.setVisible(false);
-
             btnConvidarPiloto.setVisible(false);
-
             btnEnviarAviso.setVisible(false);
-
-            btnIniciarCorrida.setVisible(false);
-
+            btnIniciarCampeonato.setVisible(false);
             piloto_convidarjComboBox.setVisible(false);
-
             tornarAdm.setSelected(false);
-
         }
     }
 

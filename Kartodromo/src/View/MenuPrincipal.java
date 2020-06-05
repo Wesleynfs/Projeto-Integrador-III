@@ -32,6 +32,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneUltimosCampeonatos;
     private DefaultTableModel tabelamento;
     private JLabel logo;
+    private boolean pilotoAvisado;
 
     public Piloto getPiloto() {
         return piloto;
@@ -47,6 +48,24 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 
     public void setKartodromo(Kartodromo kartodromo) {
         this.kartodromo = kartodromo;
+    }
+
+    public MenuPrincipal(Piloto piloto , boolean pilotoAvisado) {
+
+        this.piloto = piloto;
+        this.pilotoAvisado = pilotoAvisado;
+
+        // Instancia de itens //
+        initializate();
+        // Coloca o tema na tela
+        setTheme();
+        // Adiciona o item na tela //
+        add();
+        // Configura o item da tela (btn,label...) //
+        configs();
+        // Configura esse frame //
+        configurateThis();
+
     }
 
     public MenuPrincipal(Piloto piloto) {

@@ -41,9 +41,7 @@ public class PilotoParticipaCorrida {
         this.pontuacao = pontuacao;
     }
 
-    public Time getTempoParaTerminar() {
-        return tempoParaTerminar;
-    }
+    public Time getTempoParaTerminar() { return tempoParaTerminar; }
 
     public void setTempoParaTerminar(Time tempoParaTerminar) {
         this.tempoParaTerminar = tempoParaTerminar;

@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Bo/PilotoParticipaCorridaBO.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/ParticiparCampeonato.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Dao/PilotoParticipaCorridaDAO.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/GerenciarCampeonato.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/GerenciarCampeonatoAdicionarPilotos.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/ResultadoCorrida.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/META-INF/persistence.xml</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Dao/CorridaDAO.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/VerificarCampeonatos.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Dao/CampeonatoDAO.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/PerfilPiloto.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/GerenciarCorrida.java</file>
         </group>
     </open-files>
 </project-private>

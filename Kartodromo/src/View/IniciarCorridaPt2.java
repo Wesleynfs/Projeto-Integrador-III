@@ -9,6 +9,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
     private JLabel logo;
     private JLabel SelecioneLabel;
     private JScrollPane jScrollPaneParticipantes;
+    private InformacoesPiloto informacoesPiloto;
     private JTable tableParticipantes_status;
     private DefaultTableModel tabelamento;
 
@@ -73,6 +75,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
         SelecioneLabel = new JLabel();
         btndarfalta = new JButton();
         btndarpresenca = new JButton();
+        informacoesPiloto = new InformacoesPiloto();
 
     }
 
@@ -83,6 +86,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
         add(SelecioneLabel);
         add(btndarfalta);
         add(btndarpresenca);
+        add(informacoesPiloto);
         add(jScrollPaneParticipantes);
         add(drawer);
         add(fundo);
@@ -105,6 +109,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             btndarfalta.setBackground(Colors.VERDEDARK);
             btndarpresenca.setForeground(Colors.CINZADARKB);
             btndarpresenca.setBackground(Colors.VERDEDARK);
+            informacoesPiloto.setForeground(Colors.CINZAMEDA);
 
         } else {
 
@@ -112,6 +117,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             drawer.setBackground(Colors.VERDEDARK);            
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnIniciarCorrida.setForeground(Colors.CINZADARKB);
             btnIniciarCorrida.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
@@ -132,6 +138,9 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
 
         drawer.setBounds(0, 0, 800, 100);
 
+        informacoesPiloto.setBounds(600, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
+        
         try {
 
             tableParticipantes_status.setModel(new DefaultTableModel(

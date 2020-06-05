@@ -20,13 +20,13 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JComboBox<String> comboTipoCampeonato;
     private JFormattedTextField textFieldNomeCampeonato;
     private JFormattedTextField textFieldDataFinalCampeonato;
+    private InformacoesPiloto informacoesPiloto;
     private JTable table;
     private JScrollPane scroll;
     private JLabel logo;
     private JLabel lblPontuacoes;
     private JLabel lblNomeCampeonato;
     private JLabel lblDataFinalCampeonato;
-    private InformacoesPiloto informacoesPiloto;
     private JLabel lblTipoCorrida;
     private JButton btnVoltar;
     private JButton btnAdicionarCorrida;
@@ -85,6 +85,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
     private void add() {
         add(btnAdicionarCorrida);
+        add(informacoesPiloto);
         add(logo);
         add(comboTipoCampeonato);
         add(textFieldNomeCampeonato);
@@ -94,7 +95,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         add(lblNomeCampeonato);
         add(lblDataFinalCampeonato);
         add(lblTipoCorrida);
-        add(informacoesPiloto);
         add(btnVoltar);
         add(drawer);
         add(fundo);
@@ -134,7 +134,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             lblPontuacoes.setForeground(Colors.CINZALIGHTB);
             lblTipoCorrida.setForeground(Colors.CINZALIGHTB);
             logo.setForeground(Colors.CINZAMEDB);
-            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
@@ -148,6 +148,9 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
+        
+        informacoesPiloto.setBounds(620, 3, 180, 100);
+        informacoesPiloto.setPiloto(piloto);
 
         lblNomeCampeonato.setText("NOME DO CAMPEONATO:");
         lblNomeCampeonato.setBounds(60, 185, 200, 35);
@@ -189,9 +192,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnAdicionarCorrida.addActionListener(this);
         btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
         btnAdicionarCorrida.setBounds(590, 550, 190, 35);
-
-        informacoesPiloto.setBounds(10, 105, 200, 90);
-        informacoesPiloto.setPiloto(piloto);
 
         table.setModel(new DefaultTableModel(
                 new Object[][]{

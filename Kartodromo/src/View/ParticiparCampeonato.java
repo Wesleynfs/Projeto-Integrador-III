@@ -10,6 +10,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
     private JLabel corridaLabel;
     private JComboBox<String> CorridasjComboBox;
     private JScrollPane jScrollPaneCorridasMarcadas;
+    private InformacoesPiloto informacoesPiloto;
     private JTable tableTodasAsCorridasMarcadas;
     private DefaultTableModel tabelamento;
     private JPanel painelOrdenar;
@@ -74,6 +76,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         btnVoltar = new JButton();
         btnParticiparCorrida = new JButton();
         btnInfos = new JButton();
+        informacoesPiloto = new InformacoesPiloto();
         btnOrdenarNome = new JButton();
         btnOrdenarData = new JButton();
         logo = new JLabel();
@@ -93,6 +96,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         add(corridaLabel);
         add(btnInfos);
         add(CorridasjComboBox);
+        add(informacoesPiloto);
         add(jScrollPaneCorridasMarcadas);
         add(painelOrdenar);
         add(drawer);
@@ -113,6 +117,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnInfos.setForeground(Colors.CINZADARKB);
             btnInfos.setBackground(Colors.VERDEDARK);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             CorridasjComboBox.setBackground(Colors.VERDEDARK);
             CorridasjComboBox.setForeground(Colors.CINZADARKB);
             btnOrdenarNome.setBackground(Colors.VERDEDARK);
@@ -130,6 +135,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnParticiparCorrida.setBackground(Colors.VERDEDARK);
             btnInfos.setForeground(Colors.CINZADARKB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnInfos.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnParticiparCorrida.setForeground(Colors.CINZADARKB);
@@ -148,6 +154,9 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
+        
+        informacoesPiloto.setBounds(600, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
 
         try {
             

@@ -10,6 +10,7 @@ import Model.*;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 import java.sql.Time;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
     private JLabel logo;
     private JLabel ReultadodacorridaLabel;
     private JLabel GanhadorLabel;
+    private InformacoesPiloto informacoesPiloto;
     private JScrollPane jScrollPaneCampeonato;
     private JTable tabelaCampeonato;
     private JScrollPane jScrollPaneCorrida;
@@ -88,6 +90,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
         
         CorridasjComboBox = new JComboBox<>();
         
+        informacoesPiloto = new InformacoesPiloto();
         btnFinalizarCorrida = new JButton();
         
         campeonatosLabel = new JLabel();
@@ -105,6 +108,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
 
     private void add() {
         add(btnFinalizarCorrida);
+        add(informacoesPiloto);
         add(ReultadodacorridaLabel);
         add(GanhadorLabel);
         add(campeonatosLabel);
@@ -126,6 +130,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             tabelaCampeonato.setBackground(Colors.VERDELIGHT);
             tabelaCampeonato.setForeground(Colors.CINZADARKB);
             tabelaCorrida.setBackground(Colors.VERDELIGHT);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             tabelaCorrida.setForeground(Colors.CINZADARKB);
             GanhadorLabel.setForeground(Colors.CINZAMEDA);
             ReultadodacorridaLabel.setForeground(Colors.CINZAMEDA);
@@ -144,6 +149,7 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
             tabelaCampeonato.setBackground(Colors.VERDEDARK);
             campeonatosLabel.setForeground(Colors.CINZALIGHTB);
             CorridasjComboBox.setForeground(Colors.CINZADARKB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             CorridasjComboBox.setBackground(Colors.VERDEDARK);
             tabelaCorrida.setForeground(Colors.CINZADARKB);
             tabelaCorrida.setBackground(Colors.VERDEDARK);
@@ -159,6 +165,9 @@ public class ResultadoCorrida extends JFrame implements ActionListener {
         fundo.setSize(Info.MAXSCREENSIZE);
 
         drawer.setBounds(0, 0, 1280, 100);
+        
+        informacoesPiloto.setBounds(1000, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
 
         try {
 

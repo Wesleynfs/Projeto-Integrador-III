@@ -7,6 +7,7 @@ import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +30,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
     private DefaultTableModel tabelamento;
     private Piloto piloto;
     private Kartodromo kartodromo;
+    private InformacoesPiloto informacoesPiloto;
 
     public AvaliacoesDeKartodromo(Piloto piloto, Kartodromo kartodromo) throws Exception {
         this.piloto = piloto;
@@ -66,6 +68,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
         logo = new JLabel();
         avaliacoesLabel = new JLabel();
         MediaLabel = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
 
         jScrollPanekartodromo = new JScrollPane();
         tableKartodromo = new JTable();
@@ -76,6 +79,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
         add(btnVoltar);
         add(avaliacoesLabel);
         add(MediaLabel);
+        add(informacoesPiloto);
         add(logo);
         add(jScrollPanekartodromo);
         add(drawer);
@@ -92,6 +96,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
             tableKartodromo.setBackground(Colors.VERDELIGHT);
             tableKartodromo.setForeground(Colors.CINZADARKB);
             MediaLabel.setForeground(Colors.CINZAMEDA);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             avaliacoesLabel.setForeground(Colors.CINZAMEDA);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -104,6 +109,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
             tableKartodromo.setForeground(Colors.CINZADARKB);
             tableKartodromo.setBackground(Colors.VERDEDARK);
             MediaLabel.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             avaliacoesLabel.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -115,6 +121,9 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
+
+        informacoesPiloto.setBounds(600, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
 
 
         tableKartodromo.setModel(new DefaultTableModel(

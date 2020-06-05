@@ -9,6 +9,7 @@ import Model.Piloto;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private Piloto piloto;
     private Kartodromo kartodromo;
     private JTable tableUltimosCampeonatos;
+    private InformacoesPiloto informacoesPiloto;
     private JScrollPane jScrollPaneUltimosCampeonatos;
     private DefaultTableModel tabelamento;
     private JLabel logo;
@@ -120,6 +122,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         add(btnOpcoes);
         add(btnSair);
         add(btnPerfilPiloto);
+        add(informacoesPiloto);
         add(drawer);
         add(selecao);
         add(panel);
@@ -132,6 +135,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         labelInformacoes = new JLabel();
         btnInstrucoes = new JButton();
         btnOpcoes = new JButton();
+        informacoesPiloto = new InformacoesPiloto();
         btnSair = new JButton();
         btnPerfilPiloto = new JButton();
         drawer = new JPanel();
@@ -191,8 +195,12 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             }
 
         } catch (Exception e) {
-            // Tratar possivel erro que venha do metodo acima //
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        informacoesPiloto.setFont(Fonts.SANSSERIFMIN20);
+        informacoesPiloto.setBounds(20, 270, 250, 250);
+        informacoesPiloto.setPiloto(piloto);
 
         jScrollPaneUltimosCampeonatos.setViewportView(tableUltimosCampeonatos);
         jScrollPaneUltimosCampeonatos.setBounds(300, 80, 980, 640);
@@ -239,6 +247,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.PRETO);
             drawer.setBackground(Colors.VERDEDARK);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             btnPerfilPiloto.setBackground(Colors.CINZAMEDB);
             btnPerfilPiloto.setForeground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.CINZAMEDB);
@@ -261,6 +270,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             btnSair.setBackground(Colors.CINZAMEDB);
             btnSair.setForeground(Colors.CINZAMEDA);
             btnOpcoes.setBackground(Colors.CINZAMEDB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnOpcoes.setForeground(Colors.CINZAMEDA);
             btnInstrucoes.setBackground(Colors.CINZAMEDB);
             btnInstrucoes.setForeground(Colors.CINZAMEDA);

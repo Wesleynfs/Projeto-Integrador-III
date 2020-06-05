@@ -8,6 +8,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     private JTable tableTodasAsCorridasMarcadas;
     private JTable tablePilotosCorrida;
     private DefaultTableModel tabelamento;
+    private InformacoesPiloto informacoesPiloto;
     private Piloto piloto;
 
     public IniciarCorridaPt1(Piloto piloto) {
@@ -72,6 +74,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         corridasjComboBox = new JComboBox();
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
+        informacoesPiloto = new InformacoesPiloto();
         jScrollPanePilotosCorrida = new JScrollPane();
         tablePilotosCorrida = new JTable();
     }
@@ -82,6 +85,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         add(corridasjComboBox);
         add(jScrollPanePilotosCorrida);
         add(btnIniciarCorrida);
+        add(informacoesPiloto);
         add(logo);
         add(corridas_participandoLabel);
         add(jScrollPaneCorridasMarcadas);
@@ -107,11 +111,13 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             tableTodasAsCorridasMarcadas.setForeground(Colors.CINZADARKB);
             tablePilotosCorrida.setBackground(Colors.VERDELIGHT);
             tablePilotosCorrida.setForeground(Colors.CINZADARKB);
+            informacoesPiloto.setForeground(Colors.CINZAMEDA);
 
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
-            drawer.setBackground(Colors.VERDEDARK);            
+            drawer.setBackground(Colors.VERDEDARK);    
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnIniciarCorrida.setForeground(Colors.CINZADARKB);
@@ -132,7 +138,10 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         fundo.setSize(Info.MINSCREENSIZE);
 
         drawer.setBounds(0, 0, 800, 100);
-
+        
+        informacoesPiloto.setBounds(600, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
+        
         try {
 
             tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(

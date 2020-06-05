@@ -10,6 +10,7 @@ import Model.*;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 import Utilities.TabelaConvidarPilotos;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private Piloto piloto;
     private TabelaConvidarPilotos tabelaConvidarPilotos;
     private JScrollPane jScrollPane;
+    private InformacoesPiloto informacoesPiloto;
     private JTable table;
     private Campeonato campeonato;
     private DefaultTableModel tabelamento;
@@ -60,6 +62,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private void add() {
         add(ajuda);
         add(btnVoltar);
+        add(informacoesPiloto);
         add(jScrollPane);
         add(btnFinalizar);
         add(logo);
@@ -74,6 +77,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         jScrollPane = new JScrollPane();
         tabelaConvidarPilotos = new TabelaConvidarPilotos();
         fundo = new JPanel();
+        informacoesPiloto = new InformacoesPiloto();
         logo = new JLabel();
         drawer = new JPanel();
         btnVoltar = new JButton();
@@ -89,6 +93,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
+            informacoesPiloto.setForeground(Colors.CINZAMEDA);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnFinalizar.setBackground(Colors.VERDEDARK);
@@ -97,6 +102,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         } else {
             ajuda.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDA);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
@@ -111,6 +117,9 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
 
+        informacoesPiloto.setBounds(620, 3, 180, 100);
+        informacoesPiloto.setPiloto(piloto);
+        
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);

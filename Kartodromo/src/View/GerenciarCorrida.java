@@ -31,6 +31,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     private JButton btnAdicionarCorrida;
     private JTable table;
     private GerenciarCampeonato gerenciarCampeonato;
+    private InformacoesPiloto informacoesPiloto;
     private JScrollPane scroll;
     private DefaultTableCellRenderer renderer;
     private JComboBox<String> comboNomeKartodromo;
@@ -87,6 +88,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         textFieldNomeCorrida = new JFormattedTextField();
         textFieldVoltasDaCorrida = new JFormattedTextField();
         btnVoltar = new JButton();
+        informacoesPiloto = new InformacoesPiloto();
         btnAdicionarCorrida = new JButton();
         btnRemoverCorrida = new JButton();
         btnAdicionarPilotos = new JButton();
@@ -120,6 +122,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         add(textFieldVoltasDaCorrida);
         add(table);
         add(scroll);
+        add(informacoesPiloto);
         add(btnRemoverCorrida);
         add(btnAdicionarPilotos);
         add(drawer);
@@ -133,6 +136,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
+            informacoesPiloto.setForeground(Colors.CINZAMEDA);
             btnVoltar.setBackground(Colors.VERDEDARK);
             lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
@@ -159,6 +163,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
             lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
             textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
@@ -188,6 +193,9 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
+        
+        informacoesPiloto.setBounds(620, 3, 180, 100);
+        informacoesPiloto.setPiloto(piloto);
 
         logo.setBounds(20, 30, 760, 35);
         logo.setText("GERENCIAR CORRIDAS - "+campeonato.getNome());
@@ -255,19 +263,19 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
-        btnVoltar.setBounds(20, 550, 170, 35);
+        btnVoltar.setBounds(20, 550, 150, 35);
 
         btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
         btnAdicionarCorrida.setBorderPainted(false);
         btnAdicionarCorrida.setFocusPainted(false);
         btnAdicionarCorrida.addActionListener(this);
-        btnAdicionarCorrida.setBounds(395, 550, 160, 35);
+        btnAdicionarCorrida.setBounds(375, 550, 180, 35);
 
         btnRemoverCorrida.setFocusPainted(false);
         btnRemoverCorrida.setBorderPainted(false);
         btnRemoverCorrida.addActionListener(this);
         btnRemoverCorrida.setText("REMOVER CORRIDA");
-        btnRemoverCorrida.setBounds(215, 550, 160, 35);
+        btnRemoverCorrida.setBounds(195, 550, 160, 35);
 
         btnAdicionarPilotos.setFocusPainted(false);
         btnAdicionarPilotos.setBorderPainted(false);

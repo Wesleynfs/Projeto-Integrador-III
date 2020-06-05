@@ -11,6 +11,7 @@ import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+import Utilities.InformacoesPiloto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
     private JTable tableTodasAsCorridasMarcadas;
     private DefaultTableModel tabelamento;
     private JCheckBox tornarAdm;
-
+    private InformacoesPiloto informacoesPiloto;
+    
     private Piloto piloto;
 
     public VerificarCampeonatos(Piloto piloto) {
@@ -87,6 +89,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         corridas_participandoLabel = new JLabel();
         se_e_piloto_admLabel = new JLabel();
         convidar_pilotoLabel = new JLabel();
+        informacoesPiloto = new InformacoesPiloto();
         corridas_participandojComboBox = new JComboBox();
         piloto_convidarjComboBox = new JComboBox();
         tornarAdm = new JCheckBox();
@@ -101,6 +104,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         add(btnDesinscrever);
         add(btnVoltar);
         add(btnConvidarPiloto);
+        add(informacoesPiloto);
         add(btnEnviarAviso);
         add(btnVerHistorico);
         add(btnIniciarCampeonato);
@@ -142,6 +146,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             corridas_participandoLabel.setForeground(Colors.CINZAMEDA);
             se_e_piloto_admLabel.setForeground(Colors.CINZAMEDA);
             convidar_pilotoLabel.setForeground(Colors.CINZAMEDA);
+            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
             corridas_participandojComboBox.setBackground(Colors.CINZALIGHTB);
             corridas_participandojComboBox.setForeground(Colors.BRANCO);
             piloto_convidarjComboBox.setBackground(Colors.CINZALIGHTB);
@@ -156,6 +161,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnDesinscrever.setForeground(Colors.CINZADARKB);
             btnDesinscrever.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnConvidarPiloto.setForeground(Colors.CINZADARKB);
             btnConvidarPiloto.setBackground(Colors.VERDEDARK);
@@ -189,6 +195,9 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
+        
+        informacoesPiloto.setBounds(600, 3, 200, 100);
+        informacoesPiloto.setPiloto(piloto);
 
         try {
 

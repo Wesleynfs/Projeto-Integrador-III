@@ -1,10 +1,14 @@
 package View;
 
 import Bo.CampeonatoBO;
+import Bo.CorridaBO;
 import Bo.PilotoBO;
+import Bo.PilotoParticipaCorridaBO;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Campeonato;
+import Model.Corrida;
 import Model.Piloto;
+import Model.PilotoParticipaCorrida;
 import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
@@ -13,6 +17,8 @@ import Utilities.InformacoesPiloto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +38,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
     private InformacoesPiloto informacoesPiloto;
     private JTable tableParticipantes_status;
     private DefaultTableModel tabelamento;
+    private JComboBox<String> CorridasjComboBox;
 
     private Piloto piloto;
     private Campeonato campeonato;
@@ -69,6 +76,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
         drawer = new JPanel();
         btnVoltar = new JButton();
         btnIniciarCorrida = new JButton();
+        CorridasjComboBox = new JComboBox<>();
         logo = new JLabel();
         jScrollPaneParticipantes = new JScrollPane();
         tableParticipantes_status = new JTable();
@@ -86,6 +94,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
         add(SelecioneLabel);
         add(btndarfalta);
         add(btndarpresenca);
+        add(CorridasjComboBox);
         add(informacoesPiloto);
         add(jScrollPaneParticipantes);
         add(drawer);
@@ -107,6 +116,8 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             SelecioneLabel.setForeground(Colors.CINZAMEDA);
             btndarfalta.setForeground(Colors.CINZADARKB);
             btndarfalta.setBackground(Colors.VERDEDARK);
+            CorridasjComboBox.setBackground(Colors.VERDEDARK);
+            CorridasjComboBox.setForeground(Colors.CINZADARKB);
             btndarpresenca.setForeground(Colors.CINZADARKB);
             btndarpresenca.setBackground(Colors.VERDEDARK);
             informacoesPiloto.setForeground(Colors.CINZAMEDA);
@@ -117,6 +128,8 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             drawer.setBackground(Colors.VERDEDARK);            
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
+            CorridasjComboBox.setForeground(Colors.CINZADARKB);
+            CorridasjComboBox.setBackground(Colors.VERDEDARK);
             informacoesPiloto.setForeground(Colors.BRANCO);
             btnIniciarCorrida.setForeground(Colors.CINZADARKB);
             btnIniciarCorrida.setBackground(Colors.VERDEDARK);
@@ -204,6 +217,23 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
             btnVoltar.addActionListener(this);
             btnVoltar.setBounds(60 , 550,200,35);
             btnVoltar.setText("Voltar");
+            
+            criarpilotoscorrida();
+            
+            CorridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
+            CorridasjComboBox.setBounds(60, 500, 200, 35);
+            CorridasjComboBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        mudarTabelaCorrida();
+                    }
+                }
+            });
+            for(Corrida corridas : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
+                 CorridasjComboBox.addItem(corridas.getNomeCorrida());
+            }
+            mudarTabelaCorrida();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -225,6 +255,7 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Você não pode dar falta a você mesmo!");
                 }else{
                     tableParticipantes_status.setValueAt("FALTOU",index[x],1);
+                    mudarstatuspresencapiloto(x);
                 }
             }
         }
@@ -234,28 +265,108 @@ public class IniciarCorridaPt2 extends JFrame implements ActionListener {
 
             for (int x = 0; x < index.length; x++) {
                 tableParticipantes_status.setValueAt("PRESENTE",index[x],1);
+                mudarstatuspresencapiloto(x);
             }
         }
         if (e.getSource() == btnIniciarCorrida) {
             for(int x = 0; x < tableParticipantes_status.getRowCount();x++){
                 try {
-                    Piloto pilotoparticipante = new PilotoBO().listarPorApelido((String) tableParticipantes_status.getValueAt(x, 0));
-                    
-                    List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(pilotoparticipante, campeonato);
-                    list.get(0).setPresenca((String) tableParticipantes_status.getValueAt(x, 1));
-                    new PilotoParticipandoCampeonatoBO().alterar(list.get(0));
-                
+                    for(Corrida corridas : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
+                        for(PilotoParticipaCorrida pilotocorrida : new PilotoParticipaCorridaBO().listarPilotoCorridaOrderApelido(corridas)){
+                            if(pilotocorrida.isStatus_Presenca() == false){
+                                Piloto pilotostrike = pilotocorrida.getPilotoparticipacampeonato().getPiloto();
+                                pilotostrike.setNumeroDeStrikesPiloto(pilotostrike.getNumeroDeStrikesPiloto()+1);
+                                if(pilotostrike.getNumeroDeStrikesPiloto() > 3){
+                                    pilotostrike.setAtivo(false);
+                                }
+                                new PilotoBO().alterar(pilotostrike);
+                            }
+                        }                      
+                    }     
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Não foi pssivel modificar o status dos pilotos!");
                 }
             }
             
-            
             dispose();
-            new ResultadoCorrida(piloto,campeonato);
+            new ResultadosCampeonato(piloto,campeonato);
         }
 
     }
+    
+    public void criarpilotoscorrida() throws Exception{
+        for(PilotoParticipandoCampeonato pilotoparticipacampeonato : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)){
+            for(Corrida corrida : new CorridaBO().listarTodasAsCorridasMarcadas(campeonato)){
+                PilotoParticipaCorrida pilotocorrida = new PilotoParticipaCorrida();
+                pilotocorrida.setStatus_Presenca(true);
+                if(new PilotoParticipaCorridaBO().listarPilotoApelidoCorrida(corrida, pilotoparticipacampeonato.getPiloto().getApelido())==null){
 
+                    pilotocorrida.setCorrida(corrida);
+                    pilotocorrida.setPilotoparticipacampeonato(pilotoparticipacampeonato);
+                    new PilotoParticipaCorridaBO().criar(pilotocorrida);
+                }else{
+                    PilotoParticipaCorrida pilotocorridaaltera = new PilotoParticipaCorridaBO().listarPilotoApelidoCorrida(corrida, pilotoparticipacampeonato.getPiloto().getApelido());
+                    new PilotoParticipaCorridaBO().alterar(pilotocorridaaltera);
+                }
+            }
+        }
+    }
+    public void mudarstatuspresencapiloto(int x){
+        try {
+            Corrida corrida = new CorridaBO().getByNome(CorridasjComboBox.getSelectedItem().toString());
+            PilotoParticipaCorrida pilotocorrida = new PilotoParticipaCorridaBO().listarPilotoApelidoCorrida(corrida, tableParticipantes_status.getValueAt(x, 0).toString());
+            
+            if(tableParticipantes_status.getValueAt(x, 1).equals("PRESENTE")){
+                pilotocorrida.setStatus_Presenca(true);
+            }else{
+                pilotocorrida.setStatus_Presenca(false);
+            }
+            new PilotoParticipaCorridaBO().alterar(pilotocorrida);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "não foi possível mutar o status");
+        }
+    }
+
+    public void mudarTabelaCorrida(){
+        try {
+            tableParticipantes_status.setModel(new DefaultTableModel(
+                    new Object[][]{
+
+                    },
+                    new String[]{
+                            "NOME DO PARTICIPANTE","STATUS"
+                    }
+            ) {
+                boolean[] canEdit = new boolean[]{
+                        false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+
+            });
+
+            tabelamento = (DefaultTableModel) tableParticipantes_status.getModel();
+                Corrida corrida = new CorridaBO().getByNome(CorridasjComboBox.getSelectedItem().toString());
+                String presenca = null;
+                for(PilotoParticipaCorrida pilotoscorrida : new PilotoParticipaCorridaBO().listarPilotoCorridaOrderApelido(corrida)){
+                    if(pilotoscorrida.isStatus_Presenca()){
+                        presenca = "PRESENTE";
+                    }else{
+                        presenca = "FALTOU";
+                    }
+                    tabelamento.addRow(new Object[]{
+                        pilotoscorrida.getPilotoparticipacampeonato().getPiloto().getApelido(),
+                        presenca
+                    });   
+                }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível Localizar Corridas na Combo");
+        }
+        
+    }
+   
+ 
 } 
 

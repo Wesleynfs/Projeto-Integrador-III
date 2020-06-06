@@ -13,6 +13,7 @@ public class PilotoParticipaCorrida {
     private int pontuacao;
     private Time tempoParaTerminar;
     private int posicaoDeLargada;
+    private boolean Status_Presenca;
 
     @ManyToOne
     private PilotoParticipandoCampeonato pilotoparticipacampeonato;
@@ -23,6 +24,15 @@ public class PilotoParticipaCorrida {
         return idPilotoParticipaCorrida;
     }
 
+    public boolean isStatus_Presenca() {
+        return Status_Presenca;
+    }
+
+    public void setStatus_Presenca(boolean Status_Presenca) {
+        this.Status_Presenca = Status_Presenca;
+    }
+
+    
     public void setIdPilotoParticipaCorrida(int idPilotoParticipaCorrida) { this.idPilotoParticipaCorrida = idPilotoParticipaCorrida; }
 
     public int getPosicao() {

@@ -19,7 +19,11 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
     public boolean criar(PilotoParticipaCorrida o) throws Exception {
         if (valida(o)) {
             pilotoDAO = new PilotoParticipaCorridaDAO();
-            return pilotoDAO.salvar(o);
+            if(o.getIdPilotoParticipaCorrida() == 0){
+                return pilotoDAO.salvar(o);
+            }else{
+                return pilotoDAO.alterar(o);
+            }
         }
         return false;
     }
@@ -74,12 +78,20 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
         pilotoDAO = new PilotoParticipaCorridaDAO();
         return pilotoDAO.listarPilotoCorrida(corrida, piloto);
     }
+    public List<PilotoParticipaCorrida> listarPilotoCorridaOrderApelido(Corrida corrida) throws Exception {
+        pilotoDAO = new PilotoParticipaCorridaDAO();
+        return pilotoDAO.listarPilotoCorridaOrderApelido(corrida);
+    }
     
     public List<PilotoParticipaCorrida> listarPilotoCorridaOrderPontuacao(Corrida corrida) throws Exception {
         pilotoDAO = new PilotoParticipaCorridaDAO();
         return pilotoDAO.listarPilotoCorridaOrderPontuacao(corrida);
     }
     
+    public PilotoParticipaCorrida listarPilotoApelidoCorrida(Corrida corrida, String apelido) throws Exception {
+        pilotoDAO = new PilotoParticipaCorridaDAO();
+        return pilotoDAO.listarPilotoApelidoCorrida(corrida, apelido);
+    }   
 
     @Override
     public boolean valida(PilotoParticipaCorrida o) throws Exception {

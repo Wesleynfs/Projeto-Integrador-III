@@ -112,6 +112,10 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
         pilotoDAO = new PilotoParticipandoCampeonatoDAO();
         return pilotoDAO.listarPilotoQueParticipaDeCampeonatoOrderPontuacao(campeonato);
     }  
+    public PilotoParticipandoCampeonato Listar_o_piloto_de_campeonato(Piloto piloto, Campeonato campeonato) throws Exception {
+        pilotoDAO = new PilotoParticipandoCampeonatoDAO();
+        return pilotoDAO.Listar_o_piloto_de_campeonato(piloto, campeonato);
+    }  
     
 
 }

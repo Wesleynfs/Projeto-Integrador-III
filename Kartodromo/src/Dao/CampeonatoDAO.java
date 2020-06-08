@@ -74,7 +74,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     public List<Campeonato> listarCampeonatosFinalizados() throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'Finalizado' ").getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao = 'Finalizado' order by c.dataInicio").getResultList();
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -87,7 +87,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     public List<Campeonato> listarTodos() throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao != 'Finalizado'").getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao != 'Finalizado' order by c.dataInicio").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -109,7 +109,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     public List<Campeonato> getByNome(String nome) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM Campeonato c where c.nome = :nome and c.situacao != 'Finalizado'").setParameter("nome", nome).getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.nome = :nome and c.situacao != 'Finalizado' order by c.dataInicio").setParameter("nome", nome).getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {
@@ -131,7 +131,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     public List<Campeonato> listarPorData() throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();
-            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao != 'Finalizado' order by c.dataFinalizacao").getResultList();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.situacao != 'Finalizado' order by c.dataInicio").getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         } finally {

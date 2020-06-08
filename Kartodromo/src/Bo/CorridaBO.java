@@ -54,10 +54,7 @@ public class CorridaBO implements GenericBO<Corrida> {
 
     @Override
     public boolean valida(Corrida o) throws Exception {
-        if(o.getNumeroDeVoltas() > 10){
-            throw new Exception("Uma corrida não pode conter mais que 10 voltas!");
-        }
-        return true;
+        return false;
     }
 
     @Override
@@ -73,9 +70,27 @@ public class CorridaBO implements GenericBO<Corrida> {
         corridaDAO = new CorridaDAO();
         return corridaDAO.getByNome(nome);
     }
-    public boolean validaTabelaPiloto(TabelaPiloto tabelaPiloto) throws Exception {
-        if (tabelaPiloto.getRowCount() > 10) {
-            throw new Exception("Um campeonato não pede ter mais que 10 Corridas ao mesmo tempo!");
+
+    public boolean validarTelaGerenciarCorrida(List<Corrida> corridaList , Campeonato campeonato) throws Exception {
+        if (corridaList.size() != campeonato.getNumeroCorridas()) {
+            throw new Exception("Na criação do campeonato voce adicionou um total de [" + campeonato.getNumeroCorridas() + "] corridas, porém foram adicionadas [" + corridaList.size() + "]");
+        }
+        for (Corrida corrida : corridaList) {
+            if (corrida.getNumeroDeVoltas() <= 0) {
+                throw new Exception("Alguma corrida possui um numero de voltas menor ou igual a 0!");
+            }
+            if (corrida.getNumeroDeVoltas() >= 10) {
+                throw new Exception("Numero de corridas maior ou igual a 10, remova algumas!");
+            }
+        }
+        return true;
+    }
+
+    public static boolean validarTelaResultadosTabelaDeParticipantes(JTable tableParticipantesStatus) throws Exception {
+        for (int x = 0 ; x < tableParticipantesStatus.getRowCount() ; x++) {
+            if (tableParticipantesStatus.getModel().getValueAt(x,2) == null) {
+                throw new Exception("Campo vazio! adicionar tempo de piloto!");
+            }
         }
         return true;
     }

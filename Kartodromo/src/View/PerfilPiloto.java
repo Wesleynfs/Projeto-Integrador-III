@@ -227,7 +227,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                     tabelamento.addRow(new Object[]{
                             list.getCampeonato().getNome(),
-                            list.getCampeonato().getDataFinalizacao(),
+                            list.getCampeonato().getDataInicio(),
                             listaTotalPiloto.size()
                     });
                 }
@@ -270,7 +270,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                     tabelamento.addRow(new Object[]{
                             campeonato.getNome(),
-                            campeonato.getDataFinalizacao(),
+                            campeonato.getDataInicio(),
                             listaTotalPiloto.size()
                     });
 
@@ -388,7 +388,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     if (JOptionPane.showConfirmDialog(null,
                             "<html>Você foi convidado por " + convite.getPilotoQueConvidou().getApelido()
                                     + "<br>Para participar do campeonato: " + convite.getCampeonato().getNome()
-                                    + "<br>Na Data " + convite.getCampeonato().getDataFinalizacao()
+                                    + "<br>Na Data " + convite.getCampeonato().getDataInicio()
                                     + "<br>Deseja Participar?"
                                     + "<html>",
                             "Convite para Campeonato!",
@@ -408,7 +408,6 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             }
             if (avisodenenhumaaviso_convite) {
                 JOptionPane.showMessageDialog(null, "Nenhum aviso ou convite no momento!");
-
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex + ", Não foi possível Fazer a verificação");

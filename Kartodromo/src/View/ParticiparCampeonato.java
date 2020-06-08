@@ -196,7 +196,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                         CorridasjComboBox.addItem(campeonato.getNome());
                         tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
-                                campeonato.getDataFinalizacao(),
+                                campeonato.getDataInicio(),
                                 campeonato.getTipoCorrida()
                         });
 
@@ -327,7 +327,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                             
                             tabelamento.addRow(new Object[]{
                                     campeonato.getNome(),
-                                    campeonato.getDataFinalizacao(),
+                                    campeonato.getDataInicio(),
                                     campeonato.getTipoCorrida()
                             });
                         }
@@ -376,7 +376,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                             
                             tabelamento.addRow(new Object[]{
                                     campeonato.getNome(),
-                                    campeonato.getDataFinalizacao(),
+                                    campeonato.getDataInicio(),
                                     campeonato.getTipoCorrida()
                             });
                         }

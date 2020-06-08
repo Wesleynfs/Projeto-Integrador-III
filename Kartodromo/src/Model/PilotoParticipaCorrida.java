@@ -1,7 +1,7 @@
 package Model;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 public class PilotoParticipaCorrida {
@@ -11,9 +11,9 @@ public class PilotoParticipaCorrida {
     private int idPilotoParticipaCorrida;
     private int posicao;
     private int pontuacao;
-    private Time tempoParaTerminar;
+    private Timestamp tempoAoTerminar;
     private int posicaoDeLargada;
-    private boolean Status_Presenca;
+    private boolean statusPresenca;
 
     @ManyToOne
     private PilotoParticipandoCampeonato pilotoparticipacampeonato;
@@ -24,14 +24,11 @@ public class PilotoParticipaCorrida {
         return idPilotoParticipaCorrida;
     }
 
-    public boolean isStatus_Presenca() {
-        return Status_Presenca;
+    public boolean isStatusPresenca() {
+        return statusPresenca;
     }
 
-    public void setStatus_Presenca(boolean Status_Presenca) {
-        this.Status_Presenca = Status_Presenca;
-    }
-
+    public void setStatusPresenca(boolean Status_Presenca) { this.statusPresenca = Status_Presenca; }
     
     public void setIdPilotoParticipaCorrida(int idPilotoParticipaCorrida) { this.idPilotoParticipaCorrida = idPilotoParticipaCorrida; }
 
@@ -51,23 +48,17 @@ public class PilotoParticipaCorrida {
         this.pontuacao = pontuacao;
     }
 
-    public Time getTempoParaTerminar() { return tempoParaTerminar; }
+    public Timestamp getTempoAoTerminar() { return tempoAoTerminar; }
 
-    public void setTempoParaTerminar(Time tempoParaTerminar) {
-        this.tempoParaTerminar = tempoParaTerminar;
-    }
+    public void setTempoAoTerminar(Timestamp tempoAoTerminar) { this.tempoAoTerminar = tempoAoTerminar; }
 
     public int getPosicaoDeLargada() {
         return posicaoDeLargada;
     }
 
-    public void setPosicaoDeLargada(int posicaoDeLargada) {
-        this.posicaoDeLargada = posicaoDeLargada;
-    }
+    public void setPosicaoDeLargada(int posicaoDeLargada) { this.posicaoDeLargada = posicaoDeLargada; }
 
-    public PilotoParticipandoCampeonato getPilotoparticipacampeonato() {
-        return pilotoparticipacampeonato;
-    }
+    public PilotoParticipandoCampeonato getPilotoParticipaCampeonato() { return pilotoparticipacampeonato; }
 
     public Corrida getCorrida() {
         return corrida;
@@ -77,15 +68,13 @@ public class PilotoParticipaCorrida {
         this.corrida = corrida;
     }
 
-    public void setPilotoparticipacampeonato(PilotoParticipandoCampeonato pilotoparticipacampeonato) {
-        this.pilotoparticipacampeonato = pilotoparticipacampeonato;
-    }
+    public void setPilotoparticipacampeonato(PilotoParticipandoCampeonato pilotoparticipacampeonato) { this.pilotoparticipacampeonato = pilotoparticipacampeonato; }
 
-    public PilotoParticipaCorrida(int idPilotoParticipaCorrida, int posicao, int pontuacao, Time tempoParaTerminar, int posicaoDeLargada, PilotoParticipandoCampeonato pilotoparticipacampeonato, Corrida corrida) {
+    public PilotoParticipaCorrida(int idPilotoParticipaCorrida, int posicao, int pontuacao, Timestamp tempoAoTerminar, int posicaoDeLargada, PilotoParticipandoCampeonato pilotoparticipacampeonato, Corrida corrida) {
         this.idPilotoParticipaCorrida = idPilotoParticipaCorrida;
         this.posicao = posicao;
         this.pontuacao = pontuacao;
-        this.tempoParaTerminar = tempoParaTerminar;
+        this.tempoAoTerminar = tempoAoTerminar;
         this.posicaoDeLargada = posicaoDeLargada;
         this.pilotoparticipacampeonato = pilotoparticipacampeonato;
         this.corrida = corrida;

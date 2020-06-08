@@ -14,8 +14,13 @@ public class Campeonato {
     private Date dataCadastro;
     private String situacao;
     private String tipoCorrida;
-    private Date dataFinalizacao;
-    
+    private int numeroCorridas;
+    private Date dataInicio;
+
+    public int getNumeroCorridas() { return numeroCorridas; }
+
+    public void setNumeroCorridas(int numeroCorridas) { this.numeroCorridas = numeroCorridas; }
+
     public String getSituacao() {
         return situacao;
     }
@@ -38,9 +43,7 @@ public class Campeonato {
         this.nome = nome;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+    public Date getDataCadastro() { return dataCadastro; }
 
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
@@ -54,21 +57,22 @@ public class Campeonato {
         this.tipoCorrida = tipoCorrida;
     }
 
-    public Date getDataFinalizacao() {
-        return dataFinalizacao;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataFinalizacao(Date dataFinalizacao) {
-        this.dataFinalizacao = dataFinalizacao;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
     }
-    
-    public Campeonato(int idCampeonato, String nome, Date dataCadastro, int totalCorridas, String situacao, String tipoCorrida, Date dataFinalizacao, String tipoKart, Kartodromo kartodromo) {
+
+    public Campeonato(int idCampeonato, String nome, Date dataCadastro, String situacao, String tipoCorrida, int numeroCorridas, Date dataInicio) {
         this.idCampeonato = idCampeonato;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
         this.situacao = situacao;
         this.tipoCorrida = tipoCorrida;
-        this.dataFinalizacao = dataFinalizacao;
+        this.numeroCorridas = numeroCorridas;
+        this.dataInicio = dataInicio;
     }
 
     public Campeonato() {
@@ -83,7 +87,8 @@ public class Campeonato {
                 ", dataCadastro=" + dataCadastro +
                 ", situacao='" + situacao + '\'' +
                 ", tipoCorrida='" + tipoCorrida + '\'' +
-                ", dataFinalizacao=" + dataFinalizacao +
+                ", numeroCorridas=" + numeroCorridas +
+                ", dataInicio=" + dataInicio +
                 '}';
     }
 }

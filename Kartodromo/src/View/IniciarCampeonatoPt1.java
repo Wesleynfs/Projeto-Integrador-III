@@ -18,12 +18,12 @@ import java.awt.event.ItemListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class IniciarCorridaPt1 extends JFrame implements ActionListener {
+public class IniciarCampeonatoPt1 extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
     private JButton btnVoltar;
-    private JButton btnIniciarCorrida;
+    private JButton btnIniciarCampeonato;
     private JLabel logo;
     private JLabel corrida_escolhidaLabel;
     private JLabel corridas_participandoLabel;
@@ -36,7 +36,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     private InformacoesPiloto informacoesPiloto;
     private Piloto piloto;
 
-    public IniciarCorridaPt1(Piloto piloto) {
+    public IniciarCampeonatoPt1(Piloto piloto) {
         this.piloto = piloto;
         // Instancia de itens //
         initializate();
@@ -67,7 +67,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         fundo = new JPanel();
         drawer = new JPanel();
         btnVoltar = new JButton();
-        btnIniciarCorrida = new JButton();
+        btnIniciarCampeonato = new JButton();
         logo = new JLabel();
         corrida_escolhidaLabel = new JLabel();
         corridas_participandoLabel = new JLabel();
@@ -84,7 +84,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         add(btnVoltar);
         add(corridasjComboBox);
         add(jScrollPanePilotosCorrida);
-        add(btnIniciarCorrida);
+        add(btnIniciarCampeonato);
         add(informacoesPiloto);
         add(logo);
         add(corridas_participandoLabel);
@@ -95,13 +95,14 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
     private void setTheme() {
         if (SplashScreen.getConfiguracao().isTema()) {
+
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-            btnIniciarCorrida.setForeground(Colors.CINZADARKB);
-            btnIniciarCorrida.setBackground(Colors.VERDEDARK);
+            btnIniciarCampeonato.setForeground(Colors.CINZADARKB);
+            btnIniciarCampeonato.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             corrida_escolhidaLabel.setForeground(Colors.CINZAMEDA);
             corridas_participandoLabel.setForeground(Colors.CINZAMEDA);
@@ -111,17 +112,17 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             tableTodasAsCorridasMarcadas.setForeground(Colors.CINZADARKB);
             tablePilotosCorrida.setBackground(Colors.VERDELIGHT);
             tablePilotosCorrida.setForeground(Colors.CINZADARKB);
-            informacoesPiloto.setForeground(Colors.CINZAMEDA);
+            informacoesPiloto.setForeground(Colors.CINZAMEDB);
 
         } else {
 
             fundo.setBackground(Colors.CINZAMEDA);
-            drawer.setBackground(Colors.VERDEDARK);    
+            drawer.setBackground(Colors.VERDEDARK);
             informacoesPiloto.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVoltar.setBackground(Colors.VERDEDARK);
-            btnIniciarCorrida.setForeground(Colors.CINZADARKB);
-            btnIniciarCorrida.setBackground(Colors.VERDEDARK);
+            btnIniciarCampeonato.setForeground(Colors.CINZADARKB);
+            btnIniciarCampeonato.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
             corrida_escolhidaLabel.setForeground(Colors.CINZALIGHTB);
             corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
@@ -133,15 +134,14 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             tablePilotosCorrida.setBackground(Colors.VERDEDARK);
         }
     }
+
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-
         drawer.setBounds(0, 0, 800, 100);
-        
         informacoesPiloto.setBounds(600, 3, 200, 100);
         informacoesPiloto.setPiloto(piloto);
-        
+
         try {
 
             tableTodasAsCorridasMarcadas.setModel(new DefaultTableModel(
@@ -149,7 +149,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
                     },
                     new String[]{
-                            "NOME DO CAMPEONATO","DATA DO CAMPEONATO","PILOTOS CONFIRMADOS"
+                            "NOME DO CAMPEONATO", "DATA DO CAMPEONATO", "PILOTOS CONFIRMADOS"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -176,7 +176,7 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
                         List<PilotoParticipandoCampeonato> listaTotalPiloto = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
-                                list.getCampeonato().getDataFinalizacao(),
+                                list.getCampeonato().getDataInicio(),
                                 listaTotalPiloto.size()
                         });
                     }
@@ -189,33 +189,33 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             jScrollPaneCorridasMarcadas.setBounds(60, 150, 680, 200);
 
             mudarPilotosParticipando();
-            jScrollPanePilotosCorrida.setBounds(60, 370, 230 , 150);
+            jScrollPanePilotosCorrida.setBounds(60, 370, 230, 150);
 
             logo.setFont(Fonts.SANSSERIFMIN);
-            logo.setBounds(20 , 30,500,35);
+            logo.setBounds(20, 30, 500, 35);
             logo.setText("INICIAR CAMPEONATO");
 
-            corrida_escolhidaLabel.setBounds(540 , 355,300,30);
+            corrida_escolhidaLabel.setBounds(540, 355, 300, 30);
             corrida_escolhidaLabel.setText("Selecionar Campeonato:");
 
-            corridas_participandoLabel.setBounds(60 , 120,300,30);
+            corridas_participandoLabel.setBounds(60, 120, 300, 30);
             corridas_participandoLabel.setText("Corridas participando:");
-                    
-            corridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            corridasjComboBox.setBounds(540,390,200,35);
 
-            btnIniciarCorrida.setBorderPainted(false);
-            btnIniciarCorrida.setFocusPainted(false);
-            btnIniciarCorrida.addActionListener(this);
-            btnIniciarCorrida.setBounds(540, 550, 200, 35);
-            btnIniciarCorrida.setText("Iniciar Corrida");
-            
+            corridasjComboBox.setBorder(BorderFactory.createEmptyBorder());
+            corridasjComboBox.setBounds(540, 390, 200, 35);
+
+            btnIniciarCampeonato.setBorderPainted(false);
+            btnIniciarCampeonato.setFocusPainted(false);
+            btnIniciarCampeonato.addActionListener(this);
+            btnIniciarCampeonato.setBounds(540, 550, 200, 35);
+            btnIniciarCampeonato.setText("Iniciar Campeonato");
+
             btnVoltar.setBorderPainted(false);
             btnVoltar.setFocusPainted(false);
             btnVoltar.addActionListener(this);
-            btnVoltar.setBounds(60 , 550,200,35);
+            btnVoltar.setBounds(60, 550, 200, 35);
             btnVoltar.setText("Voltar");
-            
+
             this.corridasjComboBox.addItemListener(new ItemListener() {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
@@ -228,9 +228,9 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-      
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
@@ -238,24 +238,24 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
             new VerificarCampeonatos(piloto);
         }
 
-        if (e.getSource() == btnIniciarCorrida) {
-            try{
-               
+        if (e.getSource() == btnIniciarCampeonato) {
+            try {
+
                 Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
                 List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                 if ((list.toArray().length >= Info.NUMERO_MINIMO_DE_PILOTOS_CAMPEONATO_OFFICIAL
-                        && Info.CAMPEONATO_OFICIAL.equals(campeonato.getTipoCorrida()))){
+                        && Info.CAMPEONATO_OFICIAL.equals(campeonato.getTipoCorrida()))) {
                     System.out.println(list.toArray().length);
                     dispose();
-                    new IniciarCorridaPt2(piloto,campeonato); 
-                }else if (Info.CAMPEONATO_NORMAL.equals(campeonato.getTipoCorrida())) {
+                    new IniciarCampeonatoPt2(piloto, campeonato);
+                } else if (Info.CAMPEONATO_NORMAL.equals(campeonato.getTipoCorrida())) {
                     dispose();
-                    new IniciarCorridaPt2(piloto,campeonato);
+                    new IniciarCampeonatoPt2(piloto, campeonato);
                 } else {
-                        JOptionPane.showMessageDialog(null, "Você não pode iniciar essa corrida, ela não possui competidores suficientes");
+                    JOptionPane.showMessageDialog(null, "Você não pode iniciar essa corrida, ela não possui competidores suficientes");
                 }
-                            
-                
+
+
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
             }
@@ -266,12 +266,12 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
     private void mudarPilotosParticipando() {
 
         try {
-                        tablePilotosCorrida.setModel(new DefaultTableModel(
+            tablePilotosCorrida.setModel(new DefaultTableModel(
                     new Object[][]{
 
                     },
                     new String[]{
-                            "PARTICIPANTES","NÍVEL"
+                            "PARTICIPANTES", "NÍVEL"
                     }
             ) {
                 boolean[] canEdit = new boolean[]{
@@ -286,25 +286,21 @@ public class IniciarCorridaPt1 extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tablePilotosCorrida.getModel();
             Campeonato campeonato = new CampeonatoBO().getByNome(corridasjComboBox.getSelectedItem().toString());
-         
+
             for (PilotoParticipandoCampeonato pilotosparticipantes : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
                 tabelamento.addRow(new Object[]{
-                    pilotosparticipantes.getPiloto().getApelido(),
-                    pilotosparticipantes.getPiloto().getNivel()
+                        pilotosparticipantes.getPiloto().getApelido(),
+                        pilotosparticipantes.getPiloto().getNivel()
                 });
-                
+
             }
-            
-            
-            
-            
+
             jScrollPanePilotosCorrida.setViewportView(tablePilotosCorrida);
-            
 
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
         }
 
     }
-    
+
 } 

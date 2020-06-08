@@ -36,14 +36,14 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
     private JLabel corridas_participandoLabel;
     private JLabel se_e_piloto_admLabel;
     private JLabel convidar_pilotoLabel;
-    private JComboBox<Object> corridas_participandojComboBox;
-    private JComboBox<Object> piloto_convidarjComboBox;
+    private JComboBox<Object> comboBoxCampeonatosParticipando;
+    private JComboBox<Object> convidarPilotoComboBox;
     private JScrollPane jScrollPaneCorridasMarcadas;
     private JTable tableTodasAsCorridasMarcadas;
     private DefaultTableModel tabelamento;
     private JCheckBox tornarAdm;
     private InformacoesPiloto informacoesPiloto;
-    
+
     private Piloto piloto;
 
     public VerificarCampeonatos(Piloto piloto) {
@@ -90,8 +90,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         se_e_piloto_admLabel = new JLabel();
         convidar_pilotoLabel = new JLabel();
         informacoesPiloto = new InformacoesPiloto();
-        corridas_participandojComboBox = new JComboBox();
-        piloto_convidarjComboBox = new JComboBox();
+        comboBoxCampeonatosParticipando = new JComboBox();
+        convidarPilotoComboBox = new JComboBox();
         tornarAdm = new JCheckBox();
         jScrollPaneCorridasMarcadas = new JScrollPane();
         tableTodasAsCorridasMarcadas = new JTable();
@@ -113,8 +113,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         add(corridas_participandoLabel);
         add(se_e_piloto_admLabel);
         add(convidar_pilotoLabel);
-        add(corridas_participandojComboBox);
-        add(piloto_convidarjComboBox);
+        add(comboBoxCampeonatosParticipando);
+        add(convidarPilotoComboBox);
         add(jScrollPaneCorridasMarcadas);
         add(drawer);
         add(fundo);
@@ -146,11 +146,11 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             corridas_participandoLabel.setForeground(Colors.CINZAMEDA);
             se_e_piloto_admLabel.setForeground(Colors.CINZAMEDA);
             convidar_pilotoLabel.setForeground(Colors.CINZAMEDA);
-            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
-            corridas_participandojComboBox.setBackground(Colors.CINZALIGHTB);
-            corridas_participandojComboBox.setForeground(Colors.BRANCO);
-            piloto_convidarjComboBox.setBackground(Colors.CINZALIGHTB);
-            piloto_convidarjComboBox.setForeground(Colors.BRANCO);
+            informacoesPiloto.setForeground(Colors.CINZAMEDB);
+            comboBoxCampeonatosParticipando.setBackground(Colors.CINZALIGHTB);
+            comboBoxCampeonatosParticipando.setForeground(Colors.BRANCO);
+            convidarPilotoComboBox.setBackground(Colors.CINZALIGHTB);
+            convidarPilotoComboBox.setForeground(Colors.BRANCO);
             tableTodasAsCorridasMarcadas.setBackground(Colors.VERDELIGHT);
             tableTodasAsCorridasMarcadas.setForeground(Colors.CINZADARKB);
 
@@ -176,10 +176,10 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             corridas_participandoLabel.setForeground(Colors.CINZALIGHTB);
             se_e_piloto_admLabel.setForeground(Colors.CINZALIGHTB);
             convidar_pilotoLabel.setForeground(Colors.CINZALIGHTB);
-            corridas_participandojComboBox.setForeground(Colors.CINZADARKA);
-            corridas_participandojComboBox.setBackground(Colors.CINZALIGHTB);
-            piloto_convidarjComboBox.setForeground(Colors.CINZADARKA);
-            piloto_convidarjComboBox.setBackground(Colors.CINZALIGHTB);
+            comboBoxCampeonatosParticipando.setForeground(Colors.CINZADARKA);
+            comboBoxCampeonatosParticipando.setBackground(Colors.CINZALIGHTB);
+            convidarPilotoComboBox.setForeground(Colors.CINZADARKA);
+            convidarPilotoComboBox.setBackground(Colors.CINZALIGHTB);
             tornarAdm.setBackground(Colors.CINZALIGHTB);
             tornarAdm.setForeground(Colors.CINZADARKA);
             tableTodasAsCorridasMarcadas.setForeground(Colors.CINZADARKB);
@@ -195,7 +195,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
 
         fundo.setSize(Info.MINSCREENSIZE);
         drawer.setBounds(0, 0, 800, 100);
-        
+
         informacoesPiloto.setBounds(600, 3, 200, 100);
         informacoesPiloto.setPiloto(piloto);
 
@@ -231,11 +231,11 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                     });
                 } else {
                     for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
-                        corridas_participandojComboBox.addItem(list.getCampeonato().getNome());
+                        comboBoxCampeonatosParticipando.addItem(list.getCampeonato().getNome());
                         List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
-                                list.getCampeonato().getDataFinalizacao(),
+                                list.getCampeonato().getDataInicio(),
                                 listaTotalPiloto.size()
                         });
                     }
@@ -288,11 +288,11 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             corridas_participandoLabel.setBounds(60, 370, 300, 30);
             corridas_participandoLabel.setText("Campeonatos:");
 
-            corridas_participandojComboBox.setBorder(BorderFactory.createEmptyBorder());
-            corridas_participandojComboBox.setBounds(60, 400, 200, 35);
+            comboBoxCampeonatosParticipando.setBorder(BorderFactory.createEmptyBorder());
+            comboBoxCampeonatosParticipando.setBounds(60, 400, 200, 35);
 
-            piloto_convidarjComboBox.setBorder(BorderFactory.createEmptyBorder());
-            piloto_convidarjComboBox.setBounds(540, 400, 200, 35);
+            convidarPilotoComboBox.setBorder(BorderFactory.createEmptyBorder());
+            convidarPilotoComboBox.setBounds(540, 400, 200, 35);
 
             se_e_piloto_admLabel.setBounds(600, 120, 200, 30);
             se_e_piloto_admLabel.setText("Você é um piloto ADM");
@@ -312,7 +312,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnIniciarCampeonato.setBounds(300, 500, 200, 35);
             btnIniciarCampeonato.setText("Iniciar Campeonato");
 
-            corridas_participandojComboBox.addItemListener(new ItemListener() {
+            comboBoxCampeonatosParticipando.addItemListener(new ItemListener() {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
                     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -336,12 +336,12 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                         "Desincrever de Campeonato",
                         JOptionPane.YES_NO_OPTION) == 0) {
 
-                    Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+                    Campeonato campeonato = new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString());
 
                     for (PilotoParticipandoCampeonato pilotoqueparticipamcampeonatodesincrever : new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(piloto, campeonato)) {
                         new PilotoParticipandoCampeonatoBO().deletar(pilotoqueparticipamcampeonatodesincrever);
                     }
-                    corridas_participandojComboBox.removeItemAt(corridas_participandojComboBox.getSelectedIndex());
+                    comboBoxCampeonatosParticipando.removeItemAt(comboBoxCampeonatosParticipando.getSelectedIndex());
                 }
 
                 JOptionPane.showMessageDialog(null, "Desinscrição Realizada! você não participa mais dessa corrida!");
@@ -349,60 +349,72 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                 dispose();
                 new VerificarCampeonatos(piloto);
 
-                //funciona kappa XD minha missão é deixar funcional
-
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Eita, não foi possível fazer a desinscrição!");
             }
         }
+
         if (e.getSource() == btnVoltar) {
             dispose();
             new PerfilPiloto(piloto);
         }
+
         if (e.getSource() == btnConvidarPiloto) {
+
             try {
 
-                Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+                if (new CampeonatoBO().validaTelaVerificarCampeonatos(convidarPilotoComboBox.getSelectedItem().toString())) {
+                    Piloto pilotoConvidado = new PilotoBO().listarPorApelido(convidarPilotoComboBox.getSelectedItem().toString());
+                    ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
+                    conviteCampeonato.setCampeonato(new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString()));
+                    conviteCampeonato.setPilotoQueConvidou(piloto);
+                    conviteCampeonato.setPilotoConvidado(pilotoConvidado);
+                    conviteCampeonato.setStatusConvite("Não respondido");
 
-                Piloto piloto_convidado = new PilotoBO().listarPorApelido(piloto_convidarjComboBox.getSelectedItem().toString());
+                    if (new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false) {
+                        new ConviteCampeonatoBO().criar(conviteCampeonato);
+                        convidarPilotoComboBox.removeItemAt(convidarPilotoComboBox.getSelectedIndex());
+                    }
 
-                ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
-                conviteCampeonato.setCampeonato(campeonato);
-                conviteCampeonato.setPilotoQueConvidou(piloto);
-                conviteCampeonato.setPilotoConvidado(piloto_convidado);
-                conviteCampeonato.setStatusConvite("Não respondido");
-                if (new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false) {
-                    new ConviteCampeonatoBO().criar(conviteCampeonato);
-                    piloto_convidarjComboBox.removeItemAt(piloto_convidarjComboBox.getSelectedIndex());
+                    JOptionPane.showMessageDialog(null, "Convite enviado ao piloto: " + pilotoConvidado.getApelido());
+
                 }
-                JOptionPane.showMessageDialog(null, "Convite enviado ao piloto: " + piloto_convidado.getApelido());
-            } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, "Não foi possível enviar o convite");
-            }
-        }
-        if (e.getSource() == btnEnviarAviso) {
-            try {
-                Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
-                dispose();
-                new EnviarAviso(piloto, campeonato);
 
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE);
+            }
+
+        }
+
+        if (e.getSource() == btnEnviarAviso) {
+
+            try {
+                dispose();
+                new EnviarAviso(piloto, new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString()));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível entrar em enviar aviso");
             }
 
         }
+
         if (e.getSource() == btnVerHistorico) {
             dispose();
             new Historico(piloto);
         }
+
         if (e.getSource() == btnIniciarCampeonato) {
-            try {
-                dispose();
-                new IniciarCorridaPt1(piloto);
-            } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
+            if (!tableTodasAsCorridasMarcadas.getValueAt(0,0).equals("Nem um campeonato na lista!")) {
+                try {
+                    dispose();
+                    new IniciarCampeonatoPt1(piloto);
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, "Você não selecionou nenhuma corrida!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"Nenhum campeonato está na lista, crie ou peça a um adminisitrador para criar um!");
             }
         }
+
         if (e.getSource() == tornarAdm) {
             try {
                 if (tornarAdm.isSelected()) {
@@ -410,7 +422,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                             "você tem certeza que deseja assumir a responsabilidade de ADM?",
                             "Termo de responsabilidade",
                             JOptionPane.YES_NO_OPTION) == 0) {
-                        mudarstatusadm();
+                        mudarStatusAdm();
                     }
                 } else {
                     if (JOptionPane.showConfirmDialog(null,
@@ -418,18 +430,18 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                             "você tem certeza que deseja remover seu ADM desse campeonato?",
                             "Remover status de ADM",
                             JOptionPane.YES_NO_OPTION) == 0) {
-                        mudarstatusadm();
+                        mudarStatusAdm();
                     }
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível alterar status de ADM!");
             }
-
         }
+
     }
 
-    private void mudarstatusadm() throws Exception {
-        Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+    private void mudarStatusAdm() throws Exception {
+        Campeonato campeonato = new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString());
 
         List<PilotoParticipandoCampeonato> pilotoqueparticipamcampeonato = new PilotoParticipandoCampeonatoBO().Listar_o_piloto_do_campeonato(piloto, campeonato);
 
@@ -439,19 +451,19 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
         } else {
             pilotoatual.setStatusAdm(true);
         }
-        PilotoParticipandoCampeonatoBO pilotoparticipandobo = new PilotoParticipandoCampeonatoBO();
 
-        pilotoparticipandobo.alterar(pilotoatual);
+        new PilotoParticipandoCampeonatoBO().alterar(pilotoatual);
 
         verificarADM(campeonato);
+
         JOptionPane.showMessageDialog(null, "Status de ADM alterado!");
     }
 
     private void mudarComboConvites() {
 
         try {
-            piloto_convidarjComboBox.removeAllItems();
-            Campeonato campeonato = new CampeonatoBO().getByNome(corridas_participandojComboBox.getSelectedItem().toString());
+            convidarPilotoComboBox.removeAllItems();
+            Campeonato campeonato = new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString());
             for (Piloto pilotos : new PilotoBO().listarTodos()) {
 
                 if (pilotos.getIdPiloto() != piloto.getIdPiloto()) {
@@ -466,7 +478,10 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                     verificarsejafoiconvidado.setCampeonato(campeonato);
                     verificarsejafoiconvidado.setPilotoConvidado(pilotos);
                     if (pilotoparticipadocampeonato == false && new ConviteCampeonatoBO().verificarConviteExistente(verificarsejafoiconvidado) == false) {
-                        piloto_convidarjComboBox.addItem(pilotos.getApelido());
+                        convidarPilotoComboBox.addItem(pilotos.getApelido());
+                    } else {
+                        convidarPilotoComboBox.addItem("Aguardando pilotos aceitarem");
+                        break;
                     }
                 }
             }
@@ -488,7 +503,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnConvidarPiloto.setVisible(true);
             btnEnviarAviso.setVisible(true);
             btnIniciarCampeonato.setVisible(true);
-            piloto_convidarjComboBox.setVisible(true);
+            convidarPilotoComboBox.setVisible(true);
             tornarAdm.setSelected(true);
         } else {
             se_e_piloto_admLabel.setText("Você é não um piloto ADM");
@@ -496,7 +511,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             btnConvidarPiloto.setVisible(false);
             btnEnviarAviso.setVisible(false);
             btnIniciarCampeonato.setVisible(false);
-            piloto_convidarjComboBox.setVisible(false);
+            convidarPilotoComboBox.setVisible(false);
             tornarAdm.setSelected(false);
         }
     }

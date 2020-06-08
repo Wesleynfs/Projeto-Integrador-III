@@ -145,7 +145,6 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
     private void configs() {
 
         fundo.setSize(Info.MINSCREENSIZE);
-
         drawer.setBounds(0, 0, 800, 200);
 
         emailTextField.setBorder(BorderFactory.createEmptyBorder());
@@ -258,9 +257,11 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btnExit) {
             System.exit(0);
         }
+
         if (e.getSource() == btnLogar) {
             logar();
         }

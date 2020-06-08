@@ -219,7 +219,7 @@ public class Historico extends JFrame implements ActionListener {
                 for (PilotoParticipandoCampeonato pilotoparticipando : pilotoparticipando) {
                     tabelamento.addRow(new Object[]{
                             pilotoparticipando.getCampeonato().getNome(),
-                            pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                            pilotoparticipando.getCampeonato().getDataInicio(),
                             pilotoparticipando.getPosicao(),
                             pilotoparticipando.getPontuacao(),
                     });
@@ -233,7 +233,7 @@ public class Historico extends JFrame implements ActionListener {
                 for (PilotoParticipandoCampeonato pilotoparticipando : new PilotoParticipandoCampeonatoBO().listarPilotoCampeonatoFinalizadosPorNome(piloto, comboCampeonato.getModel().getSelectedItem().toString())) {
                     tabelamento.addRow(new Object[]{
                             pilotoparticipando.getCampeonato().getNome(),
-                            pilotoparticipando.getCampeonato().getDataFinalizacao(),
+                            pilotoparticipando.getCampeonato().getDataInicio(),
                             pilotoparticipando.getPosicao(),
                             pilotoparticipando.getPontuacao(),
                     });

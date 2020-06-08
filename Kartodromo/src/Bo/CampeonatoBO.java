@@ -2,11 +2,15 @@ package Bo;
 
 import Dao.CampeonatoDAO;
 import Model.Campeonato;
+import Model.ConviteCampeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
+import Utilities.TabelaConvidarPilotos;
+import Utilities.Tempo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 import java.util.List;
 
 public class CampeonatoBO implements GenericBO<Campeonato> {
@@ -77,7 +81,7 @@ public class CampeonatoBO implements GenericBO<Campeonato> {
         if (o.getNome().equals("")) {
             throw new Exception("Nome do Campeonato não pode ficar em branco!");
         }
-        if (o.getDataFinalizacao().toString().equals("1000-01-01")) {
+        if (o.getDataInicio().toString().equals("1000-01-01")) {
             throw new Exception("Por favor adicione uma data de finalização para o campeonato!");
         }
         return true;
@@ -124,6 +128,33 @@ public class CampeonatoBO implements GenericBO<Campeonato> {
                         "Erro", JOptionPane.PLAIN_MESSAGE);
             }
             verificarConsistencia = Integer.valueOf(tabelamento.getValueAt(i, 1).toString());
+        }
+        return true;
+    }
+
+    public boolean validarTelaGerenciarCampeonato(Campeonato campeonato) throws Exception {
+        if (campeonato.getNumeroCorridas() <= 0) {
+            throw new Exception("Numero de corridas inválido");
+        }
+        if (campeonato.getDataInicio().before(Tempo.getCurrentDate())) {
+            throw new Exception("Data do campeonato inválida");
+        }
+        return true;
+    }
+
+    public boolean validarTelaAdicionarPiloto(List<ConviteCampeonato> convites) throws Exception {
+        if (convites.isEmpty()) {
+            throw new Exception("Pelo menos adicione um piloto");
+        }
+        if (convites.size() > 25) {
+            throw new Exception("Numero de pilotos maior que o permitido!");
+        }
+        return true;
+    }
+
+    public boolean validaTelaVerificarCampeonatos(String t) throws Exception {
+        if (t.equals("Aguardando pilotos aceitarem")) {
+            throw new Exception("Nenhum piloto selecionado! Verifique se algum aceitou sua solicitação para o campeonato");
         }
         return true;
     }

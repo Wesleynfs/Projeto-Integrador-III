@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements ActionListener {
+public class GerenciarPiloto extends JFrame implements ActionListener {
 
     private JLabel logo;
     private JLabel ajuda;
@@ -28,7 +28,6 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private JPanel drawer;
     private JButton btnVoltar;
     private JButton btnFinalizar;
-    private JFrame retornarPara;
     private Piloto piloto;
     private TabelaConvidarPilotos tabelaConvidarPilotos;
     private JScrollPane jScrollPane;
@@ -39,9 +38,8 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
     private List<Corrida> corridaList;
     private List<ConviteCampeonato> convites;
 
-    public GerenciarCampeonatoAdicionarPilotos(JFrame retornarPara, Piloto piloto, Campeonato campeonato, DefaultTableModel tabelamento, List<Corrida> corridaList) {
+    public GerenciarPiloto(Piloto piloto, Campeonato campeonato, DefaultTableModel tabelamento, List<Corrida> corridaList) {
 
-        this.retornarPara = retornarPara;
         this.piloto = piloto;
         this.campeonato = campeonato;
         this.tabelamento = tabelamento;
@@ -93,7 +91,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
-            informacoesPiloto.setForeground(Colors.CINZAMEDA);
+            informacoesPiloto.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnFinalizar.setBackground(Colors.VERDEDARK);
@@ -119,7 +117,7 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
 
         informacoesPiloto.setBounds(620, 3, 180, 100);
         informacoesPiloto.setPiloto(piloto);
-        
+
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
@@ -133,10 +131,10 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
         btnFinalizar.setBounds(680, 550, 100, 35);
 
         logo.setBounds(20, 30, 760, 35);
-        logo.setText("GERENCIAR PILOTOS - "+campeonato.getNome());
+        logo.setText("GERENCIAR PILOTOS - " + campeonato.getNome());
         logo.setFont(Fonts.SANSSERIFMIN);
 
-        ajuda.setBounds(200,450,500,35);
+        ajuda.setBounds(200, 450, 500, 35);
         ajuda.setText("Ao terminar de selecionar os pilotos, clique em 'FINALIZAR' para concluir");
 
         jScrollPane.setViewportView(table);
@@ -176,112 +174,111 @@ public class GerenciarCampeonatoAdicionarPilotos extends JFrame implements Actio
 
         if (e.getSource() == btnVoltar) {
             dispose();
-            this.retornarPara.setVisible(true);
+            new GerenciarCorrida(piloto,campeonato,tabelamento);
         }
 
         if (e.getSource() == btnFinalizar) {
 
-            criarConvites();
-
-            // Cria um campeonato //
-
             try {
-                new CampeonatoBO().criar(campeonato);
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err.getMessage());
-            }
 
-            // Cria convites //
+                int[] index = table.getSelectedRows();
 
-            try {
-                for (ConviteCampeonato conviteCampeonato : convites) {
-                    if (new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false) {
-                        new ConviteCampeonatoBO().criar(conviteCampeonato);
+                for (int x = 0; x < index.length; x++) {
+
+                    Piloto pilotoConvidado = new PilotoBO().listarPorPiloto((Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(index[x]));
+                    ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
+                    conviteCampeonato.setPilotoQueConvidou(piloto);
+                    conviteCampeonato.setCampeonato(campeonato);
+                    conviteCampeonato.setPilotoConvidado(pilotoConvidado);
+                    conviteCampeonato.setStatusConvite("Não respondido");
+                    convites.add(conviteCampeonato);
+
+                }
+
+                if (new CampeonatoBO().validarTelaAdicionarPiloto(convites)) {
+
+                    // Cria um campeonato //
+
+                    try {
+                        new CampeonatoBO().criar(campeonato);
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null, err.getMessage());
                     }
+
+                    // Cria convites //
+
+                    try {
+                        for (ConviteCampeonato conviteCampeonato : convites) {
+                            if (new ConviteCampeonatoBO().verificarConviteExistente(conviteCampeonato) == false) {
+                                new ConviteCampeonatoBO().criar(conviteCampeonato);
+                            }
+                        }
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null, err.getMessage());
+                    }
+
+                    // Cria as posições e pontuações //
+
+                    try {
+
+                        PontuacaoPosicaoBO pontuacaoPosicaoBo = new PontuacaoPosicaoBO();
+                        for (int i = 0; tabelamento.getRowCount() > i; i++) {
+                            PontuacaoPosicao pontuacaoPosicao = new PontuacaoPosicao();
+                            pontuacaoPosicao.setPontuacao(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()));
+                            pontuacaoPosicao.setPosicao(Integer.valueOf(tabelamento.getValueAt(i, 0).toString()));
+                            pontuacaoPosicao.setCampeonato(campeonato);
+                            pontuacaoPosicaoBo.criar(pontuacaoPosicao);
+                        }
+
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null,
+                                err, "Erro", JOptionPane.PLAIN_MESSAGE);
+                    }
+
+                    // Cria as corridas //
+
+                    try {
+
+                        int x = 1;//olá sou eu a gambiarra!
+                        CorridaBO corridabo = new CorridaBO();
+                        for (Corrida corrida : corridaList) {
+                            corrida.setCampeonato(campeonato);
+                            corrida.setNomeCorrida(corrida.getNomeCorrida() + " " + x + "°");
+                            corridabo.criar(corrida);
+                            x++;
+                        }
+
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null,
+                                err.getMessage(),
+                                "Erro", JOptionPane.PLAIN_MESSAGE);
+                    }
+
+                    // Cria o piloto que está participando do campeonato //
+
+                    try {
+                        PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
+                        pilotoadm.setPiloto(piloto);
+                        pilotoadm.setStatusAdm(true);
+                        pilotoadm.setCampeonato(campeonato);
+                        pilotoadm.setPontuacao(0);
+                        pilotoadm.setPosicao(0);
+                        new PilotoParticipandoCampeonatoBO().criar(pilotoadm);
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null,
+                                err, "Erro", JOptionPane.PLAIN_MESSAGE);
+                    }
+
+                    JOptionPane.showMessageDialog(null,"Campeonato Criado com sucesso!","Sucesso!",JOptionPane.PLAIN_MESSAGE);
+
+                    dispose();
+                    new PerfilPiloto(piloto);
+
                 }
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err.getMessage());
+
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error.getMessage());
             }
-
-            // Cria as posições e pontuações //
-
-            try {
-
-                PontuacaoPosicaoBO pontuacaoPosicaoBo = new PontuacaoPosicaoBO();
-                for (int i = 0; tabelamento.getRowCount() > i; i++) {
-                    PontuacaoPosicao pontuacaoPosicao = new PontuacaoPosicao();
-                    pontuacaoPosicao.setPontuacao(Integer.valueOf(tabelamento.getValueAt(i, 1).toString()));
-                    pontuacaoPosicao.setPosicao(Integer.valueOf(tabelamento.getValueAt(i, 0).toString()));
-                    pontuacaoPosicao.setCampeonato(campeonato);
-                    pontuacaoPosicaoBo.criar(pontuacaoPosicao);
-                }
-
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null,
-                        err, "Erro", JOptionPane.PLAIN_MESSAGE);
-            }
-
-            // Cria as corridas //
-
-            try {
-
-                int x =1;//olá sou eu a gambiarra!
-                CorridaBO corridabo = new CorridaBO();
-                for (Corrida corrida : corridaList) {
-                    corrida.setCampeonato(campeonato);
-                    corrida.setNomeCorrida(corrida.getNomeCorrida()+" "+x+"°");
-                    corridabo.criar(corrida);
-                    x++;
-                }
-
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null,
-                        err.getMessage(),
-                        "Erro", JOptionPane.PLAIN_MESSAGE);
-            }
-
-            // Cria o piloto que está participando do campeonato //
-
-            try {
-                PilotoParticipandoCampeonato pilotoadm = new PilotoParticipandoCampeonato();
-                pilotoadm.setPiloto(piloto);
-                pilotoadm.setStatusAdm(true);
-                pilotoadm.setCampeonato(campeonato);
-                pilotoadm.setPontuacao(0);
-                pilotoadm.setPosicao(0);
-                new PilotoParticipandoCampeonatoBO().criar(pilotoadm);
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null,
-                        err, "Erro", JOptionPane.PLAIN_MESSAGE);
-            }
-
-            retornarPara.dispose();
-            dispose();
-            new PerfilPiloto(piloto);
-        }
-    }
-
-    private void criarConvites() {
-        try {
-
-            int[] index = table.getSelectedRows();
-
-            for (int x = 0; x < index.length; x++) {
-
-                Piloto pilotoConvidado = new PilotoBO().listarPorPiloto((Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(index[x]));
-                ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
-                conviteCampeonato.setPilotoQueConvidou(piloto);
-                conviteCampeonato.setCampeonato(campeonato);
-                conviteCampeonato.setPilotoConvidado(pilotoConvidado);
-                conviteCampeonato.setStatusConvite("Não respondido");
-                convites.add(conviteCampeonato);
-
-            }
-
-            JOptionPane.showMessageDialog(null, "Convites enviados a todos os pilotos selecionados!");
-
-        } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "Não foi possível enviar o convite aos pilotos");
         }
     }
 

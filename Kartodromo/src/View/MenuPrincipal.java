@@ -182,14 +182,14 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         try {
 
             for (Campeonato campeonato : new CampeonatoBO().listarCampeonatosFinalizados()) {
-                List<Corrida> listacorrida= new CorridaBO().listarTodasAsCorridasMarcadas(campeonato);
+                List<Corrida> listacorrida = new CorridaBO().listarTodasAsCorridasMarcadas(campeonato);
                 
                 tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
                                 campeonato.getTipoCorrida(),
                                 listacorrida.size(),
                                 campeonato.getDataCadastro(),
-                                campeonato.getDataFinalizacao()
+                                campeonato.getDataInicio()
                         }
                 );
             }
@@ -247,7 +247,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             panel.setBackground(Colors.CINZALIGHTB);
             background.setBackground(Colors.PRETO);
             drawer.setBackground(Colors.VERDEDARK);
-            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.CINZAMEDB);
             btnPerfilPiloto.setBackground(Colors.CINZAMEDB);
             btnPerfilPiloto.setForeground(Colors.CINZAMEDA);
             btnSair.setBackground(Colors.CINZAMEDB);

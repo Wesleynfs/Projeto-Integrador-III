@@ -6,7 +6,6 @@
 
 package kartodromo;
 
-import Utilities.Tempo;
 import View.SplashScreen;
 
 public class Main {

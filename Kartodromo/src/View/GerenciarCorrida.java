@@ -21,10 +21,12 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     private JPanel fundo;
     private JPanel drawer;
     private JLabel logo;
+    private JLabel lblDataCorrida;
     private JLabel lblNumeroDeVoltas;
     private JLabel lblNomeDaCorrida;
     private JFormattedTextField textFieldNomeCorrida;
     private JFormattedTextField textFieldVoltasDaCorrida;
+    private JFormattedTextField textFieldHoraCorrida;
     private JButton btnVoltar;
     private JButton btnAdicionarPilotos;
     private JButton btnRemoverCorrida;
@@ -38,7 +40,8 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     private JLabel nomekartodromoLabel;
     private JLabel tipokartLabel;
     private JLabel lblEnderecoKartodromo;
-
+    private JLabel lblHoraCorrida;
+    private JFormattedTextField textFieldDataCorrida;
     private List<Corrida> corridaList;
     private Kartodromo kartodromo;
     private Piloto piloto;
@@ -67,7 +70,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(Info.MINSCREENSIZE);
+        setSize(1100,600);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,11 +89,15 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         textFieldNomeCorrida = new JFormattedTextField();
         textFieldVoltasDaCorrida = new JFormattedTextField();
         btnVoltar = new JButton();
+        textFieldHoraCorrida = new JFormattedTextField();
+        textFieldDataCorrida = new JFormattedTextField();
         informacoesPiloto = new InformacoesPiloto();
         btnAdicionarCorrida = new JButton();
         btnRemoverCorrida = new JButton();
         btnAdicionarPilotos = new JButton();
         table = new JTable();
+        lblHoraCorrida = new JLabel();
+        lblDataCorrida = new JLabel();
         tabelaPiloto = new TabelaPiloto();
         renderer = new DefaultTableCellRenderer();
         scroll = new JScrollPane(table);
@@ -107,8 +114,12 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     private void add() {
         add(logo);
         add(btnVoltar);
+        add(textFieldDataCorrida);
+        add(lblDataCorrida);
         add(btnAdicionarCorrida);
         add(lblNumeroDeVoltas);
+        add(lblHoraCorrida);
+        add(textFieldHoraCorrida);
         add(lblNomeDaCorrida);
         add(comboTipoDeKart);
         add(comboNomeKartodromo);
@@ -128,12 +139,13 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
-
-        if (SplashScreen.getConfiguracao().isTema()) {
+        //SplashScreen.getConfiguracao().isTema()
+        if (true) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
+            lblDataCorrida.setForeground(Colors.CINZALIGHTB);
             informacoesPiloto.setForeground(Colors.CINZAMEDB);
             btnVoltar.setBackground(Colors.VERDEDARK);
             lblNomeDaCorrida.setForeground(Colors.CINZALIGHTB);
@@ -142,6 +154,10 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             textFieldNomeCorrida.setForeground(Colors.BRANCO);
             textFieldVoltasDaCorrida.setBackground(Colors.CINZALIGHTB);
             textFieldVoltasDaCorrida.setForeground(Colors.BRANCO);
+            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldDataCorrida.setForeground(Colors.BRANCO);
+            textFieldHoraCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldHoraCorrida.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnAdicionarPilotos.setBackground(Colors.VERDEDARK);
             btnAdicionarPilotos.setForeground(Colors.CINZADARKB);
@@ -152,6 +168,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             lblEnderecoKartodromo.setForeground(Colors.CINZALIGHTB);
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
+            lblHoraCorrida.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setBackground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setForeground(Colors.BRANCO);
@@ -168,7 +185,12 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             textFieldVoltasDaCorrida.setForeground(Colors.CINZADARKA);
             textFieldNomeCorrida.setBackground(Colors.CINZALIGHTB);
             textFieldNomeCorrida.setForeground(Colors.CINZADARKA);
+            textFieldDataCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldDataCorrida.setForeground(Colors.CINZADARKA);
+            textFieldHoraCorrida.setBackground(Colors.CINZALIGHTB);
+            textFieldHoraCorrida.setForeground(Colors.CINZADARKA);
             btnVoltar.setBackground(Colors.VERDEDARK);
+            lblDataCorrida.setForeground(Colors.CINZALIGHTB);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnAdicionarPilotos.setBackground(Colors.VERDEDARK);
             btnAdicionarPilotos.setForeground(Colors.CINZADARKB);
@@ -180,6 +202,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             nomekartodromoLabel.setForeground(Colors.CINZALIGHTB);
             tipokartLabel.setForeground(Colors.CINZALIGHTB);
             lblNumeroDeVoltas.setForeground(Colors.CINZALIGHTB);
+            lblHoraCorrida.setForeground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setBackground(Colors.CINZALIGHTB);
             comboNomeKartodromo.setForeground(Colors.CINZADARKA);
             comboTipoDeKart.setBackground(Colors.CINZALIGHTB);
@@ -189,10 +212,10 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
     private void configs() {
 
-        fundo.setSize(Info.MINSCREENSIZE);
-        drawer.setBounds(0, 0, 800, 100);
+        fundo.setSize(1100,600);
+        drawer.setBounds(0, 0, 1100, 100);
 
-        informacoesPiloto.setBounds(640, 3, 180, 100);
+        informacoesPiloto.setBounds(930, 3, 180, 100);
         informacoesPiloto.setPiloto(piloto);
 
         logo.setBounds(20, 30, 760, 35);
@@ -211,15 +234,56 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             mudarCombo();
         }
 
-        comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
-        comboTipoDeKart.setBounds(300, 200, 150, 35);
+        scroll.setViewportView(table);
+        scroll.setBounds(320, 140, 740, 350);
 
-        nomekartodromoLabel.setText("KARTÓDROMO:");
-        nomekartodromoLabel.setBounds(300, 100, 300, 35);
+        renderer.setHorizontalTextPosition(JLabel.CENTER);
+        table.setModel(tabelaPiloto);
+        table.setDefaultRenderer(String.class, renderer);
+
+        textFieldVoltasDaCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldVoltasDaCorrida.setBounds(30, 205, 230, 35);
+        textFieldVoltasDaCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+        textFieldVoltasDaCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+        textFieldNomeCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldNomeCorrida.setBounds(30, 140, 230, 35);
+        textFieldNomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+        textFieldNomeCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+        textFieldDataCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldDataCorrida.setBounds(30, 335, 230, 35);
+        textFieldDataCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+        textFieldDataCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+        textFieldHoraCorrida.setBorder(BorderFactory.createEmptyBorder());
+        textFieldHoraCorrida.setBounds(30, 270, 230, 35);
+        textFieldHoraCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
+        textFieldHoraCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+        lblHoraCorrida.setText("Hora da corrida");
+        lblHoraCorrida.setBounds(30, 240, 200, 35);
+
+        lblDataCorrida.setText("Data da corrida");
+        lblDataCorrida.setBounds(30, 305, 200, 35);
+
+        lblNumeroDeVoltas.setText("Numero de voltas da corrida");
+        lblNumeroDeVoltas.setBounds(30, 175, 200, 35);
+
+        lblNomeDaCorrida.setText("Nome da corrida");
+        lblNomeDaCorrida.setBounds(30, 110, 200, 35);
+
+        tipokartLabel.setText("Tipo de Kart");
+        tipokartLabel.setBounds(30, 435, 300, 35);
+
+        comboTipoDeKart.setBorder(BorderFactory.createEmptyBorder());
+        comboTipoDeKart.setBounds(30, 465, 150, 35);
+
+        nomekartodromoLabel.setText("Kartódromo:");
+        nomekartodromoLabel.setBounds(30, 370, 300, 30);
 
         comboNomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
-        comboNomeKartodromo.setBounds(300, 140, 150, 35);
-
+        comboNomeKartodromo.setBounds(30, 400, 150, 35);
         comboNomeKartodromo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -229,62 +293,41 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             }
         });
 
-        tipokartLabel.setText("TIPO DE KART:");
-        tipokartLabel.setBounds(300, 175, 300, 30);
-
-        scroll.setViewportView(table);
-        scroll.setBounds(30, 240, 740, 300);
-
-        renderer.setHorizontalTextPosition(JLabel.CENTER);
-        table.setModel(tabelaPiloto);
-        table.setDefaultRenderer(String.class, renderer);
-
-        textFieldVoltasDaCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldVoltasDaCorrida.setBounds(540, 140, 230, 35);
-        textFieldVoltasDaCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
-        textFieldVoltasDaCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
-
-        textFieldNomeCorrida.setBorder(BorderFactory.createEmptyBorder());
-        textFieldNomeCorrida.setBounds(30, 140, 230, 35);
-        textFieldNomeCorrida.setHorizontalAlignment(JFormattedTextField.CENTER);
-        textFieldNomeCorrida.setFocusLostBehavior(JFormattedTextField.PERSIST);
-
-        lblNumeroDeVoltas.setText("Numero de voltas da corrida");
-        lblNumeroDeVoltas.setBounds(540, 100, 200, 35);
-
-        lblNomeDaCorrida.setText("Nome da corrida");
-        lblNomeDaCorrida.setBounds(30, 100, 200, 35);
-
-        lblEnderecoKartodromo.setBounds(540, 180, 250, 60);
+        lblEnderecoKartodromo.setBounds(30, 520, 250, 60);
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
-        btnVoltar.setBounds(20, 550, 150, 35);
-
-        btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
-        btnAdicionarCorrida.setBorderPainted(false);
-        btnAdicionarCorrida.setFocusPainted(false);
-        btnAdicionarCorrida.addActionListener(this);
-        btnAdicionarCorrida.setBounds(375, 550, 180, 35);
+        btnVoltar.setBounds(290, 530, 150, 35);
 
         btnRemoverCorrida.setFocusPainted(false);
         btnRemoverCorrida.setBorderPainted(false);
         btnRemoverCorrida.addActionListener(this);
         btnRemoverCorrida.setText("REMOVER CORRIDA");
-        btnRemoverCorrida.setBounds(195, 550, 160, 35);
+        btnRemoverCorrida.setBounds(470, 530, 160, 35);
+
+        btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
+        btnAdicionarCorrida.setBorderPainted(false);
+        btnAdicionarCorrida.setFocusPainted(false);
+        btnAdicionarCorrida.addActionListener(this);
+        btnAdicionarCorrida.setBounds(660, 530, 180, 35);
 
         btnAdicionarPilotos.setFocusPainted(false);
         btnAdicionarPilotos.setBorderPainted(false);
         btnAdicionarPilotos.addActionListener(this);
         btnAdicionarPilotos.setText("ADICIONAR PILOTOS");
-        btnAdicionarPilotos.setBounds(580, 550, 200, 35);
+        btnAdicionarPilotos.setBounds(870, 530, 200, 35);
 
         try {
             textFieldVoltasDaCorrida.setFormatterFactory(new DefaultFormatterFactory(
                     new MaskFormatter("##")));
-            textFieldNomeCorrida.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("????????????????????")));
+            textFieldNomeCorrida.setFormatterFactory(new DefaultFormatterFactory(
+                    new MaskFormatter("????????????????????")));
+            textFieldDataCorrida.setFormatterFactory(new DefaultFormatterFactory(
+                    new MaskFormatter("##/##/####")));
+            textFieldHoraCorrida.setFormatterFactory(new DefaultFormatterFactory(
+                    new MaskFormatter("##:##")));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -302,7 +345,6 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnVoltar) {
-
             if (JOptionPane.showConfirmDialog(null,
                     "Cancelar?",
                     "Cancelar",
@@ -312,7 +354,6 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
                 new GerenciarCampeonato(piloto);
 
             }
-
         }
 
         if (e.getSource() == btnAdicionarPilotos) {
@@ -348,24 +389,35 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         if (e.getSource() == btnAdicionarCorrida) {
 
             String textoValorVoltas = textFieldVoltasDaCorrida.getText().replaceAll(" ", "");
-
-            // Validações da tela, fica na tela //
+            String textoValorHora = textFieldHoraCorrida.getText().replaceAll(" ", "");
+            String textoValorData = textFieldDataCorrida.getText().replaceAll(" ", "");
 
             if (ValidarString.isApenasLetras(textFieldNomeCorrida.getText())) {
-
                 if (ValidarString.isApenasNumeros(textoValorVoltas)) {
+                    if (ValidarString.isHorario(textoValorHora)) {
+                        if (ValidarString.isDataPadraoBRA(textoValorData)) {
 
-                    try {
+                            try {
 
-                        Corrida corrida = new Corrida();
-                        corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
-                        corrida.setKartodromo(new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1));
-                        corrida.setNomeCorrida(textFieldNomeCorrida.getText());
-                        corrida.setNumeroDeVoltas(Integer.valueOf(textoValorVoltas));
-                        tabelaPiloto.addRow(corrida);
+                                Corrida corrida = new Corrida();
+                                corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
+                                corrida.setKartodromo(new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1));
+                                corrida.setNomeCorrida(textFieldNomeCorrida.getText());
+                                corrida.setNumeroDeVoltas(Integer.valueOf(textoValorVoltas));
+                                corrida.setDataDaCorrida(Tempo.stringToDate(textoValorData));
+                                corrida.setHoraDaCorrida(Tempo.stringToTime(textoValorHora));
+                                tabelaPiloto.addRow(corrida);
 
-                    } catch (Exception error) {
-                        JOptionPane.showMessageDialog(null, error.getMessage() , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+                            } catch (Exception error) {
+                                JOptionPane.showMessageDialog(null, error.getMessage() , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Adicionar data da corrida!" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Adicionar horário da corrida!" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
                     }
 
                 } else {

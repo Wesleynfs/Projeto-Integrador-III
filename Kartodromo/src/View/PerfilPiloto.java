@@ -9,10 +9,7 @@ import Model.Campeonato;
 import Model.ConviteCampeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.InformacoesPiloto;
+import Utilities.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -139,9 +136,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
-            informacoesPiloto.setForeground(Colors.CINZALIGHTB);
-            CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
-            corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
+            informacoesPiloto.setForeground(Colors.BRANCO);
+            CampeonatoParticipandoLabel.setForeground(Colors.BRANCO);
+            corridasMarcadasLabel.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnVerificarconvites_avisos.setForeground(Colors.CINZADARKB);
             btnVerificarconvites_avisos.setBackground(Colors.VERDEDARK);
@@ -227,7 +224,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                     tabelamento.addRow(new Object[]{
                             list.getCampeonato().getNome(),
-                            list.getCampeonato().getDataInicio(),
+                            Tempo.formatarDataPadraoBra(list.getCampeonato().getDataInicio()),
                             listaTotalPiloto.size()
                     });
                 }
@@ -270,7 +267,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                     tabelamento.addRow(new Object[]{
                             campeonato.getNome(),
-                            campeonato.getDataInicio(),
+                            Tempo.formatarDataPadraoBra(campeonato.getDataInicio()),
                             listaTotalPiloto.size()
                     });
 
@@ -283,7 +280,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
         jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
 
-        informacoesPiloto.setBounds(10, 110, 200, 90);
+        informacoesPiloto.setBounds(30, 150, 200, 90);
         informacoesPiloto.setPiloto(piloto);
 
         CampeonatoParticipandoLabel.setText("CAMPEONATOS QUE VOCÊ ESTÁ PARTICIPANDO");

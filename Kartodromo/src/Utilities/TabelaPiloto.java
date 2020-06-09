@@ -10,7 +10,11 @@ public class TabelaPiloto extends AbstractTableModel {
 
     private List<Corrida> listCorrida;
     private String[] colunas = {"NOME DA CORRIDA",
-            "NÚMERO DE VOLTAS","KARTODROMO","TIPO KART"};
+            "NÚMERO DE VOLTAS","KARTODROMO","TIPO KART","DATA DA CORRIDA","HORA DA CORRIDA"};
+
+    public List<Corrida> getListCorrida() {
+        return listCorrida;
+    }
 
     @Override
     public String getColumnName(int column) {
@@ -38,6 +42,10 @@ public class TabelaPiloto extends AbstractTableModel {
                 return listCorrida.get(linha).getKartodromo().getNomeKartodromo();
             case 3 :
                 return listCorrida.get(linha).getTipoKart();
+            case 4 :
+                return Tempo.formatarDataPadraoBra(listCorrida.get(linha).getDataDaCorrida());
+            case 5 :
+                return listCorrida.get(linha).getHoraDaCorrida();
         }
         return null;
     }
@@ -54,9 +62,5 @@ public class TabelaPiloto extends AbstractTableModel {
 
     public TabelaPiloto() {
         listCorrida = new ArrayList<>();
-    }
-
-    public List<Corrida> getListCorrida() {
-        return listCorrida;
     }
 }

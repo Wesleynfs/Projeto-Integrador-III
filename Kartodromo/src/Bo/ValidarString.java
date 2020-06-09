@@ -26,6 +26,10 @@ public class ValidarString {
         return Pattern.compile("[0-9]").matcher(texto).find();
     }
 
+    public static boolean isHorario(String texto) {
+        return Pattern.compile("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$").matcher(texto).find();
+    }
+
     public static boolean isDataPadraoEUA(String texto) {
         return Pattern.compile("^(19|20)\\d\\d[--.](0[1-9]|1[012])[--.](0[1-9]|[12][0-9]|3[01])").matcher(texto).find();
     }

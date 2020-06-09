@@ -1,5 +1,7 @@
 package Utilities;
 
+import Bo.ValidarString;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -7,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.Time;
 import java.sql.Date;
+import java.time.format.DateTimeParseException;
 
 public class Tempo {
 
@@ -19,18 +22,25 @@ public class Tempo {
         }
     }
 
-    public static Time getCurrentTime() {
+    public static Time stringToTime(String texto) {
         try {
-            return new Time(new java.util.Date().getTime());
+            if (texto.length() == 4) {
+                texto = "0" + texto;
+            }
+            if (ValidarString.isHorario(texto)) {
+                return Time.valueOf(LocalTime.parse(texto));
+            } else {
+                throw new Exception("Horário Inválido!");
+            }
         } catch (Exception e) {
-            System.out.println("Não foi possivel pegar horario do sistema");
+            System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public static Date stringToTime(String myTime) {
+    public static Time getCurrentTime() {
         try {
-            return null;
+            return new Time(new java.util.Date().getTime());
         } catch (Exception e) {
             System.out.println("Não foi possivel pegar horario do sistema");
             return null;
@@ -62,6 +72,24 @@ public class Tempo {
             return Date.valueOf(LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         } catch (Exception e) {
             return Date.valueOf(LocalDate.parse("01/01/1000", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        }
+    }
+
+    public static String formatarDataPadraoBra(Date data) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").format(data);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static String formatarDataPadraoEua(Date data) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").format(data);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 

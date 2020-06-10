@@ -438,7 +438,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
             kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
             comboTipoDeKart.removeAllItems();
-            lblEnderecoKartodromo.setText("<html>Endereço: " + kartodromo.getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
+            lblEnderecoKartodromo.setText("<html>Endereço: " + kartodromo.getCidade().getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
 
             if (kartodromo.isKartIndoor()) {
                 comboTipoDeKart.addItem("INDOOR");

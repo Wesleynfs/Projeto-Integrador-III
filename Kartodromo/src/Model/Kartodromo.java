@@ -1,9 +1,6 @@
 package Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Kartodromo {
@@ -29,17 +26,9 @@ public class Kartodromo {
     private boolean kartShifter;
     private String rua;
     private int numero;
-    private String estado;
-    private String cidade;
+    @ManyToOne
+    private Cidade cidade;
     private String telefone;
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
 
     public int getIdKartodromo() {
         return idKartodromo;
@@ -193,23 +182,23 @@ public class Kartodromo {
         this.numero = numero;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCidade() {
+    public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
 
-    public Kartodromo(int idKartodromo, String nomeKartodromo, boolean diaEmAtividadeSegunda, boolean diaEmAtividadeTerca, boolean diaEmAtividadeQuarta, boolean diaEmAtividadeQuinta, boolean diaEmAtividadeSexta, boolean diaEmAtividadeSabado, boolean diaEmAtividadeDomingo, String senhaKartodromo, String emailKartodromo, boolean statusAtividade, boolean kartIndoor, boolean kartMotor2Tempos, boolean kartMotor4Tempos, boolean kartSemMarcha, boolean kartShifter, String rua, int numero, String estado, String cidade, String telefone) {
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Kartodromo(int idKartodromo, String nomeKartodromo, boolean diaEmAtividadeSegunda, boolean diaEmAtividadeTerca, boolean diaEmAtividadeQuarta, boolean diaEmAtividadeQuinta, boolean diaEmAtividadeSexta, boolean diaEmAtividadeSabado, boolean diaEmAtividadeDomingo, String senhaKartodromo, String emailKartodromo, boolean statusAtividade, boolean kartIndoor, boolean kartMotor2Tempos, boolean kartMotor4Tempos, boolean kartSemMarcha, boolean kartShifter, String rua, int numero, Cidade cidade, String telefone) {
         this.idKartodromo = idKartodromo;
         this.nomeKartodromo = nomeKartodromo;
         this.diaEmAtividadeSegunda = diaEmAtividadeSegunda;
@@ -229,7 +218,6 @@ public class Kartodromo {
         this.kartShifter = kartShifter;
         this.rua = rua;
         this.numero = numero;
-        this.estado = estado;
         this.cidade = cidade;
         this.telefone = telefone;
     }

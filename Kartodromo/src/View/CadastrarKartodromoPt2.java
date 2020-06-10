@@ -1,22 +1,30 @@
 package View;
 
+import Bo.CidadeBO;
+import Bo.EstadoBO;
 import Bo.KartodromoBO;
+import Model.Cidade;
+import Model.Estado;
 import Model.Kartodromo;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
-public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
+public class CadastrarKartodromoPt2 extends JFrame implements ActionListener, ItemListener {
 
     private JPanel fundo;
     private JPanel drawer;
-    private JFormattedTextField estadoTextField;
-    private JFormattedTextField cidadeTextField;
+    private JComboBox<String> estadoComboBox;
+    private JComboBox<String> cidadeComboBox;
     private JFormattedTextField ruaTextField;
     private JSpinner numeroJSpinner;
     private JLabel version;
@@ -33,10 +41,17 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
     private JFormattedTextField telefoneTextField;
 
     private Kartodromo kartodromo;
+    private List<Estado> estadoList;
+    private List<Cidade> cidadeList;
+    private Estado estado;
+    private Cidade cidade;
 
     private JCheckBox[] listCheckBox;
 
     public CadastrarKartodromoPt2(Kartodromo kartodromo) {
+
+        this.kartodromo = kartodromo;
+
         // Instancia de itens //
         initializate();
         // Coloca o tema na tela
@@ -47,8 +62,6 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         configs();
         // Configura esse frame //
         configurateThis();
-
-        this.kartodromo = kartodromo;
 
     }
 
@@ -68,8 +81,8 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         fundo = new JPanel();
         drawer = new JPanel();
         numeroJSpinner = new JSpinner();
-        estadoTextField = new JFormattedTextField();
-        cidadeTextField = new JFormattedTextField();
+        estadoComboBox = new JComboBox();
+        cidadeComboBox = new JComboBox();
         ruaTextField = new JFormattedTextField();
         version = new JLabel();
         logo = new JLabel();
@@ -85,7 +98,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         telefoneTextField = new JFormattedTextField();
         telefoneLabel = new JLabel();
 
-        for (int x = 0 ; x < listCheckBox.length ; x++) {
+        for (int x = 0; x < listCheckBox.length; x++) {
             listCheckBox[x] = new JCheckBox();
         }
 
@@ -100,8 +113,8 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         add(telefoneLabel);
         add(telefoneTextField);
         add(numeroJSpinner);
-        add(estadoTextField);
-        add(cidadeTextField);
+        add(estadoComboBox);
+        add(cidadeComboBox);
         add(ruaTextField);
         add(estadoLabel);
         add(cidadeLabel);
@@ -122,12 +135,12 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
 
         if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
-            estadoTextField.setBackground(Colors.CINZALIGHTB);
-            estadoTextField.setForeground(Colors.BRANCO);
-            cidadeTextField.setBackground(Colors.CINZALIGHTB);
+            estadoComboBox.setBackground(Colors.CINZALIGHTB);
+            estadoComboBox.setForeground(Colors.BRANCO);
+            cidadeComboBox.setBackground(Colors.CINZALIGHTB);
             telefoneTextField.setForeground(Colors.BRANCO);
             telefoneTextField.setBackground(Colors.CINZALIGHTB);
-            cidadeTextField.setForeground(Colors.BRANCO);
+            cidadeComboBox.setForeground(Colors.BRANCO);
             ruaTextField.setBackground(Colors.CINZALIGHTB);
             ruaTextField.setForeground(Colors.BRANCO);
             numeroJSpinner.getEditor().getComponent(0).setBackground(Colors.CINZALIGHTB);
@@ -155,10 +168,10 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
 
         } else {
 
-            estadoTextField.setBackground(Colors.CINZALIGHTB);
-            estadoTextField.setForeground(Colors.CINZADARKA);
-            cidadeTextField.setBackground(Colors.CINZALIGHTB);
-            cidadeTextField.setForeground(Colors.CINZADARKA);
+            estadoComboBox.setBackground(Colors.CINZALIGHTB);
+            estadoComboBox.setForeground(Colors.CINZADARKA);
+            cidadeComboBox.setBackground(Colors.CINZALIGHTB);
+            cidadeComboBox.setForeground(Colors.CINZADARKA);
             telefoneTextField.setBackground(Colors.CINZALIGHTB);
             telefoneTextField.setForeground(Colors.CINZADARKA);
             ruaTextField.setBackground(Colors.CINZALIGHTB);
@@ -266,16 +279,18 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
             System.out.println(e.getMessage());
         }
 
-        estadoTextField.setBorder(BorderFactory.createEmptyBorder());
-        estadoTextField.setBounds(600, 260, 150, 35);
-        estadoTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
+        carregaComboBoxEstado();
+
+        estadoComboBox.setBorder(BorderFactory.createEmptyBorder());
+        estadoComboBox.setBounds(600, 260, 150, 35);
+        estadoComboBox.addItemListener(this);
 
         cidadeLabel.setText("Cidade:");
         cidadeLabel.setBounds(400, 310, 200, 35);
 
-        cidadeTextField.setBorder(BorderFactory.createEmptyBorder());
-        cidadeTextField.setBounds(400, 340, 150, 35);
-        cidadeTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
+        cidadeComboBox.setBorder(BorderFactory.createEmptyBorder());
+        cidadeComboBox.setBounds(400, 340, 150, 35);
+        cidadeComboBox.addItemListener(this);
 
         numeroLabel.setText("Número (Endereço) :");
         numeroLabel.setBounds(600, 310, 200, 35);
@@ -322,14 +337,21 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnCadastrar) {
-            if ((!estadoTextField.getText().isEmpty())
-                    || (!cidadeTextField.getText().isEmpty())
+
+            if ((!cidadeComboBox.getModel().getSelectedItem().toString().isEmpty())
+                    || (!estadoComboBox.getModel().getSelectedItem().toString().isEmpty())
                     || (!ruaTextField.getText().isEmpty())
                     || (!numeroJSpinner.getValue().toString().equals(""))
                     || (validarCheckBox())) {
 
-                kartodromo.setEstado(estadoTextField.getText());
-                kartodromo.setCidade(cidadeTextField.getText());
+                try {
+                    this.cidade = new CidadeBO().listarCidadePorNome(cidadeComboBox.getModel().getSelectedItem().toString());
+                } catch (Exception err) {
+                    JOptionPane.showMessageDialog(null, err.getMessage(), "Erro", JOptionPane.PLAIN_MESSAGE);
+                }
+
+              //  kartodromo.setEstado(estado);
+                kartodromo.setCidade(cidade);
                 kartodromo.setRua(ruaTextField.getText());
                 kartodromo.setNumero(Integer.valueOf(numeroJSpinner.getValue().toString()));
                 kartodromo.setTelefone(telefoneTextField.getText());
@@ -359,6 +381,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
                     }
                     dispose();
                     new LoginFrame();
+
                 } catch (Exception error) {
                     JOptionPane.showConfirmDialog(null,
                             error.getMessage(),
@@ -382,4 +405,40 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener {
         return validar;
     }
 
+    private void carregaComboBoxEstado() {
+        try {
+            estadoList = new EstadoBO().listarTodos();
+            for (Estado estado : estadoList) {
+                estadoComboBox.addItem(estado.getNome());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    private void carregaComboBoxCidade(Estado estado) {
+        try {
+            cidadeComboBox.removeAllItems();
+            cidadeList = new CidadeBO().listarCidadesPorEstado(estado);
+            for (Cidade cidade : cidadeList) {
+                cidadeComboBox.addItem(cidade.getNome());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent itemEvent) {
+        if (itemEvent.getSource() == estadoComboBox) {
+            if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+                try {
+                    this.estado = new EstadoBO().listarEstadoPorNome(estadoComboBox.getModel().getSelectedItem().toString());
+                    carregaComboBoxCidade(estado);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        }
+    }
 }

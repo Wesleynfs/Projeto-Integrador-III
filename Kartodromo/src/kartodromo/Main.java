@@ -10,9 +10,7 @@ import View.SplashScreen;
 
 public class Main {
     public static void main(String[] args) {
-
         // Executar sempre por essa tela e inserir as outras telas no programa //
         new SplashScreen();
-
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-public class Piloto implements Serializable {
+public class Piloto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

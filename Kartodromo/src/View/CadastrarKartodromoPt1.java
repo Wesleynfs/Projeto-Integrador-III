@@ -225,6 +225,7 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
 
         btnContinuar.setFocusPainted(false);
         btnContinuar.setBorderPainted(false);
+        btnContinuar.setVisible(false);
         btnContinuar.addActionListener(this);
         btnContinuar.setText("CONTINUAR CADASTRO");
         btnContinuar.setBounds(420, 550, 180, 35);
@@ -285,9 +286,18 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
         }
 
         if (e.getSource() == btnEnviarCodigo) {
+            enviaEmail();
+            JOptionPane.showConfirmDialog(null, "Enviando código no seu email, abra-o e digite-o aqui, então continue seu cadastro!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
+        }
+
+    }
+
+    private void enviaEmail() {
+        new Thread(() -> {
             try {
                 listaCodigos = new EmailJava().enviarEmailCodigoEmailPiloto(emailKartodromoTextField.getText());
                 if (listaCodigos.size() > 0) {
+                    btnContinuar.setVisible(true);
                     JOptionPane.showConfirmDialog(null, "Codigo enviado com sucesso! Abra seu email!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
                 } else {
                     JOptionPane.showConfirmDialog(null, "Erro ao enviar email", "Tente novamente!", JOptionPane.PLAIN_MESSAGE);
@@ -295,8 +305,7 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
             } catch (Exception err) {
                 JOptionPane.showConfirmDialog(null, err.getMessage(), "Erro", JOptionPane.OK_OPTION);
             }
-        }
-
+        }).start();
     }
 
     @Override

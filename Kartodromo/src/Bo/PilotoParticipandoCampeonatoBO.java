@@ -68,7 +68,7 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
 
     @Override
     public boolean valida(PilotoParticipandoCampeonato o) throws Exception {
-        if (o.getPiloto().getIdPiloto() < 0) {
+        if (o.getPiloto().getId() < 0) {
             throw new Exception("Piloto não localizado!");
         } else if (o.getCampeonato().getIdCampeonato() < 0) {
             throw new Exception("Campeonato não localizado!");
@@ -78,7 +78,7 @@ public class PilotoParticipandoCampeonatoBO implements GenericBO<PilotoParticipa
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id nulo");
         } else {

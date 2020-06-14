@@ -219,8 +219,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
         switch (combo.getSelectedIndex()) {
             case 0:
                 Kartodromo kartodromo = new Kartodromo();
-                kartodromo.setEmailKartodromo(emailTextField.getText().toLowerCase());
-                kartodromo.setSenhaKartodromo(new String(senhaJPasswordField.getPassword()));
+                kartodromo.setEmail(emailTextField.getText().toLowerCase());
+                kartodromo.setSenha(new String(senhaJPasswordField.getPassword()));
                 try {
                     Kartodromo kartodromo1 = new KartodromoBO().logar(kartodromo);
                     if (kartodromo1 != null) {
@@ -236,8 +236,8 @@ public class LoginFrame extends JFrame implements ActionListener, MouseListener,
                 break;
             case 1:
                 Piloto piloto = new Piloto();
-                piloto.setEmailPiloto(emailTextField.getText().toLowerCase());
-                piloto.setSenhaPiloto(new String(senhaJPasswordField.getPassword()));
+                piloto.setEmail(emailTextField.getText().toLowerCase());
+                piloto.setSenha(new String(senhaJPasswordField.getPassword()));
                 try {
                     Piloto piloto1 = new PilotoBO().logar(piloto);
                     if (piloto1 != null) {

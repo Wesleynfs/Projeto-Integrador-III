@@ -3,14 +3,10 @@ package Bo;
 import Dao.CampeonatoDAO;
 import Model.Campeonato;
 import Model.ConviteCampeonato;
-import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
-import Utilities.TabelaConvidarPilotos;
 import Utilities.Tempo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.Date;
 import java.util.List;
 
 public class CampeonatoBO implements GenericBO<Campeonato> {
@@ -88,7 +84,7 @@ public class CampeonatoBO implements GenericBO<Campeonato> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id do Campeonato não pode ser menor ou igual a 0");
         }

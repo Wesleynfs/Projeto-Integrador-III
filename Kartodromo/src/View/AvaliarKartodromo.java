@@ -209,7 +209,7 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
             kartodromojComboBox.setBounds(360, 380, 200, 35);
 
             for (Kartodromo tipo : new KartodromoBO().listarTodos()) {
-                kartodromojComboBox.addItem(tipo.getNomeKartodromo());
+                kartodromojComboBox.addItem(tipo.getNome());
             }
 
             btnVoltar.setText("VOLTAR");
@@ -298,8 +298,8 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
 
                 AvaliacaoBO avaliacaoBo = new AvaliacaoBO();
                 for (Avaliacao avalia : avaliacaoBo.listarTodos()) {
-                    if (avalia.getKartodromo().getIdKartodromo() == avaliacao.getKartodromo().getIdKartodromo()
-                            && avalia.getPiloto().getIdPiloto() == avaliacao.getPiloto().getIdPiloto()) {
+                    if (avalia.getKartodromo().getId() == avaliacao.getKartodromo().getId()
+                            && avalia.getPiloto().getId() == avaliacao.getPiloto().getId()) {
                         if (JOptionPane.showConfirmDialog(null,
                                 "Você já fez uma avaliação anteriormente,"
                                         + " deseja altera-lá para sua avaliação atual?",

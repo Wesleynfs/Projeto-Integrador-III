@@ -24,7 +24,7 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar avaliacao do piloto [" + avaliacao.getPiloto().getNomePiloto() + "]");
+            throw new Exception("Erro ao salvar avaliacao do piloto [" + avaliacao.getPiloto().getNome() + "]");
         } finally {
             entityManager.close();
         }
@@ -82,7 +82,7 @@ public class AvaliacaoDAO implements GenericDAO<Avaliacao> {
     }
 
     @Override
-    public Avaliacao getById(int id) throws Exception {
+    public Avaliacao getById(long id) throws Exception {
         try {
             return entityManager.find(Avaliacao.class, id);
         } catch (Exception e) {

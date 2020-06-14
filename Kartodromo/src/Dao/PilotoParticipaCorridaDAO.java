@@ -90,7 +90,7 @@ public class PilotoParticipaCorridaDAO implements GenericDAO<PilotoParticipaCorr
     }
 
     @Override
-    public PilotoParticipaCorrida getById(int id) throws Exception {
+    public PilotoParticipaCorrida getById(long id) throws Exception {
         try {
             return entityManager.find(PilotoParticipaCorrida.class, id);
         } catch (Exception e) {

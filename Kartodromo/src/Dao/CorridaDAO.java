@@ -3,11 +3,9 @@ package Dao;
 import Connections.ConnectionFactory;
 import Model.Campeonato;
 import Model.Corrida;
-import Model.Piloto;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import javax.persistence.Query;
 
 public class CorridaDAO implements GenericDAO<Corrida> {
 
@@ -93,7 +91,7 @@ public class CorridaDAO implements GenericDAO<Corrida> {
     }
 
     @Override
-    public Corrida getById(int id) throws Exception {
+    public Corrida getById(long id) throws Exception {
         try {
             return entityManager.find(Corrida.class, id);
         } catch (Exception e) {

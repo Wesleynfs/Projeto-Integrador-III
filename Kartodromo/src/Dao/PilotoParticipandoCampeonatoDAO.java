@@ -91,7 +91,7 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
     }
 
     @Override
-    public PilotoParticipandoCampeonato getById(int id) throws Exception {
+    public PilotoParticipandoCampeonato getById(long id) throws Exception {
         try {
             return entityManager.find(PilotoParticipandoCampeonato.class, id);
         } catch (Exception e) {

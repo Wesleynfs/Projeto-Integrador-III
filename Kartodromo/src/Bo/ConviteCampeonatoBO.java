@@ -3,7 +3,7 @@ package Bo;
 import Dao.ConviteCampeonatoDAO;
 import Model.ConviteCampeonato;
 import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
+
 import java.util.List;
 
 public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
@@ -68,9 +68,9 @@ public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
     @Override
     public boolean valida(ConviteCampeonato o) throws Exception {
         /* Fazer validações aqui */
-        if (o.getPilotoConvidado().getIdPiloto() < 0) {
+        if (o.getPilotoConvidado().getId() < 0) {
             throw new Exception("Piloto Convidado não localizado!");
-        } else if (o.getPilotoQueConvidou().getIdPiloto() < 0) {
+        } else if (o.getPilotoQueConvidou().getId() < 0) {
             throw new Exception("Piloto Que Convidou não localizado!"); 
         } else if (o.getCampeonato().getIdCampeonato() < 0) {
             throw new Exception("Campeonato não localizado!");
@@ -80,7 +80,7 @@ public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id nulo");
         } else {

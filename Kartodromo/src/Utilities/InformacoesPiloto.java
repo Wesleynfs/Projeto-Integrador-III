@@ -38,7 +38,7 @@ public class InformacoesPiloto extends JLabel {
     }
 
     private void showInfo() {
-        this.setText("<html>NOME: " + piloto.getNomePiloto().toUpperCase() + "<br/>" + "APELIDO: " + piloto.getApelido().toUpperCase() + "<br/>" + "NÍVEL: " + piloto.getNivel() + "<br/>" + getEloPiloto() + "<br/>" + "NÚMERO DE STRIKERS: " + piloto.getNumeroDeStrikesPiloto() + "</html>");
+        this.setText("<html>NOME: " + piloto.getNome().toUpperCase() + "<br/>" + "APELIDO: " + piloto.getApelido().toUpperCase() + "<br/>" + "NÍVEL: " + piloto.getNivel() + "<br/>" + getEloPiloto() + "<br/>" + "NÚMERO DE STRIKERS: " + piloto.getNumeroDeStrikesPiloto() + "</html>");
     }
 
 }

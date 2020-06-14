@@ -90,7 +90,7 @@ public class PontuacaoPosicaoDAO implements GenericDAO<PontuacaoPosicao> {
     }
 
     @Override
-    public PontuacaoPosicao getById(int id) throws Exception {
+    public PontuacaoPosicao getById(long id) throws Exception {
         try {
             return entityManager.find(PontuacaoPosicao.class,id);
         } catch (Exception e) {

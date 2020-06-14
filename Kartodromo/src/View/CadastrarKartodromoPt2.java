@@ -370,7 +370,7 @@ public class CadastrarKartodromoPt2 extends JFrame implements ActionListener, It
                 kartodromo.setKartShifter(listCheckBox[10].isSelected());
                 kartodromo.setKartSemMarcha(listCheckBox[11].isSelected());
 
-                kartodromo.setStatusAtividade(true);
+                kartodromo.setAtivo(true);
 
                 KartodromoBO kartodromoBO = new KartodromoBO();
                 try {

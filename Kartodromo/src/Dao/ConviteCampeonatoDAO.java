@@ -106,7 +106,7 @@ public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
     }
 
     @Override
-    public ConviteCampeonato getById(int id) throws Exception {
+    public ConviteCampeonato getById(long id) throws Exception {
         try {
             return entityManager.find(ConviteCampeonato.class, id);
         } catch (Exception e) {

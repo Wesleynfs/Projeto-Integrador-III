@@ -39,7 +39,7 @@ public class TabelaPiloto extends AbstractTableModel {
             case 1 :
                 return listCorrida.get(linha).getNumeroDeVoltas();
             case 2 :
-                return listCorrida.get(linha).getKartodromo().getNomeKartodromo();
+                return listCorrida.get(linha).getKartodromo().getNome();
             case 3 :
                 return listCorrida.get(linha).getTipoKart();
             case 4 :

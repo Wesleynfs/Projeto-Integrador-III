@@ -3,12 +3,8 @@ package Model;
 import javax.persistence.*;
 
 @Entity
-public class Kartodromo {
+public class Kartodromo extends Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idKartodromo;
-    private String nomeKartodromo;
     private boolean diaEmAtividadeSegunda;
     private boolean diaEmAtividadeTerca;
     private boolean diaEmAtividadeQuarta;
@@ -16,35 +12,16 @@ public class Kartodromo {
     private boolean diaEmAtividadeSexta;
     private boolean diaEmAtividadeSabado;
     private boolean diaEmAtividadeDomingo;
-    private String senhaKartodromo;
-    private String emailKartodromo;
-    private boolean statusAtividade;
     private boolean kartIndoor;
     private boolean kartMotor2Tempos;
     private boolean kartMotor4Tempos;
     private boolean kartSemMarcha;
     private boolean kartShifter;
     private String rua;
+    private String telefone;
     private int numero;
     @ManyToOne
     private Cidade cidade;
-    private String telefone;
-
-    public int getIdKartodromo() {
-        return idKartodromo;
-    }
-
-    public void setIdKartodromo(int idKartodromo) {
-        this.idKartodromo = idKartodromo;
-    }
-
-    public String getNomeKartodromo() {
-        return nomeKartodromo;
-    }
-
-    public void setNomeKartodromo(String nomeKartodromo) {
-        this.nomeKartodromo = nomeKartodromo;
-    }
 
     public boolean isDiaEmAtividadeSegunda() {
         return diaEmAtividadeSegunda;
@@ -100,30 +77,6 @@ public class Kartodromo {
 
     public void setDiaEmAtividadeDomingo(boolean diaEmAtividadeDomingo) {
         this.diaEmAtividadeDomingo = diaEmAtividadeDomingo;
-    }
-
-    public String getSenhaKartodromo() {
-        return senhaKartodromo;
-    }
-
-    public void setSenhaKartodromo(String senhaKartodromo) {
-        this.senhaKartodromo = senhaKartodromo;
-    }
-
-    public String getEmailKartodromo() {
-        return emailKartodromo;
-    }
-
-    public void setEmailKartodromo(String emailKartodromo) {
-        this.emailKartodromo = emailKartodromo;
-    }
-
-    public boolean isStatusAtividade() {
-        return statusAtividade;
-    }
-
-    public void setStatusAtividade(boolean statusAtividade) {
-        this.statusAtividade = statusAtividade;
     }
 
     public boolean isKartIndoor() {
@@ -198,32 +151,29 @@ public class Kartodromo {
         this.telefone = telefone;
     }
 
-    public Kartodromo(int idKartodromo, String nomeKartodromo, boolean diaEmAtividadeSegunda, boolean diaEmAtividadeTerca, boolean diaEmAtividadeQuarta, boolean diaEmAtividadeQuinta, boolean diaEmAtividadeSexta, boolean diaEmAtividadeSabado, boolean diaEmAtividadeDomingo, String senhaKartodromo, String emailKartodromo, boolean statusAtividade, boolean kartIndoor, boolean kartMotor2Tempos, boolean kartMotor4Tempos, boolean kartSemMarcha, boolean kartShifter, String rua, int numero, Cidade cidade, String telefone) {
-        this.idKartodromo = idKartodromo;
-        this.nomeKartodromo = nomeKartodromo;
-        this.diaEmAtividadeSegunda = diaEmAtividadeSegunda;
-        this.diaEmAtividadeTerca = diaEmAtividadeTerca;
-        this.diaEmAtividadeQuarta = diaEmAtividadeQuarta;
-        this.diaEmAtividadeQuinta = diaEmAtividadeQuinta;
-        this.diaEmAtividadeSexta = diaEmAtividadeSexta;
-        this.diaEmAtividadeSabado = diaEmAtividadeSabado;
-        this.diaEmAtividadeDomingo = diaEmAtividadeDomingo;
-        this.senhaKartodromo = senhaKartodromo;
-        this.emailKartodromo = emailKartodromo;
-        this.statusAtividade = statusAtividade;
-        this.kartIndoor = kartIndoor;
-        this.kartMotor2Tempos = kartMotor2Tempos;
-        this.kartMotor4Tempos = kartMotor4Tempos;
-        this.kartSemMarcha = kartSemMarcha;
-        this.kartShifter = kartShifter;
-        this.rua = rua;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.telefone = telefone;
-    }
-
     public Kartodromo() {
 
+    }
 
+    @Override
+    public String toString() {
+        return "Kartodromo{" +
+                "diaEmAtividadeSegunda=" + diaEmAtividadeSegunda +
+                ", diaEmAtividadeTerca=" + diaEmAtividadeTerca +
+                ", diaEmAtividadeQuarta=" + diaEmAtividadeQuarta +
+                ", diaEmAtividadeQuinta=" + diaEmAtividadeQuinta +
+                ", diaEmAtividadeSexta=" + diaEmAtividadeSexta +
+                ", diaEmAtividadeSabado=" + diaEmAtividadeSabado +
+                ", diaEmAtividadeDomingo=" + diaEmAtividadeDomingo +
+                ", kartIndoor=" + kartIndoor +
+                ", kartMotor2Tempos=" + kartMotor2Tempos +
+                ", kartMotor4Tempos=" + kartMotor4Tempos +
+                ", kartSemMarcha=" + kartSemMarcha +
+                ", kartShifter=" + kartShifter +
+                ", rua='" + rua + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", numero=" + numero +
+                ", cidade=" + cidade +
+                '}';
     }
 }

@@ -83,7 +83,7 @@ public class AvisoCampeonatoDAO implements GenericDAO<AvisoCampeonato> {
     }
 
     @Override
-    public AvisoCampeonato getById(int id) throws Exception {
+    public AvisoCampeonato getById(long id) throws Exception {
         try {
             return entityManager.find(AvisoCampeonato.class,id);
         } catch (Exception e) {

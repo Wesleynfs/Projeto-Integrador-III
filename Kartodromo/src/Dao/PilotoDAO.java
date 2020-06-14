@@ -7,7 +7,6 @@ import Model.Piloto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 public class PilotoDAO implements GenericDAO<Piloto> {
@@ -27,7 +26,7 @@ public class PilotoDAO implements GenericDAO<Piloto> {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar piloto [" + piloto.getNomePiloto() + "]");
+            throw new Exception("Erro ao salvar piloto [" + piloto.getNome() + "]");
         } finally {
             entityManager.close();
         }
@@ -74,9 +73,9 @@ public class PilotoDAO implements GenericDAO<Piloto> {
     @Override
     public List<Piloto> listarTodos(Piloto piloto) throws Exception {
         try {
-            Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE emailpiloto = :email and senhapiloto = :senha");
-            query.setParameter("email", piloto.getEmailPiloto());
-            query.setParameter("senha", piloto.getSenhaPiloto());
+            Query query = entityManager.createQuery("SELECT p FROM Piloto p WHERE email = :email and senha = :senha");
+            query.setParameter("email", piloto.getEmail());
+            query.setParameter("senha", piloto.getSenha());
             return query.getResultList();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -110,7 +109,7 @@ public class PilotoDAO implements GenericDAO<Piloto> {
     }
 
     @Override
-    public Piloto getById(int id) throws Exception {
+    public Piloto getById(long id) throws Exception {
         try {
             return entityManager.find(Piloto.class, id);
         } catch (Exception e) {
@@ -120,7 +119,7 @@ public class PilotoDAO implements GenericDAO<Piloto> {
         }
     }
 
-    private int getIdPiloto(Piloto piloto) throws Exception {
+    private long getIdPiloto(Piloto piloto) throws Exception {
 
         // Monta query //
         StringBuilder stringBuilder = new StringBuilder();
@@ -133,15 +132,15 @@ public class PilotoDAO implements GenericDAO<Piloto> {
 
         // Pega o piloto para resgatar o id do mesmo //
         Query query = entityManager.createQuery(stringBuilder.toString());
-        query.setParameter("nome", piloto.getNomePiloto());
+        query.setParameter("nome", piloto.getNome());
         query.setParameter("cpf", piloto.getCpfPiloto());
         query.setParameter("data", piloto.getDataNascimentoPiloto());
-        query.setParameter("email", piloto.getEmailPiloto());
-        query.setParameter("senha", piloto.getSenhaPiloto());
+        query.setParameter("email", piloto.getEmail());
+        query.setParameter("senha", piloto.getSenha());
 
         try {
             Piloto pi = (Piloto) query.getSingleResult();
-            return pi.getIdPiloto();
+            return pi.getId();
         } catch (NoResultException noResultException) {
             throw new Exception("Nenhum piloto encontrado! Revise os campos");
         }

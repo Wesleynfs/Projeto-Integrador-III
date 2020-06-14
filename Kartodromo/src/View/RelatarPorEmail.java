@@ -138,7 +138,7 @@ public class RelatarPorEmail extends JFrame implements ActionListener {
         assuntoTextField.setBounds(200,250,400,35);
         assuntoTextField.setHorizontalAlignment(JFormattedTextField.CENTER);
 
-        pilotoLabel.setText(piloto.getNomePiloto().toUpperCase());
+        pilotoLabel.setText(piloto.getNome().toUpperCase());
         pilotoLabel.setBounds(200 , 210 , 400 , 35);
 
         relatoLabel.setText("NOME DO PILOTO : ");

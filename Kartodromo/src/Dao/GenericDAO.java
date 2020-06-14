@@ -10,6 +10,6 @@ public interface GenericDAO<T> {
     boolean deletar(T o) throws Exception;
     List<T> listarTodos(T o) throws Exception;
     List<T> listarTodos() throws Exception;
-    T getById(int id) throws Exception;
+    T getById(long id) throws Exception;
 
 }

@@ -139,8 +139,8 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
     }
 
     private void setTheme() {
-        //SplashScreen.getConfiguracao().isTema()
-        if (true) {
+
+        if (SplashScreen.getConfiguracao().isTema()) {
             // Se o tema for escuro, os itens ficam assim //
             fundo.setBackground(Colors.CINZAMEDB);
             drawer.setBackground(Colors.VERDEDARK);
@@ -224,14 +224,18 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
         try {
             for (Kartodromo kartodromo : new KartodromoBO().listarTodos()) {
-                comboNomeKartodromo.addItem(kartodromo.getNomeKartodromo());
+                comboNomeKartodromo.addItem(kartodromo.getNome());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível carregar a tela criar campeonato");
         }
 
         if (kartodromo == null) {
-            mudarCombo();
+            try {
+                kartodromo = new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(0));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.PLAIN_MESSAGE);
+            }
         }
 
         scroll.setViewportView(table);
@@ -401,9 +405,9 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
                                 Corrida corrida = new Corrida();
                                 corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
-                                corrida.setKartodromo(new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1));
+                                corrida.setKartodromo(new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(comboNomeKartodromo.getSelectedIndex())));
                                 corrida.setNomeCorrida(textFieldNomeCorrida.getText());
-                                corrida.setNumeroDeVoltas(Integer.valueOf(textoValorVoltas));
+                                corrida.setNumeroDeVoltas(Integer.parseInt(textoValorVoltas));
                                 corrida.setDataDaCorrida(Tempo.stringToDate(textoValorData));
                                 corrida.setHoraDaCorrida(Tempo.stringToTime(textoValorHora));
                                 tabelaPiloto.addRow(corrida);
@@ -436,7 +440,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
         try {
 
-            kartodromo = new KartodromoBO().getById(comboNomeKartodromo.getSelectedIndex() + 1);
+            kartodromo = new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(comboNomeKartodromo.getSelectedIndex()));
             comboTipoDeKart.removeAllItems();
             lblEnderecoKartodromo.setText("<html>Endereço: " + kartodromo.getCidade().getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
 

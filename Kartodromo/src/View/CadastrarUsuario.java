@@ -281,9 +281,9 @@ public class CadastrarUsuario extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         Piloto piloto = new Piloto();
-        piloto.setNomePiloto(nomeJTextField.getText().toLowerCase());
-        piloto.setEmailPiloto(emailJTextField.getText().toLowerCase());
-        piloto.setSenhaPiloto(senhaJTextField.getText().toLowerCase().replaceAll(" " , ""));
+        piloto.setNome(nomeJTextField.getText().toLowerCase());
+        piloto.setEmail(emailJTextField.getText().toLowerCase());
+        piloto.setSenha(senhaJTextField.getText().toLowerCase().replaceAll(" " , ""));
         piloto.setApelido(apelidoJTextField.getText().toLowerCase().replaceAll(" " , ""));
         piloto.setAtivo(true);
         piloto.setCpfPiloto(cpfJTextField.getText().toLowerCase());

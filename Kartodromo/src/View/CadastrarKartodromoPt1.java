@@ -264,9 +264,9 @@ public class CadastrarKartodromoPt1 extends JFrame implements ActionListener, Mo
                     if (listaUsuario.toString().equals(listaCodigos.toString())) {
 
                         Kartodromo kartodromo = new Kartodromo();
-                        kartodromo.setNomeKartodromo(nomeKartodromoTextField.getText());
-                        kartodromo.setEmailKartodromo(emailConfirmacaoKartodromoTextField.getText());
-                        kartodromo.setSenhaKartodromo(senhaTextField.getText());
+                        kartodromo.setNome(nomeKartodromoTextField.getText());
+                        kartodromo.setEmail(emailConfirmacaoKartodromoTextField.getText());
+                        kartodromo.setSenha(senhaTextField.getText());
 
                         dispose();
                         new CadastrarKartodromoPt2(kartodromo);

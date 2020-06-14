@@ -3,7 +3,6 @@ package Bo;
 import Dao.CorridaDAO;
 import Model.Campeonato;
 import Model.Corrida;
-import Utilities.TabelaPiloto;
 
 import javax.swing.*;
 import java.util.List;
@@ -58,7 +57,7 @@ public class CorridaBO implements GenericBO<Corrida> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         return false;
     }
 

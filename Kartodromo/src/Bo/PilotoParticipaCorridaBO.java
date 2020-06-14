@@ -1,7 +1,6 @@
 package Bo;
 
 import Dao.PilotoParticipaCorridaDAO;
-import Dao.PilotoParticipandoCampeonatoDAO;
 import Model.Corrida;
 import Model.PilotoParticipaCorrida;
 import Model.PilotoParticipandoCampeonato;
@@ -99,7 +98,7 @@ public class PilotoParticipaCorridaBO implements GenericBO<PilotoParticipaCorrid
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id nulo");
         } else {

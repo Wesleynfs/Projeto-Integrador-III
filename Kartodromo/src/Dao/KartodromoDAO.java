@@ -24,7 +24,7 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar kartodromo [" + kartodromo.getNomeKartodromo() + "]");
+            throw new Exception("Erro ao salvar kartodromo [" + kartodromo.getNome() + "]");
         } finally {
             entityManager.close();
         }
@@ -53,7 +53,7 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
     @Override
     public boolean deletar(Kartodromo kartodromo) throws Exception {
         try {
-            Kartodromo kartodromo1 = entityManager.find(Kartodromo.class, kartodromo.getIdKartodromo());
+            Kartodromo kartodromo1 = entityManager.find(Kartodromo.class, kartodromo.getId());
             entityManager.getTransaction().begin();
             entityManager.remove(kartodromo1);
             entityManager.getTransaction().commit();
@@ -70,10 +70,10 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
         try {
             return entityManager.createQuery
             ("SELECT k FROM Kartodromo k "
-                    + "WHERE k.emailKartodromo = :email "
-                    + "and k.senhaKartodromo = :senha")
-                    .setParameter("email", o.getEmailKartodromo())
-                    .setParameter("senha", o.getSenhaKartodromo())
+                    + "WHERE k.email = :email "
+                    + "and k.senha = :senha")
+                    .setParameter("email", o.getEmail())
+                    .setParameter("senha", o.getSenha())
                     .getResultList();
 
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
     }
 
     @Override
-    public Kartodromo getById(int id) throws Exception {
+    public Kartodromo getById(long id) throws Exception {
         try {
             return entityManager.find(Kartodromo.class, id);
         } catch (Exception e) {
@@ -105,4 +105,14 @@ public class KartodromoDAO implements GenericDAO<Kartodromo> {
             entityManager.close();
         }
     }
+
+    public Kartodromo getByName(String name) throws Exception {
+        try {
+            return (Kartodromo) entityManager.createQuery("from Kartodromo k where k.nome = :name")
+                    .setParameter("name", name).getSingleResult();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

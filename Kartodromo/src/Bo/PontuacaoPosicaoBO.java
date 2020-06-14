@@ -7,9 +7,6 @@ package Bo;
 
 import Dao.PontuacaoPosicaoDAO;
 import Model.Campeonato;
-import Model.Corrida;
-import Model.PilotoParticipaCorrida;
-import Model.PilotoParticipandoCampeonato;
 import Model.PontuacaoPosicao;
 import java.util.List;
 
@@ -72,7 +69,7 @@ public class PontuacaoPosicaoBO implements GenericBO<PontuacaoPosicao> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         return false;
     }
 

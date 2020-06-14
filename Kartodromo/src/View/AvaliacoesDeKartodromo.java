@@ -185,7 +185,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
                 }
 
                 tabelamento.addRow(new Object[]{
-                        avaliacao.getPiloto().getNomePiloto(),
+                        avaliacao.getPiloto().getNome(),
                         avaliacao.getComentario(),
                         aval
                 });
@@ -215,7 +215,7 @@ public class AvaliacoesDeKartodromo extends JFrame implements ActionListener {
         logo.setText("PERFIL DO KARTÓDROMO");
 
         avaliacoesLabel.setBounds(300, 120, 300, 35);
-        avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNomeKartodromo());
+        avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNome());
 
         // AQUI COLOCA O NOME DA CORRIDA //
 

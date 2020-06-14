@@ -466,11 +466,11 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             Campeonato campeonato = new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString());
             for (Piloto pilotos : new PilotoBO().listarTodos()) {
 
-                if (pilotos.getIdPiloto() != piloto.getIdPiloto()) {
+                if (pilotos.getId() != piloto.getId()) {
                     //remove o proprio piloto
                     boolean pilotoparticipadocampeonato = false;
                     for (PilotoParticipandoCampeonato pilotoqueparticipamcampeonato : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
-                        if (pilotoqueparticipamcampeonato.getPiloto().getIdPiloto() == pilotos.getIdPiloto()) {
+                        if (pilotoqueparticipamcampeonato.getPiloto().getId() == pilotos.getId()) {
                             pilotoparticipadocampeonato = true;
                         }
                     }

@@ -67,17 +67,17 @@ public class PilotoBO implements GenericBO<Piloto>{
     public boolean valida(Piloto o) throws Exception {
 
         // Validações de nome //
-        if (o.getNomePiloto().equals("")) {
+        if (o.getNome().equals("")) {
             throw new Exception("Nome do piloto não pode ficar em branco!");
         }
-        if (o.getNomePiloto().length() > 50) {
+        if (o.getNome().length() > 50) {
             throw new Exception("Nome Grande de mais! coloque um nome menor");
         }
-        if (!ValidarString.isApenasLetras(o.getNomePiloto())) {
+        if (!ValidarString.isApenasLetras(o.getNome())) {
             throw new Exception("Nome do piloto inválido, apenas letras são válidas");
         }
         // Validações de senha //
-        if (o.getSenhaPiloto().equals("")) {
+        if (o.getSenha().equals("")) {
             throw new Exception("Senha do piloto não pode ficar em branco!");
         }
         // Validações de apelido //
@@ -85,10 +85,10 @@ public class PilotoBO implements GenericBO<Piloto>{
             throw new Exception("Apelido do piloto não pode ficar em branco!");
         }
         // Validações de email //
-        if (o.getEmailPiloto().equals("")) {
+        if (o.getEmail().equals("")) {
             throw new Exception("Email do piloto nao pode ser nulo!");
         }
-        if (!ValidarString.isEmail(o.getEmailPiloto())) {
+        if (!ValidarString.isEmail(o.getEmail())) {
             throw new Exception("Email do piloto inválido!");
         }
         // Validações de data //
@@ -112,7 +112,7 @@ public class PilotoBO implements GenericBO<Piloto>{
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id nulo");
         } else {
@@ -131,9 +131,9 @@ public class PilotoBO implements GenericBO<Piloto>{
     }
         
     public boolean validaLogin(Piloto o) throws Exception {
-        if (o.getEmailPiloto().isEmpty()) {
+        if (o.getEmail().isEmpty()) {
             throw new Exception("Email em branco!");
-        } else if (o.getSenhaPiloto().isEmpty()) {
+        } else if (o.getSenha().isEmpty()) {
             throw new Exception("Senha em branco!");
         } else {
             return true;

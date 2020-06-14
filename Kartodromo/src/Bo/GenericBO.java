@@ -11,6 +11,6 @@ public interface GenericBO<T> {
     List<T> listarTodos() throws Exception;
     T getById(int id) throws Exception;
     boolean valida(T o) throws Exception;
-    boolean validaId(int id) throws Exception;
+    boolean validaId(long id) throws Exception;
 
 }

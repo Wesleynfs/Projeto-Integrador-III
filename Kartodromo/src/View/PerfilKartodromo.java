@@ -281,7 +281,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
                 }
 
                 tabelamento.addRow(new Object[]{
-                        avaliacao.getPiloto().getNomePiloto(),
+                        avaliacao.getPiloto().getNome(),
                         avaliacao.getComentario(),
                         aval
                 });
@@ -307,7 +307,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
         logo.setText("PERFIL DO KARTÓDROMO");
 
         avaliacoesLabel.setBounds(400, 230, 300, 35);
-        avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNomeKartodromo());
+        avaliacoesLabel.setText("Avaliações do Kartódromo: " + kartodromo.getNome());
 
         // AQUI COLOCA O NOME DA CORRIDA //
 
@@ -351,7 +351,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
             kartodromo.setKartShifter(listCheckBox[10].isSelected());
             kartodromo.setKartSemMarcha(listCheckBox[11].isSelected());
 
-            kartodromo.setStatusAtividade(true);
+            kartodromo.setAtivo(true);
 
             KartodromoBO kartodromoBO = new KartodromoBO();
             try {

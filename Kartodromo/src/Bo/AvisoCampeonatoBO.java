@@ -79,7 +79,7 @@ public class AvisoCampeonatoBO implements GenericBO<AvisoCampeonato> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id do AvisoCampeonato não pode ser menor ou igual a 0");
         }

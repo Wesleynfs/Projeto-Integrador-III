@@ -41,7 +41,7 @@ public class ConfiguracaoBO implements GenericBO<ConfiguracaoDAO> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         return false;
     }
 

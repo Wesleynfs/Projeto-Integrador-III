@@ -147,7 +147,7 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         try {
 
             for (Piloto pilotos : new PilotoBO().listarTodos()) {
-                if (pilotos.getIdPiloto() != piloto.getIdPiloto()) {
+                if (pilotos.getId() != piloto.getId()) {
                     tabelaConvidarPilotos.addRow(pilotos);
                 }
             }

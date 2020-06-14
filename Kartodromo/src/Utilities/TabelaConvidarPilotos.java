@@ -48,7 +48,7 @@ public class TabelaConvidarPilotos extends AbstractTableModel {
     @Override
     public Object getValueAt(int linha, int coluna) {
         switch (coluna) {
-            case 0 : return listPiloto.get(linha).getNomePiloto();
+            case 0 : return listPiloto.get(linha).getNome();
         }
         return null;
     }

@@ -3,9 +3,7 @@ package Bo;
 import Dao.AvaliacaoDAO;
 import Model.Avaliacao;
 import Model.Kartodromo;
-import Model.Piloto;
 
-import javax.swing.*;
 import java.util.List;
 
 public class AvaliacaoBO implements GenericBO<Avaliacao> {
@@ -71,7 +69,7 @@ public class AvaliacaoBO implements GenericBO<Avaliacao> {
     }
 
     @Override
-    public boolean validaId(int id) throws Exception {
+    public boolean validaId(long id) throws Exception {
         if (id <= 0) {
             throw new Exception("Id da avaliação não pode ser menor ou igual a 0");
         }

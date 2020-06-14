@@ -2,8 +2,6 @@ package Dao;
 
 import Connections.ConnectionFactory;
 import Model.Campeonato;
-import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -96,7 +94,7 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
     }
 
     @Override
-    public Campeonato getById(int id) throws Exception {
+    public Campeonato getById(long id) throws Exception {
         try {
             return entityManager.find(Campeonato.class,id);
         } catch (Exception e) {

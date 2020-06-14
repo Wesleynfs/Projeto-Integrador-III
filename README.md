@@ -8,9 +8,6 @@
 Opa coloquei uma pasta com as imagens das telas que ainda devem ser feitas, coloquei ela para vc não ficar perdido nas telas
  /* Falta fazer na documentação */
 
-* [ ] SEM FAZER
-* [X] FEITO
-
 * [X] RESUMO
 * [X] ABSTRACT
 * [X] INTRODUÇÃO
@@ -23,7 +20,7 @@ Opa coloquei uma pasta com as imagens das telas que ainda devem ser feitas, colo
 * [X] TECNOLOGIAS UTILIZADAS (TEXTO E IMAGEM)
 * [X] DIAGRAMA DE CASOS DE USO (TEXTO E IMAGEM)
 * [X] PROTÓTIPO E DESCRIÇÃO DE CASO DE USO (TEXTO E DESENVOLVIMENTO)
-* [ ] DIAGRAMA DE ENTIDADE E RELACIONAMENTO (TEXTO E DIAGRAMA)
+* [X] DIAGRAMA DE ENTIDADE E RELACIONAMENTO (TEXTO E DIAGRAMA)
 * [ ] DIAGRAMA DE CLASSES (TEXTO E DIAGRAMA)
-* [ ] CONCLUSÃO (TEXTO)
-* [ ] REFERÊNCIAS
+* [X] CONCLUSÃO (TEXTO)
+* [X] REFERÊNCIAS

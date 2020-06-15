@@ -250,7 +250,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
         ordenarporLabel.setText("ORDENAR TABELA POR:");
 
         corridaLabel.setBounds(60, 450, 200, 35);
-        corridaLabel.setText("ESCOLHER UM Campeonato:");
+        corridaLabel.setText("ESCOLHER UM CAMPEONATO:");
 
     }
 

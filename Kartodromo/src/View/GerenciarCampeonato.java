@@ -31,7 +31,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     private JLabel lblDataFinalCampeonato;
     private JLabel lblTipoCorrida;
     private JButton btnVoltar;
-    private JButton btnAdicionarCorrida;
+    private JButton btnAdicionarCampeonato;
     private DefaultTableModel tabelamento;
     private Piloto piloto;
     private Campeonato campeonato;
@@ -68,7 +68,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
         fundo = new JPanel();
         drawer = new JPanel();
-        btnAdicionarCorrida = new JButton();
+        btnAdicionarCampeonato = new JButton();
         table = new JTable();
         scroll = new JScrollPane();
         textFieldNomeCampeonato = new JFormattedTextField();
@@ -88,7 +88,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
     }
 
     private void add() {
-        add(btnAdicionarCorrida);
+        add(btnAdicionarCampeonato);
         add(informacoesPiloto);
         add(logo);
         add(textFieldNumeroDeCorridas);
@@ -127,8 +127,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
             informacoesPiloto.setForeground(Colors.CINZAMEDB);
-            btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
-            btnAdicionarCorrida.setForeground(Colors.CINZADARKB);
+            btnAdicionarCampeonato.setBackground(Colors.VERDEDARK);
+            btnAdicionarCampeonato.setForeground(Colors.CINZADARKB);
             comboTipoCampeonato.setForeground(Colors.BRANCO);
             comboTipoCampeonato.setBackground(Colors.CINZALIGHTB);
         } else {
@@ -149,8 +149,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             informacoesPiloto.setForeground(Colors.BRANCO);
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVoltar.setForeground(Colors.CINZADARKB);
-            btnAdicionarCorrida.setBackground(Colors.VERDEDARK);
-            btnAdicionarCorrida.setForeground(Colors.CINZADARKB);
+            btnAdicionarCampeonato.setBackground(Colors.VERDEDARK);
+            btnAdicionarCampeonato.setForeground(Colors.CINZADARKB);
             comboTipoCampeonato.setBackground(Colors.CINZALIGHTB);
             comboTipoCampeonato.setForeground(Colors.CINZADARKA);
         }
@@ -207,11 +207,11 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
         btnVoltar.addActionListener(this);
         btnVoltar.setBounds(20, 550, 100, 35);
 
-        btnAdicionarCorrida.setFocusPainted(false);
-        btnAdicionarCorrida.setBorderPainted(false);
-        btnAdicionarCorrida.addActionListener(this);
-        btnAdicionarCorrida.setText("ADICIONAR CORRIDA");
-        btnAdicionarCorrida.setBounds(590, 550, 190, 35);
+        btnAdicionarCampeonato.setFocusPainted(false);
+        btnAdicionarCampeonato.setBorderPainted(false);
+        btnAdicionarCampeonato.addActionListener(this);
+        btnAdicionarCampeonato.setText("ADICIONAR CORRIDA");
+        btnAdicionarCampeonato.setBounds(590, 550, 190, 35);
 
         table.setModel(new DefaultTableModel(
                 new Object[][]{
@@ -263,7 +263,7 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
             new PerfilPiloto(piloto);
         }
 
-        if (e.getSource() == btnAdicionarCorrida) {
+        if (e.getSource() == btnAdicionarCampeonato) {
 
             // Validações da tela, fica na tela //
 
@@ -279,6 +279,11 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                 campeonato.setNumeroCorridas(Numeros.stringToInt(textFieldNumeroDeCorridas.getText().replaceAll(" ", "")));
 
                 try {
+                    
+                    //se idade do piloto for menor que 16 enviar mensagem de erro caso for campeonato oficial
+                    
+                    
+                    
                     if (new CampeonatoBO().validarTelaGerenciarCampeonato(campeonato)) {
                         new CampeonatoBO().validarTabelaPontuacaoCampeonato(tabelamento);
                         this.setVisible(false);

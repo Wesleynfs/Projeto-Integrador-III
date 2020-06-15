@@ -13,6 +13,8 @@
     <class>Model.Piloto</class>
     <class>Model.PilotoParticipandoCampeonato</class>
     <class>Model.PontuacaoPosicao</class>
+    <class>Model.Estado</class>
+    <class>Model.Cidade</class>
     <!--  -->
     <class>View.CadastrarKartodromo</class>
     <properties>
@@ -28,7 +30,7 @@
       <!-- DB Dialect -->
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <!-- create / create-drop / update -->
-      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.show_sql" value="true"/>
       <!-- Show SQL in console -->
       <property name="hibernate.format_sql" value="true"/>
       <!-- Show SQL formatted -->

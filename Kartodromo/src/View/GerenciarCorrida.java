@@ -70,7 +70,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
     private void configurateThis() {
         setUndecorated(true);
-        setSize(1100,600);
+        setSize(1100, 600);
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -212,7 +212,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
     private void configs() {
 
-        fundo.setSize(1100,600);
+        fundo.setSize(1100, 600);
         drawer.setBounds(0, 0, 1100, 100);
 
         informacoesPiloto.setBounds(930, 3, 180, 100);
@@ -234,7 +234,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             try {
                 kartodromo = new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(0));
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, e.getMessage(), "", JOptionPane.PLAIN_MESSAGE);
             }
         }
 
@@ -369,7 +369,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
                     JOptionPane.YES_NO_OPTION) == 0) {
 
                 try {
-                    if (new CorridaBO().validarTelaGerenciarCorrida(tabelaPiloto.getListCorrida(), campeonato)) {
+                    if (new CorridaBO().validarTabelaGerenciarCorrida(tabelaPiloto.getListCorrida(), campeonato)) {
                         dispose();
                         new GerenciarPiloto(piloto,
                                 campeonato,
@@ -377,7 +377,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
                                 tabelaPiloto.getListCorrida());
                     }
                 } catch (Exception err) {
-                    JOptionPane.showConfirmDialog(null, err.getMessage() , "Erro" , JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showConfirmDialog(null, err.getMessage(), "Erro", JOptionPane.PLAIN_MESSAGE);
                 }
 
             }
@@ -395,41 +395,32 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
             String textoValorVoltas = textFieldVoltasDaCorrida.getText().replaceAll(" ", "");
             String textoValorHora = textFieldHoraCorrida.getText().replaceAll(" ", "");
             String textoValorData = textFieldDataCorrida.getText().replaceAll(" ", "");
+            String textoValorNomeCorrida = textFieldNomeCorrida.getText().replaceAll(" ", "");
 
-            if (ValidarString.isApenasLetras(textFieldNomeCorrida.getText())) {
-                if (ValidarString.isApenasNumeros(textoValorVoltas)) {
-                    if (ValidarString.isHorario(textoValorHora)) {
-                        if (ValidarString.isDataPadraoBRA(textoValorData)) {
+            try {
 
-                            try {
+                if (new CorridaBO().validarTextFieldsDaTelaGerenciarCorrida(textoValorVoltas, textoValorHora, textoValorData, textoValorNomeCorrida)) {
 
-                                Corrida corrida = new Corrida();
-                                corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
-                                corrida.setKartodromo(new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(comboNomeKartodromo.getSelectedIndex())));
-                                corrida.setNomeCorrida(textFieldNomeCorrida.getText());
-                                corrida.setNumeroDeVoltas(Integer.parseInt(textoValorVoltas));
-                                corrida.setDataDaCorrida(Tempo.stringToDate(textoValorData));
-                                corrida.setHoraDaCorrida(Tempo.stringToTime(textoValorHora));
-                                tabelaPiloto.addRow(corrida);
+                    Corrida corrida = new Corrida();
+                    corrida.setTipoKart(comboTipoDeKart.getSelectedItem().toString());
+                    corrida.setKartodromo(new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(comboNomeKartodromo.getSelectedIndex())));
+                    corrida.setNomeCorrida(textFieldNomeCorrida.getText());
+                    corrida.setNumeroDeVoltas(Integer.parseInt(textoValorVoltas));
+                    corrida.setDataDaCorrida(Tempo.stringToDate(textoValorData));
+                    corrida.setHoraDaCorrida(Tempo.stringToTime(textoValorHora));
 
-                            } catch (Exception error) {
-                                JOptionPane.showMessageDialog(null, error.getMessage() , "Erro!" , JOptionPane.PLAIN_MESSAGE);
-                            }
-
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Adicionar data da corrida!" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+                    try {
+                        if (new CorridaBO().validarCorrida(corrida , campeonato)) {
+                            tabelaPiloto.addRow(corrida);
                         }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Adicionar horário da corrida!" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+                    } catch (Exception err) {
+                        JOptionPane.showMessageDialog(null, err.getMessage(), "Erro!", JOptionPane.PLAIN_MESSAGE);
                     }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Adicionar voltas da corrida!" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Adicionar nome para corrida" , "Erro!" , JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error.getMessage(), "Erro!", JOptionPane.PLAIN_MESSAGE);
             }
 
         }
@@ -442,7 +433,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
             kartodromo = new KartodromoBO().getByName(comboNomeKartodromo.getModel().getElementAt(comboNomeKartodromo.getSelectedIndex()));
             comboTipoDeKart.removeAllItems();
-            lblEnderecoKartodromo.setText("<html>Endereço: " + kartodromo.getCidade().getEstado() + ", " + kartodromo.getCidade() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
+            lblEnderecoKartodromo.setText("<html>Endereço: " + kartodromo.getCidade().getEstado().getNome() + ", " + kartodromo.getCidade().getNome() + ", " + kartodromo.getRua() + ", n°" + kartodromo.getNumero() + "</html>");
 
             if (kartodromo.isKartIndoor()) {
                 comboTipoDeKart.addItem("INDOOR");

@@ -265,8 +265,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
         if (e.getSource() == btnAdicionarCampeonato) {
 
-            // Validações da tela, fica na tela //
-
             if (ValidarString.isApenasLetras(textFieldNomeCampeonato.getText()) &&
                     ValidarString.isDataPadraoBRA(textFieldDataFinalCampeonato.getText())) {
 
@@ -281,8 +279,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                 try {
                     
                     //se idade do piloto for menor que 16 enviar mensagem de erro caso for campeonato oficial
-                    
-                    
                     
                     if (new CampeonatoBO().validarTelaGerenciarCampeonato(campeonato)) {
                         new CampeonatoBO().validarTabelaPontuacaoCampeonato(tabelamento);

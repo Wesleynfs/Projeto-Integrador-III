@@ -5,14 +5,16 @@
         <group>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/GerenciarCampeonato.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Bo/PilotoParticipaCorridaBO.java</file>
-            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/ParticiparCampeonato.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Dao/PilotoParticipaCorridaDAO.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Utilities/TabelaConvidarPilotos.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/ResultadoCorrida.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/IniciarCampeonatoPt1.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/CampeonatosParticipanto.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/ResultadosCampeonato.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/Dao/CampeonatoDAO.java</file>
             <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/PerfilPiloto.java</file>
+            <file>file:/C:/Users/lino/Documents/NetBeansProjects/Projeto-Integrador-III/Kartodromo/src/View/GerenciarPiloto.java</file>
         </group>
     </open-files>
 </project-private>

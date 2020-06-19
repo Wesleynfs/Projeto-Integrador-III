@@ -182,7 +182,7 @@ public class InfosGeraisCorridas extends JFrame implements ActionListener {
 
         if (e.getSource() == btnVoltar) {
             dispose();
-            new ParticiparCampeonato(piloto);
+            new CampeonatosParticipanto(piloto);
         }
     }
 

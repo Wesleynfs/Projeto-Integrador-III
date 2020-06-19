@@ -104,5 +104,17 @@ public class Corrida {
     public Corrida() {
 
     }
+    
+    @Override
+    public String toString() {
+        return "<html>Corrida:" + nomeCorrida + " do kartódormo " 
+                + kartodromo.getNome()
+                + "<br>Localizado em "+kartodromo.getCidade().getEstado().getNome()+", "+kartodromo.getCidade().getNome()+", "
+                +kartodromo.getRua()+", "+kartodromo.getNumero()
+                + "<br>No Horário "+ horaDaCorrida.toString()
+                +"<br> Usando o tipo kart: "+tipoKart+" com um total de "
+                +numeroDeVoltas+" voltas</html>";
+    }
+
 
 }

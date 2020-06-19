@@ -30,8 +30,10 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
     private JButton btnFinalizar;
     private Piloto piloto;
     private TabelaConvidarPilotos tabelaConvidarPilotos;
-    private JScrollPane jScrollPane;
+    private JScrollPane jScrollPanePilotosConvidar;
+    private JScrollPane jScrollPanePilotosquesaoconvidados;
     private InformacoesPiloto informacoesPiloto;
+    private JTable tablepilotosquesaoconvidados;
     private JTable table;
     private Campeonato campeonato;
     private DefaultTableModel tabelamento;
@@ -61,7 +63,8 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         add(ajuda);
         add(btnVoltar);
         add(informacoesPiloto);
-        add(jScrollPane);
+        add(jScrollPanePilotosConvidar);
+        add(jScrollPanePilotosquesaoconvidados);
         add(btnFinalizar);
         add(logo);
         add(drawer);
@@ -72,8 +75,10 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
 
         table = new JTable();
         ajuda = new JLabel();
-        jScrollPane = new JScrollPane();
+        jScrollPanePilotosConvidar = new JScrollPane();
         tabelaConvidarPilotos = new TabelaConvidarPilotos();
+        jScrollPanePilotosquesaoconvidados = new JScrollPane();
+        tablepilotosquesaoconvidados = new JTable();
         fundo = new JPanel();
         informacoesPiloto = new InformacoesPiloto();
         logo = new JLabel();
@@ -96,10 +101,14 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnFinalizar.setBackground(Colors.VERDEDARK);
             btnFinalizar.setForeground(Colors.CINZADARKB);
+            tablepilotosquesaoconvidados.setBackground(Colors.VERDELIGHT);
+            tablepilotosquesaoconvidados.setForeground(Colors.CINZADARKB);
             ajuda.setForeground(Colors.BRANCO);
         } else {
             ajuda.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDA);
+            tablepilotosquesaoconvidados.setForeground(Colors.CINZADARKB);
+            tablepilotosquesaoconvidados.setBackground(Colors.VERDELIGHT);
             informacoesPiloto.setForeground(Colors.BRANCO);
             drawer.setBackground(Colors.VERDEDARK);
             logo.setForeground(Colors.CINZAMEDB);
@@ -134,11 +143,14 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         logo.setText("GERENCIAR PILOTOS - " + campeonato.getNome());
         logo.setFont(Fonts.SANSSERIFMIN);
 
-        ajuda.setBounds(200, 450, 500, 35);
+        ajuda.setBounds(200, 490, 500, 35);
         ajuda.setText("Ao terminar de selecionar os pilotos, clique em 'FINALIZAR' para concluir");
 
-        jScrollPane.setViewportView(table);
-        jScrollPane.setBounds(30, 150, 740, 300);
+        jScrollPanePilotosConvidar.setViewportView(table);
+        jScrollPanePilotosConvidar.setBounds(30, 200, 350, 300);
+        
+        jScrollPanePilotosquesaoconvidados.setViewportView(tablepilotosquesaoconvidados);
+        jScrollPanePilotosquesaoconvidados.setBounds(410, 200, 350, 300);
 
         table.setModel(tabelaConvidarPilotos);
         table.setRowSelectionAllowed(true);

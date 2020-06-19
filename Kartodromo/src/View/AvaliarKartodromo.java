@@ -321,9 +321,10 @@ public class AvaliarKartodromo extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnVerPerfil) {
+            System.out.println("AQUI " + (String) kartodromojComboBox.getSelectedItem());
             try {
                 dispose();
-                new AvaliacoesDeKartodromo(piloto, new KartodromoBO().getById(kartodromojComboBox.getSelectedIndex() + 1));
+                new AvaliacoesDeKartodromo(piloto, new KartodromoBO().getByName((String) kartodromojComboBox.getSelectedItem()));
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, "Você não selecionou nenhum kartódromo!");
             }

@@ -75,7 +75,7 @@ public class Tempo {
         }
     }
 
-    public static String formatarDataPadraoBra(Date data) {
+    public static String dateToPadraoBrasil(Date data) {
         try {
             return new SimpleDateFormat("dd/MM/yyyy").format(data);
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public class Tempo {
         }
     }
 
-    public static String formatarDataPadraoEua(Date data) {
+    public static String dateToPadraoEua(Date data) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").format(data);
         } catch (Exception e) {

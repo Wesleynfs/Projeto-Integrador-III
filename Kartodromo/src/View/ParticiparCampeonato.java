@@ -7,10 +7,7 @@ import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.InformacoesPiloto;
+import Utilities.*;
 
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -177,6 +174,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                 }
 
             });
+
             tableTodasAsCorridasMarcadas.getColumnModel().getColumn(0).setPreferredWidth(260);
             tableTodasAsCorridasMarcadas.getColumnModel().getColumn(1).setPreferredWidth(100);
             tableTodasAsCorridasMarcadas.getColumnModel().getColumn(2).setPreferredWidth(300);
@@ -196,7 +194,7 @@ public class ParticiparCampeonato extends JFrame implements ActionListener {
                         CorridasjComboBox.addItem(campeonato.getNome());
                         tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
-                                campeonato.getDataInicio(),
+                                Tempo.dateToPadraoBrasil(campeonato.getDataInicio()),
                                 campeonato.getTipoCorrida()
                         });
 

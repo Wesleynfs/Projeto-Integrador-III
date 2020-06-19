@@ -224,7 +224,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                     tabelamento.addRow(new Object[]{
                             list.getCampeonato().getNome(),
-                            Tempo.formatarDataPadraoBra(list.getCampeonato().getDataInicio()),
+                            Tempo.dateToPadraoBrasil(list.getCampeonato().getDataInicio()),
                             listaTotalPiloto.size()
                     });
                 }
@@ -267,7 +267,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
                     tabelamento.addRow(new Object[]{
                             campeonato.getNome(),
-                            Tempo.formatarDataPadraoBra(campeonato.getDataInicio()),
+                            Tempo.dateToPadraoBrasil(campeonato.getDataInicio()),
                             listaTotalPiloto.size()
                     });
 
@@ -385,7 +385,7 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                     if (JOptionPane.showConfirmDialog(null,
                             "<html>Você foi convidado por " + convite.getPilotoQueConvidou().getApelido()
                                     + "<br>Para participar do campeonato: " + convite.getCampeonato().getNome()
-                                    + "<br>Na Data " + convite.getCampeonato().getDataInicio()
+                                    + "<br>Na Data " + Tempo.dateToPadraoBrasil(convite.getCampeonato().getDataInicio())
                                     + "<br>Deseja Participar?"
                                     + "<html>",
                             "Convite para Campeonato!",

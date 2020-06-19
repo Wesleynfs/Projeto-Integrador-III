@@ -160,7 +160,6 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
                 if (x == 0) {
                     listCheckBox[0].setText("Domingo");
                     listCheckBox[0].setBounds(20, 260, 150, 30);
- 
                 }
                 if (x == 1) {
                     listCheckBox[1].setText("Sabado");
@@ -208,6 +207,7 @@ public class PerfilKartodromo extends JFrame implements ActionListener {
                 }
                 listCheckBox[x].setFocusPainted(false);
             }
+
             version.setText(Info.APP_VERSION);
             version.setBounds(20, 10, 100, 30);
 

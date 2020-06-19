@@ -6,10 +6,8 @@ import Model.Campeonato;
 import Model.Corrida;
 import Model.Kartodromo;
 import Model.Piloto;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.InformacoesPiloto;
+import Utilities.*;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -52,7 +50,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         this.kartodromo = kartodromo;
     }
 
-    public MenuPrincipal(Piloto piloto , boolean pilotoAvisado) {
+    public MenuPrincipal(Piloto piloto, boolean pilotoAvisado) {
 
         this.piloto = piloto;
         this.pilotoAvisado = pilotoAvisado;
@@ -148,7 +146,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private void configs() {
 
         logo.setIcon(new ImageIcon(getClass().getResource("/Utilities/imgs/logo.png")));
-        logo.setBounds(20,20,250,250);
+        logo.setBounds(20, 20, 250, 250);
         logo.setBackground(Colors.CINZALIGHTB);
 
         tableUltimosCampeonatos.setModel(new DefaultTableModel(
@@ -172,24 +170,27 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             }
 
         });
-        tableUltimosCampeonatos.getColumnModel().getColumn(0).setPreferredWidth(190);
-        tableUltimosCampeonatos.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tableUltimosCampeonatos.getColumnModel().getColumn(2).setPreferredWidth(190);
-        tableUltimosCampeonatos.getColumnModel().getColumn(3).setPreferredWidth(190);
-        tableUltimosCampeonatos.getColumnModel().getColumn(4).setPreferredWidth(190);
+
+        for (int x = 0 ; x < 5 ; x++) {
+            if (x == 1) {
+                tableUltimosCampeonatos.getColumnModel().getColumn(x).setPreferredWidth(300);
+            } else {
+                tableUltimosCampeonatos.getColumnModel().getColumn(x).setPreferredWidth(190);
+            }
+        }
         tabelamento = (DefaultTableModel) tableUltimosCampeonatos.getModel();
 
         try {
 
             for (Campeonato campeonato : new CampeonatoBO().listarCampeonatosFinalizados()) {
                 List<Corrida> listacorrida = new CorridaBO().listarTodasAsCorridasMarcadas(campeonato);
-                
+
                 tabelamento.addRow(new Object[]{
                                 campeonato.getNome(),
                                 campeonato.getTipoCorrida(),
                                 listacorrida.size(),
-                                campeonato.getDataCadastro(),
-                                campeonato.getDataInicio()
+                                Tempo.dateToPadraoBrasil(campeonato.getDataCadastro()),
+                                Tempo.dateToPadraoBrasil(campeonato.getDataInicio())
                         }
                 );
             }
@@ -197,7 +198,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
+
         informacoesPiloto.setFont(Fonts.SANSSERIFMIN20);
         informacoesPiloto.setBounds(20, 270, 250, 250);
         informacoesPiloto.setPiloto(piloto);
@@ -288,7 +289,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnSair) {
 
-            if (JOptionPane.showConfirmDialog(null,"Voce tem certeza?" , "Deslogar" , JOptionPane.OK_OPTION) == 0) {
+            if (JOptionPane.showConfirmDialog(null, "Voce tem certeza?", "Deslogar", JOptionPane.OK_OPTION) == 0) {
                 piloto = null;
                 kartodromo = null;
                 dispose();

@@ -43,7 +43,7 @@ public class TabelaPiloto extends AbstractTableModel {
             case 3 :
                 return listCorrida.get(linha).getTipoKart();
             case 4 :
-                return Tempo.formatarDataPadraoBra(listCorrida.get(linha).getDataDaCorrida());
+                return Tempo.dateToPadraoBrasil(listCorrida.get(linha).getDataDaCorrida());
             case 5 :
                 return listCorrida.get(linha).getHoraDaCorrida();
         }

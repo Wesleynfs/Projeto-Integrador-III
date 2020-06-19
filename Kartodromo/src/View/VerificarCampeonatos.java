@@ -8,10 +8,7 @@ import Model.Campeonato;
 import Model.ConviteCampeonato;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.InformacoesPiloto;
+import Utilities.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -235,7 +232,7 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
                         List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
                         tabelamento.addRow(new Object[]{
                                 list.getCampeonato().getNome(),
-                                list.getCampeonato().getDataInicio(),
+                                Tempo.dateToPadraoBrasil(list.getCampeonato().getDataInicio()),
                                 listaTotalPiloto.size()
                         });
                     }
@@ -465,22 +462,23 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
             convidarPilotoComboBox.removeAllItems();
             Campeonato campeonato = new CampeonatoBO().getByNome(comboBoxCampeonatosParticipando.getSelectedItem().toString());
             for (Piloto pilotos : new PilotoBO().listarTodos()) {
-
                 if (pilotos.getId() != piloto.getId()) {
                     //remove o proprio piloto
                     boolean pilotoparticipadocampeonato = false;
                     for (PilotoParticipandoCampeonato pilotoqueparticipamcampeonato : new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato)) {
                         if (pilotoqueparticipamcampeonato.getPiloto().getId() == pilotos.getId()) {
                             pilotoparticipadocampeonato = true;
+                            break;
                         }
                     }
                     ConviteCampeonato verificarsejafoiconvidado = new ConviteCampeonato();
                     verificarsejafoiconvidado.setCampeonato(campeonato);
                     verificarsejafoiconvidado.setPilotoConvidado(pilotos);
-                    if (pilotoparticipadocampeonato == false && new ConviteCampeonatoBO().verificarConviteExistente(verificarsejafoiconvidado) == false) {
+                    if (!pilotoparticipadocampeonato && !new ConviteCampeonatoBO().verificarConviteExistente(verificarsejafoiconvidado)) {
                         convidarPilotoComboBox.addItem(pilotos.getApelido());
                     } else {
-                        convidarPilotoComboBox.addItem("Aguardando pilotos aceitarem");
+                        convidarPilotoComboBox.removeAllItems();
+                        convidarPilotoComboBox.addItem("Todos os pilotos responderam o convite");
                         break;
                     }
                 }

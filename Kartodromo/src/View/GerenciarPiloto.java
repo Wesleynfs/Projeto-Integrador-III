@@ -19,19 +19,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GerenciarPiloto extends JFrame implements ActionListener {
 
     private JLabel logo;
     private JLabel ajuda;
+    private JLabel infostabelapilotos;
+    private JLabel infostabelapilotosconvidados;
     private JPanel fundo;
     private JPanel drawer;
     private JButton btnVoltar;
     private JButton btnFinalizar;
     private Piloto piloto;
     private TabelaConvidarPilotos tabelaConvidarPilotos;
+    private TabelaConvidarPilotos tabelaConvidados;
     private JScrollPane jScrollPanePilotosConvidar;
     private JScrollPane jScrollPanePilotosquesaoconvidados;
+    private JFormattedTextField apelidoJTextField;
+    private JButton btnpesquisaapelido;
+    private JButton btnconvidarpiloto;
     private InformacoesPiloto informacoesPiloto;
     private JTable tablepilotosquesaoconvidados;
     private JTable table;
@@ -65,6 +73,11 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         add(informacoesPiloto);
         add(jScrollPanePilotosConvidar);
         add(jScrollPanePilotosquesaoconvidados);
+        add(infostabelapilotos);
+        add(infostabelapilotosconvidados);
+        add(apelidoJTextField);
+        add(btnconvidarpiloto);
+        add(btnpesquisaapelido);
         add(btnFinalizar);
         add(logo);
         add(drawer);
@@ -77,14 +90,20 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         ajuda = new JLabel();
         jScrollPanePilotosConvidar = new JScrollPane();
         tabelaConvidarPilotos = new TabelaConvidarPilotos();
+        tabelaConvidados = new TabelaConvidarPilotos();
         jScrollPanePilotosquesaoconvidados = new JScrollPane();
+        apelidoJTextField = new JFormattedTextField();
         tablepilotosquesaoconvidados = new JTable();
         fundo = new JPanel();
         informacoesPiloto = new InformacoesPiloto();
         logo = new JLabel();
+        infostabelapilotos = new JLabel();
+        infostabelapilotosconvidados = new JLabel();
         drawer = new JPanel();
         btnVoltar = new JButton();
+        btnconvidarpiloto = new JButton();
         btnFinalizar = new JButton();
+        btnpesquisaapelido = new JButton();
         convites = new ArrayList<>();
 
     }
@@ -101,12 +120,24 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
             btnVoltar.setForeground(Colors.CINZADARKB);
             btnFinalizar.setBackground(Colors.VERDEDARK);
             btnFinalizar.setForeground(Colors.CINZADARKB);
+            apelidoJTextField.setBackground(Colors.CINZALIGHTB);
+            apelidoJTextField.setForeground(Colors.BRANCO);
+            btnpesquisaapelido.setBackground(Colors.VERDEDARK);
+            btnpesquisaapelido.setForeground(Colors.CINZADARKB);
+            btnconvidarpiloto.setBackground(Colors.VERDEDARK);
+            btnconvidarpiloto.setForeground(Colors.CINZADARKB);
             tablepilotosquesaoconvidados.setBackground(Colors.VERDELIGHT);
             tablepilotosquesaoconvidados.setForeground(Colors.CINZADARKB);
             ajuda.setForeground(Colors.BRANCO);
         } else {
             ajuda.setForeground(Colors.CINZAMEDB);
             fundo.setBackground(Colors.CINZAMEDA);
+            btnpesquisaapelido.setBackground(Colors.VERDEDARK);
+            btnpesquisaapelido.setForeground(Colors.CINZADARKB);
+            apelidoJTextField.setBackground(Colors.CINZALIGHTB);
+            apelidoJTextField.setForeground(Colors.CINZADARKA);
+            btnconvidarpiloto.setBackground(Colors.VERDEDARK);
+            btnconvidarpiloto.setForeground(Colors.CINZADARKB);
             tablepilotosquesaoconvidados.setForeground(Colors.CINZADARKB);
             tablepilotosquesaoconvidados.setBackground(Colors.VERDELIGHT);
             informacoesPiloto.setForeground(Colors.BRANCO);
@@ -138,6 +169,18 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         btnFinalizar.setFocusPainted(false);
         btnFinalizar.addActionListener(this);
         btnFinalizar.setBounds(680, 550, 100, 35);
+        
+        btnpesquisaapelido.setText("PESQUISAR APELIDO");
+        btnpesquisaapelido.setBorderPainted(false);
+        btnpesquisaapelido.setFocusPainted(false);
+        btnpesquisaapelido.addActionListener(this);
+        btnpesquisaapelido.setBounds(450, 120, 300, 35);
+        
+        btnconvidarpiloto.setText("CONVIDAR PILOTO");
+        btnconvidarpiloto.setBorderPainted(false);
+        btnconvidarpiloto.setFocusPainted(false);
+        btnconvidarpiloto.addActionListener(this);
+        btnconvidarpiloto.setBounds(250, 550, 300, 35);
 
         logo.setBounds(20, 30, 760, 35);
         logo.setText("GERENCIAR PILOTOS - " + campeonato.getNome());
@@ -152,6 +195,21 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         jScrollPanePilotosquesaoconvidados.setViewportView(tablepilotosquesaoconvidados);
         jScrollPanePilotosquesaoconvidados.setBounds(410, 200, 350, 300);
 
+        infostabelapilotos.setText("Convidar Pilotos:");
+        infostabelapilotos.setBounds(30, 160, 350, 35);
+        
+        infostabelapilotosconvidados.setText("Pilotos que foram convidados:");
+        infostabelapilotosconvidados.setBounds(410, 160, 350, 35);
+        
+        apelidoJTextField.setBorder(BorderFactory.createEmptyBorder());
+        apelidoJTextField.setBounds(30, 120, 400, 35);
+        apelidoJTextField.setHorizontalAlignment(JPasswordField.CENTER);
+        apelidoJTextField.setFocusLostBehavior(JFormattedTextField.PERSIST);
+        
+        tablepilotosquesaoconvidados.setModel(tabelaConvidados);
+        tablepilotosquesaoconvidados.setRowSelectionAllowed(true);
+        tablepilotosquesaoconvidados.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
         table.setModel(tabelaConvidarPilotos);
         table.setRowSelectionAllowed(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -184,6 +242,38 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == btnconvidarpiloto) {
+            try {
+                
+                int[] index = table.getSelectedRows();
+
+                for (int x = 0; x < index.length; x++) {
+
+                    Piloto pilotoConvidado =  (Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(index[x]);
+                    
+                    boolean verificacaoDuplicata = true;
+                    for(Piloto piloto : tabelaConvidados.getListPiloto()){
+                        if(pilotoConvidado.getApelido() == piloto.getApelido()){
+                            verificacaoDuplicata = false;
+                        }
+                    }
+                    if (verificacaoDuplicata) {
+                            tabelaConvidados.addRow(pilotoConvidado);
+                            
+                    }
+                }
+                tablepilotosquesaoconvidados.setModel(tabelaConvidados);
+                pesquisaapelido();
+
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
+            }
+        }
+        
+        if (e.getSource() == btnpesquisaapelido) {
+            pesquisaapelido();     
+        }
+        
         if (e.getSource() == btnVoltar) {
             dispose();
             new GerenciarCorrida(piloto,campeonato,tabelamento);
@@ -193,19 +283,18 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
 
             try {
 
-                int[] index = table.getSelectedRows();
-
-                for (int x = 0; x < index.length; x++) {
-
-                    Piloto pilotoConvidado = new PilotoBO().listarPorPiloto((Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(index[x]));
+                tabelaConvidados.getListPiloto().stream().map((pilotoConvidado) -> {
                     ConviteCampeonato conviteCampeonato = new ConviteCampeonato();
                     conviteCampeonato.setPilotoQueConvidou(piloto);
                     conviteCampeonato.setCampeonato(campeonato);
                     conviteCampeonato.setPilotoConvidado(pilotoConvidado);
-                    conviteCampeonato.setStatusConvite("Não respondido");
+                    return conviteCampeonato;
+                }).map((conviteCampeonato) -> {
+                    conviteCampeonato.setStatusConvite("Não Visualizado");
+                    return conviteCampeonato;
+                }).forEachOrdered((conviteCampeonato) -> {
                     convites.add(conviteCampeonato);
-
-                }
+                });
 
                 if (new CampeonatoBO().validarTelaAdicionarPiloto(convites)) {
 
@@ -292,6 +381,35 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, error.getMessage());
             }
         }
+    }
+    public void pesquisaapelido(){
+        try {
+                tabelaConvidarPilotos = new TabelaConvidarPilotos();
+                List<Piloto> pilotos = null;
+                if(!apelidoJTextField.getText().equals("")){
+                    pilotos = new PilotoBO().listarPilotosPorapelido(this.apelidoJTextField.getText());
+                }else{
+                    pilotos = new PilotoBO().listarTodos();
+                }
+                for(Piloto pilotopesquisa : pilotos){
+                    boolean verificacaoDuplicata = true;
+                    for(Piloto piloto1 : tabelaConvidados.getListPiloto()){
+                        if(pilotopesquisa.getApelido().equals(piloto1.getApelido())){
+                            verificacaoDuplicata = false;
+                        }
+
+                    }
+                    if(verificacaoDuplicata){
+                        if(!pilotopesquisa.getApelido().equals(piloto.getApelido())){
+                            tabelaConvidarPilotos.addRow(pilotopesquisa);
+                        }
+                    }
+                }
+                table.setModel(tabelaConvidarPilotos);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível fazer a pesquisa");
+            }
+    
     }
 
 }

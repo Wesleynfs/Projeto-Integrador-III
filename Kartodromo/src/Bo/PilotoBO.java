@@ -53,6 +53,10 @@ public class PilotoBO implements GenericBO<Piloto>{
         pilotoDAO = new PilotoDAO();
         return pilotoDAO.listarTodos();
     }
+    public List<Piloto> listarPilotosPorapelido(String apelido) throws Exception {
+        pilotoDAO = new PilotoDAO();
+        return pilotoDAO.listarPilotosPorapelido(apelido);   
+    }
 
     @Override
     public Piloto getById(int id) throws Exception {

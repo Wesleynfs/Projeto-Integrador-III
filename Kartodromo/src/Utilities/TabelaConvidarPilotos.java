@@ -10,7 +10,7 @@ import java.util.List;
 public class TabelaConvidarPilotos extends AbstractTableModel {
 
     private List<Piloto> listPiloto;
-    private String[] colunas = {"LISTA COM TODOS OS PILOTOS (SELECIONE-OS COM O BOTÃO 'CTRL')"};
+    private String[] colunas = {"LISTA COM OS PILOTOS"};
 
     public TabelaConvidarPilotos() {
         listPiloto = new ArrayList<>();
@@ -48,7 +48,7 @@ public class TabelaConvidarPilotos extends AbstractTableModel {
     @Override
     public Object getValueAt(int linha, int coluna) {
         switch (coluna) {
-            case 0 : return listPiloto.get(linha).getNome();
+            case 0 : return listPiloto.get(linha).getApelido();
         }
         return null;
     }

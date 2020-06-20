@@ -119,6 +119,16 @@ public class PilotoDAO implements GenericDAO<Piloto> {
         }
     }
 
+    public List<Piloto> listarPilotosPorapelido(String apelido) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT p FROM Piloto p where p.apelido like '%"+apelido+"%'").getResultList();
+   
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
     private long getIdPiloto(Piloto piloto) throws Exception {
 
         // Monta query //

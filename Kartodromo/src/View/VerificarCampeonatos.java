@@ -218,6 +218,8 @@ public class VerificarCampeonatos extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
 
+            Tabelas.alinharCelulasNoCentro(tableTodasAsCorridasMarcadas);
+
             PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO = new PilotoParticipandoCampeonatoBO();
 
             try {

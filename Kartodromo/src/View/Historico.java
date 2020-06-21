@@ -3,10 +3,7 @@ package View;
 import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Piloto;
 import Model.PilotoParticipandoCampeonato;
-import Utilities.Colors;
-import Utilities.Fonts;
-import Utilities.Info;
-import Utilities.InformacoesPiloto;
+import Utilities.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -145,6 +142,8 @@ public class Historico extends JFrame implements ActionListener {
 
             tabelamento = (DefaultTableModel) tableTodasAsCorridasRealizadas.getModel();
 
+            Tabelas.alinharCelulasNoCentro(tableTodasAsCorridasRealizadas);
+
             fundo.setSize(Info.MINSCREENSIZE);
             drawer.setBounds(0, 0, 800, 100);
 
@@ -219,7 +218,7 @@ public class Historico extends JFrame implements ActionListener {
                 for (PilotoParticipandoCampeonato pilotoparticipando : pilotoparticipando) {
                     tabelamento.addRow(new Object[]{
                             pilotoparticipando.getCampeonato().getNome(),
-                            pilotoparticipando.getCampeonato().getDataInicio(),
+                            Tempo.dateToPadraoBrasil(pilotoparticipando.getCampeonato().getDataInicio()),
                             pilotoparticipando.getPosicao(),
                             pilotoparticipando.getPontuacao(),
                     });

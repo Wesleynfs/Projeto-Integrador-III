@@ -16,7 +16,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciarCorrida extends JFrame implements ActionListener {
+public class GerenciarCorrida extends JFrame implements ActionListener , ItemListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -222,6 +222,8 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
         logo.setText("GERENCIAR CORRIDAS - " + campeonato.getNome());
         logo.setFont(Fonts.SANSSERIFMIN);
 
+        comboNomeKartodromo.addItemListener(this);
+
         try {
             for (Kartodromo kartodromo : new KartodromoBO().listarTodos()) {
                 comboNomeKartodromo.addItem(kartodromo.getNome());
@@ -288,14 +290,6 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
         comboNomeKartodromo.setBorder(BorderFactory.createEmptyBorder());
         comboNomeKartodromo.setBounds(30, 400, 150, 35);
-        comboNomeKartodromo.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    mudarCombo();
-                }
-            }
-        });
 
         lblEnderecoKartodromo.setBounds(30, 520, 250, 60);
 
@@ -410,7 +404,7 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
                     corrida.setHoraDaCorrida(Tempo.stringToTime(textoValorHora));
 
                     try {
-                        if (new CorridaBO().validarCorrida(corrida , campeonato)) {
+                        if (new CorridaBO().validarCorrida(corrida, campeonato)) {
                             tabelaPiloto.addRow(corrida);
                         }
                     } catch (Exception err) {
@@ -457,6 +451,13 @@ public class GerenciarCorrida extends JFrame implements ActionListener {
 
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, "Não foi possível encontrar kartodromo escolhido");
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent i) {
+        if (i.getSource() == comboNomeKartodromo) {
+            mudarCombo();
         }
     }
 }

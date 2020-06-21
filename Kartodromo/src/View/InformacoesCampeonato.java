@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class CampeonatosParticipanto extends JFrame implements ActionListener {
+public class InformacoesCampeonato extends JFrame implements ActionListener {
 
     private JPanel fundo;
     private JPanel drawer;
@@ -38,7 +38,7 @@ public class CampeonatosParticipanto extends JFrame implements ActionListener {
 
     private Piloto piloto;
 
-    public CampeonatosParticipanto(Piloto piloto) {
+    public InformacoesCampeonato(Piloto piloto) {
 
         this.piloto = piloto;
 
@@ -219,7 +219,7 @@ public class CampeonatosParticipanto extends JFrame implements ActionListener {
         btnInfos.setText("Ver informações do campeonato");
 
         logo.setBounds(20, 30, 760, 35);
-        logo.setText("CAMPEONATOS PARTICIPANTO");
+        logo.setText("INFORMAÇÕES DO CAMPEONATO");
         logo.setFont(Fonts.SANSSERIFMIN);
 
         // Mudar para valores reais aqui //
@@ -275,6 +275,8 @@ public class CampeonatosParticipanto extends JFrame implements ActionListener {
             
 
                 tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
+
+                Tabelas.alinharCelulasNoCentro(tableTodasAsCorridasMarcadas);
 
                 for (Campeonato campeonato : new CampeonatoBO().listarPorNome()) {
                     List<PilotoParticipandoCampeonato> campeonatos = pilotoparticipandocampeonatobo.Listar_o_piloto_do_campeonato(piloto, campeonato);

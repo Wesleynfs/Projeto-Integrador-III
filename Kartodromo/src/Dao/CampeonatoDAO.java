@@ -103,7 +103,18 @@ public class CampeonatoDAO implements GenericDAO<Campeonato> {
             entityManager.close();
         }
     }
-    
+
+    public List<Campeonato> getByNomeApenas(String nome) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM Campeonato c where c.nome = :nome order by c.nome").setParameter("nome", nome).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public List<Campeonato> getByNome(String nome) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();

@@ -64,6 +64,14 @@ public class CampeonatoBO implements GenericBO<Campeonato> {
         return null;
     }
 
+    public Campeonato getByNomeApenas(String nome) throws Exception {
+        campeonatoDAO = new CampeonatoDAO();
+        for (Campeonato c : campeonatoDAO.getByNomeApenas(nome)) {
+            return c;
+        }
+        return null;
+    }
+
     public Campeonato getByNome(String nome) throws Exception {
         campeonatoDAO = new CampeonatoDAO();
         for (Campeonato campeonato : campeonatoDAO.getByNome(nome)) {

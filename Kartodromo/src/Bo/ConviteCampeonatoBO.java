@@ -1,13 +1,14 @@
 package Bo;
 
 import Dao.ConviteCampeonatoDAO;
+import Model.Campeonato;
 import Model.ConviteCampeonato;
 import Model.Piloto;
 
 import java.util.List;
 
-public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
-    
+public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato> {
+
     private ConviteCampeonatoDAO conviteDAO;
 
     public ConviteCampeonatoBO() {
@@ -71,10 +72,10 @@ public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
         if (o.getPilotoConvidado().getId() < 0) {
             throw new Exception("Piloto Convidado não localizado!");
         } else if (o.getPilotoQueConvidou().getId() < 0) {
-            throw new Exception("Piloto Que Convidou não localizado!"); 
+            throw new Exception("Piloto Que Convidou não localizado!");
         } else if (o.getCampeonato().getIdCampeonato() < 0) {
             throw new Exception("Campeonato não localizado!");
-        }  else {
+        } else {
             return true;
         }
     }
@@ -87,11 +88,17 @@ public class ConviteCampeonatoBO implements GenericBO<ConviteCampeonato>{
             return true;
         }
     }
-    
-    public List<ConviteCampeonato> listarConvitesNaoVizualizadosPorPiloto(Piloto piloto) throws Exception{
-            conviteDAO = new ConviteCampeonatoDAO();
-            return conviteDAO.ListarConviteNaoVisualizadosPorPiloto(piloto);
+
+    public List<ConviteCampeonato> listarConvitesJaEnviadosPeloPiloto(Piloto piloto, Campeonato campeonato,String statusConvite) throws Exception {
+        conviteDAO = new ConviteCampeonatoDAO();
+        return conviteDAO.listarConvitesJaEnviadosPeloPiloto(piloto,campeonato,statusConvite);
     }
+
+    public List<ConviteCampeonato> listarConvitesNaoVizualizadosPorPiloto(Piloto piloto) throws Exception {
+        conviteDAO = new ConviteCampeonatoDAO();
+        return conviteDAO.ListarConviteNaoVisualizadosPorPiloto(piloto);
+    }
+
     public boolean verificarConviteExistente(ConviteCampeonato o) throws Exception {
         conviteDAO = new ConviteCampeonatoDAO();
         return conviteDAO.verificarConviteExistente(o);

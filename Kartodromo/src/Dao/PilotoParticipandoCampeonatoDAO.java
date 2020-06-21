@@ -112,6 +112,17 @@ public class PilotoParticipandoCampeonatoDAO implements GenericDAO<PilotoPartici
         }
     }
 
+    public List<PilotoParticipandoCampeonato> listarConvitesJaEnviadosPeloPiloto(Piloto piloto,Campeonato campeonato) throws Exception {
+        try {
+            entityManager = new ConnectionFactory().getConnection();
+            return entityManager.createQuery("SELECT c FROM PilotoParticipandoCampeonato c where piloto = :p AND c.campeonato.situacao != 'Finalizado'").setParameter("p", piloto).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public List<PilotoParticipandoCampeonato> listarPilotoQueParticipaDeCampeonato(Campeonato campeonato) throws Exception {
         try {
             entityManager = new ConnectionFactory().getConnection();

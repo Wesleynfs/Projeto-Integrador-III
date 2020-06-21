@@ -180,6 +180,8 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         }
         tabelamento = (DefaultTableModel) tableUltimosCampeonatos.getModel();
 
+        Tabelas.alinharCelulasNoCentro(tableUltimosCampeonatos);
+
         try {
 
             for (Campeonato campeonato : new CampeonatoBO().listarCampeonatosFinalizados()) {

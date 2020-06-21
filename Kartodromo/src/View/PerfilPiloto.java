@@ -24,7 +24,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     private JPanel drawer;
     private JButton btnRelatar;
     private JButton btnVoltar;
-    private JButton btnCampeonatoParticipando;
+    private JButton btnVerTodosConvitesEnviados;
+    private JButton btnInformacoesCampeonatos;
     private JButton btnGerenciarCampeonatos;
     private JButton btnVerificarCorridas;
     private JButton btnAvaliarKartdromo;
@@ -88,13 +89,14 @@ public class PerfilPiloto extends JFrame implements ActionListener {
     }
 
     private void initializate() {
+        btnVerTodosConvitesEnviados = new JButton();
         fundo = new JPanel();
         drawer = new JPanel();
         btnVerificarconvites_avisos = new JButton();
         informacoesPiloto = new InformacoesPiloto();
         btnRelatar = new JButton();
         btnVoltar = new JButton();
-        btnCampeonatoParticipando = new JButton();
+        btnInformacoesCampeonatos = new JButton();
         btnGerenciarCampeonatos = new JButton();
         btnVerificarCorridas = new JButton();
         btnAvaliarKartdromo = new JButton();
@@ -112,10 +114,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     private void add() {
 
+        add(btnVerTodosConvitesEnviados);
         add(btnRelatar);
         add(btnVoltar);
         add(btnVerificarconvites_avisos);
-        add(btnCampeonatoParticipando);
+        add(btnInformacoesCampeonatos);
         add(btnGerenciarCampeonatos);
         add(btnVerificarCorridas);
         add(btnAvaliarKartdromo);
@@ -140,16 +143,18 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             CampeonatoParticipandoLabel.setForeground(Colors.BRANCO);
             corridasMarcadasLabel.setForeground(Colors.BRANCO);
             btnVoltar.setForeground(Colors.CINZADARKB);
+            btnVoltar.setBackground(Colors.VERDEDARK);
+            btnVerTodosConvitesEnviados.setForeground(Colors.CINZAMEDA);
+            btnVerTodosConvitesEnviados.setBackground(Colors.CINZAMEDB);
             btnVerificarconvites_avisos.setForeground(Colors.CINZADARKB);
             btnVerificarconvites_avisos.setBackground(Colors.VERDEDARK);
-            btnCampeonatoParticipando.setForeground(Colors.CINZADARKB);
+            btnInformacoesCampeonatos.setForeground(Colors.CINZADARKB);
             btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
             btnRelatar.setForeground(Colors.CINZAMEDA);
             btnRelatar.setBackground(Colors.CINZAMEDB);
-            btnVoltar.setBackground(Colors.VERDEDARK);
-            btnCampeonatoParticipando.setBackground(Colors.VERDEDARK);
+            btnInformacoesCampeonatos.setBackground(Colors.VERDEDARK);
             btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
@@ -162,6 +167,8 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
             fundo.setBackground(Colors.CINZAMEDA);
             drawer.setBackground(Colors.VERDEDARK);
+            btnVerTodosConvitesEnviados.setForeground(Colors.CINZAMEDA);
+            btnVerTodosConvitesEnviados.setBackground(Colors.CINZAMEDB);
             CampeonatoParticipandoLabel.setForeground(Colors.CINZALIGHTB);
             corridasMarcadasLabel.setForeground(Colors.CINZALIGHTB);
             informacoesPiloto.setForeground(Colors.CINZALIGHTB);
@@ -169,13 +176,13 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             btnVoltar.setBackground(Colors.VERDEDARK);
             btnVerificarconvites_avisos.setForeground(Colors.CINZADARKB);
             btnVerificarconvites_avisos.setBackground(Colors.VERDEDARK);
-            btnCampeonatoParticipando.setBackground(Colors.VERDEDARK);
+            btnInformacoesCampeonatos.setBackground(Colors.VERDEDARK);
             btnGerenciarCampeonatos.setBackground(Colors.VERDEDARK);
             btnVerificarCorridas.setBackground(Colors.VERDEDARK);
             btnAvaliarKartdromo.setBackground(Colors.VERDEDARK);
             btnRelatar.setForeground(Colors.CINZAMEDB);
             btnVoltar.setForeground(Colors.CINZADARKB);
-            btnCampeonatoParticipando.setForeground(Colors.CINZADARKB);
+            btnInformacoesCampeonatos.setForeground(Colors.CINZADARKB);
             btnGerenciarCampeonatos.setForeground(Colors.CINZADARKB);
             btnVerificarCorridas.setForeground(Colors.CINZADARKB);
             btnAvaliarKartdromo.setForeground(Colors.CINZADARKB);
@@ -211,27 +218,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
         tabelamento = (DefaultTableModel) tableCorridasParticipando.getModel();
 
+        Tabelas.alinharCelulasNoCentro(tableCorridasParticipando);
+
         PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO = new PilotoParticipandoCampeonatoBO();
 
-        try {
-            List<PilotoParticipandoCampeonato> listaCampeonatoDoPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(piloto);
-            if (listaCampeonatoDoPiloto.isEmpty()) {
-                tabelamento.addRow(new Object[]{
-                        "Nem uma corrida na lista!"
-                });
-            } else {
-                for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
-                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
-                    tabelamento.addRow(new Object[]{
-                            list.getCampeonato().getNome(),
-                            Tempo.dateToPadraoBrasil(list.getCampeonato().getDataInicio()),
-                            listaTotalPiloto.size()
-                    });
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        popularTabela1(pilotoParticipandoCampeonatoBO);
 
         jScrollPaneCorridasParticipando.setViewportView(tableCorridasParticipando);
         jScrollPaneCorridasParticipando.setBounds(20, 300, 760, 200);
@@ -256,26 +247,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
         tabelamento = (DefaultTableModel) tableTodasAsCorridasMarcadas.getModel();
 
-        try {
-            List<Campeonato> listaCampeonatos = new CampeonatoBO().listarTodos();
-            if (listaCampeonatos.isEmpty()) {
-                tabelamento.addRow(new Object[]{
-                        "Nem um campeonato na lista!"
-                });
-            } else {
-                for (Campeonato campeonato : listaCampeonatos) {
-                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
-                    tabelamento.addRow(new Object[]{
-                            campeonato.getNome(),
-                            Tempo.dateToPadraoBrasil(campeonato.getDataInicio()),
-                            listaTotalPiloto.size()
-                    });
+        Tabelas.alinharCelulasNoCentro(tableTodasAsCorridasMarcadas);
 
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        popularTabela2(pilotoParticipandoCampeonatoBO);
 
         jScrollPaneCorridasMarcadas.setViewportView(tableTodasAsCorridasMarcadas);
         jScrollPaneCorridasMarcadas.setBounds(200, 130, 580, 140);
@@ -295,6 +269,12 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnRelatar.setBounds(570, 30, 220, 35);
         btnRelatar.setText("Relatar Problema");
 
+        btnVerTodosConvitesEnviados.setBorderPainted(false);
+        btnVerTodosConvitesEnviados.setFocusPainted(false);
+        btnVerTodosConvitesEnviados.addActionListener(this);
+        btnVerTodosConvitesEnviados.setBounds(320, 30, 220, 35);
+        btnVerTodosConvitesEnviados.setText("Todos os convites enviados");
+
         btnVoltar.setBorderPainted(false);
         btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(this);
@@ -307,11 +287,11 @@ public class PerfilPiloto extends JFrame implements ActionListener {
         btnVerificarconvites_avisos.setBounds(20, 510, 150, 35);
         btnVerificarconvites_avisos.setText("Avisos e Convites");
 
-        btnCampeonatoParticipando.setBorderPainted(false);
-        btnCampeonatoParticipando.setFocusPainted(false);
-        btnCampeonatoParticipando.addActionListener(this);
-        btnCampeonatoParticipando.setBounds(535, 555, 250, 35);
-        btnCampeonatoParticipando.setText("Informações de campeonatos");
+        btnInformacoesCampeonatos.setBorderPainted(false);
+        btnInformacoesCampeonatos.setFocusPainted(false);
+        btnInformacoesCampeonatos.addActionListener(this);
+        btnInformacoesCampeonatos.setBounds(535, 555, 250, 35);
+        btnInformacoesCampeonatos.setText("Informações de campeonatos");
 
         btnVerificarCorridas.setBorderPainted(false);
         btnVerificarCorridas.setFocusPainted(false);
@@ -337,8 +317,57 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     }
 
+    private void popularTabela1(PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO) {
+        try {
+            List<PilotoParticipandoCampeonato> listaCampeonatoDoPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(piloto);
+            if (listaCampeonatoDoPiloto.isEmpty()) {
+                tabelamento.addRow(new Object[]{
+                        "Nem uma corrida na lista!"
+                });
+            } else {
+                for (PilotoParticipandoCampeonato list : listaCampeonatoDoPiloto) {
+                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(list.getCampeonato());
+                    tabelamento.addRow(new Object[]{
+                            list.getCampeonato().getNome(),
+                            Tempo.dateToPadraoBrasil(list.getCampeonato().getDataInicio()),
+                            listaTotalPiloto.size()
+                    });
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void popularTabela2(PilotoParticipandoCampeonatoBO pilotoParticipandoCampeonatoBO) {
+        try {
+            List<Campeonato> listaCampeonatos = new CampeonatoBO().listarTodos();
+            if (listaCampeonatos.isEmpty()) {
+                tabelamento.addRow(new Object[]{
+                        "Nem um campeonato na lista!"
+                });
+            } else {
+                for (Campeonato campeonato : listaCampeonatos) {
+                    List<PilotoParticipandoCampeonato> listaTotalPiloto = pilotoParticipandoCampeonatoBO.listarTodosPilotosQuePilotoParticipaNoCampeonato(campeonato);
+                    tabelamento.addRow(new Object[]{
+                            campeonato.getNome(),
+                            Tempo.dateToPadraoBrasil(campeonato.getDataInicio()),
+                            listaTotalPiloto.size()
+                    });
+
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnVerTodosConvitesEnviados) {
+            dispose();
+            new ConvitesEnviados(piloto);
+        }
         if (e.getSource() == btnVoltar) {
             setVisible(false);
             new MenuPrincipal(piloto, true);
@@ -350,9 +379,9 @@ public class PerfilPiloto extends JFrame implements ActionListener {
             dispose();
             new RelatarPorEmail(piloto);
         }
-        if (e.getSource() == btnCampeonatoParticipando) {
+        if (e.getSource() == btnInformacoesCampeonatos) {
             dispose();
-            new CampeonatosParticipanto(piloto);
+            new InformacoesCampeonato(piloto);
         }
         if (e.getSource() == btnGerenciarCampeonatos) {
             dispose();
@@ -370,27 +399,28 @@ public class PerfilPiloto extends JFrame implements ActionListener {
 
     private void verificarAvisos() {
         try {
-            boolean avisodenenhumaaviso_convite = true;
+            boolean avisoDeNenhumConvite = true;
             for (AvisoCampeonato aviso : new AvisoCampeonatoBO().listarAvisoNaoVizualizados(piloto)) {
                 JOptionPane.showMessageDialog(null, "<html>AVISO SOBRE O CAMPEONATO: " + aviso.getCampeonato().getNome()
                         + "<br>DO PILOTO: " + aviso.getPilotoqueenviou().getApelido()
                         + "<br>MENSAGEM: " + aviso.getAviso() + " </html>");
                 aviso.setStatusAviso("Vizualizado");
                 new AvisoCampeonatoBO().alterar(aviso);
-                avisodenenhumaaviso_convite = false;
+                avisoDeNenhumConvite = false;
             }
             for (ConviteCampeonato convite : new ConviteCampeonatoBO().listarConvitesNaoVizualizadosPorPiloto(piloto)) {
-                List<PilotoParticipandoCampeonato> list = new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(convite.getCampeonato());
-                if (list.size() < Info.MAX_PILOTOS_CAMPEONATO) {
-                    if (JOptionPane.showConfirmDialog(null,
+
+                if (new PilotoParticipandoCampeonatoBO().listarTodosPilotosQuePilotoParticipaNoCampeonato(convite.getCampeonato()).size() < Info.MAX_PILOTOS_CAMPEONATO) {
+                    int valor = JOptionPane.showConfirmDialog(null,
                             "<html>Você foi convidado por " + convite.getPilotoQueConvidou().getApelido()
-                                    + "<br>Dono do email: "+convite.getPilotoQueConvidou().getEmail()
+                                    + "<br>Dono do email: " + convite.getPilotoQueConvidou().getEmail()
                                     + "<br>Para participar do campeonato: " + convite.getCampeonato().getNome()
                                     + "<br>Na Data " + Tempo.dateToPadraoBrasil(convite.getCampeonato().getDataInicio())
                                     + "<br>Deseja Participar?"
                                     + "<html>",
                             "Convite para Campeonato!",
-                            JOptionPane.YES_NO_OPTION) == 0) {
+                            JOptionPane.YES_NO_OPTION);
+                    if (valor == 0) {
                         PilotoParticipandoCampeonato pilotoaceitouconvite = new PilotoParticipandoCampeonato();
                         pilotoaceitouconvite.setCampeonato(convite.getCampeonato());
                         pilotoaceitouconvite.setPiloto(piloto);
@@ -398,17 +428,21 @@ public class PerfilPiloto extends JFrame implements ActionListener {
                         pilotoaceitouconvite.setStatusAdm(false);
                         pilotoaceitouconvite.setPosicao(0);
                         new PilotoParticipandoCampeonatoBO().criar(pilotoaceitouconvite);
+                        convite.setStatusConvite("Aceito");
+                    } else if (valor == 1) {
+                        convite.setStatusConvite("Negado");
+                    } else {
+                        convite.setStatusConvite("Visualizado");
                     }
-                    convite.setStatusConvite("Respondido");
                     new ConviteCampeonatoBO().alterar(convite);
-                    avisodenenhumaaviso_convite = false;
+                    avisoDeNenhumConvite = false;
                 }
             }
-            if (avisodenenhumaaviso_convite) {
+            if (avisoDeNenhumConvite) {
                 JOptionPane.showMessageDialog(null, "Nenhum aviso ou convite no momento!");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex + ", Não foi possível Fazer a verificação");
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage() + ", Não foi possível Fazer a verificação");
         }
     }
 

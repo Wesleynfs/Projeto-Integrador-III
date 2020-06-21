@@ -16,7 +16,6 @@
     <class>Model.Estado</class>
     <class>Model.Cidade</class>
     <!--  -->
-    <class>View.CadastrarKartodromo</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <!-- DB Driver -->

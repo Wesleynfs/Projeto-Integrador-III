@@ -233,6 +233,8 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
 
         tabelamento = (DefaultTableModel) table.getModel();
 
+        Tabelas.alinharCelulasNoCentro(table);
+
         for (int x = 1; x <= 10; x++) {
             tabelamento.addRow(new Object[]{
                     x, 11 - x //por padrão uma pontuação que o piloto pode mudar
@@ -277,8 +279,6 @@ public class GerenciarCampeonato extends JFrame implements ActionListener {
                 campeonato.setNumeroCorridas(Numeros.stringToInt(textFieldNumeroDeCorridas.getText().replaceAll(" ", "")));
 
                 try {
-                    
-                    //se idade do piloto for menor que 16 enviar mensagem de erro caso for campeonato oficial
                     
                     if (new CampeonatoBO().validarTelaGerenciarCampeonato(campeonato)) {
                         new CampeonatoBO().validarTabelaPontuacaoCampeonato(tabelamento);

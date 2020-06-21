@@ -1,23 +1,18 @@
 package View;
 
 import Bo.CorridaBO;
-import Bo.PilotoParticipandoCampeonatoBO;
 import Model.Campeonato;
 import Model.Corrida;
 import Model.Piloto;
-import Model.PilotoParticipandoCampeonato;
 import Utilities.Colors;
 import Utilities.Fonts;
 import Utilities.Info;
 import Utilities.InformacoesPiloto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -182,7 +177,7 @@ public class InfosGeraisCorridas extends JFrame implements ActionListener {
 
         if (e.getSource() == btnVoltar) {
             dispose();
-            new CampeonatosParticipanto(piloto);
+            new InformacoesCampeonato(piloto);
         }
     }
 

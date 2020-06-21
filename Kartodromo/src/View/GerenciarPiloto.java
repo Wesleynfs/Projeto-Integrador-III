@@ -169,13 +169,13 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
         btnFinalizar.setFocusPainted(false);
         btnFinalizar.addActionListener(this);
         btnFinalizar.setBounds(680, 550, 100, 35);
-        
+
         btnpesquisaapelido.setText("PESQUISAR APELIDO");
         btnpesquisaapelido.setBorderPainted(false);
         btnpesquisaapelido.setFocusPainted(false);
         btnpesquisaapelido.addActionListener(this);
         btnpesquisaapelido.setBounds(450, 120, 300, 35);
-        
+
         btnconvidarpiloto.setText("CONVIDAR PILOTO");
         btnconvidarpiloto.setBorderPainted(false);
         btnconvidarpiloto.setFocusPainted(false);
@@ -191,25 +191,25 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
 
         jScrollPanePilotosConvidar.setViewportView(table);
         jScrollPanePilotosConvidar.setBounds(30, 200, 350, 300);
-        
+
         jScrollPanePilotosquesaoconvidados.setViewportView(tablepilotosquesaoconvidados);
         jScrollPanePilotosquesaoconvidados.setBounds(410, 200, 350, 300);
 
         infostabelapilotos.setText("Convidar Pilotos:");
         infostabelapilotos.setBounds(30, 160, 350, 35);
-        
+
         infostabelapilotosconvidados.setText("Pilotos que foram convidados:");
         infostabelapilotosconvidados.setBounds(410, 160, 350, 35);
-        
+
         apelidoJTextField.setBorder(BorderFactory.createEmptyBorder());
         apelidoJTextField.setBounds(30, 120, 400, 35);
         apelidoJTextField.setHorizontalAlignment(JPasswordField.CENTER);
         apelidoJTextField.setFocusLostBehavior(JFormattedTextField.PERSIST);
-        
+
         tablepilotosquesaoconvidados.setModel(tabelaConvidados);
         tablepilotosquesaoconvidados.setRowSelectionAllowed(true);
         tablepilotosquesaoconvidados.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+
         table.setModel(tabelaConvidarPilotos);
         table.setRowSelectionAllowed(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -244,22 +244,22 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
 
         if (e.getSource() == btnconvidarpiloto) {
             try {
-                
+
                 int[] index = table.getSelectedRows();
 
-                for (int x = 0; x < index.length; x++) {
+                for (int i : index) {
 
-                    Piloto pilotoConvidado =  (Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(index[x]);
-                    
+                    Piloto pilotoConvidado = (Piloto) tabelaConvidarPilotos.getPilotoPelaLinha(i);
+
                     boolean verificacaoDuplicata = true;
-                    for(Piloto piloto : tabelaConvidados.getListPiloto()){
-                        if(pilotoConvidado.getApelido() == piloto.getApelido()){
+                    for (Piloto piloto : tabelaConvidados.getListPiloto()) {
+                        if (pilotoConvidado.getApelido().equals(piloto.getApelido())) {
                             verificacaoDuplicata = false;
+                            break;
                         }
                     }
                     if (verificacaoDuplicata) {
-                            tabelaConvidados.addRow(pilotoConvidado);
-                            
+                        tabelaConvidados.addRow(pilotoConvidado);
                     }
                 }
                 tablepilotosquesaoconvidados.setModel(tabelaConvidados);
@@ -269,14 +269,14 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Não foi possível encontrar os piloto para convidar");
             }
         }
-        
+
         if (e.getSource() == btnpesquisaapelido) {
-            pesquisaapelido();     
+            pesquisaapelido();
         }
-        
+
         if (e.getSource() == btnVoltar) {
             dispose();
-            new GerenciarCorrida(piloto,campeonato,tabelamento);
+            new GerenciarCorrida(piloto, campeonato, tabelamento);
         }
 
         if (e.getSource() == btnFinalizar) {
@@ -370,7 +370,7 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
                                 err, "Erro", JOptionPane.PLAIN_MESSAGE);
                     }
 
-                    JOptionPane.showMessageDialog(null,"Campeonato Criado com sucesso!","Sucesso!",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campeonato Criado com sucesso!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
 
                     dispose();
                     new PerfilPiloto(piloto);
@@ -382,34 +382,35 @@ public class GerenciarPiloto extends JFrame implements ActionListener {
             }
         }
     }
-    public void pesquisaapelido(){
-        try {
-                tabelaConvidarPilotos = new TabelaConvidarPilotos();
-                List<Piloto> pilotos = null;
-                if(!apelidoJTextField.getText().equals("")){
-                    pilotos = new PilotoBO().listarPilotosPorapelido(this.apelidoJTextField.getText());
-                }else{
-                    pilotos = new PilotoBO().listarTodos();
-                }
-                for(Piloto pilotopesquisa : pilotos){
-                    boolean verificacaoDuplicata = true;
-                    for(Piloto piloto1 : tabelaConvidados.getListPiloto()){
-                        if(pilotopesquisa.getApelido().equals(piloto1.getApelido())){
-                            verificacaoDuplicata = false;
-                        }
 
+    public void pesquisaapelido() {
+        try {
+            tabelaConvidarPilotos = new TabelaConvidarPilotos();
+            List<Piloto> pilotos = null;
+            if (!apelidoJTextField.getText().equals("")) {
+                pilotos = new PilotoBO().listarPilotosPorapelido(this.apelidoJTextField.getText());
+            } else {
+                pilotos = new PilotoBO().listarTodos();
+            }
+            for (Piloto pilotopesquisa : pilotos) {
+                boolean verificacaoDuplicata = true;
+                for (Piloto piloto1 : tabelaConvidados.getListPiloto()) {
+                    if (pilotopesquisa.getApelido().equals(piloto1.getApelido())) {
+                        verificacaoDuplicata = false;
                     }
-                    if(verificacaoDuplicata){
-                        if(!pilotopesquisa.getApelido().equals(piloto.getApelido())){
-                            tabelaConvidarPilotos.addRow(pilotopesquisa);
-                        }
+
+                }
+                if (verificacaoDuplicata) {
+                    if (!pilotopesquisa.getApelido().equals(piloto.getApelido())) {
+                        tabelaConvidarPilotos.addRow(pilotopesquisa);
                     }
                 }
-                table.setModel(tabelaConvidarPilotos);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível fazer a pesquisa");
             }
-    
+            table.setModel(tabelaConvidarPilotos);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível fazer a pesquisa");
+        }
+
     }
 
 }

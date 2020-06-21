@@ -1,6 +1,7 @@
 package Dao;
 
 import Connections.ConnectionFactory;
+import Model.Campeonato;
 import Model.ConviteCampeonato;
 import Model.Piloto;
 import java.util.List;
@@ -77,7 +78,20 @@ public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
             entityManager.close();
         }
     }
-    
+
+    public List<ConviteCampeonato> listarConvitesJaEnviadosPeloPiloto(Piloto piloto , Campeonato campeonato , String statusConvite) throws Exception {
+        try {
+            return entityManager.createQuery("SELECT c FROM ConviteCampeonato c WHERE c.campeonato = :campeonato AND c.pilotoQueConvidou = :piloto AND c.statusConvite = :status")
+                    .setParameter("piloto",piloto)
+                    .setParameter("campeonato",campeonato)
+                    .setParameter("status" , statusConvite).getResultList();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public boolean verificarConviteExistente(ConviteCampeonato o) throws Exception {
         try {
             List <ConviteCampeonato> list = entityManager.createQuery("SELECT c FROM ConviteCampeonato c where c.campeonato = :campeonato AND c.pilotoConvidado = :piloto")
@@ -117,10 +131,7 @@ public class ConviteCampeonatoDAO  implements GenericDAO<ConviteCampeonato> {
     }
     public List<ConviteCampeonato> ListarConviteNaoVisualizadosPorPiloto(Piloto piloto) throws Exception {
         try {
-            return entityManager.createQuery
-        ("SELECT c FROM ConviteCampeonato c "
-                + "where c.pilotoConvidado = :p "
-                + "AND c.statusConvite = 'Não respondido'")
+            return entityManager.createQuery("SELECT c FROM ConviteCampeonato c WHERE c.pilotoConvidado = :p AND c.statusConvite = 'Não Visualizado' OR c.pilotoConvidado = :p AND c.statusConvite = 'Visualizado'")
                     .setParameter("p", piloto)
                     .getResultList();
         } catch (Exception e) {
